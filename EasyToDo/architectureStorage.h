@@ -9,9 +9,16 @@ using namespace std;
 class architectureStorage {
 private:
 	static vector<string> taskList;
-public:
-	void addToStorage(string task);
-	void deleteFromStorage(int taskID);
 
+	static const string MESSAGE_ADD;
+	static const string MESSAGE_EMPTY;
+public:
+	architectureStorage();
+	static void addToStorage(string task);
+	static void deleteFromStorage(int taskID);
+	static void clearFromStorage();
+	static void displayFromStorage();
+
+	static void showToUser(string task);
 };
 #endif
