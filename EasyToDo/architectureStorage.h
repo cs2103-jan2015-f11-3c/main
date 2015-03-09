@@ -9,9 +9,9 @@ using namespace std;
 class architectureStorage {
 private:
 	static vector<string> taskList;
-
 	static const string MESSAGE_ADD;
 	static const string MESSAGE_EMPTY;
+	
 public:
 	architectureStorage();
 	static void addToStorage(string task);

@@ -13,6 +13,8 @@ void architectureLogic::showToUser(string task) {
 architectureLogic::architectureLogic(){
 }
 
+/************ for architectureParser to change*************/ 
+
 void architectureLogic::determineUserInput(string task) {
 	userInput = task;
 }
@@ -24,6 +26,8 @@ void architectureLogic::determineTaskID(int inputID) {
 void architectureLogic::determineTotalNumberofTask() {
 	totalNumberofTask = architectureStorage::sizeOfStorage(); 
 }
+
+/***************end*****************/
 
 void architectureLogic::addTask(string task) {
 	architectureStorage::addToStorage(task);
