@@ -20,5 +20,6 @@ public:
 	static void displayFromStorage();
 
 	static void showToUser(string task);
+	static int sizeOfStorage();
 };
 #endif

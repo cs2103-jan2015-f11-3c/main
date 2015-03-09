@@ -11,6 +11,11 @@ void architectureStorage::showToUser(string task) {
 
 architectureStorage::architectureStorage() {
 }
+
+int architectureStorage::sizeOfStorage() {
+	return taskList.size();
+}
+
 void architectureStorage::addToStorage(string task) {
 	taskList.push_back(task);
 	showToUser(task + MESSAGE_ADD + "\n");

@@ -13,6 +13,18 @@ void architectureLogic::showToUser(string task) {
 architectureLogic::architectureLogic(){
 }
 
+void architectureLogic::determineUserInput(string task) {
+	userInput = task;
+}
+
+void architectureLogic::determineTaskID(int inputID) {
+	taskID = inputID;
+}
+
+void architectureLogic::determineTotalNumberofTask() {
+	totalNumberofTask = architectureStorage::sizeOfStorage(); 
+}
+
 void architectureLogic::addTask(string task) {
 	architectureStorage::addToStorage(task);
 	return;
@@ -34,7 +46,7 @@ void architectureLogic::displayTask() {
 }
 
 void architectureLogic::executeCommand(string commandAction) { 
-	CommandType commandTypeAction = determineCommandType(command); 
+	CommandType commandTypeAction = determineCommandType(commandAction); 
 
 	switch(commandTypeAction) { 
 	case ADD: 
