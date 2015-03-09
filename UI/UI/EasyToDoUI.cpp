@@ -10,4 +10,5 @@ void main(array<String^>^ args) {
 
 	UI::EasyToDoUI mainWindow;
 	Application::Run(%mainWindow);
+
 }
