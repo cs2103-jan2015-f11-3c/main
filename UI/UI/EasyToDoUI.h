@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <msclr/marshal_cppstd.h>
 
 namespace UI {
 
@@ -138,11 +139,12 @@ private: System::Void inputTextBox_TextChanged(System::Object^  sender, System::
 private: System::Void inputTextBox_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
 		 String ^ input;
 
-		 input = inputTextBox->Text;
-		 if (e->KeyChar == (char)13) {
-			 MessageBox::Show(input);
-			inputTextBox->Text = "";
-		 }
+			 input = inputTextBox->Text;
+			 if (e->KeyChar == (char)13) {
+				 MessageBox::Show(input);
+				 std::string stringInput = msclr::interop::marshal_as< std::string >(input);
+				inputTextBox->Text = "";
+			 }
 		 }
 };
 }
