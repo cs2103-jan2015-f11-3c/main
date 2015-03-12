@@ -1,5 +1,6 @@
 #include "architectureLogic.h"
 #include "architectureStorage.h"
+#include "Parser.h"
 
 const string architectureLogic::MESSAGE_INVALID = "ERROR! Invalid Command.";
 char architectureLogic::buffer[MAX];

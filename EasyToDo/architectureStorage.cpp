@@ -1,5 +1,6 @@
 #include "architectureStorage.h"
 #include "architectureLogic.h"
+#include "Parser.h"
 
 vector<string> architectureStorage::taskList;
 const string architectureStorage::MESSAGE_ADD = "is added";
