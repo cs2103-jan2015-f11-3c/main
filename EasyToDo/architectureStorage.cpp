@@ -1,5 +1,6 @@
 #include "architectureStorage.h"
 #include "architectureLogic.h"
+#include "Parser.h"
 
 vector<string> architectureStorage::taskDescriptionList;
 vector<string> architectureStorage::taskTimeList;

@@ -44,7 +44,7 @@ void architectureLogic::determineTotalNumberofTask() {
 /***************end*****************/
 
 void architectureLogic::addTask(string task, string time) {
-	architectureStorage::addToStorage(task);
+	architectureStorage::addToStorage(task, time);
 	return;
 }
 
