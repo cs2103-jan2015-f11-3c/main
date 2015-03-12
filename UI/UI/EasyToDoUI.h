@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <msclr/marshal_cppstd.h>
+#include "Header.h"
 
 namespace UI {
 
@@ -16,6 +17,9 @@ namespace UI {
 	/// </summary>
 	public ref class EasyToDoUI : public System::Windows::Forms::Form
 	{
+	private:
+		Header* head;
+
 	public:
 		EasyToDoUI(void)
 		{
@@ -23,6 +27,8 @@ namespace UI {
 			//
 			//TODO: Add the constructor code here
 			//
+
+			head = new Header();
 		}
 
 	protected:
@@ -34,6 +40,7 @@ namespace UI {
 			if (components)
 			{
 				delete components;
+				delete head;
 			}
 		}
 
@@ -82,7 +89,8 @@ namespace UI {
 			// 
 			// inputTextBox
 			// 
-			this->inputTextBox->BackColor = System::Drawing::Color::Linen;
+			this->inputTextBox->BackColor = System::Drawing::Color::LavenderBlush;
+			this->inputTextBox->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->inputTextBox->CausesValidation = false;
 			this->inputTextBox->Location = System::Drawing::Point(91, 95);
 			this->inputTextBox->Name = L"inputTextBox";
@@ -141,10 +149,15 @@ private: System::Void inputTextBox_KeyPress(System::Object^  sender, System::Win
 
 			 input = inputTextBox->Text;
 			 if (e->KeyChar == (char)13) {
-				 MessageBox::Show(input);
 				 std::string stringInput = msclr::interop::marshal_as< std::string >(input);
 				inputTextBox->Text = "";
+
+				std:: string num = head->testing(stringInput);
+				String^ output = gcnew String(num.c_str());
+
+				outputTextBox->Text =  output;
 			 }
 		 }
 };
 }
+ 
