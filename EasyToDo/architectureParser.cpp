@@ -1,53 +1,52 @@
-
-#include "Parser.h"
+#include "architectureParser.h"
 #include "architectureLogic.h"
+#include "architectureStorage.h"
 
-#include <iostream>
-#include <sstream>
-#include <vector>
-#include <string>
-#include <iomanip>
-#include <algorithm>
-#include <fstream>
-
-
+std::string Parser::taskDesc;
+std::string Parser::tokenizeContent;
+std::string Parser::newContent;
+/*
 Parser::Parser(char *argv[])
 {
-	std::cout << "EASYTODO " << argv[1];
+	std::cout << "EASYTODO ";
 
 	return;
 }
+*/
 
-void Parser::getKeyWords(){
-	std::cout << std::endl << "command :";
-	std::cin >> std::ws;
-	getline(std::cin, content);
-
+void Parser::tokenizeADD(string tokenizeContent) {
+	/*
 	size_t position = 0;
 	position = content.find_first_of(" ");
 	command = content.substr(0,position); 
 	std::cout << command << std::endl; //command is your userinput
+	architectureLogic::determineUserInput(command);
 	std::cout << "command is: " << command << std::endl;
+	if(command == "add")
+	*/
 
-	if(command == "add"){
+		newContent = tokenizeContent;
 		size_t taskFirst = 0;
 		size_t taskLast = 0;
-		taskFirst = content.find_first_of(" ");
+		taskFirst = newContent.find_first_of(" ");
 		taskFirst = taskFirst+1;
-		taskLast = content.find("on");
+		taskLast = newContent.find("on");
 		taskLast = taskLast-4;
-		taskDesc = content.substr(taskFirst,taskLast);
-		std::cout << "taskDesc is: " << taskDesc << std::endl;
-
+		taskDesc = newContent.substr(taskFirst,taskLast); //taskDesc is taskID
+		architectureLogic::determineContentDescription(taskDesc);
+		
 		size_t timeFirst = 0;
-		size_t timeLast = content.npos;
-		timeFirst = content.find("on");
+		size_t timeLast = newContent.npos;
+		timeFirst = newContent.find("on");
 		timeFirst = timeFirst+3;
-		time = content.substr(timeFirst,timeLast);
-		std::cout << "time is: " << time << std::endl;
-	}
+		time = newContent.substr(timeFirst,timeLast);
+		architectureLogic::determineContentTime(time);
 
-	if(command == "delete"){
+return;
+
+}
+/*	if(command == "delete"){
+void Parser::tokenizeDELETE(string tokenizeContent)
 
 		size_t taskFirst = position;
 		size_t taskLast = content.npos;
@@ -87,4 +86,4 @@ int main(int argc, char *argv[])
 	}
 
 	return 0;
-}
+} */
