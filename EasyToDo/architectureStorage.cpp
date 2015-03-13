@@ -1,7 +1,9 @@
 #include "architectureStorage.h"
 #include "architectureLogic.h"
+#include "Parser.h"
 
-vector<string> architectureStorage::taskList;
+vector<string> architectureStorage::taskDescriptionList;
+vector<string> architectureStorage::taskTimeList;
 const string architectureStorage::MESSAGE_ADD = "is added";
 const string architectureStorage::MESSAGE_EMPTY = "Storage is empty";
 
@@ -13,33 +15,37 @@ architectureStorage::architectureStorage() {
 }
 
 int architectureStorage::sizeOfStorage() {
-	return taskList.size();
+	return taskDescriptionList.size();
 }
 
-void architectureStorage::addToStorage(string task) {
-	taskList.push_back(task);
+void architectureStorage::addToStorage(string task, string time) {
+	taskDescriptionList.push_back(task);
+	taskTimeList.push_back(time);
 	showToUser(task + MESSAGE_ADD + "\n");
 	return;
 }
 
 void architectureStorage::deleteFromStorage(int taskID) {
-	vector<string>::iterator iter = taskList.begin() + taskID;
-	taskList.erase(iter);
+	vector<string>::iterator iter = taskDescriptionList.begin() + taskID;
+
+	taskDescriptionList.erase(iter);
+	taskTimeList.erase(iter);
 	return;
 }
 
 void architectureStorage::clearFromStorage() {
-	taskList.clear();
+	taskDescriptionList.clear();
+	taskTimeList.clear();
 	return;
 }
 
 void architectureStorage::displayFromStorage() {
 	int counter = 1;
 
-	if(taskList[0].empty()) { 
+	if(taskDescriptionList[0].empty()) { 
 		showToUser(MESSAGE_EMPTY);
 	} else { 
-		for(vector<string>::iterator iter = taskList.begin(); iter != taskList.end(); iter++) { 
+		for(vector<string>::iterator iter = taskTimeList.begin(); iter != taskTimeList.end(); iter++) { 
 			cout << counter+1; 
 			showToUser(". " + *iter + "\n"); 
 		} 
