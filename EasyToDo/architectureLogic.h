@@ -27,11 +27,13 @@ public:
 	void determineUserInput(string task);
 	void determineTaskID(int inputID);
 	void determineTotalNumberofTask();
+
+	void executeCommand(string commandAction);
 	void addTask(string task);
 	void deleteText(int taskID);
 	void clearTask();
 	void displayTask();
-	void executeCommand(string commandAction);
+
 	bool isValidCommand(const string& str1, const string& str2);
 	CommandType determineCommandType(string commandAction);
 	
