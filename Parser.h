@@ -3,6 +3,8 @@
 #define PARSER_H
 
 #include <iostream>
+#include <sstream>
+#include <fstream>
 #include <vector>
 #include <string>
 #include <iomanip>
@@ -13,9 +15,11 @@
 class Parser {
 	private:
 		//string that that will store all the command information
-		 std::string content;
+		std::string content;
 		//this string contains all the different command add, delete... etc
-		 std::string command;
+		std::string command;
+		std::string time;
+		std::string taskDesc; 
 
 
 

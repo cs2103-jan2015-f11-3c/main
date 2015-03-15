@@ -6,6 +6,8 @@ const string architectureLogic::MESSAGE_INVALID = "ERROR! Invalid Command.";
 char architectureLogic::buffer[MAX];
 bool isProgramValid = true;
 const string architectureLogic::MESSAGE_ERROR = "Invalid command type. Type any character to terminate the program.";
+string architectureLogic::contentDescription;
+string architectureLogic::contentTime;
 
 void architectureLogic::showToUser(string task) { 
 	cout << task << endl;
@@ -14,10 +16,21 @@ void architectureLogic::showToUser(string task) {
 architectureLogic::architectureLogic(){
 }
 
-/************ for architectureParser to change*************/ 
+void architectureLogic::determineCommand(string content){
+	size_t position = 0;
+	position = content.find_first_of(" ");
+	command = content.substr(0,position);
+	executeCommand(command);
+	//std::cout << "command is: " << command << std::endl;
+}
 
-void architectureLogic::determineUserInput(string task) {
-	userInput = task;
+/************ for architectureParser to change*************/ 
+void architectureLogic::determineContentDescription(string parserInput) {
+	contentDescription = parserInput;
+}
+
+void architectureLogic::determineContentTime(string parserInput) {
+	contentTime = parserInput;
 }
 
 void architectureLogic::determineTaskID(int inputID) {
@@ -30,8 +43,8 @@ void architectureLogic::determineTotalNumberofTask() {
 
 /***************end*****************/
 
-void architectureLogic::addTask(string task) {
-	architectureStorage::addToStorage(task);
+void architectureLogic::addTask(string task, string time) {
+	architectureStorage::addToStorage(task, time);
 	return;
 }
 
@@ -55,12 +68,15 @@ void architectureLogic::executeCommand(string commandAction) {
 
 	switch(commandTypeAction) { 
 	case ADD: 
-		addTask(userInput); 
+		Parser::tokenizeADD(content);
+		addTask(contentDescription, contentTime); 
 		return;
 	case DISPLAY:
+		// Parser::tokenizeDISPLAY(content);
 		displayTask(); 
 		return;
 	case DELETE: 
+		Parser::tokenizeDELETE(content);
 		deleteText(taskID);
 		return;
 		/*
