@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <msclr/marshal_cppstd.h>
+#include "Header.h"
 
 namespace UI {
 
@@ -15,6 +17,9 @@ namespace UI {
 	/// </summary>
 	public ref class EasyToDoUI : public System::Windows::Forms::Form
 	{
+	private:
+		Header* head;
+
 	public:
 		EasyToDoUI(void)
 		{
@@ -22,6 +27,8 @@ namespace UI {
 			//
 			//TODO: Add the constructor code here
 			//
+
+			head = new Header();
 		}
 
 	protected:
@@ -33,8 +40,11 @@ namespace UI {
 			if (components)
 			{
 				delete components;
+				delete head;
 			}
 		}
+	private: System::Windows::Forms::PictureBox^  displalyLogo;
+	protected: 
 
 
 
@@ -42,7 +52,7 @@ namespace UI {
 
 	protected: 
 
-	private: System::Windows::Forms::PictureBox^  pictureBox1;
+
 	private: System::Windows::Forms::TextBox^  inputTextBox;
 	private: System::Windows::Forms::TextBox^  outputTextBox;
 	private: System::Windows::Forms::TextBox^  displayTextBox;
@@ -63,25 +73,26 @@ namespace UI {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(EasyToDoUI::typeid));
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->displalyLogo = (gcnew System::Windows::Forms::PictureBox());
 			this->inputTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->outputTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->displayTextBox = (gcnew System::Windows::Forms::TextBox());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->displalyLogo))->BeginInit();
 			this->SuspendLayout();
 			// 
-			// pictureBox1
+			// displalyLogo
 			// 
-			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(1142, 12);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(335, 354);
-			this->pictureBox1->TabIndex = 4;
-			this->pictureBox1->TabStop = false;
+			this->displalyLogo->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"displalyLogo.Image")));
+			this->displalyLogo->Location = System::Drawing::Point(1142, 76);
+			this->displalyLogo->Name = L"displalyLogo";
+			this->displalyLogo->Size = System::Drawing::Size(449, 200);
+			this->displalyLogo->TabIndex = 4;
+			this->displalyLogo->TabStop = false;
 			// 
 			// inputTextBox
 			// 
-			this->inputTextBox->BackColor = System::Drawing::Color::Linen;
+			this->inputTextBox->BackColor = System::Drawing::Color::LavenderBlush;
+			this->inputTextBox->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->inputTextBox->CausesValidation = false;
 			this->inputTextBox->Location = System::Drawing::Point(91, 95);
 			this->inputTextBox->Name = L"inputTextBox";
@@ -101,10 +112,10 @@ namespace UI {
 			// displayTextBox
 			// 
 			this->displayTextBox->BackColor = System::Drawing::Color::Gainsboro;
-			this->displayTextBox->Location = System::Drawing::Point(1120, 377);
+			this->displayTextBox->Location = System::Drawing::Point(1120, 282);
 			this->displayTextBox->Multiline = true;
 			this->displayTextBox->Name = L"displayTextBox";
-			this->displayTextBox->Size = System::Drawing::Size(368, 501);
+			this->displayTextBox->Size = System::Drawing::Size(486, 596);
 			this->displayTextBox->TabIndex = 7;
 			// 
 			// EasyToDoUI
@@ -117,12 +128,12 @@ namespace UI {
 			this->Controls->Add(this->displayTextBox);
 			this->Controls->Add(this->outputTextBox);
 			this->Controls->Add(this->inputTextBox);
-			this->Controls->Add(this->pictureBox1);
+			this->Controls->Add(this->displalyLogo);
 			this->Name = L"EasyToDoUI";
 			this->Padding = System::Windows::Forms::Padding(20);
 			this->Text = L"EasyToDoUI";
 			this->Load += gcnew System::EventHandler(this, &EasyToDoUI::EasyToDoUI_Load);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->displalyLogo))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -138,11 +149,17 @@ private: System::Void inputTextBox_TextChanged(System::Object^  sender, System::
 private: System::Void inputTextBox_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
 		 String ^ input;
 
-		 input = inputTextBox->Text;
-		 if (e->KeyChar == (char)13) {
-			 MessageBox::Show(input);
-			inputTextBox->Text = "";
-		 }
+			 input = inputTextBox->Text;
+			 if (e->KeyChar == (char)13) {
+				 std::string stringInput = msclr::interop::marshal_as< std::string >(input);
+				inputTextBox->Text = "";
+
+				std:: string num = head->testing(stringInput);
+				String^ output = gcnew String(num.c_str());
+
+				outputTextBox->Text =  output;
+			 }
 		 }
 };
 }
+ 
