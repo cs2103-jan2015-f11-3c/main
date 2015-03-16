@@ -11,7 +11,6 @@
 #include <algorithm>
 #include <fstream>
 
-
 class Parser {
 	private:
 		//string that that will store all the command information
@@ -32,6 +31,8 @@ class Parser {
 		void getCommand();
 		//function gets the keywords from the content and stores into array
 		void getKeyWords();
+
+		void testing(std:: string stringInput);
 
 
 
