@@ -1,54 +1,42 @@
 #include "architectureStorage.h"
 #include "architectureLogic.h"
-#include "Parser.h"
+#include "architectureParser.h"
 
-vector<string> architectureStorage::taskDescriptionList;
-vector<string> architectureStorage::taskTimeList;
-const string architectureStorage::MESSAGE_ADD = "is added";
-const string architectureStorage::MESSAGE_EMPTY = "Storage is empty";
-
-void architectureStorage::showToUser(string task) { 
-	cout << task << endl;
-}
+std:: vector<std:: string> architectureStorage::taskDescriptionList;
+std:: vector<std:: string> architectureStorage::taskTimeList;
 
 architectureStorage::architectureStorage() {
 }
-
-int architectureStorage::sizeOfStorage() {
-	return taskDescriptionList.size();
-}
-
-void architectureStorage::addToStorage(string task, string time) {
+void architectureStorage::addToStorage(std:: string task, std:: string time) {
 	taskDescriptionList.push_back(task);
 	taskTimeList.push_back(time);
-	showToUser(task + MESSAGE_ADD + "\n");
 	return;
+}
+
+std:: vector<std:: string> architectureStorage::retrieveVector() {
+	std:: vector<std:: string>:: iterator iter1;
+	std:: vector<std:: string>:: iterator iter2;
+	int counter = 1;
+	std:: vector<std:: string> temp;
+
+	for(iter1 = taskDescriptionList.begin(), iter2 = taskTimeList.begin(); iter1 != taskDescriptionList.end(); iter1++, iter2++, counter++) {
+		std:: stringstream ss;
+		ss << counter;
+		std:: string str = ss.str();
+		temp.push_back( str + ". " + *iter1 + ", " + *iter2 );
+	}
+	return temp;
 }
 
 void architectureStorage::deleteFromStorage(int taskID) {
-	vector<string>::iterator iter = taskDescriptionList.begin() + taskID;
+	std:: vector<std:: string>::iterator iter1 = taskDescriptionList.begin() + taskID - 1;
+	std:: vector<std:: string>::iterator iter2 = taskTimeList.begin() + taskID - 1;
 
-	taskDescriptionList.erase(iter);
-	taskTimeList.erase(iter);
+	taskDescriptionList.erase(iter1);
+	taskTimeList.erase(iter2);
 	return;
 }
 
-void architectureStorage::clearFromStorage() {
-	taskDescriptionList.clear();
-	taskTimeList.clear();
-	return;
-}
-
-void architectureStorage::displayFromStorage() {
-	int counter = 1;
-
-	if(taskDescriptionList[0].empty()) { 
-		showToUser(MESSAGE_EMPTY);
-	} else { 
-		for(vector<string>::iterator iter = taskTimeList.begin(); iter != taskTimeList.end(); iter++) { 
-			cout << counter+1; 
-			showToUser(". " + *iter + "\n"); 
-		} 
-	} 
-	return;
+int architectureStorage::findTotalNumberofTask() {
+	return taskDescriptionList.size();
 }

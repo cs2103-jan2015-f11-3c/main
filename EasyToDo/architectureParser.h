@@ -1,5 +1,5 @@
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef ARCHITECTUREPARSER_H
+#define ARCHITECTUREPARSER_H
 
 #include <iostream>
 #include <sstream>
@@ -13,10 +13,10 @@ class Parser {
 	private:
 		//string that that will store all the command information
 		//this string contains all the different command add, delete... etc
-		static std::string time;
-		static std::string taskDesc; 
-		static std::string tokenizeContent;
-		static std::string newContent;
+		static std::string _time;
+		static std::string _taskDesc;
+		static std::string _tokenizeContent;
+		static std::string _newContent;
 
 	public:
 		static void tokenizeADD(std::string tokenizeContent);

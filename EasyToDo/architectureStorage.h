@@ -3,24 +3,17 @@
 
 #include <vector>
 #include <string>
-
-using namespace std;
+#include <sstream>
 
 class architectureStorage {
 private:
-	static vector<string> taskDescriptionList;
-	static vector<string> taskTimeList;
-	static const string MESSAGE_ADD;
-	static const string MESSAGE_EMPTY;
-	
+	static std:: vector<std:: string> taskDescriptionList;
+	static std:: vector<std:: string> taskTimeList;
 public:
 	architectureStorage();
-	static void addToStorage(string task, string time);
+	static void addToStorage(std:: string task, std:: string time);
+	static std:: vector<std:: string> architectureStorage::retrieveVector();
+	static int findTotalNumberofTask();
 	static void deleteFromStorage(int taskID);
-	static void clearFromStorage();
-	static void displayFromStorage();
-
-	static void showToUser(string task);
-	static int sizeOfStorage();
 };
 #endif
