@@ -18,8 +18,10 @@ class Parser {
 		static std::string _tokenizeContent;
 		static std::string _newContent;
 
+
 	public:
 		static void tokenizeADD(std::string tokenizeContent);
+		static void tokenizeCLEAR(std::string tokenizeContent);
 	
 };
 #endif

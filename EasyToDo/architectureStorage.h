@@ -15,5 +15,6 @@ public:
 	static std:: vector<std:: string> architectureStorage::retrieveVector();
 	static int findTotalNumberofTask();
 	static void deleteFromStorage(int taskID);
+	static bool isTaskDescriptionListEmpty();
 };
 #endif

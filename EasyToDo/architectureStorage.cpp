@@ -9,6 +9,7 @@ std:: vector<std:: string> architectureStorage::taskTimeList;
 
 architectureStorage::architectureStorage() {
 }
+
 void architectureStorage::addToStorage(std:: string task, std:: string time) {
 	taskDescriptionList.push_back(task);
 	taskTimeList.push_back(time);
@@ -41,4 +42,8 @@ void architectureStorage::deleteFromStorage(int taskID) {
 
 int architectureStorage::findTotalNumberofTask() {
 	return taskDescriptionList.size();
+}
+
+bool architectureStorage::isTaskDescriptionListEmpty() {
+	return taskDescriptionList.empty();
 }

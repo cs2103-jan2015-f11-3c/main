@@ -38,6 +38,16 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 return;
 
 }
+
+void Parser::tokenizeCLEAR(std::string tokenizeContent) {
+	// zhang xiang i need this function to tokenize into two words can already
+	// e.g clear all -> second word is all
+	// clear today -> second word is today
+	// clear upcoming -> second word is upcoming
+}
+
+
+	
 /*	if(command == "delete"){
 void Parser::tokenizeDELETE(string tokenizeContent)
 

@@ -6,6 +6,14 @@ const std:: string architectureLogic::MESSAGE_ADD = "%s, %s added successfully";
 const std:: string architectureLogic::MESSAGE_INVALID = "ERROR! Invalid Command";
 const std:: string architectureLogic::MESSAGE_NOTFOUND = "Task is not found!";
 const std:: string architectureLogic::MESSAGE_DELETE = "Task%s is deleted!";
+const std:: string architectureLogic::MESSAGE_CLEARALL = "All task(s) are deleted!";
+const std:: string architectureLogic::MESSAGE_CLEARTODAY = "Today's task(s) are deleted!";
+const std:: string architectureLogic::MESSAGE_CLEARUPCOMING = "Upcoming task(s) are deleted!";
+const std:: string architectureLogic::MESSAGE_STORAGEEMPTY = "Task List is already empty!";
+const std:: string architectureLogic::MESSAGE_TODAY = "all";
+const std:: string architectureLogic::MESSAGE_TODAY = "today";
+const std:: string architectureLogic::MESSAGE_UPCOMING = "upcoming";
+
 
 std:: string architectureLogic::_command;
 std:: string architectureLogic::_content;
@@ -77,6 +85,8 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 		return buffer;
 	case DELETE:
 		return deleteTask(_content);
+	case CLEAR:
+		return clear(_content);
 	case EXIT: 
 		exit(0);
 	}
@@ -109,6 +119,28 @@ std:: string architectureLogic::deleteTask(std:: string input) {
 		return buffer;
 	} else {
 		sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+		return buffer;
+	}
+}
+
+bool architectureLogic::isStorageEmpty() {
+	return architectureStorage::isTaskDescriptionListEmpty();
+}
+std:: string architectureLogic::clear(std:: string _content) {
+	if(isStorageEmpty()) { 
+		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
+		return buffer;
+	} else if(_content == MESSAGE_TODAY) {
+		architectureStorage::clearTodayFromStorage();
+		sprintf_s(buffer, MESSAGE_CLEARTODAY.c_str());
+		return buffer;
+	} else if(_content == MESSAGE_UPCOMING) {
+		architectureStorage::clearUpcomingFromStorage();
+		sprintf_s(buffer, MESSAGE_CLEARUPCOMING.c_str());
+		return buffer;
+	} else if(_content == MESSAGE_CLEARALL) {
+		architectureStorage::clearAllFromStorage();
+		sprintf_s(buffer, MESSAGE_ALL.c_str());
 		return buffer;
 	}
 }
