@@ -29,11 +29,20 @@ std:: string architectureLogic::determineCommand(std:: string content){
 	std:: string feedBack;
 
 	// next three codes can SLAP
-	size_t position = 0;
-	position = content.find_first_of(" ");
-	_command = content.substr(0,position);
-	_content = content.substr(position);
+
+	size_t pos = 0;
+	
+	while ( ( pos = content.find ("\r\n",pos) ) != std::string::npos ) {
+		content.erase ( pos, 2 );
+	}
+
+	size_t positionStart = content.find_first_not_of(" \t\n");
+	size_t positionEnd = content.find_first_of(" ");
+
+	_command = content.substr(positionStart, positionEnd);
+	_content = content.substr(positionEnd);
 	feedBack = executeCommand(_command);
+
 	return feedBack;
 }
 
