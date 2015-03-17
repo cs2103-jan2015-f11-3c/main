@@ -21,6 +21,7 @@ class Parser {
 		static std::string _startTime;
         static std::string _endTime;
         static std::string _date;
+		static std::string _taskID;
 
 
 	public:
@@ -29,6 +30,7 @@ class Parser {
 		static void tokenizeDELETE(std::string tokenizeContent);
 		static void tokenizeSEARCH(std::string tokenizeContent);
 		static void tokenizeSingleWord(std::string tokenizeContent);
+		static void tokenizeUPDATE(std::string tokenizeContent)
 	
 };
 #endif

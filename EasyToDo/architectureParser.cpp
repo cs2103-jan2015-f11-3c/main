@@ -8,6 +8,7 @@ std::string Parser::_date;
 std::string Parser::_taskDesc;
 std::string Parser::_tokenizeContent;
 std::string Parser::_newContent;
+std::string Parser::_taskID;
 
 
 void Parser::tokenizeADD(std:: string tokenizeContent) {
@@ -87,7 +88,7 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 		timeFirst = _taskDesc.find_first_of("-");
 		timeLast = _taskDesc.npos;
 		_endTime = _taskDesc.substr(taskFirst,taskLast);
-		architectureLogic::datermineContentEndTime(_endTime);
+		architectureLogic::determineContentEndTime(_endTime);
 		}
 		else
 		{
@@ -99,7 +100,7 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 			_startTime = "";
 			architectureLogic::determineContentStartTime(_startTime);
 			_endTime = "";
-			architectureLogic::datermineContentEndTime(_endTime);
+			architectureLogic::determineContentEndTime(_endTime);
 		}
 
 		
@@ -111,14 +112,22 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 return;
 
 }
-/*
-void Parser::tokenizeCLEAR(std::string tokenizeContent) {
-	
-	tokenizeSingleWord(tokenizeContent);
+
+void Parser::tokenizeUPDATE(std::string tokenizeContent) {
+		
+		_newContent = tokenizeContent;
+		size_t taskFirst = 0;
+		size_t taskLast = _newContent.find_first_of(" ");
+		_taskID = _newContent.substr(taskFirst,taskLast);
+		taskFirst = taskLast+1;
+		taskLast = _newContent.npos;
+		std::string updateContent = _newContent.substr(taskFirst,taskLast);
+		tokenizeADD(updateContent);
+		
 }
 
 
-	
+/*	
 
 void Parser::tokenizeDELETE(std::string tokenizeContent){
 
@@ -140,4 +149,5 @@ void Parser::tokenizeSingleWord(std::string tokenizeContent){
 		architectureLogic::determineContentDescription(_taskDesc);
 	
 }
+
 */
