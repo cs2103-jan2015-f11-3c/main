@@ -5,16 +5,23 @@
 #include <string>
 #include <sstream>
 
+struct _task {
+	std:: string taskDescriptionList;
+	std:: string taskTimeList;
+};
+
 class architectureStorage {
 private:
-	static std:: vector<std:: string> taskDescriptionList;
-	static std:: vector<std:: string> taskTimeList;
+	static std:: vector<_task> masterTaskList;
 public:
 	architectureStorage();
 	static void addToStorage(std:: string task, std:: string time);
-	static std:: vector<std:: string> architectureStorage::retrieveVector();
+	static std:: vector<std:: string> architectureStorage::retrieveMasterTaskList();
 	static int findTotalNumberofTask();
 	static void deleteFromStorage(int taskID);
 	static bool isTaskDescriptionListEmpty();
+	static void clearAllFromStorage();
+	static void clearTodayFromStorage();
+	static void clearUpcomingFromStorage();
 };
 #endif

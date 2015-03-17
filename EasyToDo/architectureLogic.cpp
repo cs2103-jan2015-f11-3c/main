@@ -126,6 +126,7 @@ std:: string architectureLogic::deleteTask(std:: string input) {
 bool architectureLogic::isStorageEmpty() {
 	return architectureStorage::isTaskDescriptionListEmpty();
 }
+
 std:: string architectureLogic::clear(std:: string _content) {
 	if(isStorageEmpty()) { 
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());

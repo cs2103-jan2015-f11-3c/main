@@ -21,6 +21,7 @@ private:
 	static const std:: string MESSAGE_TODAY;
 	static const std:: string MESSAGE_UPCOMING;
 	static const std:: string MESSAGE_ALL;
+
 	static std:: string _command;
 	static std:: string _content;
 	static std:: string _contentDescription;
