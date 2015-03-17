@@ -91,7 +91,7 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 		}
 		else
 		{
-			taskLast = taskLast-1;
+			taskLast = _newContent.npos;
 			_taskDesc = _newContent.substr(taskFirst,taskLast); //taskDesc is taskID
 			architectureLogic::determineContentDescription(_taskDesc);
 			_date = "";
