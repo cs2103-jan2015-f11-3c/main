@@ -9,6 +9,7 @@
 struct TASK {
 	std:: string taskDescriptionList;
 	std:: string taskTimeList;
+	int taskID;
 };
 
 class architectureStorage {
@@ -18,6 +19,7 @@ private:
 	// static std:: vector<TASK> upcomingTaskList;
 public:
 	architectureStorage();
+	static void updateTaskID();
 	static TASK initializeTask(std:: string task, std:: string time);
 	static void addToStorage(std:: string task, std:: string time);
 	static std:: vector<std:: string> architectureStorage::retrieveMasterTaskList();

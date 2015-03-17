@@ -25,6 +25,7 @@ std:: string architectureLogic::_newTime;
 std:: string architectureLogic::_taskID;
 
 char architectureLogic::buffer[MAX];
+static std:: stack<std:: string> undoStack;
 
 architectureLogic::architectureLogic(){
 }
@@ -61,6 +62,8 @@ architectureLogic::CommandType architectureLogic::determineCommandType(std:: str
 		return CommandType::CLEAR;
 	} else if(isValidCommand(commandAction, "update")) {
 		return CommandType::UPDATE;
+	} else if(isValidCommand(commandAction, "update")) {
+		return CommandType::UNDO;
 	} else { 
 		return CommandType::INVALID;
 	} 
@@ -89,6 +92,7 @@ void architectureLogic::determineContentTime(std:: string parserInput) {
 }
 
 std:: string architectureLogic::executeCommand(std:: string commandAction) { 
+	undoStack.push(commandAction);
 	CommandType commandTypeAction = determineCommandType(commandAction);
 
 	switch(commandTypeAction) { 
@@ -105,15 +109,17 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	case INVALID:
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
+	case UNDO:
+
 	case EXIT: 
 		exit(0);
 	}
 }
 
-
 std:: string architectureLogic::addTask(std:: string task, std:: string time) {
 	architectureStorage::addToStorage(task, time);
 	architectureStorage::sortStorage();
+	architectureStorage::updateTaskID();
 
 	sprintf_s(buffer, MESSAGE_ADD.c_str(), task.c_str(), time.c_str());
 	return buffer;
@@ -133,6 +139,7 @@ std:: string architectureLogic::deleteTask(std:: string taskID) {
 	int ID = stringToInteger(taskID); 
 	if(isTaskIDValid(ID)) {
 		architectureStorage::deleteFromStorage(ID);
+		architectureStorage::updateTaskID();
 		sprintf_s(buffer, MESSAGE_DELETE.c_str(), temp.c_str());
 		return buffer;
 	} else {
@@ -177,6 +184,7 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 	if(isTaskIDValid(ID)) {
 		architectureStorage::updateToStorage(ID, newTask, newTime);
 		architectureStorage::sortStorage();
+		architectureStorage::updateTaskID();
 	return buffer;
 		sprintf_s(buffer, MESSAGE_UPDATE.c_str(), temp.c_str());
 		return buffer;
@@ -185,3 +193,15 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 		return buffer;
 	}
 }
+
+bool architectureLogic::isUndoValid() {
+	if(undoStack.empty()) {
+		return false;
+	} 
+
+	std:: string previousCommand;
+	previousCommand = undoStack.top();
+	CommandType commandTypeAction = determineCommandType(previousCommand);
+
+}
+	

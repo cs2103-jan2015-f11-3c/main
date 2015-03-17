@@ -10,10 +10,20 @@ std:: vector<TASK> architectureStorage::masterTaskList;
 architectureStorage::architectureStorage() {
 }
 
+void architectureStorage::updateTaskID() {
+	int counter = 1;
+
+	while(!(masterTaskList.empty())) {
+		masterTaskList[counter-1].taskID = counter;
+		counter++;
+	}
+}
+
 TASK architectureStorage::initializeTask(std:: string task, std:: string time) {
 	TASK temp;
 	temp.taskDescriptionList = task;
 	temp.taskTimeList = time;
+	temp.taskID = 0;
 	return temp;
 }
 
@@ -27,11 +37,10 @@ void architectureStorage::addToStorage(std:: string task, std:: string time) {
 std:: vector<std:: string> architectureStorage::retrieveMasterTaskList() {
 	std:: vector<TASK>:: iterator iter;
 	std:: vector<std:: string> temp;
-	int counter = 1;
 
-	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++, counter++) {
+	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
 		std:: stringstream ss;
-		ss << counter;
+		ss << iter->taskID;
 		std:: string str = ss.str();
 		temp.push_back(str + ". " + iter->taskDescriptionList + ", " + iter->taskTimeList);
 	}

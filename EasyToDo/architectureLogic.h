@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <stack>
 
 #undef DELETE
 
@@ -33,11 +34,12 @@ private:
 
 	static const int MAX = 255;
 	static char buffer[MAX];
+	static std:: stack<std:: string> undoStack;
 
 public:
 	architectureLogic();
 	enum CommandType { 
-		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO
 	};
 	std:: string determineCommand(std:: string content);
 	std:: string addTask(std:: string task, std:: string time);
@@ -52,6 +54,7 @@ public:
 	bool isTaskIDValid(int taskID);
 	bool isStorageEmpty();
 	int stringToInteger(std:: string input);
+	bool isUndoValid();
 
 };
 #endif
