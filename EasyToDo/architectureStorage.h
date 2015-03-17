@@ -17,13 +17,19 @@ struct TASK {
 class architectureStorage {
 private:
 	static std:: vector<TASK> masterTaskList;
+	static std:: vector<TASK> architectureStorage::floatingTaskList; //Task that do not have a specific deadline
+	static std:: vector<TASK> architectureStorage::timedTaskList; //Task that has specific timeframe
+	static std:: vector<TASK> architectureStorage::deadlineTaskList; //Task that has a due date or target time
 	//static std:: vector<TASK> todayTaskList;
 	// static std:: vector<TASK> upcomingTaskList;
 public:
 	architectureStorage();
 	static void updateTaskID();
 	static TASK initializeTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
-	static void addToStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
+	static void addToMasterStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
+	static void addToFloatingStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
+	static void addToDeadlineStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
+	static void addToTimedStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	static std:: vector<std:: string> architectureStorage::retrieveMasterTaskList();
 	// static std:: vector<std:: string> architectureStorage::retrieveTodayTaskList();
 	// static std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList();
