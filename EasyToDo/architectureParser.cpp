@@ -2,7 +2,9 @@
 #include "architectureLogic.h"
 #include "architectureStorage.h"
 
-std::string Parser::_time;
+std::string Parser::_startTime;
+std::string Parser::_endTime;
+std::string Parser::_date;
 std::string Parser::_taskDesc;
 std::string Parser::_tokenizeContent;
 std::string Parser::_newContent;
@@ -10,81 +12,132 @@ std::string Parser::_newContent;
 
 void Parser::tokenizeADD(std:: string tokenizeContent) {
 	
-	/*
-	size_t position = 0;
-	position = content.find_first_of(" ");
-	command = content.substr(0,position); 
-	std::cout << command << std::endl; //command is your userinput
-	architectureLogic::determineUserInput(command);
-	std::cout << "command is: " << command << std::endl;
-	if(command == "add")
-	*/
 
 		_newContent = tokenizeContent;
 		size_t taskFirst = 0;
-		size_t taskLast = 0;
-		taskLast = _newContent.find("on");
+		size_t taskLast = _newContent.find("on");
+		
+		if(taskLast!=std::string::npos){
+
 		taskLast = taskLast-1;
 		_taskDesc = _newContent.substr(taskFirst,taskLast); //taskDesc is taskID
 		architectureLogic::determineContentDescription(_taskDesc);
 		
-		size_t timeFirst = 0;
-		size_t timeLast = _newContent.npos;
-		timeFirst = _newContent.find("on");
-		timeFirst = timeFirst+3;
-		_time = _newContent.substr(timeFirst,timeLast);
-		architectureLogic::determineContentTime(_time);
+		size_t timeFirst = _taskDesc.find_first_of(" ");
+		size_t timeLast = _taskDesc.find_last_of(" ");
+		_date = _newContent.substr(timeFirst,timeLast);
+		architectureLogic::determineContentDate(_date);
+
+		taskFirst =  _taskDesc.find_last_of(" ");
+		taskLast = _taskDesc.npos;
+		_startTime = _taskDesc.substr(timeFirst,timeLast);
+		architectureLogic::determineContentStartTime(_startTime);
+
+		_endTime = "";
+		architectureLogic::determineContentEndTime(_endTime);
+		
+
+
+		}
+
+		taskLast = _newContent.find("by");
+		
+		if(taskLast!=std::string::npos){
+
+		taskLast = taskLast-1;
+		_taskDesc = _newContent.substr(taskFirst,taskLast); //taskDesc is taskID
+		architectureLogic::determineContentDescription(_taskDesc);
+		
+		size_t timeFirst = _taskDesc.find_first_of(" ");
+		size_t timeLast = _taskDesc.find_last_of(" ");
+		_date = _newContent.substr(timeFirst,timeLast);
+		architectureLogic::determineContentDate(_date);
+
+		taskFirst =  _taskDesc.find_last_of(" ");
+		taskLast = _taskDesc.npos;
+		_startTime = _taskDesc.substr(timeFirst,timeLast);
+		architectureLogic::determineContentStartTime(_startTime);
+
+		_endTime = "";
+		architectureLogic::determineContentEndTime(_endTime);
+		
+
+		}
+
+		taskLast = _newContent.find("from");
+		if(taskLast!=std::string::npos){
+		
+		taskLast = taskLast-1;
+		_taskDesc = _newContent.substr(taskFirst,taskLast); //taskDesc is taskID
+		architectureLogic::determineContentDescription(_taskDesc);
+		
+		size_t timeFirst = _taskDesc.find_first_of(" ");
+		size_t timeLast = _taskDesc.find_last_of(" ");
+		_date = _newContent.substr(timeFirst,timeLast);
+		architectureLogic::determineContentDate(_date);
+
+		taskFirst = taskLast+1;
+		taskLast = _taskDesc.npos;
+		_newContent = _taskDesc.substr(taskFirst,taskLast);
+		taskFirst = _taskDesc.find_first_of(" ");
+		taskLast = _taskDesc.find_first_of("-");
+		_startTime = _taskDesc.substr(timeFirst,timeLast);
+		architectureLogic::determineContentStartTime(_startTime);
+
+		timeFirst = _taskDesc.find_first_of("-");
+		timeLast = _taskDesc.npos;
+		_endTime = _taskDesc.substr(taskFirst,taskLast);
+		architectureLogic::datermineContentEndTime(_endTime);
+		}
+		else
+		{
+			taskLast = taskLast-1;
+			_taskDesc = _newContent.substr(taskFirst,taskLast); //taskDesc is taskID
+			architectureLogic::determineContentDescription(_taskDesc);
+			_date = "";
+			architectureLogic::determineContentDate(_date);
+			_startTime = "";
+			architectureLogic::determineContentStartTime(_startTime);
+			_endTime = "";
+			architectureLogic::datermineContentEndTime(_endTime);
+		}
+
+		
+
+
+		
+
 
 return;
 
 }
-
-void Parser::tokenizeUpdate(std:: string tokenizeContent) {
-	// format of input: update 3 meet ivy on friday 3pm
-	// 3 is taskID, "meet ivy..." into newTask, newTime)
+/*
+void Parser::tokenizeCLEAR(std::string tokenizeContent) {
+	
+	tokenizeSingleWord(tokenizeContent);
 }
 
 
 	
-/*	if(command == "delete"){
-void Parser::tokenizeDELETE(string tokenizeContent)
 
-		size_t taskFirst = position;
-		size_t taskLast = content.npos;
-		std::string temptaskDesc = content.substr(taskFirst,taskLast);
-		taskFirst = temptaskDesc.find_first_not_of(" ");
-		taskLast = temptaskDesc.npos;
-		taskDesc = temptaskDesc.substr(taskFirst,taskLast);
-		std::cout << "taskDesc is: "<< taskDesc << std::endl;
-	
-	}
+void Parser::tokenizeDELETE(std::string tokenizeContent){
 
-
-	if(command == "search"){
-	
-		size_t taskFirst = position;
-		size_t taskLast = content.npos;
-		std::string temptaskDesc = content.substr(taskFirst,taskLast);
-		taskFirst = temptaskDesc.find_first_not_of(" ");
-		taskLast = temptaskDesc.npos;
-		taskDesc = temptaskDesc.substr(taskFirst,taskLast);
-		std::cout << "taskDesc is: "<< taskDesc << std::endl;
-	
-	}
-
-
-		return;
+	tokenizeSingleWord(tokenizeContent);
 }
 
-int main(int argc, char *argv[]) 
-{
+
+void Parser::tokenizeSEARCH(std::string tokenizeContent){
+
+	tokenizeSingleWord(tokenizeContent);	
+}
+
+void Parser::tokenizeSingleWord(std::string tokenizeContent){
+
+		_newContent = tokenizeContent;
+		size_t taskFirst = 0;
+		size_t taskLast = _newContent.npos;
+		_taskDesc = _newContent.substr(taskFirst,taskLast);
+		architectureLogic::determineContentDescription(_taskDesc);
 	
-	if (argc > 1)
-	{
-		Parser createFile(argv);
-
-		createFile.getKeyWords();
-	}
-
-	return 0;
-} */
+}
+*/
