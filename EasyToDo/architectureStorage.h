@@ -18,6 +18,7 @@ private:
 	// static std:: vector<TASK> upcomingTaskList;
 public:
 	architectureStorage();
+	static TASK initializeTask(std:: string task, std:: string time);
 	static void addToStorage(std:: string task, std:: string time);
 	static std:: vector<std:: string> architectureStorage::retrieveMasterTaskList();
 	// static std:: vector<std:: string> architectureStorage::retrieveTodayTaskList();
