@@ -10,7 +10,7 @@ const std:: string architectureLogic::MESSAGE_CLEARALL = "All task(s) are delete
 const std:: string architectureLogic::MESSAGE_CLEARTODAY = "Today's task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARUPCOMING = "Upcoming task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_STORAGEEMPTY = "Task List is already empty!";
-const std:: string architectureLogic::MESSAGE_TODAY = "all";
+const std:: string architectureLogic::MESSAGE_ALL = "all";
 const std:: string architectureLogic::MESSAGE_TODAY = "today";
 const std:: string architectureLogic::MESSAGE_UPCOMING = "upcoming";
 
@@ -114,7 +114,6 @@ std:: string architectureLogic::deleteTask(std:: string input) {
 	taskID = atoi(input.c_str()); 
 	if(isTaskIDValid(taskID)) {
 		architectureStorage::deleteFromStorage(taskID);
-		// next three lines can SLAP into a function
 		sprintf_s(buffer, MESSAGE_DELETE.c_str(), temp.c_str());
 		return buffer;
 	} else {
@@ -131,17 +130,17 @@ std:: string architectureLogic::clear(std:: string _content) {
 	if(isStorageEmpty()) { 
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
 		return buffer;
-	} else if(_content == MESSAGE_TODAY) {
-		architectureStorage::clearTodayFromStorage();
-		sprintf_s(buffer, MESSAGE_CLEARTODAY.c_str());
-		return buffer;
-	} else if(_content == MESSAGE_UPCOMING) {
-		architectureStorage::clearUpcomingFromStorage();
-		sprintf_s(buffer, MESSAGE_CLEARUPCOMING.c_str());
-		return buffer;
-	} else if(_content == MESSAGE_CLEARALL) {
+	}   else if(_content == MESSAGE_ALL) {
 		architectureStorage::clearAllFromStorage();
-		sprintf_s(buffer, MESSAGE_ALL.c_str());
+		sprintf_s(buffer, MESSAGE_CLEARALL.c_str());
 		return buffer;
-	}
+	} /*else if(_content == MESSAGE_TODAY) {
+	  architectureStorage::clearTodayFromStorage();
+	  sprintf_s(buffer, MESSAGE_CLEARTODAY.c_str());
+	  return buffer;
+	  } else if(_content == MESSAGE_UPCOMING) {
+	  architectureStorage::clearUpcomingFromStorage();
+	  sprintf_s(buffer, MESSAGE_CLEARUPCOMING.c_str());
+	  return buffer;
+	  }*/
 }

@@ -3,13 +3,15 @@
 #include "architectureLogic.h"
 #include "architectureParser.h"
 
-std:: vector<_task> architectureStorage::masterTaskList;
+std:: vector<TASK> architectureStorage::masterTaskList;
+//std:: vector<TASK> architectureStorage::todayTaskList;
+//std:: vector<TASK> architectureStorage::upcomingTaskList;
 
 architectureStorage::architectureStorage() {
 }
 
 void architectureStorage::addToStorage(std:: string task, std:: string time) {
-	_task temp;
+	TASK temp;
 	temp.taskDescriptionList = task;
 	temp.taskTimeList = time;
 	masterTaskList.push_back(temp);
@@ -17,7 +19,7 @@ void architectureStorage::addToStorage(std:: string task, std:: string time) {
 }
 
 std:: vector<std:: string> architectureStorage::retrieveMasterTaskList() {
-	std:: vector<_task>:: iterator iter;
+	std:: vector<TASK>:: iterator iter;
 
 	int counter = 1;
 	std:: vector<std:: string> temp;
@@ -31,8 +33,17 @@ std:: vector<std:: string> architectureStorage::retrieveMasterTaskList() {
 	return temp;
 }
 
+/*
+std:: vector<std:: string> architectureStorage::retrieveTodayTaskList() {
+
+}
+
+std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList() {
+
+}
+*/
 void architectureStorage::deleteFromStorage(int taskID) {
-	std:: vector<_task>::iterator iter = masterTaskList.begin() + taskID - 1;
+	std:: vector<TASK>::iterator iter = masterTaskList.begin() + taskID - 1;
 	masterTaskList.erase(iter);
 	return;
 }
@@ -46,9 +57,11 @@ bool architectureStorage::isTaskDescriptionListEmpty() {
 }
 
 void architectureStorage::clearAllFromStorage() {
-
+	masterTaskList.clear();
+	return;
 }
 
+/*
 void architectureStorage::clearTodayFromStorage() {
 
 }
@@ -56,3 +69,4 @@ void architectureStorage::clearTodayFromStorage() {
 void architectureStorage::clearUpcomingFromStorage() {
 
 }
+*/

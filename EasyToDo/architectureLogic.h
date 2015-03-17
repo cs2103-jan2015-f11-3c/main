@@ -47,6 +47,5 @@ public:
 	bool isTaskIDValid(int taskID);
 	bool isStorageEmpty();
 
-
 };
 #endif
