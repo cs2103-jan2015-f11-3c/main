@@ -26,6 +26,8 @@ private:
 	static std:: string _content;
 	static std:: string _contentDescription;
 	static std:: string _contentTime;
+	static std:: string _newContent;
+	static std:: string _taskID;
 
 	static const int MAX = 255;
 	static char buffer[MAX];
@@ -33,13 +35,14 @@ private:
 public:
 	architectureLogic();
 	enum CommandType { 
-		ADD, EXIT, DELETE, INVALID, CLEAR
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE
 	};
 	std:: string determineCommand(std:: string content);
 	std:: string addTask(std:: string task, std:: string time);
 	std:: string deleteTask(std:: string input);
 	std:: string executeCommand(std:: string commandAction);
-	std:: string clear(std:: string _content);
+	std:: string clearTask(std:: string _content);
+	std:: string updateTask(std:: string _content);
 	static void determineContentDescription(std:: string parserInput);
 	static void determineContentTime(std:: string parserInput);
 	CommandType determineCommandType(std:: string commandAction);

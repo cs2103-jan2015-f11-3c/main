@@ -21,7 +21,7 @@ class Parser {
 
 	public:
 		static void tokenizeADD(std::string tokenizeContent);
-		static void tokenizeCLEAR(std::string tokenizeContent);
+		static void tokenizeUpdate(std::string tokenizeContent);
 	
 };
 #endif

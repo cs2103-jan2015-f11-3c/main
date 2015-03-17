@@ -39,11 +39,9 @@ return;
 
 }
 
-void Parser::tokenizeCLEAR(std::string tokenizeContent) {
-	// zhang xiang i need this function to tokenize into two words can already
-	// e.g clear all -> second word is all
-	// clear today -> second word is today
-	// clear upcoming -> second word is upcoming
+void Parser::tokenizeUpdate(std:: string tokenizeContent) {
+	// format of input: update 3 meet ivy on friday 3pm
+	// 3 is taskID, "meet ivy..." is the newContent)
 }
 
 

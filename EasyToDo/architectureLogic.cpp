@@ -19,6 +19,8 @@ std:: string architectureLogic::_command;
 std:: string architectureLogic::_content;
 std:: string architectureLogic::_contentDescription;
 std:: string architectureLogic::_contentTime;
+std:: string architectureLogic::_newContent;
+std:: string architectureLogic::_taskID;
 
 char architectureLogic::buffer[MAX];
 
@@ -53,6 +55,10 @@ architectureLogic::CommandType architectureLogic::determineCommandType(std:: str
 		return CommandType::EXIT; 
 	} else if(isValidCommand(commandAction, "delete")) {
 		return CommandType::DELETE;
+	} else if(isValidCommand(commandAction, "clear")) {
+		return CommandType::CLEAR;
+	} else if(isValidCommand(commandAction, "update")) {
+		return CommandType::UPDATE;
 	} else { 
 		return CommandType::INVALID;
 	} 
@@ -95,7 +101,10 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	case DELETE:
 		return deleteTask(_content);
 	case CLEAR:
-		return clear(_content);
+		return clearTask(_content);
+	case UPDATE:
+		Parser::tokenizeUpdate(_content);
+		return updateTask(taskID, _newContent);
 	case EXIT: 
 		exit(0);
 	}
@@ -135,7 +144,7 @@ bool architectureLogic::isStorageEmpty() {
 	return architectureStorage::isTaskDescriptionListEmpty();
 }
 
-std:: string architectureLogic::clear(std:: string _content) {
+std:: string architectureLogic::clearTask(std:: string _content) {
 	if(isStorageEmpty()) { 
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
 		return buffer;
@@ -143,7 +152,8 @@ std:: string architectureLogic::clear(std:: string _content) {
 		architectureStorage::clearAllFromStorage();
 		sprintf_s(buffer, MESSAGE_CLEARALL.c_str());
 		return buffer;
-	} /*else if(_content == MESSAGE_TODAY) {
+	} 
+	/*else if(_content == MESSAGE_TODAY) {
 	  architectureStorage::clearTodayFromStorage();
 	  sprintf_s(buffer, MESSAGE_CLEARTODAY.c_str());
 	  return buffer;
@@ -152,4 +162,8 @@ std:: string architectureLogic::clear(std:: string _content) {
 	  sprintf_s(buffer, MESSAGE_CLEARUPCOMING.c_str());
 	  return buffer;
 	  }*/
+}
+
+std:: string architectureLogic::updateTask(std:: string _content) {
+
 }
