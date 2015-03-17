@@ -10,6 +10,7 @@ const std:: string architectureLogic::MESSAGE_CLEARALL = "All task(s) are delete
 const std:: string architectureLogic::MESSAGE_CLEARTODAY = "Today's task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARUPCOMING = "Upcoming task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_STORAGEEMPTY = "Task List is already empty!";
+const std:: string architectureLogic::MESSAGE_UPDATE = "Task %s is updated successfully";
 const std:: string architectureLogic::MESSAGE_ALL = "all";
 const std:: string architectureLogic::MESSAGE_TODAY = "today";
 const std:: string architectureLogic::MESSAGE_UPCOMING = "upcoming";
@@ -19,7 +20,8 @@ std:: string architectureLogic::_command;
 std:: string architectureLogic::_content;
 std:: string architectureLogic::_contentDescription;
 std:: string architectureLogic::_contentTime;
-std:: string architectureLogic::_newContent;
+std:: string architectureLogic::_newTask;
+std:: string architectureLogic::_newTime;
 std:: string architectureLogic::_taskID;
 
 char architectureLogic::buffer[MAX];
@@ -88,13 +90,11 @@ void architectureLogic::determineContentTime(std:: string parserInput) {
 
 std:: string architectureLogic::executeCommand(std:: string commandAction) { 
 	CommandType commandTypeAction = determineCommandType(commandAction);
-	std:: string added;
 
 	switch(commandTypeAction) { 
 	case ADD: 
 		Parser::tokenizeADD(_content);
-		added = addTask(_contentDescription, _contentTime); 
-		return added;
+		return addTask(_contentDescription, _contentTime); 
 	case INVALID:
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
@@ -104,7 +104,7 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 		return clearTask(_content);
 	case UPDATE:
 		Parser::tokenizeUpdate(_content);
-		return updateTask(taskID, _newContent);
+		return updateTask(_taskID, _newTask, _newTime);
 	case EXIT: 
 		exit(0);
 	}
@@ -126,12 +126,11 @@ bool architectureLogic::isTaskIDValid(int taskID) {
 	}
 }
 
-std:: string architectureLogic::deleteTask(std:: string input) {
-	const std:: string temp = input;
-	int taskID;
-	taskID = atoi(input.c_str()); 
-	if(isTaskIDValid(taskID)) {
-		architectureStorage::deleteFromStorage(taskID);
+std:: string architectureLogic::deleteTask(std:: string taskID) {
+	const std:: string temp = taskID;
+	int ID = stringToInteger(taskID); 
+	if(isTaskIDValid(ID)) {
+		architectureStorage::deleteFromStorage(ID);
 		sprintf_s(buffer, MESSAGE_DELETE.c_str(), temp.c_str());
 		return buffer;
 	} else {
@@ -144,11 +143,17 @@ bool architectureLogic::isStorageEmpty() {
 	return architectureStorage::isTaskDescriptionListEmpty();
 }
 
-std:: string architectureLogic::clearTask(std:: string _content) {
+int architectureLogic::stringToInteger(std:: string input) {
+	int taskID;
+	taskID = atoi(input.c_str()); 
+	return taskID;
+}
+
+std:: string architectureLogic::clearTask(std:: string content) {
 	if(isStorageEmpty()) { 
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
 		return buffer;
-	}   else if(_content == MESSAGE_ALL) {
+	}  else if(content == MESSAGE_ALL) {
 		architectureStorage::clearAllFromStorage();
 		sprintf_s(buffer, MESSAGE_CLEARALL.c_str());
 		return buffer;
@@ -164,6 +169,15 @@ std:: string architectureLogic::clearTask(std:: string _content) {
 	  }*/
 }
 
-std:: string architectureLogic::updateTask(std:: string _content) {
-
+std:: string architectureLogic::updateTask(std:: string taskID, std:: string newTask, std:: string newTime) {
+	const std:: string temp = taskID;
+	int ID = stringToInteger(taskID);
+	if(isTaskIDValid(ID)) {
+		architectureStorage::updateToStorage(ID, newTask, newTime);
+		sprintf_s(buffer, MESSAGE_UPDATE.c_str(), temp.c_str());
+		return buffer;
+	} else {
+		sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+		return buffer;
+	}
 }

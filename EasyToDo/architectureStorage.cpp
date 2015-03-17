@@ -43,7 +43,7 @@ std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList() {
 }
 */
 void architectureStorage::deleteFromStorage(int taskID) {
-	std:: vector<TASK>::iterator iter = masterTaskList.begin() + taskID - 1;
+	std:: vector<TASK>::iterator iter = findIterator(taskID);
 	masterTaskList.erase(iter);
 	return;
 }
@@ -56,8 +56,24 @@ bool architectureStorage::isTaskDescriptionListEmpty() {
 	return masterTaskList.empty();
 }
 
+std:: vector<TASK>::iterator architectureStorage::findIterator(int taskID) {
+	std:: vector<TASK>::iterator iter; 
+	iter = masterTaskList.begin() + taskID - 1;
+	return iter;
+}
+
 void architectureStorage::clearAllFromStorage() {
 	masterTaskList.clear();
+	return;
+}
+
+void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:: string newTime) {
+	TASK temp;
+	temp.taskDescriptionList = newTask;
+	temp.taskTimeList = newTime;
+	deleteFromStorage(taskID);
+	std:: vector<TASK>::iterator iter = findIterator(taskID);
+	masterTaskList.insert(iter, temp);
 	return;
 }
 

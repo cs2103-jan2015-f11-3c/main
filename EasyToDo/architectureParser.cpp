@@ -41,7 +41,7 @@ return;
 
 void Parser::tokenizeUpdate(std:: string tokenizeContent) {
 	// format of input: update 3 meet ivy on friday 3pm
-	// 3 is taskID, "meet ivy..." is the newContent)
+	// 3 is taskID, "meet ivy..." into newTask, newTime)
 }
 
 

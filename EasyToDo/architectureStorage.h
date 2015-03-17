@@ -23,8 +23,10 @@ public:
 	// static std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList();
 	static int findTotalNumberofTask();
 	static void deleteFromStorage(int taskID);
+	static void updateToStorage(int taskID, std:: string newTask, std:: string newTime);
 	static bool isTaskDescriptionListEmpty();
 	static void clearAllFromStorage();
+	static std:: vector<TASK>::iterator findIterator(int taskID);
 	// static void clearTodayFromStorage();
 	// static void clearUpcomingFromStorage();
 };
