@@ -30,7 +30,6 @@ class Parser {
 		static void tokenizeDELETE(std::string tokenizeContent);
 		static void tokenizeSEARCH(std::string tokenizeContent);
 		static void tokenizeSingleWord(std::string tokenizeContent);
-		static void tokenizeUPDATE(std::string tokenizeContent)
-	
+		static void tokenizeUPDATE(std::string tokenizeContent);
 };
 #endif

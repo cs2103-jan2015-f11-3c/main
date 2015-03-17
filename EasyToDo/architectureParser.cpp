@@ -13,7 +13,7 @@ std::string Parser::_taskID;
 
 void Parser::tokenizeADD(std:: string tokenizeContent) {
 	
-
+		
 		_newContent = tokenizeContent;
 		size_t taskFirst = 0;
 		size_t taskLast = _newContent.find("on");
@@ -75,7 +75,7 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 		size_t timeFirst = _taskDesc.find_first_of(" ");
 		size_t timeLast = _taskDesc.find_last_of(" ");
 		_date = _newContent.substr(timeFirst,timeLast);
-		architectureLogic::determineContentDate(_date);
+	    architectureLogic::determineContentDate(_date);
 
 		taskFirst = taskLast+1;
 		taskLast = _taskDesc.npos;
@@ -127,8 +127,8 @@ void Parser::tokenizeUPDATE(std::string tokenizeContent) {
 }
 
 
-/*	
 
+/*
 void Parser::tokenizeDELETE(std::string tokenizeContent){
 
 	tokenizeSingleWord(tokenizeContent);
