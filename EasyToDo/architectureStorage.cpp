@@ -77,6 +77,13 @@ void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:
 	return;
 }
 
+void architectureStorage::sortStorage() {
+	std:: sort(masterTaskList.begin(), masterTaskList.end(), compareByTime);
+}
+
+bool architectureStorage::compareByTime(const TASK& a, const TASK& b) {
+	return a.taskTimeList < b.taskTimeList;
+}
 /*
 void architectureStorage::clearTodayFromStorage() {
 

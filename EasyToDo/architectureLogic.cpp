@@ -94,10 +94,7 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	switch(commandTypeAction) { 
 	case ADD: 
 		Parser::tokenizeADD(_content);
-		return addTask(_contentDescription, _contentTime); 
-	case INVALID:
-		sprintf_s(buffer, MESSAGE_INVALID.c_str());
-		return buffer;
+		return addTask(_contentDescription, _contentTime);
 	case DELETE:
 		return deleteTask(_content);
 	case CLEAR:
@@ -105,6 +102,9 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	case UPDATE:
 		Parser::tokenizeUpdate(_content);
 		return updateTask(_taskID, _newTask, _newTime);
+	case INVALID:
+		sprintf_s(buffer, MESSAGE_INVALID.c_str());
+		return buffer;
 	case EXIT: 
 		exit(0);
 	}
@@ -113,6 +113,8 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 
 std:: string architectureLogic::addTask(std:: string task, std:: string time) {
 	architectureStorage::addToStorage(task, time);
+	architectureStorage::sortStorage();
+
 	sprintf_s(buffer, MESSAGE_ADD.c_str(), task.c_str(), time.c_str());
 	return buffer;
 }
@@ -174,6 +176,8 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 	int ID = stringToInteger(taskID);
 	if(isTaskIDValid(ID)) {
 		architectureStorage::updateToStorage(ID, newTask, newTime);
+		architectureStorage::sortStorage();
+	return buffer;
 		sprintf_s(buffer, MESSAGE_UPDATE.c_str(), temp.c_str());
 		return buffer;
 	} else {

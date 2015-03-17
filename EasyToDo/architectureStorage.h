@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 struct TASK {
 	std:: string taskDescriptionList;
@@ -27,6 +28,8 @@ public:
 	static bool isTaskDescriptionListEmpty();
 	static void clearAllFromStorage();
 	static std:: vector<TASK>::iterator findIterator(int taskID);
+	static void sortStorage();
+	bool compareByTime(const TASK& a, const TASK& b);
 	// static void clearTodayFromStorage();
 	// static void clearUpcomingFromStorage();
 };
