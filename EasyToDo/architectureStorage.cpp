@@ -4,6 +4,9 @@
 #include "architectureParser.h"
 
 std:: vector<TASK> architectureStorage::masterTaskList;
+std:: vector<TASK> architectureStorage::floatingTaskList; 
+std:: vector<TASK> architectureStorage::timedTaskList; 
+std:: vector<TASK> architectureStorage::deadlineTaskList;
 //std:: vector<TASK> architectureStorage::todayTaskList;
 //std:: vector<TASK> architectureStorage::upcomingTaskList;
 
@@ -29,10 +32,31 @@ TASK architectureStorage::initializeTask(std:: string task, std:: string date, s
 	return temp;
 }
 
-void architectureStorage::addToStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
+void architectureStorage::addToMasterStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
 	TASK temp;
 	temp = initializeTask(task, date, startTime, endTime);
 	masterTaskList.push_back(temp);
+	return;
+}
+
+void architectureStorage::addToFloatingStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
+	TASK temp;
+	temp = initializeTask(task, date, startTime, endTime);
+	floatingTaskList.push_back(temp);
+	return;
+}
+
+void architectureStorage::addToTimedStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
+	TASK temp;
+	temp = initializeTask(task, date, startTime, endTime);
+	timedTaskList.push_back(temp);
+	return;
+}
+
+void architectureStorage::addToDeadlineStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
+	TASK temp;
+	temp = initializeTask(task, date, startTime, endTime);
+	deadlineTaskList.push_back(temp);
 	return;
 }
 
@@ -44,7 +68,7 @@ std:: vector<std:: string> architectureStorage::retrieveMasterTaskList() {
 		std:: stringstream ss;
 		ss << iter->taskID;
 		std:: string str = ss.str();
-		temp.push_back(str + ". " + iter->taskDescriptionList + ", " + iter->taskTimeList);
+		temp.push_back(str + ". " + iter->taskDescriptionList + ", " + iter->taskDateList + ", " + iter->taskStartTimeList + ", " + iter->taskEndTimeList);
 	}
 	return temp;
 }
@@ -94,6 +118,9 @@ void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:
 
 void architectureStorage::sortStorage() {
 	std:: sort(masterTaskList.begin(), masterTaskList.end(), compareByTime);
+	std:: sort(floatingTaskList.begin(), masterTaskList.end(), compareByTime);
+	std:: sort(deadlineTaskList.begin(), masterTaskList.end(), compareByTime);
+	std:: sort(timedTaskList.begin(), masterTaskList.end(), compareByTime);
 }
 
 bool architectureStorage::compareByTime(const TASK& a, const TASK& b) {

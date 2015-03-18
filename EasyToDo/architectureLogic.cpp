@@ -64,7 +64,7 @@ architectureLogic::CommandType architectureLogic::determineCommandType(std:: str
 		return CommandType::CLEAR;
 	} else if(isValidCommand(commandAction, "update")) {
 		return CommandType::UPDATE;
-	} else if(isValidCommand(commandAction, "update")) {
+	} else if(isValidCommand(commandAction, "UNDO")) {
 		return CommandType::UNDO;
 	} else { 
 		return CommandType::INVALID;
@@ -102,7 +102,7 @@ void architectureLogic::determineContentDate(std:: string parserInput) {
 }
 
 std:: string architectureLogic::executeCommand(std:: string commandAction) { 
-	undoStack.push(commandAction);
+	// undoStack.push(commandAction);
 	CommandType commandTypeAction = determineCommandType(commandAction);
 
 	switch(commandTypeAction) { 
@@ -127,7 +127,17 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 }
 
 std:: string architectureLogic::addTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
-	architectureStorage::addToStorage(task, date, startTime, endTime);
+	architectureStorage::addToMasterStorage(task, date, startTime, endTime);
+	if(endTime == "" ) {
+		if(startTime == "") {
+			architectureStorage::addToFloatingStorage(task, date, startTime, endTime);
+		} else {
+			architectureStorage::addToDeadlineStorage(task, date, startTime, endTime);
+		}
+	} else {
+		architectureStorage::addToTimedStorage(task, date, startTime, endTime);
+	}
+
 	architectureStorage::sortStorage();
 	architectureStorage::updateTaskID();
 
