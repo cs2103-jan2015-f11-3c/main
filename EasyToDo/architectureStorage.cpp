@@ -117,17 +117,25 @@ void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:
 }
 
 void architectureStorage::sortStorage() {
-	std:: sort(masterTaskList.begin(), masterTaskList.end(), compareByTime);
-	std:: sort(floatingTaskList.begin(), masterTaskList.end(), compareByTime);
-	std:: sort(deadlineTaskList.begin(), masterTaskList.end(), compareByTime);
-	std:: sort(timedTaskList.begin(), masterTaskList.end(), compareByTime);
+	std:: sort(masterTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
+		return (left.taskStartTimeList < right.taskStartTimeList);
+	} );
+	std:: sort(floatingTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
+		return (left.taskStartTimeList < right.taskStartTimeList);
+	} );
+	std:: sort(timedTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
+		return (left.taskStartTimeList < right.taskStartTimeList);
+	} );
+	std:: sort(deadlineTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
+		return (left.taskStartTimeList < right.taskStartTimeList);
+	} );
 }
-
-bool architectureStorage::compareByTime(const TASK& a, const TASK& b) {
+/*
+bool architectureStorage::compareByTime(TASK& a, TASK& b) {
 	return a.taskStartTimeList[0] < b.taskStartTimeList[0];
 }
 
-/*
+
 void architectureStorage::clearTodayFromStorage() {
 
 }
@@ -135,4 +143,8 @@ void architectureStorage::clearTodayFromStorage() {
 void architectureStorage::clearUpcomingFromStorage() {
 
 }
+
+std::sort( stud.begin(), stud.end(),
+              []( const STUDENT &left, const STUDENT &right )
+                 { return ( left.classRanking < right.classRanking ); } );
 */
