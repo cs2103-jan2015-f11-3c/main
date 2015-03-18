@@ -41,18 +41,19 @@ private:
 public:
 	architectureLogic();
 	enum CommandType { 
-		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE,
 	};
 	std:: string determineCommand(std:: string content);
 	std:: string addTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	std:: string deleteTask(std:: string input);
 	std:: string executeCommand(std:: string commandAction);
 	std:: string clearTask(std:: string content);
-	std:: string updateTask(std:: string taskID, std:: string newTask, std:: string newTime);
+	std:: string updateTask(std:: string taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime) ;
 	static void determineContentDescription(std:: string parserInput);
 	static void determineContentStartTime(std:: string parserInput);
 	static void determineContentEndTime(std:: string parserInput);
 	static void determineContentDate(std:: string parserInput);
+	static void determineTaskID(std:: string parserInput);
 	CommandType determineCommandType(std:: string commandAction);
 	bool isValidCommand(const std:: string& str1, const std:: string& str2);
 	bool isTaskIDValid(int taskID);
