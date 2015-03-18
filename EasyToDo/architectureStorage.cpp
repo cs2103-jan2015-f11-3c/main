@@ -15,10 +15,10 @@ architectureStorage::architectureStorage() {
 
 void architectureStorage::updateTaskID() {
 	int counter = 1;
-
-	while(!(masterTaskList.empty())) {
-		(masterTaskList[counter-1]).taskID = counter;
-		counter++;
+	std:: vector<TASK>::iterator iter;
+	
+	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++, counter++) {
+		iter->taskID = counter;
 	}
 }
 
