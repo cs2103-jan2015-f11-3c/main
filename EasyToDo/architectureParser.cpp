@@ -12,81 +12,23 @@ std::string Parser::_taskID;
 
 
 void Parser::tokenizeADD(std:: string tokenizeContent) {
-	
-		
-		_newContent = tokenizeContent;
-	
-		size_t taskFirst = 0;
-		size_t taskLast = _newContent.find("on");
-		
-		if(taskLast!=std::string::npos){
 
-		taskLast = taskLast-1;
+
+	_newContent = tokenizeContent;
+
+	size_t taskFirst = 0;
+	size_t taskLast = 0;
+
+	taskLast = _newContent.find(" from ");
+	if(taskLast!=std::string::npos){
+
+		taskLast = taskLast;
 		_taskDesc = _newContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentDescription(_taskDesc);
-		
-		taskFirst = taskLast+4;
-		taskLast = _newContent.npos;
-		std::string dateTimeContent = _newContent.substr(taskFirst,taskLast);
-		std::cout <<dateTimeContent<<std::endl;
-		taskFirst = 0;
-		taskLast = dateTimeContent.find_first_of(" ");
-		_date = dateTimeContent.substr(taskFirst,taskLast);
-		architectureLogic::determineContentDate(_date);
 
-		taskFirst =  _newContent.find_last_of(" ");
-		taskFirst = taskFirst + 1;
-		taskLast = _newContent.npos;
-		_startTime = _newContent.substr(taskFirst,taskLast);
-		architectureLogic::determineContentStartTime(_startTime);
-
-		_endTime = "";
-		architectureLogic::determineContentEndTime(_endTime);
-		
-
-
-		}
-
-		taskLast = _newContent.find("by");
-		
-		if(taskLast!=std::string::npos){
-
-		taskLast = taskLast-1;
-		_taskDesc = _newContent.substr(taskFirst,taskLast);
-		architectureLogic::determineContentDescription(_taskDesc);
-		
-		taskFirst = taskLast+4;
-		taskLast = _newContent.npos;
-		std::string dateTimeContent = _newContent.substr(taskFirst,taskLast);
-		std::cout <<dateTimeContent<<std::endl;
-		taskFirst = 0;
-		taskLast = dateTimeContent.find_first_of(" ");
-		_date = dateTimeContent.substr(taskFirst,taskLast);
-		architectureLogic::determineContentDate(_date);
-
-		taskFirst =  _newContent.find_last_of(" ");
-		taskFirst = taskFirst + 1;
-		taskLast = _newContent.npos;
-		_startTime = _newContent.substr(taskFirst,taskLast);
-		architectureLogic::determineContentStartTime(_startTime);
-
-		_endTime = "";
-		architectureLogic::determineContentEndTime(_endTime);
-		
-
-		}
-
-		taskLast = _newContent.find("from");
-		if(taskLast!=std::string::npos){
-		
-		taskLast = taskLast-1;
-		_taskDesc = _newContent.substr(taskFirst,taskLast);
-		architectureLogic::determineContentDescription(_taskDesc);
-		
 		taskFirst = taskLast+6;
 		taskLast = _newContent.npos;
 		std::string dateTimeContent = _newContent.substr(taskFirst,taskLast);
-		std::cout <<dateTimeContent<<std::endl;
 		taskFirst = 0;
 		taskLast = dateTimeContent.find_first_of(" ");
 		_date = dateTimeContent.substr(taskFirst,taskLast);
@@ -105,41 +47,89 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 		taskLast = _newContent.npos;
 		_endTime = _newContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentEndTime(_endTime);
-		}
-		else
-		{
-			taskLast = _newContent.npos;
+	}
+	else {
+		taskLast = _newContent.find(" on ");
+
+		if(taskLast!=std::string::npos){
+
+			taskLast = taskLast;
 			_taskDesc = _newContent.substr(taskFirst,taskLast);
 			architectureLogic::determineContentDescription(_taskDesc);
-			_date = "";
+
+			taskFirst = taskLast+4;
+			taskLast = _newContent.npos;
+			std::string dateTimeContent = _newContent.substr(taskFirst,taskLast);
+			taskFirst = 0;
+			taskLast = dateTimeContent.find_first_of(" ");
+			_date = dateTimeContent.substr(taskFirst,taskLast);
 			architectureLogic::determineContentDate(_date);
-			_startTime = "";
+
+			taskFirst =  _newContent.find_last_of(" ");
+			taskFirst = taskFirst + 1;
+			taskLast = _newContent.npos;
+			_startTime = _newContent.substr(taskFirst,taskLast);
 			architectureLogic::determineContentStartTime(_startTime);
+
 			_endTime = "";
 			architectureLogic::determineContentEndTime(_endTime);
 		}
+		else {
+			taskLast = _newContent.find(" by ");
 
-		
+			if(taskLast!=std::string::npos){
+
+				taskLast = taskLast;
+				_taskDesc = _newContent.substr(taskFirst,taskLast);
+				architectureLogic::determineContentDescription(_taskDesc);
+
+				taskFirst = taskLast+4;
+				taskLast = _newContent.npos;
+				std::string dateTimeContent = _newContent.substr(taskFirst,taskLast);
+				taskFirst = 0;
+				taskLast = dateTimeContent.find_first_of(" ");
+				_date = dateTimeContent.substr(taskFirst,taskLast);
+				architectureLogic::determineContentDate(_date);
+
+				taskFirst =  _newContent.find_last_of(" ");
+				taskFirst = taskFirst + 1;
+				taskLast = _newContent.npos;
+				_startTime = _newContent.substr(taskFirst,taskLast);
+				architectureLogic::determineContentStartTime(_startTime);
+
+				_endTime = "";
+				architectureLogic::determineContentEndTime(_endTime);
+			}
+			else {
+				taskLast = _newContent.npos;
+				_taskDesc = _newContent.substr(taskFirst,taskLast);
+				architectureLogic::determineContentDescription(_taskDesc);
+				_date = "";
+				architectureLogic::determineContentDate(_date);
+				_startTime = "";
+				architectureLogic::determineContentStartTime(_startTime);
+				_endTime = "";
+				architectureLogic::determineContentEndTime(_endTime);
+			}
+		}
+	}
 
 
-		
-
-
-return;
+	return;
 
 }
 
 void Parser::tokenizeUPDATE(std::string tokenizeContent) {
-		
-		_newContent = tokenizeContent;
-		size_t taskFirst = _newContent.find_first_not_of(" ");
-		size_t taskLast = _newContent.find_first_of(" ");
-		_taskID = _newContent.substr(taskFirst,taskLast);
-		taskFirst = taskLast+1;
-		taskLast = _newContent.npos;
-		std::string updateContent = _newContent.substr(taskFirst,taskLast);
-		tokenizeADD(updateContent);
-		
+
+	_newContent = tokenizeContent;
+	size_t taskFirst = _newContent.find_first_not_of(" ");
+	size_t taskLast = _newContent.find_first_of(" ");
+	_taskID = _newContent.substr(taskFirst,taskLast);
+	taskFirst = taskLast+1;
+	taskLast = _newContent.npos;
+	std::string updateContent = _newContent.substr(taskFirst,taskLast);
+	tokenizeADD(updateContent);
+
 }
 
 
@@ -147,23 +137,23 @@ void Parser::tokenizeUPDATE(std::string tokenizeContent) {
 /*
 void Parser::tokenizeDELETE(std::string tokenizeContent){
 
-	tokenizeSingleWord(tokenizeContent);
+tokenizeSingleWord(tokenizeContent);
 }
 
 
 void Parser::tokenizeSEARCH(std::string tokenizeContent){
 
-	tokenizeSingleWord(tokenizeContent);	
+tokenizeSingleWord(tokenizeContent);	
 }
 
 void Parser::tokenizeSingleWord(std::string tokenizeContent){
 
-		_newContent = tokenizeContent;
-		size_t taskFirst = 0;
-		size_t taskLast = _newContent.npos;
-		_taskDesc = _newContent.substr(taskFirst,taskLast);
-		architectureLogic::determineContentDescription(_taskDesc);
-	
+_newContent = tokenizeContent;
+size_t taskFirst = 0;
+size_t taskLast = _newContent.npos;
+_taskDesc = _newContent.substr(taskFirst,taskLast);
+architectureLogic::determineContentDescription(_taskDesc);
+
 }
 
 */

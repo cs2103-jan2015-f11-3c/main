@@ -32,7 +32,7 @@ namespace UI {
 	private: System::Windows::Forms::Label^  miscellaneousLabel;
 	private: System::Windows::Forms::TextBox^  textBox1;
 	private: System::Windows::Forms::TextBox^  textBox2;
-	private: System::Windows::Forms::Timer^  timer1;
+
 
 			 architectureStorage* storage;
 
@@ -90,7 +90,6 @@ namespace UI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(architectureGUI::typeid));
 			this->commandLineTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->feedbackTextBox = (gcnew System::Windows::Forms::TextBox());
@@ -103,7 +102,6 @@ namespace UI {
 			this->miscellaneousLabel = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->logoPictureBox))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -285,5 +283,6 @@ namespace UI {
 			
 			 }
 	
+
 };
 }

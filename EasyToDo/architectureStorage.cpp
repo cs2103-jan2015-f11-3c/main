@@ -1,7 +1,6 @@
 #include "architectureStorage.h"
 #include "architectureLogic.h"
 #include "architectureParser.h"
-#include "architectureHistory.h"
 
 std:: vector<TASK> architectureStorage::masterTaskList;
 //std:: vector<TASK> architectureStorage::floatingTaskList; 

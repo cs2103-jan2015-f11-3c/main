@@ -1,9 +1,8 @@
 #include "architectureLogic.h"
 #include "architectureStorage.h"
 #include "architectureParser.h"
-#include "architectureHistory.h"
 
-const std:: string architectureLogic::MESSAGE_ADD = "%s, %s, %s, %s is added successfully";
+const std:: string architectureLogic::MESSAGE_ADD = "Task %s, %s, %s, %s, is added successfully";
 const std:: string architectureLogic::MESSAGE_INVALID = "ERROR! Invalid Command";
 const std:: string architectureLogic::MESSAGE_NOTFOUND = "Task is not found!";
 const std:: string architectureLogic::MESSAGE_DELETE = "Task %s is deleted!";
@@ -40,8 +39,8 @@ std:: string architectureLogic::determineCommand(std:: string content){
 	while ( ( pos = content.find ("\r\n",pos) ) != std::string::npos ) {
 		content.erase ( pos, 2 );
 	}
-
-	size_t positionStart = content.find_first_not_of(" \t\n");
+	
+	size_t positionStart = content.find_first_not_of(" ");
 	size_t positionEnd = content.find_first_of(" ");
 
 	_command = content.substr(positionStart, positionEnd);
@@ -130,7 +129,7 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 
 std:: string architectureLogic::addTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
 	architectureStorage::addToMasterStorage(task, date, startTime, endTime);
-	architectureStorage::sortStorage();
+	// architectureStorage::sortStorage();
 	architectureStorage::updateTaskID();
 
 	sprintf_s(buffer, MESSAGE_ADD.c_str(), task.c_str(), date.c_str(), startTime.c_str(), endTime.c_str());
@@ -195,7 +194,7 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 	int ID = stringToInteger(taskID);
 	if(isTaskIDValid(ID)) {
 		architectureStorage::updateToStorage(ID, newTask, newDate, newStartTime, newEndTime);
-		architectureStorage::sortStorage();
+		// architectureStorage::sortStorage();
 		architectureStorage::updateTaskID();
 		sprintf_s(buffer, MESSAGE_UPDATE.c_str(), temp.c_str());
 		return buffer;
