@@ -1,8 +1,9 @@
 #include "architectureLogic.h"
 #include "architectureStorage.h"
 #include "architectureParser.h"
+#include "architectureHistory.h"
 
-const std:: string architectureLogic::MESSAGE_ADD = "%s, %s added successfully";
+const std:: string architectureLogic::MESSAGE_ADD = "%s, %s, %s, %s is added successfully";
 const std:: string architectureLogic::MESSAGE_INVALID = "ERROR! Invalid Command";
 const std:: string architectureLogic::MESSAGE_NOTFOUND = "Task is not found!";
 const std:: string architectureLogic::MESSAGE_DELETE = "Task%s is deleted!";
@@ -25,7 +26,6 @@ std:: string architectureLogic::_contentDate;
 std:: string architectureLogic::_taskID;
 
 char architectureLogic::buffer[MAX];
-
 
 architectureLogic::architectureLogic(){
 }
@@ -104,7 +104,7 @@ void architectureLogic::determineTaskID(std:: string parserInput) {
 }
 
 std:: string architectureLogic::executeCommand(std:: string commandAction) { 
-	// undoStack.push(commandAction);
+	architectureHistory::determinePreviousAction(commandAction);
 	CommandType commandTypeAction = determineCommandType(commandAction);
 
 	switch(commandTypeAction) { 
@@ -121,7 +121,8 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	case INVALID:
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
-	//case UNDO:
+	/* case UNDO:
+		return undoTask();*/
 	case EXIT: 
 		exit(0);
 	}
@@ -129,16 +130,6 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 
 std:: string architectureLogic::addTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
 	architectureStorage::addToMasterStorage(task, date, startTime, endTime);
-	if(endTime == "" ) {
-		if(startTime == "") {
-			architectureStorage::addToFloatingStorage(task, date, startTime, endTime);
-		} else {
-			architectureStorage::addToDeadlineStorage(task, date, startTime, endTime);
-		}
-	} else {
-		architectureStorage::addToTimedStorage(task, date, startTime, endTime);
-	}
-
 	architectureStorage::sortStorage();
 	architectureStorage::updateTaskID();
 
@@ -214,16 +205,20 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 		return buffer;
 	}
 }
-
 /*
+std:: string architectureLogic::undoTask() {
+	if(isUndoValid()) {
+		std:: string previousCommand;
+		previousCommand = previousActionStack.top();
+		CommandType commandTypeAction = determineCommandType(previousCommand);
+	}
+}
+
 bool architectureLogic::isUndoValid() {
 	if(undoStack.empty()) {
 		return false;
-	} 
-
-	std:: string previousCommand;
-	previousCommand = undoStack.top();
-	CommandType commandTypeAction = determineCommandType(previousCommand);
-
+	} else {
+		return true;
+	}
 }
-	*/
+*/

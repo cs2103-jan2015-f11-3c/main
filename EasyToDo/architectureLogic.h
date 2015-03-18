@@ -37,11 +37,10 @@ private:
 	static const int MAX = 255;
 	static char buffer[MAX];
 	
-
 public:
 	architectureLogic();
 	enum CommandType { 
-		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE,
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, 
 	};
 	std:: string determineCommand(std:: string content);
 	std:: string addTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
@@ -49,6 +48,7 @@ public:
 	std:: string executeCommand(std:: string commandAction);
 	std:: string clearTask(std:: string content);
 	std:: string updateTask(std:: string taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime) ;
+	std:: string undoTask();
 	static void determineContentDescription(std:: string parserInput);
 	static void determineContentStartTime(std:: string parserInput);
 	static void determineContentEndTime(std:: string parserInput);
