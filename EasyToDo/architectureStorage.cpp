@@ -130,6 +130,7 @@ void architectureStorage::sortStorage() {
 		return (left.taskStartTimeList < right.taskStartTimeList);
 	} );
 }
+
 /*
 bool architectureStorage::compareByTime(TASK& a, TASK& b) {
 	return a.taskStartTimeList[0] < b.taskStartTimeList[0];
@@ -143,8 +144,4 @@ void architectureStorage::clearTodayFromStorage() {
 void architectureStorage::clearUpcomingFromStorage() {
 
 }
-
-std::sort( stud.begin(), stud.end(),
-              []( const STUDENT &left, const STUDENT &right )
-                 { return ( left.classRanking < right.classRanking ); } );
 */
