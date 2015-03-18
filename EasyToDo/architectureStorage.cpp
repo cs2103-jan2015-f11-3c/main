@@ -124,7 +124,7 @@ void architectureStorage::sortStorage() {
 }
 
 bool architectureStorage::compareByTime(const TASK& a, const TASK& b) {
-	return a.taskStartTimeList < b.taskStartTimeList;
+	return a.taskStartTimeList[0] < b.taskStartTimeList[0];
 }
 
 /*

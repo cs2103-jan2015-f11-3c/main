@@ -22,8 +22,6 @@ std:: string architectureLogic::_contentDescription;
 std:: string architectureLogic::_contentStartTime;
 std:: string architectureLogic::_contentEndTime;
 std:: string architectureLogic::_contentDate;
-std:: string architectureLogic::_newTask;
-std:: string architectureLogic::_newTime;
 std:: string architectureLogic::_taskID;
 
 char architectureLogic::buffer[MAX];
@@ -101,6 +99,10 @@ void architectureLogic::determineContentDate(std:: string parserInput) {
 	_contentDate = parserInput;
 }
 
+void architectureLogic::determineTaskID(std:: string parserInput) {
+	_taskID = parserInput;
+}
+
 std:: string architectureLogic::executeCommand(std:: string commandAction) { 
 	// undoStack.push(commandAction);
 	CommandType commandTypeAction = determineCommandType(commandAction);
@@ -115,7 +117,7 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 		return clearTask(_content);
 	case UPDATE:
 		Parser::tokenizeUpdate(_content);
-		return updateTask(_taskID, _newTask, _newTime);
+		return updateTask(_taskID, _contentDescription, _contentDate, _contentStartTime, _contentEndTime);
 	case INVALID:
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
@@ -198,11 +200,11 @@ std:: string architectureLogic::clearTask(std:: string content) {
 	  }*/
 }
 
-std:: string architectureLogic::updateTask(std:: string taskID, std:: string newTask, std:: string newTime) {
+std:: string architectureLogic::updateTask(std:: string taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime) {
 	const std:: string temp = taskID;
 	int ID = stringToInteger(taskID);
 	if(isTaskIDValid(ID)) {
-		architectureStorage::updateToStorage(ID, newTask, newTime);
+		architectureStorage::updateToStorage(ID, newTask, newDate, newStartTime, newEndTime);
 		architectureStorage::sortStorage();
 		architectureStorage::updateTaskID();
 	return buffer;
@@ -214,6 +216,7 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 	}
 }
 
+/*
 bool architectureLogic::isUndoValid() {
 	if(undoStack.empty()) {
 		return false;
@@ -224,4 +227,4 @@ bool architectureLogic::isUndoValid() {
 	CommandType commandTypeAction = determineCommandType(previousCommand);
 
 }
-	
+	*/
