@@ -15,23 +15,29 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 	
 		
 		_newContent = tokenizeContent;
+	
 		size_t taskFirst = 0;
 		size_t taskLast = _newContent.find("on");
 		
 		if(taskLast!=std::string::npos){
 
 		taskLast = taskLast-1;
-		_taskDesc = _newContent.substr(taskFirst,taskLast); //taskDesc is taskID
+		_taskDesc = _newContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentDescription(_taskDesc);
 		
-		size_t timeFirst = _taskDesc.find_first_of(" ");
-		size_t timeLast = _taskDesc.find_last_of(" ");
-		_date = _newContent.substr(timeFirst,timeLast);
+		taskFirst = taskLast+4;
+		taskLast = _newContent.npos;
+		std::string dateTimeContent = _newContent.substr(taskFirst,taskLast);
+		std::cout <<dateTimeContent<<std::endl;
+		taskFirst = 0;
+		taskLast = dateTimeContent.find_first_of(" ");
+		_date = dateTimeContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentDate(_date);
 
-		taskFirst =  _taskDesc.find_last_of(" ");
-		taskLast = _taskDesc.npos;
-		_startTime = _taskDesc.substr(timeFirst,timeLast);
+		taskFirst =  _newContent.find_last_of(" ");
+		taskFirst = taskFirst + 1;
+		taskLast = _newContent.npos;
+		_startTime = _newContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentStartTime(_startTime);
 
 		_endTime = "";
@@ -46,17 +52,22 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 		if(taskLast!=std::string::npos){
 
 		taskLast = taskLast-1;
-		_taskDesc = _newContent.substr(taskFirst,taskLast); //taskDesc is taskID
+		_taskDesc = _newContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentDescription(_taskDesc);
 		
-		size_t timeFirst = _taskDesc.find_first_of(" ");
-		size_t timeLast = _taskDesc.find_last_of(" ");
-		_date = _newContent.substr(timeFirst,timeLast);
+		taskFirst = taskLast+4;
+		taskLast = _newContent.npos;
+		std::string dateTimeContent = _newContent.substr(taskFirst,taskLast);
+		std::cout <<dateTimeContent<<std::endl;
+		taskFirst = 0;
+		taskLast = dateTimeContent.find_first_of(" ");
+		_date = dateTimeContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentDate(_date);
 
-		taskFirst =  _taskDesc.find_last_of(" ");
-		taskLast = _taskDesc.npos;
-		_startTime = _taskDesc.substr(timeFirst,timeLast);
+		taskFirst =  _newContent.find_last_of(" ");
+		taskFirst = taskFirst + 1;
+		taskLast = _newContent.npos;
+		_startTime = _newContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentStartTime(_startTime);
 
 		_endTime = "";
@@ -69,31 +80,36 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 		if(taskLast!=std::string::npos){
 		
 		taskLast = taskLast-1;
-		_taskDesc = _newContent.substr(taskFirst,taskLast); //taskDesc is taskID
+		_taskDesc = _newContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentDescription(_taskDesc);
 		
-		size_t timeFirst = _taskDesc.find_first_of(" ");
-		size_t timeLast = _taskDesc.find_last_of(" ");
-		_date = _newContent.substr(timeFirst,timeLast);
-	    architectureLogic::determineContentDate(_date);
+		taskFirst = taskLast+6;
+		taskLast = _newContent.npos;
+		std::string dateTimeContent = _newContent.substr(taskFirst,taskLast);
+		std::cout <<dateTimeContent<<std::endl;
+		taskFirst = 0;
+		taskLast = dateTimeContent.find_first_of(" ");
+		_date = dateTimeContent.substr(taskFirst,taskLast);
+		architectureLogic::determineContentDate(_date);
 
 		taskFirst = taskLast+1;
-		taskLast = _taskDesc.npos;
-		_newContent = _taskDesc.substr(taskFirst,taskLast);
-		taskFirst = _taskDesc.find_first_of(" ");
-		taskLast = _taskDesc.find_first_of("-");
-		_startTime = _taskDesc.substr(timeFirst,timeLast);
+		taskLast = dateTimeContent.npos;
+		std::string timeContent = dateTimeContent.substr(taskFirst,taskLast);
+		taskFirst = 0;
+		taskLast = timeContent.find_first_of("-");
+		_startTime = timeContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentStartTime(_startTime);
 
-		timeFirst = _taskDesc.find_first_of("-");
-		timeLast = _taskDesc.npos;
-		_endTime = _taskDesc.substr(taskFirst,taskLast);
+		taskFirst = _newContent.find_last_of("-");
+		taskFirst = taskFirst+1;
+		taskLast = _newContent.npos;
+		_endTime = _newContent.substr(taskFirst,taskLast);
 		architectureLogic::determineContentEndTime(_endTime);
 		}
 		else
 		{
 			taskLast = _newContent.npos;
-			_taskDesc = _newContent.substr(taskFirst,taskLast); //taskDesc is taskID
+			_taskDesc = _newContent.substr(taskFirst,taskLast);
 			architectureLogic::determineContentDescription(_taskDesc);
 			_date = "";
 			architectureLogic::determineContentDate(_date);
@@ -116,7 +132,7 @@ return;
 void Parser::tokenizeUPDATE(std::string tokenizeContent) {
 		
 		_newContent = tokenizeContent;
-		size_t taskFirst = 0;
+		size_t taskFirst = _newContent.find_first_not_of(" ");
 		size_t taskLast = _newContent.find_first_of(" ");
 		_taskID = _newContent.substr(taskFirst,taskLast);
 		taskFirst = taskLast+1;
