@@ -17,7 +17,7 @@ void architectureStorage::updateTaskID() {
 	int counter = 1;
 
 	while(!(masterTaskList.empty())) {
-		masterTaskList[counter-1].taskID = counter;
+		(masterTaskList[counter-1]).taskID = counter;
 		counter++;
 	}
 }

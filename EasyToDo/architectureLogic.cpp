@@ -6,7 +6,7 @@
 const std:: string architectureLogic::MESSAGE_ADD = "%s, %s, %s, %s is added successfully";
 const std:: string architectureLogic::MESSAGE_INVALID = "ERROR! Invalid Command";
 const std:: string architectureLogic::MESSAGE_NOTFOUND = "Task is not found!";
-const std:: string architectureLogic::MESSAGE_DELETE = "Task%s is deleted!";
+const std:: string architectureLogic::MESSAGE_DELETE = "Task %s is deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARALL = "All task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARTODAY = "Today's task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARUPCOMING = "Upcoming task(s) are deleted!";
@@ -104,7 +104,7 @@ void architectureLogic::determineTaskID(std:: string parserInput) {
 }
 
 std:: string architectureLogic::executeCommand(std:: string commandAction) { 
-	architectureHistory::determinePreviousAction(commandAction);
+	// architectureHistory::determinePreviousAction(commandAction);
 	CommandType commandTypeAction = determineCommandType(commandAction);
 
 	switch(commandTypeAction) { 
@@ -174,7 +174,7 @@ std:: string architectureLogic::clearTask(std:: string content) {
 	if(isStorageEmpty()) { 
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
 		return buffer;
-	}  else /*if(content == MESSAGE_ALL)*/ {
+	}  else {
 		architectureStorage::clearAllFromStorage();
 		sprintf_s(buffer, MESSAGE_CLEARALL.c_str());
 		return buffer;
@@ -197,7 +197,6 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 		architectureStorage::updateToStorage(ID, newTask, newDate, newStartTime, newEndTime);
 		architectureStorage::sortStorage();
 		architectureStorage::updateTaskID();
-	return buffer;
 		sprintf_s(buffer, MESSAGE_UPDATE.c_str(), temp.c_str());
 		return buffer;
 	} else {

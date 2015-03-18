@@ -48,7 +48,7 @@ public:
 	std:: string executeCommand(std:: string commandAction);
 	std:: string clearTask(std:: string content);
 	std:: string updateTask(std:: string taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime) ;
-	std:: string undoTask();
+	// std:: string undoTask();
 	static void determineContentDescription(std:: string parserInput);
 	static void determineContentStartTime(std:: string parserInput);
 	static void determineContentEndTime(std:: string parserInput);
@@ -59,7 +59,7 @@ public:
 	bool isTaskIDValid(int taskID);
 	bool isStorageEmpty();
 	int stringToInteger(std:: string input);
-	bool isUndoValid();
+	// bool isUndoValid();
 
 };
 #endif

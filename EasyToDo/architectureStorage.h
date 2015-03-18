@@ -40,7 +40,6 @@ public:
 	static void clearAllFromStorage();
 	static std:: vector<TASK>::iterator findIterator(int taskID);
 	static void sortStorage();
-	bool compareByTime(const TASK& a, const TASK& b);
 	// static void clearTodayFromStorage();
 	// static void clearUpcomingFromStorage();
 };
