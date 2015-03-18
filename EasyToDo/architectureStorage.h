@@ -17,11 +17,11 @@ struct TASK {
 class architectureStorage {
 private:
 	static std:: vector<TASK> masterTaskList;
-	static std:: vector<TASK> architectureStorage::floatingTaskList; //Task that do not have a specific deadline
-	static std:: vector<TASK> architectureStorage::timedTaskList; //Task that has specific timeframe
-	static std:: vector<TASK> architectureStorage::deadlineTaskList; //Task that has a due date or target time
+	//static std:: vector<TASK> floatingTaskList; //Task that do not have a specific deadline
+	//static std:: vector<TASK> timedTaskList; //Task that has specific timeframe
+	//static std:: vector<TASK> deadlineTaskList; //Task that has a due date or target time
 	//static std:: vector<TASK> todayTaskList;
-	// static std:: vector<TASK> upcomingTaskList;
+	//static std:: vector<TASK> upcomingTaskList;
 public:
 	architectureStorage();
 	static void updateTaskID();

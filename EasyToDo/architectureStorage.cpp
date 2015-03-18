@@ -1,12 +1,12 @@
-
 #include "architectureStorage.h"
 #include "architectureLogic.h"
 #include "architectureParser.h"
+#include "architectureHistory.h"
 
 std:: vector<TASK> architectureStorage::masterTaskList;
-std:: vector<TASK> architectureStorage::floatingTaskList; 
-std:: vector<TASK> architectureStorage::timedTaskList; 
-std:: vector<TASK> architectureStorage::deadlineTaskList;
+//std:: vector<TASK> architectureStorage::floatingTaskList; 
+//std:: vector<TASK> architectureStorage::timedTaskList; 
+//std:: vector<TASK> architectureStorage::deadlineTaskList;
 //std:: vector<TASK> architectureStorage::todayTaskList;
 //std:: vector<TASK> architectureStorage::upcomingTaskList;
 
@@ -38,7 +38,7 @@ void architectureStorage::addToMasterStorage(std:: string task, std:: string dat
 	masterTaskList.push_back(temp);
 	return;
 }
-
+/*
 void architectureStorage::addToFloatingStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
 	TASK temp;
 	temp = initializeTask(task, date, startTime, endTime);
@@ -59,7 +59,7 @@ void architectureStorage::addToDeadlineStorage(std:: string task, std:: string d
 	deadlineTaskList.push_back(temp);
 	return;
 }
-
+*/
 std:: vector<std:: string> architectureStorage::retrieveMasterTaskList() {
 	std:: vector<TASK>:: iterator iter;
 	std:: vector<std:: string> temp;
@@ -120,6 +120,7 @@ void architectureStorage::sortStorage() {
 	std:: sort(masterTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
 		return (left.taskStartTimeList < right.taskStartTimeList);
 	} );
+	/*
 	std:: sort(floatingTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
 		return (left.taskStartTimeList < right.taskStartTimeList);
 	} );
@@ -129,6 +130,7 @@ void architectureStorage::sortStorage() {
 	std:: sort(deadlineTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
 		return (left.taskStartTimeList < right.taskStartTimeList);
 	} );
+	*/
 }
 
 /*
