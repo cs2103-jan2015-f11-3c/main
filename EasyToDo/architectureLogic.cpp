@@ -19,13 +19,15 @@ const std:: string architectureLogic::MESSAGE_UPCOMING = "upcoming";
 std:: string architectureLogic::_command;
 std:: string architectureLogic::_content;
 std:: string architectureLogic::_contentDescription;
-std:: string architectureLogic::_contentTime;
+std:: string architectureLogic::_contentStartTime;
+std:: string architectureLogic::_contentEndTime;
+std:: string architectureLogic::_contentDate;
 std:: string architectureLogic::_newTask;
 std:: string architectureLogic::_newTime;
 std:: string architectureLogic::_taskID;
 
 char architectureLogic::buffer[MAX];
-static std:: stack<std:: string> undoStack;
+
 
 architectureLogic::architectureLogic(){
 }
@@ -87,8 +89,16 @@ void architectureLogic::determineContentDescription(std:: string parserInput) {
 	_contentDescription = parserInput;
 }
 
-void architectureLogic::determineContentTime(std:: string parserInput) {
-	_contentTime = parserInput;
+void architectureLogic::determineContentStartTime(std:: string parserInput) {
+	_contentStartTime = parserInput;
+}
+
+void architectureLogic::determineContentEndTime(std:: string parserInput) {
+	_contentEndTime = parserInput;
+}
+
+void architectureLogic::determineContentDate(std:: string parserInput) {
+	_contentDate = parserInput;
 }
 
 std:: string architectureLogic::executeCommand(std:: string commandAction) { 
@@ -98,7 +108,7 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	switch(commandTypeAction) { 
 	case ADD: 
 		Parser::tokenizeADD(_content);
-		return addTask(_contentDescription, _contentTime);
+		return addTask(_contentDescription, _contentDate, _contentStartTime, _contentEndTime);
 	case DELETE:
 		return deleteTask(_content);
 	case CLEAR:
@@ -116,12 +126,12 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	}
 }
 
-std:: string architectureLogic::addTask(std:: string task, std:: string time) {
-	architectureStorage::addToStorage(task, time);
+std:: string architectureLogic::addTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
+	architectureStorage::addToStorage(task, date, startTime, endTime);
 	architectureStorage::sortStorage();
 	architectureStorage::updateTaskID();
 
-	sprintf_s(buffer, MESSAGE_ADD.c_str(), task.c_str(), time.c_str());
+	sprintf_s(buffer, MESSAGE_ADD.c_str(), task.c_str(), date.c_str(), startTime.c_str(), endTime.c_str());
 	return buffer;
 }
 

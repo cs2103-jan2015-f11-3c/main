@@ -8,7 +8,9 @@
 
 struct TASK {
 	std:: string taskDescriptionList;
-	std:: string taskTimeList;
+	std:: string taskDateList;
+	std:: string taskStartTimeList;
+	std:: string taskEndTimeList;
 	int taskID;
 };
 
@@ -20,14 +22,14 @@ private:
 public:
 	architectureStorage();
 	static void updateTaskID();
-	static TASK initializeTask(std:: string task, std:: string time);
-	static void addToStorage(std:: string task, std:: string time);
+	static TASK initializeTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
+	static void addToStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	static std:: vector<std:: string> architectureStorage::retrieveMasterTaskList();
 	// static std:: vector<std:: string> architectureStorage::retrieveTodayTaskList();
 	// static std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList();
 	static int findTotalNumberofTask();
 	static void deleteFromStorage(int taskID);
-	static void updateToStorage(int taskID, std:: string newTask, std:: string newTime);
+	static void updateToStorage(int taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime);
 	static bool isTaskDescriptionListEmpty();
 	static void clearAllFromStorage();
 	static std:: vector<TASK>::iterator findIterator(int taskID);

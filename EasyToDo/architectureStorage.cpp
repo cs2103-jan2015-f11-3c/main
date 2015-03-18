@@ -19,17 +19,19 @@ void architectureStorage::updateTaskID() {
 	}
 }
 
-TASK architectureStorage::initializeTask(std:: string task, std:: string time) {
+TASK architectureStorage::initializeTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
 	TASK temp;
 	temp.taskDescriptionList = task;
-	temp.taskTimeList = time;
+	temp.taskDateList = date; 
+	temp.taskStartTimeList = startTime;
+	temp.taskEndTimeList = endTime;
 	temp.taskID = 0;
 	return temp;
 }
 
-void architectureStorage::addToStorage(std:: string task, std:: string time) {
+void architectureStorage::addToStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
 	TASK temp;
-	temp = initializeTask(task, time);
+	temp = initializeTask(task, date, startTime, endTime);
 	masterTaskList.push_back(temp);
 	return;
 }
@@ -81,9 +83,9 @@ void architectureStorage::clearAllFromStorage() {
 	return;
 }
 
-void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:: string newTime) {
+void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime) {
 	TASK temp;
-	temp = initializeTask(newTask, newTime);
+	temp = initializeTask(newTask, newDate, newStartTime, newEndTime);
 	deleteFromStorage(taskID);
 	std:: vector<TASK>::iterator iter = findIterator(taskID);
 	masterTaskList.insert(iter, temp);
@@ -95,8 +97,9 @@ void architectureStorage::sortStorage() {
 }
 
 bool architectureStorage::compareByTime(const TASK& a, const TASK& b) {
-	return a.taskTimeList < b.taskTimeList;
+	return a.taskStartTimeList < b.taskStartTimeList;
 }
+
 /*
 void architectureStorage::clearTodayFromStorage() {
 
