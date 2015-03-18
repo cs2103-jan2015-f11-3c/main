@@ -62,9 +62,9 @@ architectureLogic::CommandType architectureLogic::determineCommandType(std:: str
 		return CommandType::CLEAR;
 	} else if(isValidCommand(commandAction, "update")) {
 		return CommandType::UPDATE;
-	} else if(isValidCommand(commandAction, "UNDO")) {
+	} /*else if(isValidCommand(commandAction, "undo")) {
 		return CommandType::UNDO;
-	} else { 
+	} */else { 
 		return CommandType::INVALID;
 	} 
 }
@@ -116,13 +116,12 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	case CLEAR:
 		return clearTask(_content);
 	case UPDATE:
-		Parser::tokenizeUpdate(_content);
+		Parser::tokenizeUPDATE(_content);
 		return updateTask(_taskID, _contentDescription, _contentDate, _contentStartTime, _contentEndTime);
 	case INVALID:
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
-	case UNDO:
-
+	//case UNDO:
 	case EXIT: 
 		exit(0);
 	}
@@ -184,7 +183,7 @@ std:: string architectureLogic::clearTask(std:: string content) {
 	if(isStorageEmpty()) { 
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
 		return buffer;
-	}  else if(content == MESSAGE_ALL) {
+	}  else /*if(content == MESSAGE_ALL)*/ {
 		architectureStorage::clearAllFromStorage();
 		sprintf_s(buffer, MESSAGE_CLEARALL.c_str());
 		return buffer;
