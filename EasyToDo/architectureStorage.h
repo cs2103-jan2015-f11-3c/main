@@ -36,7 +36,7 @@ public:
 	static int findTotalNumberofTask();
 	static void deleteFromStorage(int taskID);
 	static void updateToStorage(int taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime);
-	static bool isTaskDescriptionListEmpty();
+	static bool isMasterTaskListEmpty();
 	static void clearAllFromStorage();
 	static std:: vector<TASK>::iterator findIterator(int taskID);
 	static void sortStorage();

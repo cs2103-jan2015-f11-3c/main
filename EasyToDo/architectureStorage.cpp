@@ -67,7 +67,7 @@ std:: vector<std:: string> architectureStorage::retrieveMasterTaskList() {
 		std:: stringstream ss;
 		ss << iter->taskID;
 		std:: string str = ss.str();
-		temp.push_back(str + ". " + iter->taskDescriptionList + ", " + iter->taskDateList + ", " + iter->taskStartTimeList + ", " + iter->taskEndTimeList);
+		temp.push_back(str + ". " + iter->taskDescriptionList + " " + iter->taskDateList + " " + iter->taskStartTimeList + " " + iter->taskEndTimeList);
 	}
 	return temp;
 }
@@ -91,8 +91,12 @@ int architectureStorage::findTotalNumberofTask() {
 	return masterTaskList.size();
 }
 
-bool architectureStorage::isTaskDescriptionListEmpty() {
-	return masterTaskList.empty();
+bool architectureStorage::isMasterTaskListEmpty() {
+	if(masterTaskList.size() == 0) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 std:: vector<TASK>::iterator architectureStorage::findIterator(int taskID) {
@@ -107,11 +111,13 @@ void architectureStorage::clearAllFromStorage() {
 }
 
 void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime) {
+	/*
 	TASK temp;
 	temp = initializeTask(newTask, newDate, newStartTime, newEndTime);
-	deleteFromStorage(taskID);
 	std:: vector<TASK>::iterator iter = findIterator(taskID);
-	masterTaskList.insert(iter, temp);
+	*/
+	deleteFromStorage(taskID);
+	addToMasterStorage(newTask, newDate, newStartTime, newEndTime);
 	return;
 }
 

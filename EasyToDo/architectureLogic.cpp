@@ -2,7 +2,16 @@
 #include "architectureStorage.h"
 #include "architectureParser.h"
 
-const std:: string architectureLogic::MESSAGE_ADD = "Task %s, %s, %s, %s, is added successfully";
+/*
+to do list requires basic support of storage/retrieval of info, display of info to user and updating 
+existing info. thus to reduce coupling from the innate nature of interlinkedness, we separated the
+architecture to 5 different components of UI, Parser, Logic, Storage, History
+*/
+
+/*
+logic is a facade class that separate the storage vectors in Storage and the users(UI) 
+*/
+const std:: string architectureLogic::MESSAGE_ADD = "Task \"%s %s %s %s\" is added successfully";
 const std:: string architectureLogic::MESSAGE_INVALID = "ERROR! Invalid Command";
 const std:: string architectureLogic::MESSAGE_NOTFOUND = "Task is not found!";
 const std:: string architectureLogic::MESSAGE_DELETE = "Task %s is deleted!";
@@ -31,7 +40,7 @@ architectureLogic::architectureLogic(){
 
 std:: string architectureLogic::determineCommand(std:: string content){
 	std:: string feedBack;
-
+	
 	// next three codes can SLAP
 
 	size_t pos = 0;
@@ -39,18 +48,23 @@ std:: string architectureLogic::determineCommand(std:: string content){
 	while ( ( pos = content.find ("\r\n",pos) ) != std::string::npos ) {
 		content.erase ( pos, 2 );
 	}
-	
+	if (content == "")
+		throw std::invalid_argument("recieved empty string");
 	size_t positionStart = content.find_first_not_of(" ");
+	assert(positionStart >= 0);
 	size_t positionEnd = content.find_first_of(" ");
+	assert(positionEnd >= 0);
 
 	_command = content.substr(positionStart, positionEnd);
 	_content = content.substr(positionEnd);
+	assert(_command != "");
 	feedBack = executeCommand(_command);
 
 	return feedBack;
 }
 
 architectureLogic::CommandType architectureLogic::determineCommandType(std:: string commandAction) { 
+	assert(commandAction != "");
 	if(isValidCommand(commandAction, "add")) { 
 		return CommandType::ADD; 
 	} else if(isValidCommand(commandAction, "exit")) { 
@@ -81,8 +95,8 @@ bool architectureLogic::isValidCommand(const std:: string& str1, const std:: str
 		} 
 	} return true; 
 }
-
 void architectureLogic::determineContentDescription(std:: string parserInput) {
+	assert(parserInput != "");
 	_contentDescription = parserInput;
 }
 
@@ -101,8 +115,11 @@ void architectureLogic::determineContentDate(std:: string parserInput) {
 void architectureLogic::determineTaskID(std:: string parserInput) {
 	_taskID = parserInput;
 }
-
+/*
+command pattern: execute the command without knowing the specific type of command
+*/
 std:: string architectureLogic::executeCommand(std:: string commandAction) { 
+	assert(commandAction != "");
 	// architectureHistory::determinePreviousAction(commandAction);
 	CommandType commandTypeAction = determineCommandType(commandAction);
 
@@ -128,8 +145,20 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 }
 
 std:: string architectureLogic::addTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
+	assert(task != "");
+	/*
+	if(endTgime == "") {
+		if(startTime == "") {
+			LOG(TASK_INFO, "this is a floating task");
+		} else {
+			LOG(TASK_INFO, "this is a deadline task");
+		}
+	} else {
+		LOG(TASK_INFO, "this is a timed task");
+	}
+	*/
 	architectureStorage::addToMasterStorage(task, date, startTime, endTime);
-	// architectureStorage::sortStorage();
+	architectureStorage::sortStorage();
 	architectureStorage::updateTaskID();
 
 	sprintf_s(buffer, MESSAGE_ADD.c_str(), task.c_str(), date.c_str(), startTime.c_str(), endTime.c_str());
@@ -138,6 +167,7 @@ std:: string architectureLogic::addTask(std:: string task, std:: string date, st
 
 bool architectureLogic::isTaskIDValid(int taskID) {
 	int size = architectureStorage::findTotalNumberofTask();
+	assert(size >=0);
 	if(size < taskID) {
 		return false;
 	} else {
@@ -146,6 +176,7 @@ bool architectureLogic::isTaskIDValid(int taskID) {
 }
 
 std:: string architectureLogic::deleteTask(std:: string taskID) {
+	assert(taskID !=  "");
 	const std:: string temp = taskID;
 	int ID = stringToInteger(taskID); 
 	if(isTaskIDValid(ID)) {
@@ -160,7 +191,7 @@ std:: string architectureLogic::deleteTask(std:: string taskID) {
 }
 
 bool architectureLogic::isStorageEmpty() {
-	return architectureStorage::isTaskDescriptionListEmpty();
+	return architectureStorage::isMasterTaskListEmpty();
 }
 
 int architectureLogic::stringToInteger(std:: string input) {
@@ -169,7 +200,7 @@ int architectureLogic::stringToInteger(std:: string input) {
 	return taskID;
 }
 
-std:: string architectureLogic::clearTask(std:: string content) {
+std:: string architectureLogic::clearTask(std:: string _content) {
 	if(isStorageEmpty()) { 
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
 		return buffer;
@@ -194,7 +225,7 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 	int ID = stringToInteger(taskID);
 	if(isTaskIDValid(ID)) {
 		architectureStorage::updateToStorage(ID, newTask, newDate, newStartTime, newEndTime);
-		// architectureStorage::sortStorage();
+		architectureStorage::sortStorage();
 		architectureStorage::updateTaskID();
 		sprintf_s(buffer, MESSAGE_UPDATE.c_str(), temp.c_str());
 		return buffer;
