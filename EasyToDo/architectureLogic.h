@@ -52,7 +52,7 @@ public:
 	std:: string deleteTask(std:: string input);
 	std:: string executeCommand(std:: string commandAction);
 	std:: string clearTask(std:: string content);
-	std:: string updateTask(std:: string taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime) ;
+	std:: string updateTask(std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
 	std:: string undoTask();
 	static void determineContentDescription(std:: string parserInput);
 	static void determineContentDay(std:: string parserInput);

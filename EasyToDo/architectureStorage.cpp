@@ -21,7 +21,7 @@ void architectureStorage::updateTaskID() {
 	}
 }
 
-int architectureStorage::convertToInt(std:: string input) {
+int architectureStorage::stringToInt(std:: string input) {
 	int value;
 	value = atoi(input.c_str());
 	return value;
@@ -33,9 +33,9 @@ TASK architectureStorage::initializeTask(std:: string _contentDescripton, std:: 
 	std::string dateString; // ("2002/1/25");
 	dateString = "2015" + '/' + _contentMonth + '/' + _contentDay;
 	date d(from_string(dateString));
-	ptime temp(d, time_duration(hours(convertToInt(_contentStartHours))+minutes(convertToInt(_contentStartMinutes))));
+	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp;
-	buffer.endTime = time_duration(hours(convertToInt(_contentEndHours)) + minutes(convertToInt(_contentEndMinutes)));
+	buffer.endTime = time_duration(hours(stringToInt(_contentEndHours)) + minutes(stringToInt(_contentEndMinutes)));
 	buffer.taskID = 0;
 	return buffer;
 }
@@ -76,7 +76,8 @@ std:: vector<std:: string> architectureStorage::retrieveMasterTaskList() {
 		std:: stringstream ss;
 		ss << iter->taskID;
 		std:: string str = ss.str();
-		temp.push_back(str + ". " + iter->taskDescriptionList + ", " + iter->taskDateList + ", " + iter->taskStartTimeList + ", " + iter->taskEndTimeList);
+		// boost::posix_time::to_simple_string(now).c_str();
+		temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
 	}
 	return temp;
 }
@@ -115,9 +116,9 @@ void architectureStorage::clearAllFromStorage() {
 	return;
 }
 
-void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime) {
+void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
 	TASK temp;
-	temp = initializeTask(newTask, newDate, newStartTime, newEndTime);
+	temp = initializeTask(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
 	deleteFromStorage(taskID);
 	std:: vector<TASK>::iterator iter = findIterator(taskID);
 	masterTaskList.insert(iter, temp);

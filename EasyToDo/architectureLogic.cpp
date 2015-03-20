@@ -216,11 +216,11 @@ std:: string architectureLogic::clearTask(std:: string content) {
 	  }*/
 }
 
-std:: string architectureLogic::updateTask(std:: string taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime) {
+std:: string architectureLogic::updateTask(std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
 	const std:: string temp = taskID;
 	int ID = stringToInteger(taskID);
 	if(isTaskIDValid(ID)) {
-		architectureStorage::updateToStorage(ID, newTask, newDate, newStartTime, newEndTime);
+		architectureStorage::updateToStorage(ID, newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
 		architectureStorage::sortStorage();
 		architectureStorage::updateTaskID();
 		sprintf_s(buffer, MESSAGE_UPDATE.c_str(), temp.c_str());

@@ -38,7 +38,7 @@ private:
 	//static std:: vector<TASK> upcomingTaskList;
 public:
 	architectureStorage();
-	static int convertToInt(std:: string input);
+	static int stringToInt(std:: string input);
 	static void updateTaskID();
 	static TASK initializeTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static void addToMasterStorage(std:: string task, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
@@ -50,7 +50,7 @@ public:
 	// static std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList();
 	static int findTotalNumberofTask();
 	static void deleteFromStorage(int taskID);
-	static void updateToStorage(int taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime);
+	static void updateToStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
 	static bool isTaskDescriptionListEmpty();
 	static void clearAllFromStorage();
 	static std:: vector<TASK>::iterator findIterator(int taskID);
