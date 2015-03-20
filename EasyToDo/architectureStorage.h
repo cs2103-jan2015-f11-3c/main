@@ -50,8 +50,13 @@ public:
 	// static std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList();
 	static int findTotalNumberofTask();
 	static void deleteFromStorage(int taskID);
+<<<<<<< HEAD
 	static void updateToStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
 	static bool isTaskDescriptionListEmpty();
+=======
+	static void updateToStorage(int taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime);
+	static bool isMasterTaskListEmpty();
+>>>>>>> 1e6bf8d25f312b535b089bf987cb364333ce06cc
 	static void clearAllFromStorage();
 	static std:: vector<TASK>::iterator findIterator(int taskID);
 	static void sortStorage();
