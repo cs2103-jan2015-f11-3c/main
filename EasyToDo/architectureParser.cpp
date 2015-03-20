@@ -113,10 +113,7 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 			}
 		}
 	}
-
-
 	return;
-
 }
 
 void Parser::tokenizeUPDATE(std::string tokenizeContent) {
@@ -125,11 +122,11 @@ void Parser::tokenizeUPDATE(std::string tokenizeContent) {
 	size_t taskFirst = _newContent.find_first_not_of(" ");
 	size_t taskLast = _newContent.find_first_of(" ");
 	_taskID = _newContent.substr(taskFirst,taskLast);
+	architectureLogic::determineTaskID(_taskID);
 	taskFirst = taskLast+1;
 	taskLast = _newContent.npos;
 	std::string updateContent = _newContent.substr(taskFirst,taskLast);
 	tokenizeADD(updateContent);
-
 }
 
 

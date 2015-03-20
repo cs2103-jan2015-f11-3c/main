@@ -5,7 +5,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include <stack>
+#include <assert.h>
+#include <stdexcept>
 
 #undef DELETE
 
