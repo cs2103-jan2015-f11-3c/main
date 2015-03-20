@@ -5,12 +5,26 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include "boost/date_time/posix_time/posix_time.hpp"
+#include "boost/date_time/time_zone_base.hpp"
+#include "boost/date_time/local_time/local_time.hpp"
 
+using namespace boost::posix_time;
+using namespace boost::gregorian;
+using boost::posix_time::ptime;
+using boost::local_time::local_time_input_facet;
+
+// deadline: add meet ivy on 14 April from 14:00 - 1800 
+// floating: add meet ivy
+// timed: add meet ivy on 14 april at 1400
 struct TASK {
 	std:: string taskDescriptionList;
-	std:: string taskDateList;
-	std:: string taskStartTimeList;
-	std:: string taskEndTimeList;
+	//std:: string taskDateList;
+	//std:: string taskStartTimeList;
+	//std:: string taskEndTimeList;
+	//date d;
+	ptime startDateTime; //time t2(date(2002,Jan,10), hours(1)+nanosec(5));
+	time_duration endTime;
 	int taskID;
 };
 
@@ -24,9 +38,10 @@ private:
 	//static std:: vector<TASK> upcomingTaskList;
 public:
 	architectureStorage();
+	static int convertToInt(std:: string input);
 	static void updateTaskID();
-	static TASK initializeTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
-	static void addToMasterStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
+	static TASK initializeTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static void addToMasterStorage(std:: string task, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static void addToFloatingStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	static void addToDeadlineStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	static void addToTimedStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);

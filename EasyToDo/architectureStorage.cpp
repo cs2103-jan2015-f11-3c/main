@@ -21,19 +21,28 @@ void architectureStorage::updateTaskID() {
 	}
 }
 
-TASK architectureStorage::initializeTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
-	TASK temp;
-	temp.taskDescriptionList = task;
-	temp.taskDateList = date; 
-	temp.taskStartTimeList = startTime;
-	temp.taskEndTimeList = endTime;
-	temp.taskID = 0;
-	return temp;
+int architectureStorage::convertToInt(std:: string input) {
+	int value;
+	value = atoi(input.c_str());
+	return value;
 }
 
-void architectureStorage::addToMasterStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
+TASK architectureStorage::initializeTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
+	TASK buffer;
+	buffer.taskDescriptionList = _contentDescripton;
+	std::string dateString; // ("2002/1/25");
+	dateString = "2015" + '/' + _contentMonth + '/' + _contentDay;
+	date d(from_string(dateString));
+	ptime temp(d, time_duration(hours(convertToInt(_contentStartHours))+minutes(convertToInt(_contentStartMinutes))));
+	buffer.startDateTime = temp;
+	buffer.endTime = time_duration(hours(convertToInt(_contentEndHours)) + minutes(convertToInt(_contentEndMinutes)));
+	buffer.taskID = 0;
+	return buffer;
+}
+
+void architectureStorage::addToMasterStorage(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
 	TASK temp;
-	temp = initializeTask(task, date, startTime, endTime);
+	temp = initializeTask(_contentDescripton, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
 	masterTaskList.push_back(temp);
 	return;
 }
@@ -133,10 +142,6 @@ void architectureStorage::sortStorage() {
 }
 
 /*
-bool architectureStorage::compareByTime(TASK& a, TASK& b) {
-	return a.taskStartTimeList[0] < b.taskStartTimeList[0];
-}
-
 
 void architectureStorage::clearTodayFromStorage() {
 
