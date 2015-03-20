@@ -76,12 +76,7 @@ std:: vector<std:: string> architectureStorage::retrieveMasterTaskList() {
 		std:: stringstream ss;
 		ss << iter->taskID;
 		std:: string str = ss.str();
-<<<<<<< HEAD
-		// boost::posix_time::to_simple_string(now).c_str();
 		temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
-=======
-		temp.push_back(str + ". " + iter->taskDescriptionList + " " + iter->taskDateList + " " + iter->taskStartTimeList + " " + iter->taskEndTimeList);
->>>>>>> 1e6bf8d25f312b535b089bf987cb364333ce06cc
 	}
 	return temp;
 }
@@ -124,39 +119,18 @@ void architectureStorage::clearAllFromStorage() {
 	return;
 }
 
-<<<<<<< HEAD
 void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
 	TASK temp;
 	temp = initializeTask(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
-	deleteFromStorage(taskID);
-=======
-void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:: string newDate, std:: string newStartTime, std:: string newEndTime) {
-	/*
-	TASK temp;
-	temp = initializeTask(newTask, newDate, newStartTime, newEndTime);
->>>>>>> 1e6bf8d25f312b535b089bf987cb364333ce06cc
 	std:: vector<TASK>::iterator iter = findIterator(taskID);
-	*/
+	masterTaskList.insert(iter, temp);
 	deleteFromStorage(taskID);
-	addToMasterStorage(newTask, newDate, newStartTime, newEndTime);
-	return;
 }
 
 void architectureStorage::sortStorage() {
 	std:: sort(masterTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
 		return (left.taskStartTimeList < right.taskStartTimeList);
 	} );
-	/*
-	std:: sort(floatingTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
-		return (left.taskStartTimeList < right.taskStartTimeList);
-	} );
-	std:: sort(timedTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
-		return (left.taskStartTimeList < right.taskStartTimeList);
-	} );
-	std:: sort(deadlineTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
-		return (left.taskStartTimeList < right.taskStartTimeList);
-	} );
-	*/
 }
 
 /*

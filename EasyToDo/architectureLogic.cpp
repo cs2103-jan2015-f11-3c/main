@@ -2,10 +2,8 @@
 #include "architectureStorage.h"
 #include "architectureParser.h"
 #include "architectureHistory.h"
+#include <assert.h>
 
-<<<<<<< HEAD
-const std:: string architectureLogic::MESSAGE_ADD = "Task \"%s %s %s %s %s %s %s\" is added successfully";
-=======
 /*
 to do list requires basic support of storage/retrieval of info, display of info to user and updating 
 existing info. thus to reduce coupling from the innate nature of interlinkedness, we separated the
@@ -15,8 +13,7 @@ architecture to 5 different components of UI, Parser, Logic, Storage, History
 /*
 logic is a facade class that separate the storage vectors in Storage and the users(UI) 
 */
-const std:: string architectureLogic::MESSAGE_ADD = "Task \"%s %s %s %s\" is added successfully";
->>>>>>> 1e6bf8d25f312b535b089bf987cb364333ce06cc
+const std:: string architectureLogic::MESSAGE_ADD = "Task \"%s %s %s %s %s %s %s\" is added successfully";
 const std:: string architectureLogic::MESSAGE_INVALID = "ERROR! Invalid Command";
 const std:: string architectureLogic::MESSAGE_NOTFOUND = "Task is not found!";
 const std:: string architectureLogic::MESSAGE_DELETE = "Task %s is deleted!";
@@ -43,7 +40,6 @@ std:: string architectureLogic::_contentEndMinutes;
 std:: string architectureLogic::_taskID;
 
 char architectureLogic::buffer[MAX];
-
 
 architectureLogic::architectureLogic(){
 }
@@ -137,9 +133,11 @@ void architectureLogic::determineContentEndMinutes(std:: string parserInput) {
 void architectureLogic::determineTaskID(std:: string parserInput) {
 	_taskID = parserInput;
 }
+
 /*
 command pattern: execute the command without knowing the specific type of command
 */
+
 std:: string architectureLogic::executeCommand(std:: string commandAction) { 
 	assert(commandAction != "");
 	// architectureHistory::determinePreviousAction(commandAction);
@@ -166,7 +164,6 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	}
 }
 
-<<<<<<< HEAD
 std:: string trimTrailingSpaces(std:: string buffer) {
 	size_t endpos = buffer.find_last_not_of(" \t");
 	if(std:: string::npos != endpos )
@@ -177,23 +174,8 @@ std:: string trimTrailingSpaces(std:: string buffer) {
 }
 
 std:: string architectureLogic::addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
-	architectureStorage::addToMasterStorage(_contentDescription, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes); 
-=======
-std:: string architectureLogic::addTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
-	assert(task != "");
-	/*
-	if(endTgime == "") {
-		if(startTime == "") {
-			LOG(TASK_INFO, "this is a floating task");
-		} else {
-			LOG(TASK_INFO, "this is a deadline task");
-		}
-	} else {
-		LOG(TASK_INFO, "this is a timed task");
-	}
-	*/
-	architectureStorage::addToMasterStorage(task, date, startTime, endTime);
->>>>>>> 1e6bf8d25f312b535b089bf987cb364333ce06cc
+	assert(_contentDescription != "");
+	architectureStorage::addToMasterStorage(_contentDescription, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
 	architectureStorage::sortStorage();
 	architectureStorage::updateTaskID();
 
@@ -259,12 +241,9 @@ std:: string architectureLogic::clearTask(std:: string _content) {
 std:: string architectureLogic::updateTask(std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
 	const std:: string temp = taskID;
 	int ID = stringToInteger(taskID);
+	assert(ID > 0);
 	if(isTaskIDValid(ID)) {
-<<<<<<< HEAD
 		architectureStorage::updateToStorage(ID, newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
-=======
-		architectureStorage::updateToStorage(ID, newTask, newDate, newStartTime, newEndTime);
->>>>>>> 1e6bf8d25f312b535b089bf987cb364333ce06cc
 		architectureStorage::sortStorage();
 		architectureStorage::updateTaskID();
 		sprintf_s(buffer, MESSAGE_UPDATE.c_str(), temp.c_str());
@@ -274,6 +253,7 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 		return buffer;
 	}
 }
+
 /*
 std:: string architectureLogic::undoTask() {
 	if(architectureHistory::isUndoStackEmpty()) {
