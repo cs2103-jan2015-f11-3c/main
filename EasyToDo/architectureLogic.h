@@ -39,11 +39,12 @@ private:
 	static char buffer[MAX];
 	
 public:
+	class architectureFeedbackHistory;
 	architectureLogic();
 	enum CommandType { 
 		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, 
 	};
-	std:: string determineCommand(std:: string content);
+	std:: vector<std:: string> determineCommand(std:: string content);
 	std:: string addTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	std:: string deleteTask(std:: string input);
 	std:: string executeCommand(std:: string commandAction);
@@ -61,6 +62,8 @@ public:
 	bool isStorageEmpty();
 	int stringToInteger(std:: string input);
 	// bool isUndoValid();
+	class architectureFeedbackHistory;
+	
 
 };
 #endif

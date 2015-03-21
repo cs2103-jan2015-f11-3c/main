@@ -1,6 +1,7 @@
 #include "architectureLogic.h"
 #include "architectureStorage.h"
 #include "architectureParser.h"
+#include "architectureFeedbackHistory.h"
 
 /*
 to do list requires basic support of storage/retrieval of info, display of info to user and updating 
@@ -38,8 +39,9 @@ char architectureLogic::buffer[MAX];
 architectureLogic::architectureLogic(){
 }
 
-std:: string architectureLogic::determineCommand(std:: string content){
+std:: vector<std:: string> architectureLogic::determineCommand(std:: string content){
 	std:: string feedBack;
+	std:: vector<std:: string> temp;
 	
 	// next three codes can SLAP
 
@@ -59,8 +61,12 @@ std:: string architectureLogic::determineCommand(std:: string content){
 	_content = content.substr(positionEnd);
 	assert(_command != "");
 	feedBack = executeCommand(_command);
+	
+	architectureFeedbackHistory::addToFeedbackList(feedBack);
 
-	return feedBack;
+	temp = architectureFeedbackHistory::retrieveFeedbackList();
+	
+	return temp;
 }
 
 architectureLogic::CommandType architectureLogic::determineCommandType(std:: string commandAction) { 
@@ -147,7 +153,7 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 std:: string architectureLogic::addTask(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
 	assert(task != "");
 	/*
-	if(endTgime == "") {
+	if(endTime == "") {
 		if(startTime == "") {
 			LOG(TASK_INFO, "this is a floating task");
 		} else {
