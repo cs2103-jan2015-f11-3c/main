@@ -25,6 +25,7 @@ class Parser {
 
 
 	public:
+		Parser(char *[]);
 		static void tokenizeADD(std::string tokenizeContent);
 		static void tokenizeCLEAR(std::string tokenizeContent);
 		static void tokenizeDELETE(std::string tokenizeContent);
