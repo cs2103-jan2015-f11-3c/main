@@ -6,8 +6,8 @@ std:: vector<TASK> architectureStorage::masterTaskList;
 //std:: vector<TASK> architectureStorage::floatingTaskList; 
 //std:: vector<TASK> architectureStorage::timedTaskList; 
 //std:: vector<TASK> architectureStorage::deadlineTaskList;
-//std:: vector<TASK> architectureStorage::todayTaskList;
-//std:: vector<TASK> architectureStorage::upcomingTaskList;
+std:: vector<TASK> architectureStorage::todayTaskList;
+std:: vector<TASK> architectureStorage::upcomingTaskList;
 
 architectureStorage::architectureStorage() {
 }
@@ -46,6 +46,7 @@ void architectureStorage::addToMasterStorage(std:: string _contentDescripton, st
 	masterTaskList.push_back(temp);
 	return;
 }
+
 /*
 void architectureStorage::addToFloatingStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime) {
 	TASK temp;
@@ -126,13 +127,20 @@ void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:
 	masterTaskList.insert(iter, temp);
 	deleteFromStorage(taskID);
 }
-
+/*
 void architectureStorage::sortStorage() {
 	std:: sort(masterTaskList.begin(), masterTaskList.end(), [](const TASK &left, const TASK &right) { 
 		return (left.taskStartTimeList < right.taskStartTimeList);
 	} );
 }
+*/
+void architectureStorage::storeTodayTask(TASK temp) {
+	todayTaskList.push_back(temp);
+}
 
+void architectureStorage::storeUpcomingTask(TASK temp) {
+	upcomingTaskList.push_back(temp);
+}
 /*
 
 void architectureStorage::clearTodayFromStorage() {
