@@ -177,7 +177,6 @@ std:: string trimTrailingSpaces(std:: string buffer) {
 std:: string architectureLogic::addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
 	assert(_contentDescription != "");
 	architectureStorage::addToMasterStorage(_contentDescription, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
-	architectureStorage::sortStorage();
 	architectureStorage::updateTaskID();
 
 	sprintf_s(buffer, MESSAGE_ADD.c_str(), _contentDescription.c_str(), _contentDay.c_str(), _contentMonth.c_str(), _contentStartHours.c_str(), _contentStartMinutes.c_str(), _contentEndHours.c_str(), _contentEndMinutes.c_str());
@@ -245,7 +244,6 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 	assert(ID > 0);
 	if(isTaskIDValid(ID)) {
 		architectureStorage::updateToStorage(ID, newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
-		architectureStorage::sortStorage();
 		architectureStorage::updateTaskID();
 		sprintf_s(buffer, MESSAGE_UPDATE.c_str(), temp.c_str());
 		return buffer;
