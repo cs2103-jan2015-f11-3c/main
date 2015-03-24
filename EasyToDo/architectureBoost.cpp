@@ -3,8 +3,31 @@
 #include "architectureParser.h"
 #include "architectureBoost.h"
 
+
+ void architectureBoost::getDayOfTheWeek(std::string input){
+ }
+
+ void architectureBoost::getDateDay(std::string input){
+ }
+ 
+ void architectureBoost::getDateMonth(std::string input){
+ }
+
+ void architectureBoost::getStartHour(std::string input){
+ }
+
+ void architectureBoost::getStartMin(std::string input){
+ }
+
+ void architectureBoost::getEndHour(std::string input){
+ }
+
+ void architectureBoost::getEndMin(std::string input){
+ }
+
+
 void architectureBoost::sortTodayUpcoming(std:: vector<TASK>& masterTaskList) {
-	std:: vector<TASK>::iterator iter;
+	/*std:: vector<TASK>::iterator iter;
 	date dateToday = retrieveDateToday();
 	date temp; 
 	days dayDifference;
@@ -18,12 +41,13 @@ void architectureBoost::sortTodayUpcoming(std:: vector<TASK>& masterTaskList) {
 		} else {
 			architectureStorage::storeUpcomingTask(*iter);
 		}
-	}
+	}*/
 
 }
-
+/*
 date architectureBoost::retrieveDateToday() {
 	ptime today = second_clock::local_time();
 	date dateToday = today.date();
 	return dateToday;
 }
+*/

@@ -5,9 +5,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
-#include "boost/date_time/posix_time/posix_time.hpp"
-#include "boost/date_time/time_zone_base.hpp"
-#include "boost/date_time/local_time/local_time.hpp"
+#include <boost\date_time.hpp>
 
 using namespace boost::posix_time;
 using namespace boost::gregorian;
@@ -38,9 +36,9 @@ public:
 	static void updateTaskID();
 	static TASK initializeTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static void addToMasterStorage(std:: string task, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
-	static void addToFloatingStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
-	static void addToDeadlineStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
-	static void addToTimedStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
+//	static void addToFloatingStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
+//	static void addToDeadlineStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
+//	static void addToTimedStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	static std:: vector<std:: string> architectureStorage::retrieveMasterTaskList();
 	// static std:: vector<std:: string> architectureStorage::retrieveTodayTaskList();
 	// static std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList();

@@ -7,6 +7,7 @@
 #include <sstream>
 #include <assert.h>
 #include <stdexcept>
+#include <assert.h>
 
 #undef DELETE
 
@@ -44,11 +45,12 @@ private:
 	static char buffer[MAX];
 	
 public:
+	class architectureFeedbackHistory;
 	architectureLogic();
 	enum CommandType { 
 		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, 
 	};
-	std:: string determineCommand(std:: string content);
+	std:: vector<std:: string> determineCommand(std:: string content);
 	std:: string addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	std:: string deleteTask(std:: string input);
 	std:: string executeCommand(std:: string commandAction);
@@ -65,7 +67,7 @@ public:
 	std:: string trimTrailingSpaces(std:: string buffer);
 	static void determineTaskID(std:: string parserInput);
 	CommandType determineCommandType(std:: string commandAction);
-	bool isValidCommand(const std:: string& str1, const std:: string& str2);
+	bool isValidCommand(const std:: string str1, const std:: string str2);
 	bool isTaskIDValid(int taskID);
 	bool isStorageEmpty();
 	int stringToInteger(std:: string input);

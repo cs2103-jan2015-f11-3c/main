@@ -9,11 +9,12 @@ void architectureLogic::architectureFeedbackHistory::addToFeedbackList(std:: str
 }
 
 std:: vector<std:: string> architectureLogic::architectureFeedbackHistory::retrieveFeedbackList() {
-	std:: vector<std:: string> temp;
-	
+	std:: vector< std:: string> temp;
+
 	for (int i=0; i<masterFeedbackList.size(); i++) {
-		temp.push_back(masterFeedbackList[i]);
+			temp.push_back(masterFeedbackList[i]);
 	}
 
 	return temp;
+
 }

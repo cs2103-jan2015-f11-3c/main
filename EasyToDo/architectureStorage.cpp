@@ -31,9 +31,9 @@ TASK architectureStorage::initializeTask(std:: string _contentDescripton, std:: 
 	TASK buffer;
 	buffer.taskDescriptionList = _contentDescripton;
 	std::string dateString; // ("2002/1/25");
-	dateString = "2015" + '/' + _contentMonth + '/' + _contentDay;
+	dateString = "2015," + _contentMonth + "," + _contentDay;
 	date d(from_string(dateString));
-	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
+	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours)) + minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp;
 	buffer.endTime = time_duration(hours(stringToInt(_contentEndHours)) + minutes(stringToInt(_contentEndMinutes)));
 	buffer.taskID = 0;
@@ -79,6 +79,7 @@ std:: vector<std:: string> architectureStorage::retrieveMasterTaskList() {
 		std:: string str = ss.str();
 		temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
 	}
+
 	return temp;
 }
 
@@ -134,6 +135,7 @@ void architectureStorage::sortStorage() {
 	} );
 }
 */
+/*
 void architectureStorage::storeTodayTask(TASK temp) {
 	todayTaskList.push_back(temp);
 }
@@ -141,6 +143,7 @@ void architectureStorage::storeTodayTask(TASK temp) {
 void architectureStorage::storeUpcomingTask(TASK temp) {
 	upcomingTaskList.push_back(temp);
 }
+*/
 /*
 
 void architectureStorage::clearTodayFromStorage() {

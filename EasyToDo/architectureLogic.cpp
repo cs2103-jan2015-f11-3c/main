@@ -1,9 +1,9 @@
 #include "architectureLogic.h"
 #include "architectureStorage.h"
 #include "architectureParser.h"
-#include "architectureHistory.h"
-#include <assert.h>
+#include "architectureFeedbackHistory.h"
 
+using namespace boost;
 /*
 to do list requires basic support of storage/retrieval of info, display of info to user and updating 
 existing info. thus to reduce coupling from the innate nature of interlinkedness, we separated the
@@ -44,8 +44,9 @@ char architectureLogic::buffer[MAX];
 architectureLogic::architectureLogic(){
 }
 
-std:: string architectureLogic::determineCommand(std:: string content){
+std:: vector<std:: string> architectureLogic::determineCommand(std:: string content){
 	std:: string feedBack;
+	std:: vector<std:: string> feedbackList;
 	
 	// next three codes can SLAP
 
@@ -66,7 +67,10 @@ std:: string architectureLogic::determineCommand(std:: string content){
 	assert(_command != "");
 	feedBack = executeCommand(_command);
 
-	return feedBack;
+	architectureFeedbackHistory::addToFeedbackList(feedBack);
+	feedbackList = architectureFeedbackHistory::retrieveFeedbackList();
+
+	return feedbackList;
 }
 
 architectureLogic::CommandType architectureLogic::determineCommandType(std:: string commandAction) { 
@@ -88,18 +92,21 @@ architectureLogic::CommandType architectureLogic::determineCommandType(std:: str
 	} 
 }
 
-bool architectureLogic::isValidCommand(const std:: string& str1, const std:: string& str2) { 
+bool architectureLogic::isValidCommand(const std:: string str1, const std:: string str2) { 
 	if (str1.size() != str2.size()) { 
 		return false; 
 	} 
-	std:: string::const_iterator c1;
-	std:: string::const_iterator c2;
+	else {
+		std:: string::const_iterator c1;
+		std:: string::const_iterator c2;
 
-	for (c1 = str1.begin(), c2 = str2.begin(); c1 != str1.end(); ++c1, ++c2) {
-		if (tolower(*c1) != tolower(*c2)) { 
-			return false; 
-		} 
-	} return true; 
+		for (c1 = str1.begin(), c2 = str2.begin(); c1 != str1.end(); c1++, c2++) {
+			if (tolower(*c1) != tolower(*c2)) { 
+				return false; 
+			} 
+		}
+		return true; 
+	}
 }
 
 void architectureLogic::determineContentDescription(std:: string parserInput) {
@@ -159,18 +166,16 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
 	/* case UNDO:
-		return undoTask();*/
+	return undoTask();*/
 	case EXIT: 
 		exit(0);
 	}
 }
 
-std:: string trimTrailingSpaces(std:: string buffer) {
-	size_t endpos = buffer.find_last_not_of(" \t");
-	if(std:: string::npos != endpos )
-	{
-		buffer = buffer.substr( 0, endpos+1 );
-	}
+std:: string architectureLogic::trimTrailingSpaces(std:: string buffer) {
+	//boost::trim(input);
+//	size_t pos = buffer.find_first_not_of(" ");
+//	buffer = buffer.substr(pos);
 	return buffer;
 }
 
@@ -180,6 +185,7 @@ std:: string architectureLogic::addTask(std:: string _contentDescription, std:: 
 	architectureStorage::updateTaskID();
 
 	sprintf_s(buffer, MESSAGE_ADD.c_str(), _contentDescription.c_str(), _contentDay.c_str(), _contentMonth.c_str(), _contentStartHours.c_str(), _contentStartMinutes.c_str(), _contentEndHours.c_str(), _contentEndMinutes.c_str());
+	
 	return trimTrailingSpaces(buffer);
 }
 
