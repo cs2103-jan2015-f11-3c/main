@@ -14,7 +14,7 @@ using namespace boost::gregorian;
 using boost::posix_time::ptime;
 using boost::local_time::local_time_input_facet;
 
-// deadline: add meet ivy on 14 April from 14:00 - 1800 
+// deadline: add meet ivy on 14 April from 14:00 to 18:00 
 // floating: add meet ivy
 // timed: add meet ivy on 14 april at 1400
 struct TASK {
@@ -42,8 +42,8 @@ public:
 	static void addToDeadlineStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	static void addToTimedStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	static std:: vector<std:: string> architectureStorage::retrieveMasterTaskList();
-	// static std:: vector<std:: string> architectureStorage::retrieveTodayTaskList();
-	// static std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList();
+	static std:: vector<std:: string> architectureStorage::retrieveTodayTaskList();
+	static std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList();
 	static int findTotalNumberofTask();
 	static void deleteFromStorage(int taskID);
 	static void updateToStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
@@ -52,10 +52,9 @@ public:
 	static bool isMasterTaskListEmpty();
 	static void clearAllFromStorage();
 	static std:: vector<TASK>::iterator findIterator(int taskID);
-	// static void sortStorage();
 	static void storeTodayTask(TASK temp);
 	static void storeUpcomingTask(TASK temp);
-	// static void clearTodayFromStorage();
-	// static void clearUpcomingFromStorage();
+	static void clearTodayFromStorage();
+	static void clearUpcomingFromStorage();
 };
 #endif

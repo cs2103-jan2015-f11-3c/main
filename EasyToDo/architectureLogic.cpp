@@ -2,6 +2,7 @@
 #include "architectureStorage.h"
 #include "architectureParser.h"
 #include "architectureHistory.h"
+#include "architectureBoost.h"
 #include <assert.h>
 
 /*
@@ -50,12 +51,12 @@ std:: string architectureLogic::determineCommand(std:: string content){
 	// next three codes can SLAP
 
 	size_t pos = 0;
-	
 	while ( ( pos = content.find ("\r\n",pos) ) != std::string::npos ) {
 		content.erase ( pos, 2 );
 	}
-	if (content == "")
+	if (content == "") {
 		throw std::invalid_argument("recieved empty string");
+	}
 	size_t positionStart = content.find_first_not_of(" ");
 	assert(positionStart >= 0);
 	size_t positionEnd = content.find_first_of(" ");
@@ -178,7 +179,6 @@ std:: string architectureLogic::addTask(std:: string _contentDescription, std:: 
 	assert(_contentDescription != "");
 	architectureStorage::addToMasterStorage(_contentDescription, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
 	architectureStorage::updateTaskID();
-
 	sprintf_s(buffer, MESSAGE_ADD.c_str(), _contentDescription.c_str(), _contentDay.c_str(), _contentMonth.c_str(), _contentStartHours.c_str(), _contentStartMinutes.c_str(), _contentEndHours.c_str(), _contentEndMinutes.c_str());
 	return trimTrailingSpaces(buffer);
 }
