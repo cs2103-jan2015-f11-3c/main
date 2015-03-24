@@ -101,6 +101,7 @@ bool architectureLogic::isValidCommand(const std:: string& str1, const std:: str
 		} 
 	} return true; 
 }
+
 void architectureLogic::determineContentDescription(std:: string parserInput) {
 	assert(parserInput != "");
 	_contentDescription = parserInput;
