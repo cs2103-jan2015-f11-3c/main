@@ -29,7 +29,6 @@ private:
 		static int dateDay;
 		static int dateMonth;
 
-
 public:
 
 	static void getDayOfTheWeek(std::string input);
@@ -40,6 +39,7 @@ public:
 	static void getEndHour(std::string input);
 	static void getEndMin(std::string input);
 	static void sortTodayUpcoming();
-}
+	static date retrieveDateToday();
+};
 
 #endif

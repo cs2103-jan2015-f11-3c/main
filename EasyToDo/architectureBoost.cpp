@@ -50,18 +50,31 @@ void sortBoost::getEndMin(std::string input){
 
 }
 
-void sortBoost::sortTodayUpcoming(){
-	
-	ptime inputData(date(2015,dateMonth,dateDay),time_duration(hours(startHour)+minutes(+startMin)));
-	ptime today = second_clock::local_time();
-	date dateToday = today.date();
-	date inputDate = inputData.date();
-	days dayDifference = inputDate - dateToday;
+void sortBoost::sortTodayUpcoming(std:: vector<TASK>& masterTaskList) {
+	std:: vector<TASK>::iterator iter;
+	date dateToday = retrieveDateToday();
+	date temp; 
+	days dayDifference;
 	days day(1);
 
-	if (dayDifference >= day)
-		architectureStorage::storeToday();
-	else
-		architectureStorage::storeUpcoming();
+	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
+		temp = (iter->startDateTime).date();
+		dayDifference = temp - dateToday;
+		if (dayDifference >= day) {
+			architectureStorage::storeTodayTask(*iter);
+		} else {
+			architectureStorage::storeUpcomingTask(*iter);
+		}
+	}
 
+}
+
+void sortBoost::differentiateTask(days dayDifference) {
+
+
+}
+date sortBoost::retrieveDateToday() {
+	ptime today = second_clock::local_time();
+	date dateToday = today.date();
+	return dateToday;
 }

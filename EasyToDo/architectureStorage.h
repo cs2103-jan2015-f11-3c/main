@@ -19,10 +19,6 @@ using boost::local_time::local_time_input_facet;
 // timed: add meet ivy on 14 april at 1400
 struct TASK {
 	std:: string taskDescriptionList;
-	//std:: string taskDateList;
-	//std:: string taskStartTimeList;
-	//std:: string taskEndTimeList;
-	//date d;
 	ptime startDateTime; //time t2(date(2002,Jan,10), hours(1)+nanosec(5));
 	time_duration endTime;
 	int taskID;
@@ -34,8 +30,8 @@ private:
 	//static std:: vector<TASK> floatingTaskList; //Task that do not have a specific deadline
 	//static std:: vector<TASK> timedTaskList; //Task that has specific timeframe
 	//static std:: vector<TASK> deadlineTaskList; //Task that has a due date or target time
-	//static std:: vector<TASK> todayTaskList;
-	//static std:: vector<TASK> upcomingTaskList;
+	static std:: vector<TASK> todayTaskList;
+	static std:: vector<TASK> upcomingTaskList;
 public:
 	architectureStorage();
 	static int stringToInt(std:: string input);
@@ -56,7 +52,9 @@ public:
 	static bool isMasterTaskListEmpty();
 	static void clearAllFromStorage();
 	static std:: vector<TASK>::iterator findIterator(int taskID);
-	static void sortStorage();
+	// static void sortStorage();
+	static void storeTodayTask(TASK temp);
+	static void storeUpcomingTask(TASK temp);
 	// static void clearTodayFromStorage();
 	// static void clearUpcomingFromStorage();
 };
