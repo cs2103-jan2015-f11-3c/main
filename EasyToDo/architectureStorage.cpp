@@ -9,6 +9,10 @@ std:: vector<TASK> architectureStorage::todayTaskList;
 std:: vector<TASK> architectureStorage::upcomingTaskList;
 std:: vector<TASK> architectureStorage::floatingTaskList;
 
+bool operator==(const TASK& a, const TASK& b) {
+		return (a.taskDescriptionList == b.taskDescriptionList) && (a.startDateTime == b.startDateTime) && (a.endTime == b.endTime) && (a.taskID == b.taskID);
+	}
+
 architectureStorage::architectureStorage() {
 }
 
@@ -31,7 +35,7 @@ TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescripton
 	TASK buffer;
 	buffer.taskDescriptionList = _contentDescripton;
 	std::string dateString; // ("2002/1/25");
-	dateString = "2015" + '/' + _contentMonth + '/' + _contentDay;
+	dateString = "2015," + _contentMonth + "," + _contentDay;
 	date d(from_string(dateString));
 	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp;
@@ -44,7 +48,7 @@ TASK architectureStorage::initializeTimedTask(std:: string _contentDescripton, s
 	TASK buffer;
 	buffer.taskDescriptionList = _contentDescripton;
 	std::string dateString; // ("2002/1/25");
-	dateString = "2015" + '/' + _contentMonth + '/' + _contentDay;
+	dateString = "2015," + _contentMonth + "," + _contentDay;
 	date d(from_string(dateString));
 	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp;
@@ -123,11 +127,11 @@ std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList() {
 	return temp;
 }
 
-std:: vector<std:: string> architectureStorage::retrieveTodayTaskList() {
+std:: vector<std:: string> architectureStorage::retrieveFloatingTaskList() {
 	std:: vector<TASK>:: iterator iter;
 	std:: vector<std:: string> temp;
 
-	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
+	for(iter = floatingTaskList.begin(); iter != floatingTaskList.end(); iter++) {
 		std:: stringstream ss;
 		ss << iter->taskID;
 		std:: string str = ss.str();
@@ -217,7 +221,9 @@ void architectureStorage::undoDelete(TASK& input) {
 }
 
 void architectureStorage::deleteTask(TASK& input) {
+	
 	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), input);
+
 	if (position != masterTaskList.end()) {
 		masterTaskList.erase(position);
 	}

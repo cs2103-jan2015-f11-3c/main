@@ -14,6 +14,7 @@ using boost::posix_time::ptime;
 
 class architectureBoost {
 public:
+	architectureBoost();
 	static void sortTodayUpcoming(std:: vector<TASK>& masterTaskList);
 	static date retrieveDateToday();
 	static bool isValidTodayTask(days dayDifference);

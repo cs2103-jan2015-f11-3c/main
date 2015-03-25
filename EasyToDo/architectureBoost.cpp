@@ -3,6 +3,9 @@
 #include "architectureParser.h"
 #include "architectureBoost.h"
 
+architectureBoost::architectureBoost() {
+}
+
 void architectureBoost::sortTodayUpcoming(std:: vector<TASK>& masterTaskList) {
 	std:: vector<TASK>::iterator iter;
 	date dateToday = retrieveDateToday();
