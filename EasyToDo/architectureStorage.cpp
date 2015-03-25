@@ -127,11 +127,11 @@ std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList() {
 	return temp;
 }
 
-std:: vector<std:: string> architectureStorage::retrieveTodayTaskList() {
+std:: vector<std:: string> architectureStorage::retrieveFloatingTaskList() {
 	std:: vector<TASK>:: iterator iter;
 	std:: vector<std:: string> temp;
 
-	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
+	for(iter = floatingTaskList.begin(); iter != floatingTaskList.end(); iter++) {
 		std:: stringstream ss;
 		ss << iter->taskID;
 		std:: string str = ss.str();

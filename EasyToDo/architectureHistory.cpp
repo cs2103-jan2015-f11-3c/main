@@ -3,13 +3,16 @@
 #include "architectureParser.h"
 #include "architectureHistory.h"
 
-std:: stack<std:: string> previousActionStack;
-std:: stack<TASK> previousStateStack;
-std:: vector<TASK> previousTaskList;
+std:: stack<std:: string> architectureHistory::previousActionStack;
+std:: stack<TASK> architectureHistory::previousStateStack;
+std:: vector<TASK> architectureHistory::previousTaskList;
 char architectureHistory::temp[MAXIMUM];
 
 const std:: string architectureHistory::MESSAGE_ERROR = "ERROR! Invalid Command";
 const std:: string architectureHistory::MESSAGE_UNDO = "Previous Action, \"%s\", has been undo";
+
+architectureHistory::architectureHistory() {
+}
 
 void architectureHistory::addPreviousAction(std:: string commandAction) {
 	previousActionStack.push(commandAction);
