@@ -48,6 +48,11 @@ public:
 	enum CommandType { 
 		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO
 	};
+
+	enum Months { 
+		JAN = 1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, NOTVALID
+	};
+
 	static std:: string determineCommand(std:: string content);
 	static std:: string addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static std:: string deleteTask(std:: string input);
@@ -65,6 +70,7 @@ public:
 	static std:: string trimTrailingSpaces(std:: string buffer);
 	static void determineTaskID(std:: string parserInput);
 	static CommandType determineCommandType(std:: string commandAction);
+	static Months determineMonthType(std:: string parserInput);
 	static bool isValidCommand(const std:: string& str1, const std:: string& str2);
 	static bool isTaskIDValid(int taskID);
 	static bool isStorageEmpty();

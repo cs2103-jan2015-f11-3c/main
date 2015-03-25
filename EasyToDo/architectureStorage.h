@@ -41,9 +41,10 @@ public:
 	static void addToFloatingStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	static void addToDeadlineStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	static void addToTimedStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
-	static std:: vector<std:: string> architectureStorage::retrieveMasterTaskList();
-	static std:: vector<std:: string> architectureStorage::retrieveTodayTaskList();
-	static std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList();
+	static std:: vector<std:: string> retrieveMasterTaskList();
+	static std:: vector<std:: string> retrieveTodayTaskList();
+	static std:: vector<std:: string> retrieveUpcomingTaskList();
+	static std:: vector<std:: string> retrieveFloatingTaskList();
 	static int findTotalNumberofTask();
 	static void deleteFromStorage(int taskID);
 	static void updateToStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
