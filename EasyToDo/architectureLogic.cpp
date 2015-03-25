@@ -135,8 +135,41 @@ void architectureLogic::determineContentDay(std:: string parserInput) {
 	_contentDay = parserInput;
 }
 
+architectureLogic::Months architectureLogic::determineMonthType(std:: string parserInput) {
+	assert(parserInput != "");
+	if(isValidCommand(parserInput, "jan") || isValidCommand(parserInput, "january")) { 
+		return Months::JAN;
+	} else if(isValidCommand(parserInput, "feb") || isValidCommand(parserInput, "february")) { 
+		return Months::FEB; 
+	} else if(isValidCommand(parserInput, "mar") || isValidCommand(parserInput, "march")) {
+		return Months::MAR;
+	} else if(isValidCommand(parserInput, "apr") || isValidCommand(parserInput, "april")) {
+		return Months::APR;
+	} else if(isValidCommand(parserInput, "may")) {
+		return Months::MAY;
+	} else if(isValidCommand(parserInput, "jun") || isValidCommand(parserInput, "june")) {
+		return Months::JUN;
+	} else if(isValidCommand(parserInput, "jul") || isValidCommand(parserInput, "july")) {
+		return Months::JUL;
+	} else if(isValidCommand(parserInput, "aug") || isValidCommand(parserInput, "august")) {
+		return Months::AUG;
+	} else if(isValidCommand(parserInput, "sep") || isValidCommand(parserInput, "september")) {
+		return Months::SEP;
+	} else if(isValidCommand(parserInput, "oct") || isValidCommand(parserInput, "october")) {
+		return Months::OCT;
+	} else if(isValidCommand(parserInput, "nov") || isValidCommand(parserInput, "november")) {
+		return Months::NOV;
+	} else if(isValidCommand(parserInput, "dec") || isValidCommand(parserInput, "december")) {
+		return Months::DEC;
+	} else { 
+		return Months::NOTVALID;
+	} 
+}
 void architectureLogic::determineContentMonth(std:: string parserInput) {
-	_contentMonth = parserInput;
+	Months month;
+	month = determineMonthType(parserInput);
+	assert(month != NOTVALID);
+	_contentMonth = month;
 }
 
 void architectureLogic::determineContentStartHours(std:: string parserInput) {
@@ -190,12 +223,8 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 }
 
 std:: string trimTrailingSpaces(std:: string buffer) {
-	size_t endpos = buffer.find_last_not_of(" \t");
-	if(std:: string::npos != endpos )
-	{
-		buffer = buffer.substr(0, endpos+1);
-	}
-	return buffer;
+	 boost::algorithm::trim(buffer);
+	 return buffer;
 }
 
 std:: string architectureLogic::addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
@@ -239,9 +268,9 @@ bool architectureLogic::isStorageEmpty() {
 }
 
 int architectureLogic::stringToInteger(std:: string input) {
-	int taskID;
-	taskID = atoi(input.c_str()); 
-	return taskID;
+	int output;
+	output = atoi(input.c_str()); 
+	return output;
 }
 
 std:: string architectureLogic::clearTask(std:: string _content) {
