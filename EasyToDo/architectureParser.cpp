@@ -10,7 +10,7 @@ std::string Parser::_dateDay;
 std::string Parser::_dateMonth;
 std::string Parser::_dayOfTheWeek;
 std::string Parser::_taskDesc;
-std::string Parser::_tokenizeContent;
+//std::string Parser::_tokenizeContent;
 std::string Parser::_newContent;
 std::string Parser::_taskID;
 
@@ -87,6 +87,7 @@ void Parser::tokenizeUPDATE(std::string tokenizeContent) {
 	size_t taskFirst = _newContent.find_first_not_of(" ");
 	size_t taskLast = _newContent.find_first_of(" ");
 	_taskID = _newContent.substr(taskFirst,taskLast);
+	architectureLogic::determineTaskID(_taskID);
 	taskFirst = taskLast+1;
 	taskLast = _newContent.npos;
 	std::string updateContent = _newContent.substr(taskFirst,taskLast);
