@@ -14,8 +14,14 @@ using boost::posix_time::ptime;
 
 class architectureBoost {
 public:
+	static void getDayOfTheWeek(std::string input);
+	static void getDateDay(std::string input);
+	static void getDateMonth(std::string input);
+	static void getStartHour(std::string input);
+	static void getStartMin(std::string input);
+	static void getEndHour(std::string input);
+	static void getEndMin(std::string input);
 	static void sortTodayUpcoming(std:: vector<TASK>& masterTaskList);
 	static date retrieveDateToday();
-	static bool isValidTodayTask(days dayDifference);
 };
 #endif

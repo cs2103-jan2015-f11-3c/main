@@ -5,8 +5,6 @@
 #include <string>
 #include <vector>
 #include <sstream>
-#include <assert.h>
-#include <stdexcept>
 
 #undef DELETE
 
@@ -44,11 +42,19 @@ private:
 	static char buffer[MAX];
 	
 public:
+	class architectureFeedbackHistory {
+	private:
+		static std:: vector<std:: string> masterFeedbackList;
+	public:
+		architectureFeedbackHistory();
+		static void addToFeedbackList(std:: string feedback);
+		static std:: vector<std:: string>architectureFeedbackHistory::retrieveFeedbackList();
+};
 	architectureLogic();
 	enum CommandType { 
 		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO
 	};
-	static std:: string determineCommand(std:: string content);
+	static std:: vector<std:: string> determineCommand(std:: string content);
 	static std:: string addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static std:: string deleteTask(std:: string input);
 	static std:: string executeCommand(std:: string commandAction);

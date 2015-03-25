@@ -123,19 +123,6 @@ std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList() {
 	return temp;
 }
 
-std:: vector<std:: string> architectureStorage::retrieveTodayTaskList() {
-	std:: vector<TASK>:: iterator iter;
-	std:: vector<std:: string> temp;
-
-	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
-		std:: stringstream ss;
-		ss << iter->taskID;
-		std:: string str = ss.str();
-		temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
-	}
-	return temp;
-}
-
 void architectureStorage::deleteFromStorage(int taskID) {
 	std:: vector<TASK>::iterator iter = findIterator(taskID);
 	architectureHistory::addPreviousState(*iter);
@@ -161,7 +148,6 @@ std:: vector<TASK>::iterator architectureStorage::findIterator(int taskID) {
 	iter = masterTaskList.begin() + taskID - 1;
 	return iter;
 }
-
 // for update function, i will store two previous states instead of one[add, delete] 
 // thus the first one you pop from the stack "previousStateStack" would be the one you need to delete
 // and the second one would be the one you need to add back cause of LIFO
