@@ -27,16 +27,16 @@ struct TASK {
 class architectureStorage {
 private:
 	static std:: vector<TASK> masterTaskList;
-	//static std:: vector<TASK> floatingTaskList; //Task that do not have a specific deadline
-	//static std:: vector<TASK> timedTaskList; //Task that has specific timeframe
-	//static std:: vector<TASK> deadlineTaskList; //Task that has a due date or target time
+	static std:: vector<TASK> floatingTaskList;
 	static std:: vector<TASK> todayTaskList;
 	static std:: vector<TASK> upcomingTaskList;
 public:
 	architectureStorage();
 	static int stringToInt(std:: string input);
 	static void updateTaskID();
-	static TASK initializeTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static TASK initializeFloatingTask(std:: string _contentDescripton);
+	static TASK initializeTimedTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes);
+	static TASK initializeDeadlineTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static void addToMasterStorage(std:: string task, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static void addToFloatingStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
 	static void addToDeadlineStorage(std:: string task, std:: string date, std:: string startTime, std:: string endTime);
@@ -56,5 +56,6 @@ public:
 	static void storeUpcomingTask(TASK temp);
 	static void clearTodayFromStorage();
 	static void clearUpcomingFromStorage();
+	static void clearFloatingFromStorage();
 };
 #endif

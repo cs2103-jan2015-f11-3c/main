@@ -27,7 +27,6 @@ const std:: string architectureLogic::MESSAGE_UNDOINVALID = "No more action left
 const std:: string architectureLogic::MESSAGE_ALL = "all";
 const std:: string architectureLogic::MESSAGE_TODAY = "today";
 const std:: string architectureLogic::MESSAGE_UPCOMING = "upcoming";
-const std:: string architectureLogic::MESSAGE_UNDO = "Previous action has been reversed successful!";
 
 std:: string architectureLogic::_command;
 std:: string architectureLogic::_content;
@@ -82,9 +81,9 @@ architectureLogic::CommandType architectureLogic::determineCommandType(std:: str
 		return CommandType::CLEAR;
 	} else if(isValidCommand(commandAction, "update")) {
 		return CommandType::UPDATE;
-	} /*else if(isValidCommand(commandAction, "undo")) {
+	} else if(isValidCommand(commandAction, "undo")) {
 		return CommandType::UNDO;
-	} */else { 
+	} else { 
 		return CommandType::INVALID;
 	} 
 }
@@ -142,7 +141,7 @@ command pattern: execute the command without knowing the specific type of comman
 
 std:: string architectureLogic::executeCommand(std:: string commandAction) { 
 	assert(commandAction != "");
-	// architectureHistory::determinePreviousAction(commandAction);
+	architectureHistory::addPreviousAction(commandAction);
 	CommandType commandTypeAction = determineCommandType(commandAction);
 
 	switch(commandTypeAction) { 
@@ -159,8 +158,8 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	case INVALID:
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
-	/* case UNDO:
-		return undoTask();*/
+	case UNDO:
+		return undoTask();
 	case EXIT: 
 		exit(0);
 	}
@@ -170,7 +169,7 @@ std:: string trimTrailingSpaces(std:: string buffer) {
 	size_t endpos = buffer.find_last_not_of(" \t");
 	if(std:: string::npos != endpos )
 	{
-		buffer = buffer.substr( 0, endpos+1 );
+		buffer = buffer.substr(0, endpos+1);
 	}
 	return buffer;
 }
@@ -197,7 +196,10 @@ std:: string architectureLogic::deleteTask(std:: string taskID) {
 	assert(taskID !=  "");
 	const std:: string temp = taskID;
 	int ID = stringToInteger(taskID); 
+	std:: vector<TASK>::iterator iter;
+	iter = architectureStorage::findIterator(ID);
 	if(isTaskIDValid(ID)) {
+		architectureHistory::addPreviousState(*iter);
 		architectureStorage::deleteFromStorage(ID);
 		architectureStorage::updateTaskID();
 		sprintf_s(buffer, MESSAGE_DELETE.c_str(), temp.c_str());
@@ -223,19 +225,22 @@ std:: string architectureLogic::clearTask(std:: string _content) {
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
 		return buffer;
 	}  else {
-		architectureStorage::clearAllFromStorage();
-		sprintf_s(buffer, MESSAGE_CLEARALL.c_str());
-		return buffer;
-	} 
-	/*else if(_content == MESSAGE_TODAY) {
-	  architectureStorage::clearTodayFromStorage();
-	  sprintf_s(buffer, MESSAGE_CLEARTODAY.c_str());
-	  return buffer;
-	  } else if(_content == MESSAGE_UPCOMING) {
-	  architectureStorage::clearUpcomingFromStorage();
-	  sprintf_s(buffer, MESSAGE_CLEARUPCOMING.c_str());
-	  return buffer;
-	  }*/
+		if (_content == MESSAGE_ALL) {
+			architectureStorage::clearAllFromStorage();
+			sprintf_s(buffer, MESSAGE_CLEARALL.c_str());
+			return buffer;
+		} 
+		if(_content == MESSAGE_TODAY) {
+			architectureStorage::clearTodayFromStorage();
+			sprintf_s(buffer, MESSAGE_CLEARTODAY.c_str());
+			return buffer;
+		}  
+		if(_content == MESSAGE_UPCOMING) {
+			architectureStorage::clearUpcomingFromStorage();
+			sprintf_s(buffer, MESSAGE_CLEARUPCOMING.c_str());
+			return buffer;
+		}
+	}
 }
 
 std:: string architectureLogic::updateTask(std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
@@ -253,16 +258,14 @@ std:: string architectureLogic::updateTask(std:: string taskID, std:: string new
 	}
 }
 
-/*
 std:: string architectureLogic::undoTask() {
+	std:: string feedback;
 	if(architectureHistory::isUndoStackEmpty()) {
-		architectureHistory::undoAction();
-		sprintf_s(buffer, MESSAGE_UNDO.c_str());
-		return buffer;
-	} else {
 		sprintf_s(buffer, MESSAGE_UNDOINVALID.c_str());
 		return buffer;
+	} else {
+		feedback = architectureHistory::undoAction();
+		return feedback;
 	}
 }
 
-*/

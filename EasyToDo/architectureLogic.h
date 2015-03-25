@@ -46,15 +46,15 @@ private:
 public:
 	architectureLogic();
 	enum CommandType { 
-		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, 
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO
 	};
-	std:: string determineCommand(std:: string content);
-	std:: string addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
-	std:: string deleteTask(std:: string input);
-	std:: string executeCommand(std:: string commandAction);
-	std:: string clearTask(std:: string content);
-	std:: string updateTask(std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
-	std:: string undoTask();
+	static std:: string determineCommand(std:: string content);
+	static std:: string addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static std:: string deleteTask(std:: string input);
+	static std:: string executeCommand(std:: string commandAction);
+	static std:: string clearTask(std:: string content);
+	static std:: string updateTask(std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	static std:: string undoTask();
 	static void determineContentDescription(std:: string parserInput);
 	static void determineContentDay(std:: string parserInput);
 	static void determineContentMonth(std:: string parserInput);
@@ -62,14 +62,12 @@ public:
 	static void determineContentStartMinutes(std:: string parserInput);
 	static void determineContentEndHours(std:: string parserInput);
 	static void determineContentEndMinutes(std:: string parserInput);
-	std:: string trimTrailingSpaces(std:: string buffer);
+	static std:: string trimTrailingSpaces(std:: string buffer);
 	static void determineTaskID(std:: string parserInput);
-	CommandType determineCommandType(std:: string commandAction);
-	bool isValidCommand(const std:: string& str1, const std:: string& str2);
-	bool isTaskIDValid(int taskID);
-	bool isStorageEmpty();
-	int stringToInteger(std:: string input);
-	// bool isUndoValid();
-
+	static CommandType determineCommandType(std:: string commandAction);
+	static bool isValidCommand(const std:: string& str1, const std:: string& str2);
+	static bool isTaskIDValid(int taskID);
+	static bool isStorageEmpty();
+	static int stringToInteger(std:: string input);
 };
 #endif
