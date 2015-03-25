@@ -165,6 +165,7 @@ architectureLogic::Months architectureLogic::determineMonthType(std:: string par
 		return Months::NOTVALID;
 	} 
 }
+
 void architectureLogic::determineContentMonth(std:: string parserInput) {
 	Months month;
 	month = determineMonthType(parserInput);
@@ -223,8 +224,8 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 }
 
 std:: string trimTrailingSpaces(std:: string buffer) {
-	 boost::algorithm::trim(buffer);
-	 return buffer;
+	boost::algorithm::trim(buffer);
+	return buffer;
 }
 
 std:: string architectureLogic::addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
