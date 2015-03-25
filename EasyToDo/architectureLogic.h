@@ -66,6 +66,7 @@ public:
 	static std:: string undoTask();
 	static void determineContentDescription(std:: string parserInput);
 	static void determineContentDay(std:: string parserInput);
+	static Months architectureLogic::determineMonthType(std:: string parserInput);
 	static void determineContentMonth(std:: string parserInput);
 	static void determineContentStartHours(std:: string parserInput);
 	static void determineContentStartMinutes(std:: string parserInput);
