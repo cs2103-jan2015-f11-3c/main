@@ -3,9 +3,9 @@
 #include "architectureParser.h"
 #include "architectureHistory.h"
 
-std:: stack<std:: string> previousActionStack;
-std:: stack<TASK> previousStateStack;
-std:: vector<TASK> previousTaskList;
+std:: stack<std:: string> architectureHistory::previousActionStack;
+std:: stack<TASK> architectureHistory::previousStateStack;
+std:: vector<TASK> architectureHistory::previousTaskList;
 char architectureHistory::temp[MAXIMUM];
 
 const std:: string architectureHistory::MESSAGE_ERROR = "ERROR! Invalid Command";

@@ -7,7 +7,7 @@
 #include <sstream>
 #include <assert.h>
 #include <stdexcept>
-#include <boost/algorithm/string.hpp>
+#include <algorithm/string.hpp>
 
 #undef DELETE
 
