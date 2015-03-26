@@ -11,6 +11,9 @@ char architectureHistory::temp[MAXIMUM];
 const std:: string architectureHistory::MESSAGE_ERROR = "ERROR! Invalid Command";
 const std:: string architectureHistory::MESSAGE_UNDO = "Previous Action, \"%s\", has been undo";
 
+architectureHistory::architectureHistory() {
+}
+
 void architectureHistory::addPreviousAction(std:: string commandAction) {
 	previousActionStack.push(commandAction);
 }

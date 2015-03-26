@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <boost/algorithm/string.hpp>
 
 #undef DELETE
 
@@ -48,8 +49,8 @@ public:
 	public:
 		architectureFeedbackHistory();
 		static void addToFeedbackList(std:: string feedback);
-		static std:: vector<std:: string>architectureFeedbackHistory::retrieveFeedbackList();
-};
+		static std:: vector<std:: string>retrieveFeedbackList();
+	};
 	architectureLogic();
 	enum CommandType { 
 		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO
@@ -66,6 +67,7 @@ public:
 	static std:: string undoTask();
 	static void determineContentDescription(std:: string parserInput);
 	static void determineContentDay(std:: string parserInput);
+	static Months architectureLogic::determineMonthType(std:: string parserInput);
 	static void determineContentMonth(std:: string parserInput);
 	static void determineContentStartHours(std:: string parserInput);
 	static void determineContentStartMinutes(std:: string parserInput);

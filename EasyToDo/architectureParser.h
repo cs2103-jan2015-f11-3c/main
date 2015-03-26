@@ -8,8 +8,6 @@
 #include <algorithm>
 #include <fstream>
 
-
-
 class Parser {
 	private:
 		//string that that will store all the command information

@@ -2,18 +2,19 @@
 #include "architectureLogic.h"
 #include "architectureStorage.h"
 
-std::string Parser::_startHour;
-std::string Parser::_startMin;
-std::string Parser::_endHour;
-std::string Parser::_endMin;
-std::string Parser::_dateDay;
-std::string Parser::_dateMonth;
-std::string Parser::_dayOfTheWeek;
-std::string Parser::_taskDesc;
-//std::string Parser::_tokenizeContent;
-std::string Parser::_newContent;
-std::string Parser::_taskID;
-
+	std::string Parser::_time;
+	std::string Parser::_taskDesc;
+	std::string Parser::_tokenizeContent;
+	std::string Parser::_newContent;
+	std::string Parser::_startHour;
+	std::string Parser::_startMin;
+	std::string Parser::_endHour;
+	std::string Parser::_endMin;
+	std::string Parser::_dayOfTheWeek;
+	std::string Parser::_dateDay;
+	std::string Parser::_dateMonth;
+	std::string Parser::_taskID;
+	
 void Parser::tokenizeADD(std:: string tokenizeContent) {
 
 	_newContent = tokenizeContent;

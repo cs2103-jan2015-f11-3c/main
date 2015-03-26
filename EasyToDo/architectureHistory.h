@@ -15,6 +15,7 @@ private:
 	static const std:: string MESSAGE_ERROR;
 	static const std:: string MESSAGE_UNDO;
 public:
+	architectureHistory();
 	static void addPreviousAction(std:: string commandAction);
 	static void addPreviousState(TASK input);
 	static bool isUndoStackEmpty();

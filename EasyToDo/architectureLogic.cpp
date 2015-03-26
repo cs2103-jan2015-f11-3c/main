@@ -223,7 +223,7 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	}
 }
 
-std:: string trimTrailingSpaces(std:: string buffer) {
+std:: string architectureLogic::trimTrailingSpaces(std:: string buffer) {
 	boost::algorithm::trim(buffer);
 	return buffer;
 }
