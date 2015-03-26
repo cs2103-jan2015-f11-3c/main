@@ -3,7 +3,6 @@
 #include "architectureParser.h"
 #include "architectureHistory.h"
 #include "architectureBoost.h"
-#include <assert.h>
 
 /*
 to do list requires basic support of storage/retrieval of info, display of info to user and updating 
@@ -39,13 +38,34 @@ std:: string architectureLogic::_contentEndHours;
 std:: string architectureLogic::_contentEndMinutes;
 std:: string architectureLogic::_taskID;
 
+std:: vector<std:: string> architectureLogic::architectureFeedbackHistory::masterFeedbackList;
+
+
 char architectureLogic::buffer[MAX];
+
+architectureLogic::architectureFeedbackHistory::architectureFeedbackHistory() {
+}
+
+void architectureLogic::architectureFeedbackHistory::addToFeedbackList(std:: string feedback) {
+	masterFeedbackList.push_back(feedback);
+}
+
+std:: vector<std:: string> architectureLogic::architectureFeedbackHistory::retrieveFeedbackList(){
+	std:: vector< std:: string> temp;
+
+	for (int i=0; i<masterFeedbackList.size(); i++) {
+			temp.push_back(masterFeedbackList[i]);
+	}
+
+	return temp;
+}
 
 architectureLogic::architectureLogic(){
 }
 
-std:: string architectureLogic::determineCommand(std:: string content){
-	std:: string feedBack;
+std:: vector<std:: string> architectureLogic::determineCommand(std:: string content){
+	std:: string feedback;
+	std:: vector<std:: string> feedbackList;
 	
 	// next three codes can SLAP
 
@@ -64,9 +84,13 @@ std:: string architectureLogic::determineCommand(std:: string content){
 	_command = content.substr(positionStart, positionEnd);
 	_content = content.substr(positionEnd);
 	assert(_command != "");
-	feedBack = executeCommand(_command);
+	feedback = executeCommand(_command);
+	
+	architectureFeedbackHistory::addToFeedbackList(feedback);
+	feedbackList = architectureFeedbackHistory::retrieveFeedbackList();
 
-	return feedBack;
+
+	return feedbackList;
 }
 
 architectureLogic::CommandType architectureLogic::determineCommandType(std:: string commandAction) { 
@@ -141,6 +165,7 @@ architectureLogic::Months architectureLogic::determineMonthType(std:: string par
 		return Months::NOTVALID;
 	} 
 }
+
 void architectureLogic::determineContentMonth(std:: string parserInput) {
 	Months month;
 	month = determineMonthType(parserInput);
@@ -198,9 +223,9 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	}
 }
 
-std:: string architectureLogic::trimTrailingSpaces(std:: string buffer) {
-	 boost::algorithm::trim(buffer);
-	 return buffer;
+std:: string trimTrailingSpaces(std:: string buffer) {
+	boost::algorithm::trim(buffer);
+	return buffer;
 }
 
 std:: string architectureLogic::addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {

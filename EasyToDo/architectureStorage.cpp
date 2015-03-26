@@ -35,7 +35,7 @@ TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescripton
 	TASK buffer;
 	buffer.taskDescriptionList = _contentDescripton;
 	std::string dateString; // ("2002/1/25");
-	dateString = "2015," + _contentMonth + "," + _contentDay;
+	dateString = "2015," +  _contentMonth + "," + _contentDay;
 	date d(from_string(dateString));
 	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp;
@@ -127,11 +127,11 @@ std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList() {
 	return temp;
 }
 
-std:: vector<std:: string> architectureStorage::retrieveFloatingTaskList() {
+std:: vector<std:: string> architectureStorage::retrieveTodayTaskList() {
 	std:: vector<TASK>:: iterator iter;
 	std:: vector<std:: string> temp;
 
-	for(iter = floatingTaskList.begin(); iter != floatingTaskList.end(); iter++) {
+	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
 		std:: stringstream ss;
 		ss << iter->taskID;
 		std:: string str = ss.str();
@@ -221,9 +221,7 @@ void architectureStorage::undoDelete(TASK& input) {
 }
 
 void architectureStorage::deleteTask(TASK& input) {
-	
 	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), input);
-
 	if (position != masterTaskList.end()) {
 		masterTaskList.erase(position);
 	}

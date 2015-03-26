@@ -4,7 +4,7 @@
 #include <msclr/marshal_cppstd.h>
 #include "architectureLogic.h"
 #include "architectureStorage.h"
-
+ 
 namespace UI {
 
 	using namespace System;
@@ -32,7 +32,7 @@ namespace UI {
 	private: System::Windows::Forms::Label^  miscellaneousLabel;
 	private: System::Windows::Forms::TextBox^  textBox1;
 	private: System::Windows::Forms::TextBox^  textBox2;
-	private: System::Windows::Forms::Timer^  timer1;
+
 
 			 architectureStorage* storage;
 
@@ -90,7 +90,6 @@ namespace UI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(architectureGUI::typeid));
 			this->commandLineTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->feedbackTextBox = (gcnew System::Windows::Forms::TextBox());
@@ -103,7 +102,6 @@ namespace UI {
 			this->miscellaneousLabel = (gcnew System::Windows::Forms::Label());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->logoPictureBox))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -112,7 +110,7 @@ namespace UI {
 			this->commandLineTextBox->BackColor = System::Drawing::Color::MistyRose;
 			this->commandLineTextBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.900001F, System::Drawing::FontStyle::Regular, 
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->commandLineTextBox->Location = System::Drawing::Point(57, 211);
+			this->commandLineTextBox->Location = System::Drawing::Point(66, 114);
 			this->commandLineTextBox->Multiline = true;
 			this->commandLineTextBox->Name = L"commandLineTextBox";
 			this->commandLineTextBox->Size = System::Drawing::Size(1004, 43);
@@ -122,7 +120,7 @@ namespace UI {
 			// feedbackTextBox
 			// 
 			this->feedbackTextBox->BackColor = System::Drawing::Color::Azure;
-			this->feedbackTextBox->Location = System::Drawing::Point(1090, 409);
+			this->feedbackTextBox->Location = System::Drawing::Point(1099, 312);
 			this->feedbackTextBox->Multiline = true;
 			this->feedbackTextBox->Name = L"feedbackTextBox";
 			this->feedbackTextBox->Size = System::Drawing::Size(533, 834);
@@ -133,7 +131,7 @@ namespace UI {
 			this->displayTodayTextBox->BackColor = System::Drawing::Color::LemonChiffon;
 			this->displayTodayTextBox->Font = (gcnew System::Drawing::Font(L"Rockwell", 9.900001F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->displayTodayTextBox->Location = System::Drawing::Point(57, 328);
+			this->displayTodayTextBox->Location = System::Drawing::Point(66, 231);
 			this->displayTodayTextBox->Multiline = true;
 			this->displayTodayTextBox->Name = L"displayTodayTextBox";
 			this->displayTodayTextBox->Size = System::Drawing::Size(488, 533);
@@ -153,7 +151,7 @@ namespace UI {
 			this->displayUpcomingTextBox->BackColor = System::Drawing::Color::LemonChiffon;
 			this->displayUpcomingTextBox->Font = (gcnew System::Drawing::Font(L"Rockwell", 9.900001F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->displayUpcomingTextBox->Location = System::Drawing::Point(571, 328);
+			this->displayUpcomingTextBox->Location = System::Drawing::Point(580, 231);
 			this->displayUpcomingTextBox->Multiline = true;
 			this->displayUpcomingTextBox->Name = L"displayUpcomingTextBox";
 			this->displayUpcomingTextBox->Size = System::Drawing::Size(490, 533);
@@ -164,7 +162,7 @@ namespace UI {
 			this->todayLabel->AutoSize = true;
 			this->todayLabel->Font = (gcnew System::Drawing::Font(L"Rockwell", 11.1F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->todayLabel->Location = System::Drawing::Point(56, 282);
+			this->todayLabel->Location = System::Drawing::Point(65, 185);
 			this->todayLabel->Name = L"todayLabel";
 			this->todayLabel->Size = System::Drawing::Size(150, 42);
 			this->todayLabel->TabIndex = 5;
@@ -175,7 +173,7 @@ namespace UI {
 			this->upcomingLabel->AutoSize = true;
 			this->upcomingLabel->Font = (gcnew System::Drawing::Font(L"Rockwell", 11.1F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->upcomingLabel->Location = System::Drawing::Point(564, 283);
+			this->upcomingLabel->Location = System::Drawing::Point(573, 186);
 			this->upcomingLabel->Name = L"upcomingLabel";
 			this->upcomingLabel->Size = System::Drawing::Size(227, 42);
 			this->upcomingLabel->TabIndex = 6;
@@ -186,7 +184,7 @@ namespace UI {
 			this->displayMiscellaneousTextBox->BackColor = System::Drawing::Color::Honeydew;
 			this->displayMiscellaneousTextBox->Font = (gcnew System::Drawing::Font(L"Rockwell", 9.900001F, System::Drawing::FontStyle::Regular, 
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->displayMiscellaneousTextBox->Location = System::Drawing::Point(63, 939);
+			this->displayMiscellaneousTextBox->Location = System::Drawing::Point(72, 842);
 			this->displayMiscellaneousTextBox->Multiline = true;
 			this->displayMiscellaneousTextBox->Name = L"displayMiscellaneousTextBox";
 			this->displayMiscellaneousTextBox->Size = System::Drawing::Size(998, 304);
@@ -197,7 +195,7 @@ namespace UI {
 			this->miscellaneousLabel->AutoSize = true;
 			this->miscellaneousLabel->Font = (gcnew System::Drawing::Font(L"Rockwell", 11.1F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->miscellaneousLabel->Location = System::Drawing::Point(387, 891);
+			this->miscellaneousLabel->Location = System::Drawing::Point(396, 794);
 			this->miscellaneousLabel->Name = L"miscellaneousLabel";
 			this->miscellaneousLabel->Size = System::Drawing::Size(330, 42);
 			this->miscellaneousLabel->TabIndex = 8;
@@ -208,7 +206,7 @@ namespace UI {
 			this->textBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Rockwell", 9.900001F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->textBox1->Location = System::Drawing::Point(57, 169);
+			this->textBox1->Location = System::Drawing::Point(66, 72);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(346, 39);
 			this->textBox1->TabIndex = 9;
@@ -219,7 +217,7 @@ namespace UI {
 			this->textBox2->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox2->Font = (gcnew System::Drawing::Font(L"Rockwell", 9.900001F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
 				static_cast<System::Byte>(0)));
-			this->textBox2->Location = System::Drawing::Point(1090, 364);
+			this->textBox2->Location = System::Drawing::Point(1099, 267);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(230, 39);
 			this->textBox2->TabIndex = 10;
@@ -255,22 +253,34 @@ namespace UI {
 
 	private: System::Void inputTextBox_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
 				 String^ input;
-				 
+							 
 				 input = commandLineTextBox->Text;
 				 if (e->KeyChar == (char)13) {
 					 std::string content = msclr::interop::marshal_as< std::string >(input);
 					 commandLineTextBox->Text = "";
-					 std:: string feedback = logic->determineCommand(content);
+					 std:: vector<std:: string> feedbackList = logic->determineCommand(content);
+					 String^ feedbackSystem;
+					 String^ feedback = "";
 					 
-					 String^ output = gcnew String(feedback.c_str());
-					 feedbackTextBox->Text = output;
 
+					 int totalFeedback = feedbackList.size();
+					 
+				
+					 for (int i=totalFeedback; i>0; i--) {
+						 feedbackSystem = gcnew String(feedbackList[i-1].c_str());
+						 feedback = feedback + feedbackSystem;
+					 
+						 if (i != 0) {
+							 feedback = feedback + "\r\n";
+						 }
+					 }
+					  feedbackTextBox->Text = feedback;
+						 
 					 std:: vector<std:: string> taskList = storage->retrieveMasterTaskList();
 					 int totalTaskList = taskList.size();
 					 String^ display = "";
 					 String^ displaySystem ;
-					 std:: string displayString;
-					
+				
 					 for (int i=0; i<totalTaskList; i++) {
 						 displaySystem = gcnew String(taskList[i].c_str());
 						 display = display + displaySystem;
@@ -279,7 +289,7 @@ namespace UI {
 							 display = display + "\r\n";
 						 }
 					}
-					 
+					
 					 displayTodayTextBox->Text = display;
 				 }			 
 			

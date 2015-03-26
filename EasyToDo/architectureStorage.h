@@ -5,14 +5,10 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
-#include "boost/date_time/posix_time/posix_time.hpp"
-#include "boost/date_time/time_zone_base.hpp"
-#include "boost/date_time/local_time/local_time.hpp"
+#include <boost/date_time.hpp>
 
 using namespace boost::posix_time;
 using namespace boost::gregorian;
-using boost::posix_time::ptime;
-using boost::local_time::local_time_input_facet;
 
 // deadline: add meet ivy on 14 April from 14:00 to 18:00 
 // floating: add meet ivy
