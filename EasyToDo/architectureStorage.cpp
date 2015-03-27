@@ -16,11 +16,11 @@ bool operator==(const TASK& a, const TASK& b) {
 architectureStorage::architectureStorage() {
 }
 
-void architectureStorage::updateTaskID() {
+void architectureStorage::updateTaskID(std:: vector<TASK>& input) {
 	int counter = 1;
 	std:: vector<TASK>::iterator iter;
 	
-	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++, counter++) {
+	for(iter = input.begin(); iter != input.end(); iter++, counter++) {
 		iter->taskID = counter;
 	}
 }
@@ -60,10 +60,7 @@ TASK architectureStorage::initializeTimedTask(std:: string _contentDescripton, s
 TASK architectureStorage::initializeFloatingTask(std:: string _contentDescripton) {
 	TASK buffer;
 	buffer.taskDescriptionList = _contentDescripton;
-	std::string dateString; // ("2002/1/25");
-	dateString = "";
-	date d(from_string(dateString));
-	ptime temp(d, time_duration(not_a_date_time));
+	ptime temp; //temp => not_a_date_time
 	buffer.startDateTime = temp;
 	buffer.endTime = time_duration(not_a_date_time);
 	buffer.taskID = 0;
@@ -76,6 +73,8 @@ void architectureStorage::addToMasterStorage(std:: string _contentDescripton, st
 		if(_contentStartHours == "" && _contentStartMinutes == "") {
 			temp = initializeFloatingTask(_contentDescripton);
 			floatingTaskList.push_back(temp);
+			architectureHistory::addPreviousState(temp);
+			return;
 		} else {
 			temp = initializeTimedTask(_contentDescripton, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes);
 		}
@@ -88,28 +87,25 @@ void architectureStorage::addToMasterStorage(std:: string _contentDescripton, st
 	return;
 }
 
-std:: vector<std:: string> architectureStorage::retrieveMasterTaskList() {
-	std:: vector<TASK>:: iterator iter;
-	std:: vector<std:: string> temp;
-
-	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
-		std:: stringstream ss;
-		ss << iter->taskID;
-		std:: string str = ss.str();
-		temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
-	}
-	return temp;
-}
-
 std:: vector<std:: string> architectureStorage::retrieveTodayTaskList() {
 	std:: vector<TASK>:: iterator iter;
 	std:: vector<std:: string> temp;
+
+	updateTaskID(todayTaskList);
 
 	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
 		std:: stringstream ss;
 		ss << iter->taskID;
 		std:: string str = ss.str();
-		temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
+		if((iter->endTime).is_not_a_date_time()) {
+			if((iter->startDateTime).is_not_a_date_time()) {
+				temp.push_back(str + ". " + iter->taskDescriptionList);
+			} else {
+				temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str());
+			}
+		} else {
+			temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
+		}
 	}
 	return temp;
 }
@@ -118,11 +114,21 @@ std:: vector<std:: string> architectureStorage::retrieveUpcomingTaskList() {
 	std:: vector<TASK>:: iterator iter;
 	std:: vector<std:: string> temp;
 
+	updateTaskID(upcomingTaskList);
+
 	for(iter = upcomingTaskList.begin(); iter != upcomingTaskList.end(); iter++) {
 		std:: stringstream ss;
 		ss << iter->taskID;
 		std:: string str = ss.str();
-		temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
+		if((iter->endTime).is_not_a_date_time()) {
+			if((iter->startDateTime).is_not_a_date_time()) {
+				temp.push_back(str + ". " + iter->taskDescriptionList);
+			} else {
+				temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str());
+			}
+		} else {
+			temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
+		}
 	}
 	return temp;
 }
@@ -131,26 +137,55 @@ std:: vector<std:: string> architectureStorage::retrieveFloatingTaskList() {
 	std:: vector<TASK>:: iterator iter;
 	std:: vector<std:: string> temp;
 
+	updateTaskID(floatingTaskList);
+
 	for(iter = floatingTaskList.begin(); iter != floatingTaskList.end(); iter++) {
 		std:: stringstream ss;
 		ss << iter->taskID;
 		std:: string str = ss.str();
-		temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
+		if((iter->endTime).is_not_a_date_time()) {
+			if((iter->startDateTime).is_not_a_date_time()) {
+				temp.push_back(str + ". " + iter->taskDescriptionList);
+			} else {
+				temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str());
+			}
+		} else {
+			temp.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
+		}
 	}
 	return temp;
 }
 
-void architectureStorage::deleteFromStorage(int taskID) {
-	std:: vector<TASK>::iterator iter = findIterator(taskID);
+void architectureStorage::deleteTodayFromStorage(std:: vector<TASK>::iterator iter) {
 	architectureHistory::addPreviousState(*iter);
-	masterTaskList.erase(iter);
-	architectureBoost::sortTodayUpcoming(masterTaskList);
+	todayTaskList.erase(iter);
 	return;
 }
 
-int architectureStorage::findTotalNumberofTask() {
-	return masterTaskList.size();
+void architectureStorage::deleteUpcomingFromStorage(std:: vector<TASK>::iterator iter) {
+	architectureHistory::addPreviousState(*iter);
+	upcomingTaskList.erase(iter);
+	return;
 }
+
+void architectureStorage::deleteFloatingFromStorage(std:: vector<TASK>::iterator iter) {
+	architectureHistory::addPreviousState(*iter);
+	floatingTaskList.erase(iter);
+	return;
+}
+
+int architectureStorage::findTotalNumberofTodayTask() {
+	return todayTaskList.size();
+}
+
+int architectureStorage::findTotalNumberofUpcomingTask() {
+	return upcomingTaskList.size();
+}
+
+int architectureStorage::findTotalNumberofFloatingTask() {
+	return floatingTaskList.size();
+}
+
 
 bool architectureStorage::isMasterTaskListEmpty() {
 	if(masterTaskList.size() == 0) {
@@ -160,20 +195,70 @@ bool architectureStorage::isMasterTaskListEmpty() {
 	}
 }
 
-std:: vector<TASK>::iterator architectureStorage::findIterator(int taskID) {
+bool architectureStorage::isTodayTaskListEmpty() {
+	if(todayTaskList.size() == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool architectureStorage::isUpcomingTaskListEmpty() {
+	if(upcomingTaskList.size() == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool architectureStorage::isFloatingTaskListEmpty() {
+	if(floatingTaskList.size() == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+std:: vector<TASK>::iterator architectureStorage::findTodayIterator(int taskID) {
 	std:: vector<TASK>::iterator iter; 
-	iter = masterTaskList.begin() + taskID - 1;
+	iter = todayTaskList.begin() + taskID - 1;
+	return iter;
+}
+
+std:: vector<TASK>::iterator architectureStorage::findUpcomingIterator(int taskID) {
+	std:: vector<TASK>::iterator iter; 
+	iter = upcomingTaskList.begin() + taskID - 1;
+	return iter;
+}
+
+std:: vector<TASK>::iterator architectureStorage::findFloatingIterator(int taskID) {
+	std:: vector<TASK>::iterator iter; 
+	iter = floatingTaskList.begin() + taskID - 1;
 	return iter;
 }
 
 // for update function, i will store two previous states instead of one[add, delete] 
 // thus the first one you pop from the stack "previousStateStack" would be the one you need to delete
 // and the second one would be the one you need to add back cause of LIFO
-void architectureStorage::updateToStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
-	std:: vector<TASK>::iterator iter = findIterator(taskID);
+void architectureStorage::updateToTodayStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+	std:: vector<TASK>::iterator iter = findTodayIterator(taskID);
 	architectureHistory::addPreviousState(*iter);
 	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
-	deleteFromStorage(taskID);
+	deleteTask(*iter);
+}
+
+void architectureStorage::updateToUpcomingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+	std:: vector<TASK>::iterator iter = findUpcomingIterator(taskID);
+	architectureHistory::addPreviousState(*iter);
+	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+	deleteTask(*iter);
+}
+
+void architectureStorage::updateToFloatingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+	std:: vector<TASK>::iterator iter = findFloatingIterator(taskID);
+	architectureHistory::addPreviousState(*iter);
+	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+	floatingTaskList.erase(iter);
 }
 
 void architectureStorage::storeTodayTask(TASK temp) {
@@ -189,6 +274,9 @@ void architectureStorage::storeUpcomingTask(TASK temp) {
 void architectureStorage::clearAllFromStorage() {
 	architectureHistory::retrievePreviousTaskList(masterTaskList);
 	masterTaskList.clear();
+	todayTaskList.clear();
+	floatingTaskList.clear();
+	upcomingTaskList.clear();
 	return;
 }
 
@@ -206,10 +294,6 @@ void architectureStorage::clearUpcomingFromStorage() {
 
 void architectureStorage::clearFloatingFromStorage() {
 	floatingTaskList.clear();
-	std:: string temp = "";
-	TASK task; 
-	task = initializeFloatingTask(temp);
-	architectureHistory::addPreviousState(task);
 	return;
 }
 

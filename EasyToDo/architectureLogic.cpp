@@ -13,19 +13,25 @@ architecture to 5 different components of UI, Parser, Logic, Storage, History
 /*
 logic is a facade class that separate the storage vectors in Storage and the users(UI) 
 */
-const std:: string architectureLogic::MESSAGE_ADD = "Task \"%s %s %s %s %s %s %s\" is added successfully";
+const std:: string architectureLogic::MESSAGE_ADD = "Task \"%s\" is added successfully";
 const std:: string architectureLogic::MESSAGE_INVALID = "ERROR! Invalid Command";
 const std:: string architectureLogic::MESSAGE_NOTFOUND = "Task is not found!";
-const std:: string architectureLogic::MESSAGE_DELETE = "Task %s is deleted!";
+const std:: string architectureLogic::MESSAGE_DELETETODAY = "Today Task %s is deleted!";
+const std:: string architectureLogic::MESSAGE_DELETEUPCOMING = "Upcoming Task %s is deleted!";
+const std:: string architectureLogic::MESSAGE_DELETEFLOATING = "Floating Task %s is deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARALL = "All task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARTODAY = "Today's task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARUPCOMING = "Upcoming task(s) are deleted!";
+const std:: string architectureLogic::MESSAGE_CLEARFLOATING = "Floating task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_STORAGEEMPTY = "Task List is already empty!";
-const std:: string architectureLogic::MESSAGE_UPDATE = "Task %s is updated successfully";
+const std:: string architectureLogic::MESSAGE_UPDATETODAY = "Today Task %s is updated successfully";
+const std:: string architectureLogic::MESSAGE_UPDATEUPCOMING = "Upcoming Task %s is updated successfully";
+const std:: string architectureLogic::MESSAGE_UPDATEFLOATING = "Floating Task %s is updated successfully";
 const std:: string architectureLogic::MESSAGE_UNDOINVALID = "No more action left to undo";
-const std:: string architectureLogic::MESSAGE_ALL = "all";
-const std:: string architectureLogic::MESSAGE_TODAY = "today";
-const std:: string architectureLogic::MESSAGE_UPCOMING = "upcoming";
+const std:: string architectureLogic::MESSAGE_ALL = " all";
+const std:: string architectureLogic::MESSAGE_TODAY = " today";
+const std:: string architectureLogic::MESSAGE_UPCOMING = " upcoming";
+const std:: string architectureLogic::MESSAGE_FLOATING = " floating";
 
 std:: string architectureLogic::_command;
 std:: string architectureLogic::_content;
@@ -37,6 +43,7 @@ std:: string architectureLogic::_contentStartMinutes;
 std:: string architectureLogic::_contentEndHours;
 std:: string architectureLogic::_contentEndMinutes;
 std:: string architectureLogic::_taskID;
+std:: string architectureLogic::_taskType;
 
 std:: vector<std:: string> architectureLogic::architectureFeedbackHistory::masterFeedbackList;
 
@@ -54,7 +61,7 @@ std:: vector<std:: string> architectureLogic::architectureFeedbackHistory::retri
 	std:: vector< std:: string> temp;
 
 	for (int i=0; i<masterFeedbackList.size(); i++) {
-			temp.push_back(masterFeedbackList[i]);
+		temp.push_back(masterFeedbackList[i]);
 	}
 
 	return temp;
@@ -64,9 +71,10 @@ architectureLogic::architectureLogic(){
 }
 
 std:: vector<std:: string> architectureLogic::determineCommand(std:: string content){
+	assert(content != "");
 	std:: string feedback;
 	std:: vector<std:: string> feedbackList;
-	
+
 	// next three codes can SLAP
 
 	size_t pos = 0;
@@ -83,9 +91,10 @@ std:: vector<std:: string> architectureLogic::determineCommand(std:: string cont
 
 	_command = content.substr(positionStart, positionEnd);
 	_content = content.substr(positionEnd);
+	trimTrailingSpaces(_content);
 	assert(_command != "");
 	feedback = executeCommand(_command);
-	
+
 	architectureFeedbackHistory::addToFeedbackList(feedback);
 	feedbackList = architectureFeedbackHistory::retrieveFeedbackList();
 
@@ -135,8 +144,8 @@ void architectureLogic::determineContentDay(std:: string parserInput) {
 	_contentDay = parserInput;
 }
 
+
 architectureLogic::Months architectureLogic::determineMonthType(std:: string parserInput) {
-	assert(parserInput != "");
 	if(isValidCommand(parserInput, "jan") || isValidCommand(parserInput, "january")) { 
 		return Months::JAN;
 	} else if(isValidCommand(parserInput, "feb") || isValidCommand(parserInput, "february")) { 
@@ -169,8 +178,11 @@ architectureLogic::Months architectureLogic::determineMonthType(std:: string par
 void architectureLogic::determineContentMonth(std:: string parserInput) {
 	Months month;
 	month = determineMonthType(parserInput);
-	assert(month != NOTVALID);
-	_contentMonth = month;
+	std:: stringstream ss;
+	ss << month;
+	std:: string str = ss.str();
+	// assert(month != NOTVALID);
+	_contentMonth = str;
 }
 
 void architectureLogic::determineContentStartHours(std:: string parserInput) {
@@ -193,6 +205,26 @@ void architectureLogic::determineTaskID(std:: string parserInput) {
 	_taskID = parserInput;
 }
 
+void architectureLogic::determineTaskType(std:: string parserInput) {
+	assert(parserInput != "");
+	_taskType = parserInput;
+}
+/*
+void architectureLogic::tokenizeDELETE(std::string tokenizeContent) {
+	assert(tokenizeContent != "");
+	size_t positionStart = tokenizeContent.find_first_not_of(" ");
+	assert(positionStart >= 0);
+	size_t positionEnd = tokenizeContent.find_first_of(" ");
+	assert(positionEnd >= 0);
+
+	std:: string taskType = tokenizeContent.substr(positionStart, positionEnd);
+	// assert(_taskType != "");
+	std:: string taskID = tokenizeContent.substr(positionEnd);
+	// assert(_taskID != "");
+	_taskType = "today";
+	_taskID = "1";
+}
+*/
 /*
 command pattern: execute the command without knowing the specific type of command
 */
@@ -207,12 +239,13 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 		Parser::tokenizeADD(_content);
 		return addTask(_contentDescription, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
 	case DELETE:
-		return deleteTask(_content);
+		Parser::tokenizeDELETE(_content);
+		return deleteTask(_taskType, _taskID);
 	case CLEAR:
 		return clearTask(_content);
 	case UPDATE:
 		Parser::tokenizeUPDATE(_content);
-		return updateTask(_taskID, _contentDescription, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
+		return updateTask(_taskType, _taskID, _contentDescription, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
 	case INVALID:
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
@@ -231,13 +264,12 @@ std:: string architectureLogic::trimTrailingSpaces(std:: string buffer) {
 std:: string architectureLogic::addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
 	assert(_contentDescription != "");
 	architectureStorage::addToMasterStorage(_contentDescription, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
-	architectureStorage::updateTaskID();
-	sprintf_s(buffer, MESSAGE_ADD.c_str(), _contentDescription.c_str(), _contentDay.c_str(), _contentMonth.c_str(), _contentStartHours.c_str(), _contentStartMinutes.c_str(), _contentEndHours.c_str(), _contentEndMinutes.c_str());
+	sprintf_s(buffer, MESSAGE_ADD.c_str(), _content.c_str());
 	return trimTrailingSpaces(buffer);
 }
 
-bool architectureLogic::isTaskIDValid(int taskID) {
-	int size = architectureStorage::findTotalNumberofTask();
+bool architectureLogic::isTodayTaskIDValid(int taskID) {
+	int size = architectureStorage::findTotalNumberofTodayTask();
 	assert(size >=0);
 	if(size < taskID) {
 		return false;
@@ -246,26 +278,94 @@ bool architectureLogic::isTaskIDValid(int taskID) {
 	}
 }
 
-std:: string architectureLogic::deleteTask(std:: string taskID) {
-	assert(taskID !=  "");
-	const std:: string temp = taskID;
-	int ID = stringToInteger(taskID); 
-	std:: vector<TASK>::iterator iter;
-	iter = architectureStorage::findIterator(ID);
-	if(isTaskIDValid(ID)) {
-		architectureHistory::addPreviousState(*iter);
-		architectureStorage::deleteFromStorage(ID);
-		architectureStorage::updateTaskID();
-		sprintf_s(buffer, MESSAGE_DELETE.c_str(), temp.c_str());
-		return buffer;
+bool architectureLogic::isUpcomingTaskIDValid(int taskID) {
+	int size = architectureStorage::findTotalNumberofUpcomingTask();
+	assert(size >=0);
+	if(size < taskID) {
+		return false;
 	} else {
-		sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
-		return buffer;
+		return true;
 	}
 }
 
-bool architectureLogic::isStorageEmpty() {
+bool architectureLogic::isFloatingTaskIDValid(int taskID) {
+	int size = architectureStorage::findTotalNumberofFloatingTask();
+	assert(size >=0);
+	if(size < taskID) {
+		return false;
+	} else {
+		return true;
+	}
+}
+architectureLogic::DateType architectureLogic::determineDateTypeAction(std:: string taskType) {
+	//assert(taskType != "");
+	if(isValidCommand(taskType, "today")) { 
+		return DateType::TODAY; 
+	} else if(isValidCommand(taskType, "upcoming")) { 
+		return DateType::UPCOMING; 
+	} else if(isValidCommand(taskType, "misc")) {
+		return DateType::MISC;
+	} 
+}
+std:: string architectureLogic::deleteTask(std:: string taskType, std:: string taskID) {
+	//assert(taskID !=  "");
+	//assert(taskType != "");
+	const std:: string temp = taskID;
+	int ID = stringToInteger(taskID); 
+	DateType commandTypeAction = determineDateTypeAction(taskType);
+	std:: vector<TASK>::iterator iter;
+
+	switch(commandTypeAction) {
+	case TODAY:
+		if(isTodayTaskIDValid(ID)) {
+			iter = architectureStorage::findTodayIterator(ID);
+			architectureHistory::addPreviousState(*iter);
+			architectureStorage::deleteTodayFromStorage(iter);
+			sprintf_s(buffer, MESSAGE_DELETETODAY.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case UPCOMING:
+		if(isUpcomingTaskIDValid(ID)) {
+			iter = architectureStorage::findUpcomingIterator(ID);
+			architectureHistory::addPreviousState(*iter);
+			architectureStorage::deleteUpcomingFromStorage(iter);
+			sprintf_s(buffer, MESSAGE_DELETEUPCOMING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case MISC:
+		if(isFloatingTaskIDValid(ID)) {
+			iter = architectureStorage::findFloatingIterator(ID);
+			architectureHistory::addPreviousState(*iter);
+			architectureStorage::deleteFloatingFromStorage(iter);
+			sprintf_s(buffer, MESSAGE_DELETEFLOATING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	}
+}
+
+bool architectureLogic::isMasterTaskListEmpty() {
 	return architectureStorage::isMasterTaskListEmpty();
+}
+
+bool architectureLogic::isTodayTaskListEmpty() {
+	return architectureStorage::isTodayTaskListEmpty();
+}
+
+bool architectureLogic::isUpcomingTaskListEmpty() {
+	return architectureStorage::isUpcomingTaskListEmpty();
+}
+
+bool architectureLogic::isFloatingTaskListEmpty() {
+	return architectureStorage::isFloatingTaskListEmpty();
 }
 
 int architectureLogic::stringToInteger(std:: string input) {
@@ -275,42 +375,89 @@ int architectureLogic::stringToInteger(std:: string input) {
 }
 
 std:: string architectureLogic::clearTask(std:: string _content) {
-	if(isStorageEmpty()) { 
-		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
-		return buffer;
-	}  else {
-		if (_content == MESSAGE_ALL) {
+	assert(_content != "");
+
+	if (_content == MESSAGE_ALL) {
+		if(isMasterTaskListEmpty() && isFloatingTaskListEmpty()) {
+			sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
+			return buffer;
+		} else {
 			architectureStorage::clearAllFromStorage();
 			sprintf_s(buffer, MESSAGE_CLEARALL.c_str());
 			return buffer;
-		} 
-		if(_content == MESSAGE_TODAY) {
+		}
+	}
+
+	if(_content == MESSAGE_TODAY) {
+		if(isTodayTaskListEmpty()) {
+			sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
+			return buffer;
+		} else {
 			architectureStorage::clearTodayFromStorage();
 			sprintf_s(buffer, MESSAGE_CLEARTODAY.c_str());
 			return buffer;
-		}  
-		if(_content == MESSAGE_UPCOMING) {
+		}
+	}
+
+	if(_content == MESSAGE_UPCOMING) {
+		if(isUpcomingTaskListEmpty()) {
+			sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
+			return buffer;
+		} else {
 			architectureStorage::clearUpcomingFromStorage();
 			sprintf_s(buffer, MESSAGE_CLEARUPCOMING.c_str());
 			return buffer;
 		}
 	}
-}
 
-std:: string architectureLogic::updateTask(std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
-	const std:: string temp = taskID;
-	int ID = stringToInteger(taskID);
-	assert(ID > 0);
-	if(isTaskIDValid(ID)) {
-		architectureStorage::updateToStorage(ID, newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
-		architectureStorage::updateTaskID();
-		sprintf_s(buffer, MESSAGE_UPDATE.c_str(), temp.c_str());
-		return buffer;
-	} else {
-		sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
-		return buffer;
+	if(_content == MESSAGE_FLOATING) {
+		if(isFloatingTaskListEmpty()) {
+			sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
+			return buffer;
+		} else {
+			architectureStorage::clearFloatingFromStorage();
+			sprintf_s(buffer, MESSAGE_CLEARFLOATING.c_str());
+			return buffer;
+		}
 	}
 }
+
+std:: string architectureLogic::updateTask(std:: string taskType, std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+	const std:: string temp = taskID;
+	int ID = stringToInteger(taskID);
+	DateType commandTypeAction = determineDateTypeAction(taskType);
+	assert(ID > 0);
+	switch(commandTypeAction) {
+	case TODAY:
+		if(isTodayTaskIDValid(ID)) {
+			architectureStorage::updateToTodayStorage(ID, newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+			sprintf_s(buffer, MESSAGE_UPDATETODAY.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case UPCOMING:
+		if(isUpcomingTaskIDValid(ID)) {
+			architectureStorage::updateToUpcomingStorage(ID, newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+			sprintf_s(buffer, MESSAGE_UPDATEUPCOMING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case MISC:
+		if(isFloatingTaskIDValid(ID)) {
+			architectureStorage::updateToFloatingStorage(ID, newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+			sprintf_s(buffer, MESSAGE_UPDATEFLOATING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	}
+}
+
 
 std:: string architectureLogic::undoTask() {
 	std:: string feedback;

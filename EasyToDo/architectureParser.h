@@ -14,6 +14,7 @@ class Parser {
 		//this string contains all the different command add, delete... etc
 		static std::string _time;
 		static std::string _taskDesc;
+		static std::string _taskType;
 		static std::string _tokenizeContent;
 		static std::string _newContent;
 		static std::string _startHour;
@@ -24,6 +25,7 @@ class Parser {
 		static std::string _dateDay;
 		static std::string _dateMonth;
 		static std::string _taskID;
+		static std::string _delContent;
 
 
 	public:
@@ -37,5 +39,6 @@ class Parser {
 		static void tokenizeDateDay(std::string tokenizeContent);
 		static void tokenizeDateMonth(std::string tokenizeContent);
 		static void tokenizeTime(std::string tokenizeContent);
+		static std::string Parser::getContent();
 };
 #endif

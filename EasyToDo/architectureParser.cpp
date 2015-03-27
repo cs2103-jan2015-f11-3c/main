@@ -14,6 +14,8 @@
 	std::string Parser::_dateDay;
 	std::string Parser::_dateMonth;
 	std::string Parser::_taskID;
+	std::string Parser::_taskType;
+	std::string Parser::_delContent;
 	
 void Parser::tokenizeADD(std:: string tokenizeContent) {
 
@@ -28,8 +30,8 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 		architectureLogic::determineContentDescription(_taskDesc);
 
 		taskFirst = taskLast+4;
-		taskLast = _newContent.npos;
-		std::string dateContent = _newContent.substr(taskFirst,taskLast);
+		//taskLast = _newContent.npos;
+		std::string dateContent = _newContent.substr(taskFirst);
 		tokenizeDateDay(dateContent);
 	} else {
 
@@ -84,15 +86,24 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 
 void Parser::tokenizeUPDATE(std::string tokenizeContent) {
 
-	_newContent = tokenizeContent;
+	std::string _newContent = tokenizeContent;
 	size_t taskFirst = _newContent.find_first_not_of(" ");
 	size_t taskLast = _newContent.find_first_of(" ");
-	_taskID = _newContent.substr(taskFirst,taskLast);
-	architectureLogic::determineTaskID(_taskID);
+	_taskDesc = _newContent.substr(taskFirst,taskLast);
+	architectureLogic::determineTaskType(_taskDesc);
+	
 	taskFirst = taskLast+1;
-	taskLast = _newContent.npos;
-	std::string updateContent = _newContent.substr(taskFirst,taskLast);
+	std::string taskIDContent =_newContent.substr(taskFirst);
+	taskFirst = taskIDContent.find_first_not_of(" ");
+	taskLast = taskIDContent.find_first_of(" ");
+	_taskID = taskIDContent.substr(taskFirst,taskLast);
+	architectureLogic::determineTaskID(_taskID);
+	
+	taskFirst = taskLast+1;
+	taskLast = taskIDContent.npos;
+	std::string updateContent = taskIDContent.substr(taskFirst,taskLast);
 	tokenizeADD(updateContent);
+
 
 }
 /*
@@ -115,14 +126,13 @@ void Parser::tokenizeDateDay(std::string tokenizeContent){
 
 	std::string remainingContent = tokenizeContent;
 
-	size_t taskFirst = 0;
-	size_t taskLast = remainingContent.find_first_of(" ");
+	size_t taskFirst = remainingContent.find_first_not_of(" ");
+	size_t taskLast = remainingContent.find_first_of(" ", taskFirst);
 	_dateDay = remainingContent.substr(taskFirst,taskLast);
 	architectureLogic::determineContentDay(_dateDay);
 	taskFirst = taskLast+1;
 	_newContent = remainingContent.substr(taskFirst);
 	tokenizeDateMonth(_newContent);
-
 
 }
 
@@ -130,8 +140,8 @@ void Parser::tokenizeDateMonth(std::string tokenizeContent){
 
 	std::string remainingContent = tokenizeContent;
 
-	size_t taskFirst = 0;
-	size_t taskLast = remainingContent.find_first_of(" ");
+	size_t taskFirst = remainingContent.find_first_not_of(" ");
+	size_t taskLast = remainingContent.find_first_of(" ", taskFirst);
 	_dateMonth = remainingContent.substr(taskFirst,taskLast);
 	architectureLogic::determineContentMonth(_dateMonth);
 	taskFirst = taskLast+1;
@@ -186,13 +196,43 @@ void Parser::tokenizeTime(std::string tokenizeContent){
 		architectureLogic::determineContentEndMinutes(_endMin);
 	}
 }
-/*
-void Parser::tokenizeDELETE(std::string tokenizeContent){
 
-tokenizeSingleWord(tokenizeContent);
+std::string Parser::getContent(){
+
+	std::string contentTask = _taskDesc;
+
+	return contentTask;
+
 }
 
+void Parser::tokenizeDELETE(std::string tokenizeContent){
 
+	_delContent = tokenizeContent;
+	assert(tokenizeContent !="");
+	size_t positionStart = tokenizeContent.find_first_not_of(" ");
+	assert(positionStart >= 0);
+	size_t positionEnd = tokenizeContent.find_first_of(" ");
+	assert(positionEnd >= 0);
+
+	_taskType = tokenizeContent.substr(positionStart, positionEnd);
+	assert(_taskType != "");
+	_taskID = tokenizeContent.substr(positionEnd);
+	assert(_taskID != "");
+	/*
+	size_t taskFirst = _content.find_first_not_of(" ");
+	size_t taskLast = _content.find_first_of(" ");
+	_taskType = _content.substr(taskFirst, taskLast);
+	assert(_taskType != "");
+	*/
+	architectureLogic::determineTaskType(_taskType);
+
+	//taskFirst = _content.find_last_not_of(" ");
+	// _taskID = _content.substr(taskFirst);
+	architectureLogic::determineTaskID(_taskID);
+
+}
+
+/*
 void Parser::tokenizeSEARCH(std::string tokenizeContent){
 
 tokenizeSingleWord(tokenizeContent);	

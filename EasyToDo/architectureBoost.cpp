@@ -14,14 +14,17 @@ void architectureBoost::sortTodayUpcoming(std:: vector<TASK>& masterTaskList) {
 	date temp; 
 	days dayDifference;
 
+	architectureStorage::clearUpcomingFromStorage();
+	architectureStorage::clearTodayFromStorage();
+	
 	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
 		temp = (iter->startDateTime).date();
 		dayDifference = temp - dateToday;
 
 		if(isValidTodayTask(dayDifference)) {
-			architectureStorage::storeTodayTask(*iter);
-		} else {
 			architectureStorage::storeUpcomingTask(*iter);
+		} else {
+			architectureStorage::storeTodayTask(*iter);
 		}
 	}
 
