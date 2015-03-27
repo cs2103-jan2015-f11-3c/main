@@ -67,7 +67,7 @@ public:
 	};
 
 	enum DateType {
-		TODAY, UPCOMING, MISC
+		TODAY, UPCOMING, MISC, UNVALID
 	};
 
 	static std:: vector<std:: string> determineCommand(std:: string content);

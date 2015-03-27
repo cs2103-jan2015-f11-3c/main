@@ -299,17 +299,19 @@ bool architectureLogic::isFloatingTaskIDValid(int taskID) {
 }
 architectureLogic::DateType architectureLogic::determineDateTypeAction(std:: string taskType) {
 	//assert(taskType != "");
-	if(isValidCommand(taskType, "today")) { 
+	if(isValidCommand(taskType, "today ")) { 
 		return DateType::TODAY; 
-	} else if(isValidCommand(taskType, "upcoming")) { 
+	} else if(isValidCommand(taskType, "upcoming ")) { 
 		return DateType::UPCOMING; 
-	} else if(isValidCommand(taskType, "misc")) {
+	} else if(isValidCommand(taskType, "misc ")) {
 		return DateType::MISC;
-	} 
+	} else {
+		return DateType::UNVALID;
+	}
 }
 std:: string architectureLogic::deleteTask(std:: string taskType, std:: string taskID) {
-	//assert(taskID !=  "");
-	//assert(taskType != "");
+	assert(taskID !=  "");
+	assert(taskType != "");
 	const std:: string temp = taskID;
 	int ID = stringToInteger(taskID); 
 	DateType commandTypeAction = determineDateTypeAction(taskType);

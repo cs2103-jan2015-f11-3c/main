@@ -211,8 +211,8 @@ void Parser::tokenizeDELETE(std::string tokenizeContent){
 	assert(tokenizeContent !="");
 	size_t positionStart = tokenizeContent.find_first_not_of(" ");
 	assert(positionStart >= 0);
-	size_t positionEnd = tokenizeContent.find_first_of(" ");
-	assert(positionEnd >= 0);
+	size_t positionEnd = tokenizeContent.find_first_of(" ",positionStart);
+	assert(positionEnd > 0);
 
 	_taskType = tokenizeContent.substr(positionStart, positionEnd);
 	assert(_taskType != "");
