@@ -11,5 +11,3 @@ void main(array<String^>^ args) {
 	UI::architectureGUI mainWindow;
 	Application::Run(%mainWindow);
 }
-
-
