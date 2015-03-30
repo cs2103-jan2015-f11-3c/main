@@ -36,6 +36,7 @@ namespace UI {
 	private: System::Windows::Forms::RichTextBox^  todayRichTextBox;
 	private: System::Windows::Forms::RichTextBox^  upcomingRichTextBox;
 	private: System::Windows::Forms::RichTextBox^  miscellaneousRichTextBox;
+	private: System::Windows::Forms::RichTextBox^  displayHelp;
 
 
 
@@ -117,6 +118,7 @@ namespace UI {
 			this->todayRichTextBox = (gcnew System::Windows::Forms::RichTextBox());
 			this->upcomingRichTextBox = (gcnew System::Windows::Forms::RichTextBox());
 			this->miscellaneousRichTextBox = (gcnew System::Windows::Forms::RichTextBox());
+			this->displayHelp = (gcnew System::Windows::Forms::RichTextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->logoPictureBox))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -130,7 +132,7 @@ namespace UI {
 			this->commandLineTextBox->Name = L"commandLineTextBox";
 			this->commandLineTextBox->Size = System::Drawing::Size(1099, 47);
 			this->commandLineTextBox->TabIndex = 0;
-			this->commandLineTextBox->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &architectureGUI::commandLineTextBox_KeyPress);
+			this->commandLineTextBox->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &architectureGUI::commandLineTextBox_KeyUp);
 			// 
 			// feedbackTextBox
 			// 
@@ -282,6 +284,17 @@ namespace UI {
 			this->miscellaneousRichTextBox->TabIndex = 14;
 			this->miscellaneousRichTextBox->Text = L"";
 			// 
+			// displayHelp
+			// 
+			this->displayHelp->BackColor = System::Drawing::Color::AliceBlue;
+			this->displayHelp->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->displayHelp->Location = System::Drawing::Point(34, 54);
+			this->displayHelp->Name = L"displayHelp";
+			this->displayHelp->Size = System::Drawing::Size(662, 443);
+			this->displayHelp->TabIndex = 15;
+			this->displayHelp->Text = L"";
+			this->displayHelp->Visible = false;
+			// 
 			// architectureGUI
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(16, 31);
@@ -289,6 +302,7 @@ namespace UI {
 			this->AutoSize = true;
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(2961, 1562);
+			this->Controls->Add(this->displayHelp);
 			this->Controls->Add(this->miscellaneousRichTextBox);
 			this->Controls->Add(this->upcomingRichTextBox);
 			this->Controls->Add(this->todayRichTextBox);
@@ -316,48 +330,118 @@ namespace UI {
 		}
 #pragma endregion
 
-	private: System::Void commandLineTextBox_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
-				 String^ input;
+private: System::Void commandLineTextBox_KeyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+			   String^ input;
+			   
+				 input = commandLineTextBox->Text;	 
+				 if (e->KeyCode == Keys::Enter) {
+					 displayHelp->Visible = false;
+					 if (input != "") {
+						 std::string content = msclr::interop::marshal_as< std::string >(input);
+						 commandLineTextBox->Text = "";
+						 std:: vector<std:: string> feedbackList = logic->determineCommand(content);
+						 String^ feedbackSystem;
+						 String^ feedback = "";
 
-				 input = commandLineTextBox->Text;
-				 if (e->KeyChar == (char)13) {
-					 std::string content = msclr::interop::marshal_as< std::string >(input);
-					 commandLineTextBox->Text = "";
-					 std:: vector<std:: string> feedbackList = logic->determineCommand(content);
-					 String^ feedbackSystem;
-					 String^ feedback = "";
+						 int totalFeedback = feedbackList.size();
 
-					 int totalFeedback = feedbackList.size();
+						 for (int i=totalFeedback; i>0; i--) {
+							 feedbackSystem = gcnew String(feedbackList[i-1].c_str());
+							 feedback = feedback + feedbackSystem;
 
-					 for (int i=totalFeedback; i>0; i--) {
-						 feedbackSystem = gcnew String(feedbackList[i-1].c_str());
-						 feedback = feedback + feedbackSystem;
-
-						 if (i != 0) {
-							 feedback = feedback + "\r\n";
+							 if (i != 0) {
+								 feedback = feedback + "\r\n";
+							 }
 						 }
-					 }
-					 feedbackTextBox->Text = feedback;
+						 feedbackTextBox->Text = feedback;
 
-					 displayToday();
-					 displayUpcoming();
-					 displayMiscellaneous();
+						 displayToday();
+						 displayUpcoming();
+						 displayMiscellaneous();
+					 }
 
 				 }
-				 //possible search function
-				 else {
+				 else if (e->KeyCode == Keys::F1) {
 
-					 if (input->Length >2) {
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Felix Titling", 12, System::Drawing::FontStyle::Bold);
+					 displayHelp->SelectionAlignment = HorizontalAlignment::Center;
+					 displayHelp->SelectionColor = Color::LightSlateGray;
+					 displayHelp->AppendText("HELP FOR NEW USERS" + "\r\n");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Bold);
+					 displayHelp->SelectionAlignment = HorizontalAlignment::Left;
+					 displayHelp->AppendText("add ");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Italic);
+					 displayHelp->AppendText("<taskDesc> ");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Bold);
+					 displayHelp->AppendText("on/by/from ");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Italic);
+					 displayHelp->AppendText("<startTime> ");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Bold);
+					 displayHelp->AppendText("to ");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Italic);
+					 displayHelp->AppendText("<endTime>" + "\r\n");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Bold);
+					 displayHelp->AppendText("delete ");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Italic);
+					 displayHelp->AppendText("<taskType> <taskID>" + "\r\n");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Bold);
+					 displayHelp->AppendText("update ");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Italic);
+					 displayHelp->AppendText("<taskType> <taskID> ");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Bold);
+					 displayHelp->AppendText("done ");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Italic);
+					 displayHelp->AppendText("<taskType> <taskID> " + "\r\n");
+
+					 displayHelp->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Bold);
+					 displayHelp->AppendText("undo ");
+					 
+					 displayHelp->Visible = true;
+				 }
+				 else {
+					 
 						 String^ searchString = removeNewLineCharacter(input) ;
 						 displayToday();
+						 displayUpcoming();
+						 displayMiscellaneous();
+						 quickSearch(searchString);
+						 
+				 }
+		 }
 
-						 int index=0;
-						 while (index<todayRichTextBox->Text->LastIndexOf(searchString)) {
-							 todayRichTextBox->Find(searchString,index,todayRichTextBox->TextLength, System::Windows::Forms::RichTextBoxFinds::None);
-							 todayRichTextBox->SelectionBackColor = Color::Yellow;
-							 index = todayRichTextBox->Text->IndexOf(searchString, index) + 1;
-						 }
-					 }
+
+			 void quickSearch(String^ searchString){
+				 int indexToday=0;
+				 while (indexToday<todayRichTextBox->Text->LastIndexOf(searchString)) {
+					 todayRichTextBox->Find(searchString,indexToday,todayRichTextBox->TextLength, System::Windows::Forms::RichTextBoxFinds::None);
+					 todayRichTextBox->SelectionBackColor = Color::Yellow;
+					 indexToday = todayRichTextBox->Text->IndexOf(searchString, indexToday) + 1;
+				 }
+
+				 int indexUpcoming=0;
+				 while (indexUpcoming<upcomingRichTextBox->Text->LastIndexOf(searchString)) {
+					 upcomingRichTextBox->Find(searchString,indexUpcoming,upcomingRichTextBox->TextLength, System::Windows::Forms::RichTextBoxFinds::None);
+					 upcomingRichTextBox->SelectionBackColor = Color::Yellow;
+					 indexUpcoming = upcomingRichTextBox->Text->IndexOf(searchString, indexUpcoming) + 1;
+				 }
+
+				 int indexMiscellaneous=0;
+				 while (indexMiscellaneous<miscellaneousRichTextBox->Text->LastIndexOf(searchString)) {
+					 miscellaneousRichTextBox->Find(searchString,indexMiscellaneous,miscellaneousRichTextBox->TextLength, System::Windows::Forms::RichTextBoxFinds::None);
+					 miscellaneousRichTextBox->SelectionBackColor = Color::Yellow;
+					 indexMiscellaneous = miscellaneousRichTextBox->Text->IndexOf(searchString, indexMiscellaneous) + 1;
 				 }
 			 }
 
@@ -394,12 +478,12 @@ namespace UI {
 					 if ( todayTaskList[i].done == true) {
 						
 						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Strikeout);
-						 todayRichTextBox->SelectionColor = Color::PowderBlue;
+						 todayRichTextBox->SelectionColor = Color::CornflowerBlue;
 						 todayRichTextBox->SelectedText = displayToday + "\r\n";
 					 }
 					 else {
 
-						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Bold );
+						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Regular );
 						 todayRichTextBox->SelectionColor = Color::Black;
 						 todayRichTextBox->SelectedText = displayToday + "\r\n";
 
@@ -444,11 +528,11 @@ namespace UI {
 					 //bool variable for it to be considered done
 					 if (upcomingTaskList[i].done == true) {
 						 upcomingRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Strikeout);
-						 upcomingRichTextBox->SelectionColor = Color::PowderBlue;
+						 upcomingRichTextBox->SelectionColor = Color::CornflowerBlue;
 						 upcomingRichTextBox->SelectedText = displayUpcoming + "\r\n";
 					 }
 					 else {
-						 upcomingRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Bold );
+						 upcomingRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Regular );
 						 upcomingRichTextBox->SelectionColor = Color::Black;
 						 upcomingRichTextBox->SelectedText = displayUpcoming + "\r\n";
 					 }
@@ -467,11 +551,11 @@ namespace UI {
 					 //bool variable for it to be considered done
 					 if ( miscellaneousTaskList[i].done == true) {
 						 miscellaneousRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Strikeout);
-						 miscellaneousRichTextBox->SelectionColor = Color::PowderBlue;
+						 miscellaneousRichTextBox->SelectionColor = Color::CornflowerBlue;
 						 miscellaneousRichTextBox->SelectedText = displayMiscellaneous + "\r\n";
 					 }
 					 else {
-						 miscellaneousRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Bold );
+						 miscellaneousRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Regular );
 						 miscellaneousRichTextBox->SelectionColor = Color::Black;
 						 miscellaneousRichTextBox->SelectedText = displayMiscellaneous + "\r\n";
 					 }
