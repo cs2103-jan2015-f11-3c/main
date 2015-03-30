@@ -10,7 +10,7 @@ std:: vector<TASK> architectureStorage::upcomingTaskList;
 std:: vector<TASK> architectureStorage::floatingTaskList;
 
 bool operator==(const TASK& a, const TASK& b) {
-		return (a.taskDescriptionList == b.taskDescriptionList) && (a.startDateTime == b.startDateTime) && (a.endTime == b.endTime) && (a.taskID == b.taskID);
+		return (a.taskDescriptionList == b.taskDescriptionList) && (a.startDateTime == b.startDateTime) && (a.endTime == b.endTime);
 	}
 
 architectureStorage::architectureStorage() {
@@ -157,14 +157,14 @@ std:: vector<std:: string> architectureStorage::retrieveFloatingTaskList() {
 }
 
 void architectureStorage::deleteTodayFromStorage(std:: vector<TASK>::iterator iter) {
-	architectureHistory::addPreviousState(*iter);
-	todayTaskList.erase(iter);
+	deleteTask(*iter);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 	return;
 }
 
 void architectureStorage::deleteUpcomingFromStorage(std:: vector<TASK>::iterator iter) {
-	architectureHistory::addPreviousState(*iter);
-	upcomingTaskList.erase(iter);
+	deleteTask(*iter);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 	return;
 }
 
@@ -306,9 +306,7 @@ void architectureStorage::undoDelete(TASK& input) {
 
 void architectureStorage::deleteTask(TASK& input) {
 	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), input);
-	if (position != masterTaskList.end()) {
-		masterTaskList.erase(position);
-	}
+	masterTaskList.erase(position);
 	return;
 }
 
