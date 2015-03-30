@@ -41,6 +41,7 @@ TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescripton
 	buffer.startDateTime = temp;
 	buffer.endTime = time_duration(hours(stringToInt(_contentEndHours)) + minutes(stringToInt(_contentEndMinutes)));
 	buffer.taskID = 0;
+	buffer.done = false;
 	return buffer;
 }
 
@@ -54,6 +55,7 @@ TASK architectureStorage::initializeTimedTask(std:: string _contentDescripton, s
 	buffer.startDateTime = temp;
 	buffer.endTime = time_duration(not_a_date_time);
 	buffer.taskID = 0;
+	buffer.done = false;
 	return buffer;
 }
 
@@ -64,6 +66,7 @@ TASK architectureStorage::initializeFloatingTask(std:: string _contentDescripton
 	buffer.startDateTime = temp;
 	buffer.endTime = time_duration(not_a_date_time);
 	buffer.taskID = 0;
+	buffer.done = false;
 	return buffer;
 }
 
@@ -243,22 +246,22 @@ std:: vector<TASK>::iterator architectureStorage::findFloatingIterator(int taskI
 void architectureStorage::updateToTodayStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
 	std:: vector<TASK>::iterator iter = findTodayIterator(taskID);
 	architectureHistory::addPreviousState(*iter);
-	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
 	deleteTask(*iter);
+	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
 }
 
 void architectureStorage::updateToUpcomingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
 	std:: vector<TASK>::iterator iter = findUpcomingIterator(taskID);
 	architectureHistory::addPreviousState(*iter);
-	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
 	deleteTask(*iter);
+	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);	
 }
 
 void architectureStorage::updateToFloatingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
 	std:: vector<TASK>::iterator iter = findFloatingIterator(taskID);
 	architectureHistory::addPreviousState(*iter);
-	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
 	floatingTaskList.erase(iter);
+	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
 }
 
 void architectureStorage::storeTodayTask(TASK temp) {
@@ -319,5 +322,23 @@ void architectureStorage::undoAdd(TASK& input) {
 void architectureStorage::undoClear(std:: vector<TASK>& previousTaskList) {
 	masterTaskList.clear();
 	masterTaskList = previousTaskList;
+	return;
+}
+
+void architectureStorage::doneTodayTask(std:: vector<TASK>::iterator iter) {
+	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), *iter);
+	position->done = true;
+	return;
+}
+
+void architectureStorage::doneUpcomingTask(std:: vector<TASK>::iterator iter) {
+	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), *iter);
+	position->done = true;
+	return;
+}
+
+void architectureStorage::doneFloatingTask(std:: vector<TASK>::iterator iter) {
+	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), *iter);
+	position->done = true;
 	return;
 }

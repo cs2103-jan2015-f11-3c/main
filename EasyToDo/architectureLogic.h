@@ -17,6 +17,9 @@ private:
 	static const std:: string MESSAGE_DELETETODAY;
 	static const std:: string MESSAGE_DELETEUPCOMING;
 	static const std:: string MESSAGE_DELETEFLOATING;
+	static const std:: string MESSAGE_DONETODAY;
+	static const std:: string MESSAGE_DONEUPCOMING;
+	static const std:: string MESSAGE_DONEFLOATING;
 	static const std:: string MESSAGE_CLEARALL;
 	static const std:: string MESSAGE_CLEARTODAY;
 	static const std:: string MESSAGE_CLEARUPCOMING;
@@ -60,7 +63,7 @@ public:
 	};
 	architectureLogic();
 	enum CommandType { 
-		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO, DONE
 	};
 	enum Months { 
 		JAN=1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, NOTVALID
@@ -77,6 +80,7 @@ public:
 	static std:: string clearTask(std:: string content);
 	static std:: string updateTask(std:: string taskType, std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
 	static std:: string undoTask();
+	static std:: string doneTask(std:: string taskType, std:: string taskID);
 	static void determineContentDescription(std:: string parserInput);
 	static void determineContentDay(std:: string parserInput);
 	static Months architectureLogic::determineMonthType(std:: string parserInput);

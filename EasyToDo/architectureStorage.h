@@ -18,6 +18,7 @@ struct TASK {
 	ptime startDateTime; //time t2(date(2002,Jan,10), hours(1)+nanosec(5));
 	time_duration endTime;
 	int taskID;
+	bool done;
 };
 
 class architectureStorage {
@@ -69,5 +70,9 @@ public:
 	static void undoAdd(TASK& input);
 	static void deleteTask(TASK& input);
 	static void undoClear(std:: vector<TASK>& previousTaskList);
+	static void doneTodayTask(std:: vector<TASK>::iterator iter);
+	static void doneUpcomingTask(std:: vector<TASK>::iterator iter);
+	static void doneFloatingTask(std:: vector<TASK>::iterator iter);
+
 };
 #endif

@@ -19,6 +19,9 @@ const std:: string architectureLogic::MESSAGE_NOTFOUND = "Task is not found!";
 const std:: string architectureLogic::MESSAGE_DELETETODAY = "Today Task %s is deleted!";
 const std:: string architectureLogic::MESSAGE_DELETEUPCOMING = "Upcoming Task %s is deleted!";
 const std:: string architectureLogic::MESSAGE_DELETEFLOATING = "Floating Task %s is deleted!";
+const std:: string architectureLogic::MESSAGE_DONETODAY = "Today Task %s is deleted!";
+const std:: string architectureLogic::MESSAGE_DONEUPCOMING = "Upcoming Task %s is deleted!";
+const std:: string architectureLogic::MESSAGE_DONEFLOATING = "Floating Task %s is deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARALL = "All task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARTODAY = "Today's task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARUPCOMING = "Upcoming task(s) are deleted!";
@@ -209,22 +212,7 @@ void architectureLogic::determineTaskType(std:: string parserInput) {
 	assert(parserInput != "");
 	_taskType = parserInput;
 }
-/*
-void architectureLogic::tokenizeDELETE(std::string tokenizeContent) {
-	assert(tokenizeContent != "");
-	size_t positionStart = tokenizeContent.find_first_not_of(" ");
-	assert(positionStart >= 0);
-	size_t positionEnd = tokenizeContent.find_first_of(" ");
-	assert(positionEnd >= 0);
 
-	std:: string taskType = tokenizeContent.substr(positionStart, positionEnd);
-	// assert(_taskType != "");
-	std:: string taskID = tokenizeContent.substr(positionEnd);
-	// assert(_taskID != "");
-	_taskType = "today";
-	_taskID = "1";
-}
-*/
 /*
 command pattern: execute the command without knowing the specific type of command
 */
@@ -251,6 +239,9 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 		return buffer;
 	case UNDO:
 		return undoTask();
+	case DONE:
+		Parser::tokenizeDateMonth(_content);
+		return doneTask(_taskType, _taskID);
 	case EXIT: 
 		exit(0);
 	}
@@ -429,6 +420,7 @@ std:: string architectureLogic::updateTask(std:: string taskType, std:: string t
 	int ID = stringToInteger(taskID);
 	DateType commandTypeAction = determineDateTypeAction(taskType);
 	assert(ID > 0);
+
 	switch(commandTypeAction) {
 	case TODAY:
 		if(isTodayTaskIDValid(ID)) {
@@ -472,3 +464,48 @@ std:: string architectureLogic::undoTask() {
 	}
 }
 
+std:: string architectureLogic::doneTask(std:: string taskType, std:: string taskID) {
+	assert(taskID !=  "");
+	assert(taskType != "");
+	const std:: string temp = taskID;
+	int ID = stringToInteger(taskID); 
+	DateType commandTypeAction = determineDateTypeAction(taskType);
+	std:: vector<TASK>::iterator iter;
+
+	switch(commandTypeAction) {
+	case TODAY:
+		if(isTodayTaskIDValid(ID)) {
+			iter = architectureStorage::findTodayIterator(ID);
+			// architectureHistory::addPreviousState(*iter);
+			architectureStorage::doneTodayTask(iter);
+			sprintf_s(buffer, MESSAGE_DONETODAY.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case UPCOMING:
+		if(isUpcomingTaskIDValid(ID)) {
+			iter = architectureStorage::findUpcomingIterator(ID);
+			// architectureHistory::addPreviousState(*iter);
+			architectureStorage::doneUpcomingTask(iter);
+			sprintf_s(buffer, MESSAGE_DONEUPCOMING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case MISC:
+		if(isFloatingTaskIDValid(ID)) {
+			iter = architectureStorage::findFloatingIterator(ID);
+			// architectureHistory::addPreviousState(*iter);
+			architectureStorage::deleteFloatingFromStorage(iter);
+			architectureStorage::doneFloatingTask(iter);
+			sprintf_s(buffer, MESSAGE_DONEFLOATING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	}
+}

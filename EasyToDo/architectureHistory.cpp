@@ -87,8 +87,10 @@ void architectureHistory::reverseAdd() {
 void architectureHistory::reverseUpdate() {
 	TASK previousStateToAddBack;
 	TASK previousStateToDelete;
+
 	previousStateToDelete = retrievePreviousState();
 	previousStateToAddBack = retrievePreviousState();
+
 	architectureStorage::undoAdd(previousStateToDelete);
 	architectureStorage::undoDelete(previousStateToAddBack);
 	return;

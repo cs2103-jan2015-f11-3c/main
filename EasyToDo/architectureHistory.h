@@ -12,6 +12,7 @@ private:
 	static const int MAXIMUM = 255;
 	static char temp[MAXIMUM];
 	static std:: vector<TASK> previousTaskList;
+
 	static const std:: string MESSAGE_ERROR;
 	static const std:: string MESSAGE_UNDO;
 public:
