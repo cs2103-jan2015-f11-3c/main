@@ -44,6 +44,7 @@ namespace UI {
 
 
 
+
 			 architectureStorage* storage;
 
 	public:
@@ -124,12 +125,12 @@ namespace UI {
 			this->commandLineTextBox->BackColor = System::Drawing::Color::WhiteSmoke;
 			this->commandLineTextBox->Font = (gcnew System::Drawing::Font(L"MS Reference Sans Serif", 9.900001F, System::Drawing::FontStyle::Regular, 
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->commandLineTextBox->Location = System::Drawing::Point(728, 99);
+			this->commandLineTextBox->Location = System::Drawing::Point(728, 101);
 			this->commandLineTextBox->Multiline = true;
 			this->commandLineTextBox->Name = L"commandLineTextBox";
-			this->commandLineTextBox->Size = System::Drawing::Size(1099, 52);
+			this->commandLineTextBox->Size = System::Drawing::Size(1099, 47);
 			this->commandLineTextBox->TabIndex = 0;
-			this->commandLineTextBox->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &architectureGUI::inputTextBox_KeyPress);
+			this->commandLineTextBox->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &architectureGUI::commandLineTextBox_KeyPress);
 			// 
 			// feedbackTextBox
 			// 
@@ -315,11 +316,11 @@ namespace UI {
 		}
 #pragma endregion
 
-	private: System::Void inputTextBox_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+	private: System::Void commandLineTextBox_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
 				 String^ input;
 
 				 input = commandLineTextBox->Text;
-				 if (e->KeyChar == (char)13 && input !="") {
+				 if (e->KeyChar == (char)13) {
 					 std::string content = msclr::interop::marshal_as< std::string >(input);
 					 commandLineTextBox->Text = "";
 					 std:: vector<std:: string> feedbackList = logic->determineCommand(content);
@@ -338,65 +339,116 @@ namespace UI {
 					 }
 					 feedbackTextBox->Text = feedback;
 
-					 //TO STRIKE OUT
-					 /* if (totalTodayTaskList == 2) {
-					 displayTodayTextBox->Font = (gcnew System::Drawing::Font(L"Rockwell", 9.900001F, System::Drawing::FontStyle::Strikeout, 
-					 System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-					 }
-					 else {
-					 displayTodayTextBox->Font = (gcnew System::Drawing::Font(L"Rockwell", 9.900001F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
-					 static_cast<System::Byte>(0)));
-					 }*/
-
-					 // displayTodayTextBox->Text = "\r\n" + displayToday;
-
-					 // richTextBox->Text = displayToday;
-
 					 displayToday();
 					 displayUpcoming();
 					 displayMiscellaneous();
-				 }			 
 
+				 }
+				 //possible search function
+				 else {
+
+					 if (input->Length >2) {
+						 String^ searchString = removeNewLineCharacter(input) ;
+						 displayToday();
+
+						 int index=0;
+						 while (index<todayRichTextBox->Text->LastIndexOf(searchString)) {
+							 todayRichTextBox->Find(searchString,index,todayRichTextBox->TextLength, System::Windows::Forms::RichTextBoxFinds::None);
+							 todayRichTextBox->SelectionBackColor = Color::Yellow;
+							 index = todayRichTextBox->Text->IndexOf(searchString, index) + 1;
+						 }
+					 }
+				 }
 			 }
+
+			 String^ removeNewLineCharacter(String^ input) {
+				 std::string content = msclr::interop::marshal_as< std::string >(input);
+				 if ( content.length()>2) {
+					 size_t pos = 0;
+					 while ( ( pos = content.find ("\r\n",pos) ) != std::string::npos ) {
+						 content.erase ( pos, 2 );
+					 }
+				 }
+				 String^ searchString = gcnew String(content.c_str());
+
+				 return searchString;
+			 }
+
 			 void displayToday() {
-				 std:: vector<std:: string> todayTaskList = storage->retrieveTodayTaskList();
-				 int totalTodayTaskList = todayTaskList.size();
+				
+				  std:: vector<TASK> todayTaskList = storage->retrieveTodayTaskList();
+				  std:: vector<std:: string> todayList = retrieveTaskList(todayTaskList);
+				
 				 String^ displayToday = "";
-				 
+
 				 todayRichTextBox->Clear();
+				  
+
+				 int totalTodayTaskList = todayList.size();
+
+
 				 for (int i=0; i<totalTodayTaskList; i++) {
-					 displayToday = gcnew String(todayTaskList[i].c_str());
+					 displayToday = gcnew String(todayList[i].c_str());
 
 					 //bool variable for it to be considered done
-					 if ( i==1) {
+					 if ( todayTaskList[i].done == true) {
+						
 						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Strikeout);
 						 todayRichTextBox->SelectionColor = Color::PowderBlue;
 						 todayRichTextBox->SelectedText = displayToday + "\r\n";
 					 }
 					 else {
-						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Arial",10, System::Drawing::FontStyle::Italic );
+
+						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Bold );
 						 todayRichTextBox->SelectionColor = Color::Black;
 						 todayRichTextBox->SelectedText = displayToday + "\r\n";
 
 					 }
 				 }
 			 }
+
+			 std:: vector<std:: string> retrieveTaskList(std:: vector<TASK> taskList){
+				std:: vector<std:: string> taskListString;
+				 
+				 storage->updateTaskID(taskList);
+				 std:: vector<TASK>::iterator iter;
+				 for(iter = taskList.begin(); iter != taskList.end(); iter++) {
+					 std:: stringstream ss;
+					 ss << iter->taskID;
+					 std:: string str = ss.str();
+					 if((iter->endTime).is_not_a_date_time()) {
+						 if((iter->startDateTime).is_not_a_date_time()) {
+							 taskListString.push_back(str + ". " + iter->taskDescriptionList);
+						 } else {
+							 taskListString.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str());
+						 }
+					 } else {
+						 taskListString.push_back(str + ". " + iter->taskDescriptionList + " " + boost::posix_time::to_simple_string(iter->startDateTime).c_str() + "-" + to_simple_string(iter->endTime).c_str());
+					 }
+				 }
+
+				 return taskListString;
+			 }
+
+
 			 void displayUpcoming() {
-				 std:: vector<std:: string> upcomingTaskList = storage->retrieveUpcomingTaskList();
+
+				 std:: vector<TASK> upcomingTaskList = storage->retrieveUpcomingTaskList();
+				 std:: vector<std:: string> upcomingList = retrieveTaskList(upcomingTaskList);
 				 int totalUpcomingTaskList = upcomingTaskList.size();
 				 String^ displayUpcoming = "";
-				
+
 				 upcomingRichTextBox->Clear();
 				 for (int i=0; i<totalUpcomingTaskList; i++) {
-					 displayUpcoming = gcnew String(upcomingTaskList[i].c_str());
+					 displayUpcoming = gcnew String(upcomingList[i].c_str());
 					 //bool variable for it to be considered done
-					 if ( i==1) {
+					 if (upcomingTaskList[i].done == true) {
 						 upcomingRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Strikeout);
 						 upcomingRichTextBox->SelectionColor = Color::PowderBlue;
 						 upcomingRichTextBox->SelectedText = displayUpcoming + "\r\n";
 					 }
 					 else {
-						 upcomingRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Arial",10, System::Drawing::FontStyle::Italic );
+						 upcomingRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Bold );
 						 upcomingRichTextBox->SelectionColor = Color::Black;
 						 upcomingRichTextBox->SelectedText = displayUpcoming + "\r\n";
 					 }
@@ -404,21 +456,22 @@ namespace UI {
 			 }
 
 			 void displayMiscellaneous() {
-				 std:: vector<std:: string> miscellaneousTaskList = storage->retrieveFloatingTaskList();
+				 std:: vector<TASK> miscellaneousTaskList = storage->retrieveFloatingTaskList();
+				 std:: vector<std:: string> miscellaneousList = retrieveTaskList(miscellaneousTaskList);
 				 int totalMiscellaneousTaskList = miscellaneousTaskList.size();
 				 String^ displayMiscellaneous = "";
 
 				 miscellaneousRichTextBox->Clear();
 				 for (int i=0; i<totalMiscellaneousTaskList; i++) {
-					 displayMiscellaneous = gcnew String(miscellaneousTaskList[i].c_str());
+					 displayMiscellaneous = gcnew String(miscellaneousList[i].c_str());
 					 //bool variable for it to be considered done
-					 if ( i==1) {
+					 if ( miscellaneousTaskList[i].done == true) {
 						 miscellaneousRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Strikeout);
 						 miscellaneousRichTextBox->SelectionColor = Color::PowderBlue;
 						 miscellaneousRichTextBox->SelectedText = displayMiscellaneous + "\r\n";
 					 }
 					 else {
-						 miscellaneousRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Arial",10, System::Drawing::FontStyle::Italic );
+						 miscellaneousRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Bold );
 						 miscellaneousRichTextBox->SelectionColor = Color::Black;
 						 miscellaneousRichTextBox->SelectedText = displayMiscellaneous + "\r\n";
 					 }
@@ -426,6 +479,5 @@ namespace UI {
 
 			 }
 
-
-	};
+};
 }

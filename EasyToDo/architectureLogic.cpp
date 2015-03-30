@@ -19,9 +19,9 @@ const std:: string architectureLogic::MESSAGE_NOTFOUND = "Task is not found!";
 const std:: string architectureLogic::MESSAGE_DELETETODAY = "Today Task %s is deleted!";
 const std:: string architectureLogic::MESSAGE_DELETEUPCOMING = "Upcoming Task %s is deleted!";
 const std:: string architectureLogic::MESSAGE_DELETEFLOATING = "Floating Task %s is deleted!";
-const std:: string architectureLogic::MESSAGE_DONETODAY = "Today Task %s is deleted!";
-const std:: string architectureLogic::MESSAGE_DONEUPCOMING = "Upcoming Task %s is deleted!";
-const std:: string architectureLogic::MESSAGE_DONEFLOATING = "Floating Task %s is deleted!";
+const std:: string architectureLogic::MESSAGE_DONETODAY = "Today Task %s is done!";
+const std:: string architectureLogic::MESSAGE_DONEUPCOMING = "Upcoming Task %s is done!";
+const std:: string architectureLogic::MESSAGE_DONEFLOATING = "Floating Task %s is done!";
 const std:: string architectureLogic::MESSAGE_CLEARALL = "All task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARTODAY = "Today's task(s) are deleted!";
 const std:: string architectureLogic::MESSAGE_CLEARUPCOMING = "Upcoming task(s) are deleted!";
@@ -117,6 +117,8 @@ architectureLogic::CommandType architectureLogic::determineCommandType(std:: str
 		return CommandType::CLEAR;
 	} else if(isValidCommand(commandAction, "update")) {
 		return CommandType::UPDATE;
+	} else if(isValidCommand(commandAction, "done")) {
+		return CommandType::DONE;
 	} else if(isValidCommand(commandAction, "undo")) {
 		return CommandType::UNDO;
 	} else { 
@@ -212,7 +214,22 @@ void architectureLogic::determineTaskType(std:: string parserInput) {
 	assert(parserInput != "");
 	_taskType = parserInput;
 }
+/*
+void architectureLogic::tokenizeDELETE(std::string tokenizeContent) {
+	assert(tokenizeContent != "");
+	size_t positionStart = tokenizeContent.find_first_not_of(" ");
+	assert(positionStart >= 0);
+	size_t positionEnd = tokenizeContent.find_first_of(" ");
+	assert(positionEnd >= 0);
 
+	std:: string taskType = tokenizeContent.substr(positionStart, positionEnd);
+	// assert(_taskType != "");
+	std:: string taskID = tokenizeContent.substr(positionEnd);
+	// assert(_taskID != "");
+	_taskType = "today";
+	_taskID = "1";
+}
+*/
 /*
 command pattern: execute the command without knowing the specific type of command
 */
@@ -240,7 +257,7 @@ std:: string architectureLogic::executeCommand(std:: string commandAction) {
 	case UNDO:
 		return undoTask();
 	case DONE:
-		Parser::tokenizeDateMonth(_content);
+		Parser::tokenizeDELETE(_content);
 		return doneTask(_taskType, _taskID);
 	case EXIT: 
 		exit(0);
@@ -289,7 +306,7 @@ bool architectureLogic::isFloatingTaskIDValid(int taskID) {
 	}
 }
 architectureLogic::DateType architectureLogic::determineDateTypeAction(std:: string taskType) {
-	//assert(taskType != "");
+	assert(taskType != "");
 	if(isValidCommand(taskType, "today ")) { 
 		return DateType::TODAY; 
 	} else if(isValidCommand(taskType, "upcoming ")) { 
@@ -463,6 +480,7 @@ std:: string architectureLogic::undoTask() {
 		return feedback;
 	}
 }
+
 
 std:: string architectureLogic::doneTask(std:: string taskType, std:: string taskID) {
 	assert(taskID !=  "");
