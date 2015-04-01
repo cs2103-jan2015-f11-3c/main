@@ -26,19 +26,30 @@ class Parser {
 		static std::string _dateMonth;
 		static std::string _taskID;
 		static std::string _delContent;
+		static std::string _command;
+		static int output;
 
 
 	public:
-		static void tokenizeADD(std::string tokenizeContent);
-		static void tokenizeCLEAR(std::string tokenizeContent);
-		static void tokenizeDELETE(std::string tokenizeContent);
-		static void tokenizeSEARCH(std::string tokenizeContent);
-		static void tokenizeSingleWord(std::string tokenizeContent);
-		static void tokenizeUPDATE(std::string tokenizeContent);
-		static void tokenizeDayOfTheWeek(std::string tokenizeContent);
-		static void tokenizeDateDay(std::string tokenizeContent);
-		static void tokenizeDateMonth(std::string tokenizeContent);
-		static void tokenizeTime(std::string tokenizeContent);
-		static std::string Parser::getContent();
+		static std::vector<std::string> addTaskDetails;
+		static bool tokenizeCOMMAND(std::string tokenizeContent);
+		static bool tokenizeADD(std::string tokenizeContent);
+		static bool tokenizeCLEAR(std::string tokenizeContent);
+		static bool tokenizeDELETE(std::string tokenizeContent);
+		static bool tokenizeDONE(std::string tokenizeContent);
+		static bool tokenizeUNDO(std::string tokenizeContent);
+		static bool tokenizeUPDATE(std::string tokenizeContent);
+		static bool isDateDayValid(std::string tokenizeContent);
+		static bool isDateMonthValid(std::string tokenizeContent);
+		static bool tokenizeTime(std::string tokenizeContent);
+		static bool isTimedValid(std::string tokenizeContent);
+		static bool isDeadlineVaild(std::string tokenizeContent);
+		static int stringToInt(std::string input);
+		static bool isCommandValid(std::string input);
+		static bool isDayValid(std::string input);
+		static bool isHourTimeValid(std::string input);
+		static bool isMinTimeValid(std::string input);
+		static void tokenizeADDEmptyFirst(std::string tokenizeContent);
+		static bool Parser::isRunningTimeValid(std::string inputStart,std::string inputEnd);
 };
 #endif
