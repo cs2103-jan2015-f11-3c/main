@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <stack>
 #include <vector>
 #include <sstream>
 #include <boost/algorithm/string.hpp>
@@ -51,16 +52,10 @@ private:
 
 	static const int MAX = 255;
 	static char buffer[MAX];
+	static std:: vector<std:: string> parserVector;
 	
 public:
-	class architectureFeedbackHistory {
-	private:
-		static std:: vector<std:: string> masterFeedbackList;
-	public:
-		architectureFeedbackHistory();
-		static void addToFeedbackList(std:: string feedback);
-		static std:: vector<std:: string>retrieveFeedbackList();
-	};
+
 	architectureLogic();
 	enum CommandType { 
 		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO, DONE
@@ -73,10 +68,12 @@ public:
 		TODAY, UPCOMING, MISC, UNVALID
 	};
 
-	static std:: vector<std:: string> determineCommand(std:: string content);
+	static std:: vector<std:: string> determineCommand();
+	static void initializeCommand();
+	static void pushParserVector(std:: vector<std:: string>& temp);
 	static std:: string addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static std:: string deleteTask(std:: string taskType, std:: string taskID);
-	static std:: string executeCommand(std:: string commandAction);
+	static std:: string executeCommand();
 	static std:: string clearTask(std:: string content);
 	static std:: string updateTask(std:: string taskType, std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
 	static std:: string undoTask();

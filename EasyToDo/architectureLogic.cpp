@@ -3,6 +3,7 @@
 #include "architectureParser.h"
 #include "architectureHistory.h"
 #include "architectureBoost.h"
+#include "architectureInputFeedback.h"
 
 /*
 to do list requires basic support of storage/retrieval of info, display of info to user and updating 
@@ -34,7 +35,7 @@ const std:: string architectureLogic::MESSAGE_UNDOINVALID = "No more action left
 const std:: string architectureLogic::MESSAGE_ALL = " all";
 const std:: string architectureLogic::MESSAGE_TODAY = " today";
 const std:: string architectureLogic::MESSAGE_UPCOMING = " upcoming";
-const std:: string architectureLogic::MESSAGE_FLOATING = " floating";
+const std:: string architectureLogic::MESSAGE_FLOATING = " misc";
 
 std:: string architectureLogic::_command;
 std:: string architectureLogic::_content;
@@ -48,62 +49,55 @@ std:: string architectureLogic::_contentEndMinutes;
 std:: string architectureLogic::_taskID;
 std:: string architectureLogic::_taskType;
 
-std:: vector<std:: string> architectureLogic::architectureFeedbackHistory::masterFeedbackList;
-
-
+std:: vector<std:: string> architectureLogic::parserVector;
 char architectureLogic::buffer[MAX];
 
-architectureLogic::architectureFeedbackHistory::architectureFeedbackHistory() {
-}
-
-void architectureLogic::architectureFeedbackHistory::addToFeedbackList(std:: string feedback) {
-	masterFeedbackList.push_back(feedback);
-}
-
-std:: vector<std:: string> architectureLogic::architectureFeedbackHistory::retrieveFeedbackList(){
-	std:: vector< std:: string> temp;
-
-	for (int i=0; i<masterFeedbackList.size(); i++) {
-		temp.push_back(masterFeedbackList[i]);
-	}
-
-	return temp;
-}
 
 architectureLogic::architectureLogic(){
 }
 
-std:: vector<std:: string> architectureLogic::determineCommand(std:: string content){
-	assert(content != "");
+std:: vector<std:: string> architectureLogic::determineCommand(){
 	std:: string feedback;
 	std:: vector<std:: string> feedbackList;
-
-	// next three codes can SLAP
-
-	size_t pos = 0;
-	while ( ( pos = content.find ("\r\n",pos) ) != std::string::npos ) {
-		content.erase ( pos, 2 );
+	
+	if(parserVector[0] == "invalid") {
+		sprintf_s(buffer, MESSAGE_INVALID.c_str());
+		feedback = buffer;
+	} else {
+		initializeCommand();
+		feedback = executeCommand();
 	}
-	if (content == "") {
-		throw std::invalid_argument("recieved empty string");
-	}
-	size_t positionStart = content.find_first_not_of(" ");
-	assert(positionStart >= 0);
-	size_t positionEnd = content.find_first_of(" ");
-	assert(positionEnd >= 0);
 
-	_command = content.substr(positionStart, positionEnd);
-	_content = content.substr(positionEnd);
-	trimTrailingSpaces(_content);
-	assert(_command != "");
-	feedback = executeCommand(_command);
-
-	architectureFeedbackHistory::addToFeedbackList(feedback);
-	feedbackList = architectureFeedbackHistory::retrieveFeedbackList();
-
+	architectureInputFeedback::addToMasterFeedbackList(feedback);
+	feedbackList = architectureInputFeedback::retrieveFeedbackList();
 
 	return feedbackList;
 }
+
+
+void architectureLogic::initializeCommand() {
+	std:: vector<std:: string>::iterator iter;
+	iter = parserVector.begin();
+
+	_command = *iter++;
+	_taskType = *iter++;
+	_taskID = *iter++;
+	_contentDescription = *iter++;
+	_contentDay = *iter++;
+	_contentMonth= *iter++;
+	_contentStartHours= *iter++;
+	_contentStartMinutes= *iter++;
+	_contentEndHours= *iter;
+}
+
+void architectureLogic::pushParserVector(std:: vector<std:: string>& temp) {
+		std:: vector<std:: string>::iterator iter;
+
+		for(iter = temp.begin(); iter != temp.end(); iter++) {
+			parserVector.push_back(*iter);
+		}
+		determineCommand();
+} 
 
 architectureLogic::CommandType architectureLogic::determineCommandType(std:: string commandAction) { 
 	assert(commandAction != "");
@@ -117,10 +111,10 @@ architectureLogic::CommandType architectureLogic::determineCommandType(std:: str
 		return CommandType::CLEAR;
 	} else if(isValidCommand(commandAction, "update")) {
 		return CommandType::UPDATE;
+	} else if(isValidCommand(commandAction, "undo") || (isValidCommand(commandAction, "undo "))) {
+		return CommandType::UNDO;
 	} else if(isValidCommand(commandAction, "done")) {
 		return CommandType::DONE;
-	} else if(isValidCommand(commandAction, "undo")) {
-		return CommandType::UNDO;
 	} else { 
 		return CommandType::INVALID;
 	} 
@@ -180,6 +174,7 @@ architectureLogic::Months architectureLogic::determineMonthType(std:: string par
 	} 
 }
 
+/*
 void architectureLogic::determineContentMonth(std:: string parserInput) {
 	Months month;
 	month = determineMonthType(parserInput);
@@ -214,51 +209,32 @@ void architectureLogic::determineTaskType(std:: string parserInput) {
 	assert(parserInput != "");
 	_taskType = parserInput;
 }
-/*
-void architectureLogic::tokenizeDELETE(std::string tokenizeContent) {
-	assert(tokenizeContent != "");
-	size_t positionStart = tokenizeContent.find_first_not_of(" ");
-	assert(positionStart >= 0);
-	size_t positionEnd = tokenizeContent.find_first_of(" ");
-	assert(positionEnd >= 0);
-
-	std:: string taskType = tokenizeContent.substr(positionStart, positionEnd);
-	// assert(_taskType != "");
-	std:: string taskID = tokenizeContent.substr(positionEnd);
-	// assert(_taskID != "");
-	_taskType = "today";
-	_taskID = "1";
-}
 */
 /*
 command pattern: execute the command without knowing the specific type of command
 */
 
-std:: string architectureLogic::executeCommand(std:: string commandAction) { 
-	assert(commandAction != "");
-	architectureHistory::addPreviousAction(commandAction);
-	CommandType commandTypeAction = determineCommandType(commandAction);
+std:: string architectureLogic::executeCommand() { 
+	initializeCommand();
+	architectureHistory::addPreviousAction(_command);
+	CommandType commandTypeAction = determineCommandType(_command);
 
 	switch(commandTypeAction) { 
 	case ADD: 
-		Parser::tokenizeADD(_content);
 		return addTask(_contentDescription, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
 	case DELETE:
-		Parser::tokenizeDELETE(_content);
 		return deleteTask(_taskType, _taskID);
 	case CLEAR:
-		return clearTask(_content);
+		return clearTask(_taskType);
 	case UPDATE:
-		Parser::tokenizeUPDATE(_content);
 		return updateTask(_taskType, _taskID, _contentDescription, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
-	case INVALID:
-		sprintf_s(buffer, MESSAGE_INVALID.c_str());
-		return buffer;
 	case UNDO:
 		return undoTask();
 	case DONE:
-		Parser::tokenizeDELETE(_content);
 		return doneTask(_taskType, _taskID);
+	case INVALID:
+		sprintf_s(buffer, MESSAGE_INVALID.c_str());
+		return buffer;
 	case EXIT: 
 		exit(0);
 	}
@@ -307,11 +283,11 @@ bool architectureLogic::isFloatingTaskIDValid(int taskID) {
 }
 architectureLogic::DateType architectureLogic::determineDateTypeAction(std:: string taskType) {
 	assert(taskType != "");
-	if(isValidCommand(taskType, "today ")) { 
+	if(isValidCommand(taskType, "today")) { 
 		return DateType::TODAY; 
-	} else if(isValidCommand(taskType, "upcoming ")) { 
+	} else if(isValidCommand(taskType, "upcoming")) { 
 		return DateType::UPCOMING; 
-	} else if(isValidCommand(taskType, "misc ")) {
+	} else if(isValidCommand(taskType, "misc")) {
 		return DateType::MISC;
 	} else {
 		return DateType::UNVALID;
@@ -517,7 +493,6 @@ std:: string architectureLogic::doneTask(std:: string taskType, std:: string tas
 		if(isFloatingTaskIDValid(ID)) {
 			iter = architectureStorage::findFloatingIterator(ID);
 			// architectureHistory::addPreviousState(*iter);
-			architectureStorage::deleteFloatingFromStorage(iter);
 			architectureStorage::doneFloatingTask(iter);
 			sprintf_s(buffer, MESSAGE_DONEFLOATING.c_str(), temp.c_str());
 			return buffer;

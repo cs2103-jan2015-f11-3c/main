@@ -3,6 +3,14 @@
 #include "architectureParser.h"
 #include "architectureBoost.h"
 
+bool compareStartTime(const TASK &a, const TASK &b) {
+	if(a.startDateTime.date() == b.startDateTime.date()) {
+		return a.startDateTime.time_of_day() < b.startDateTime.time_of_day();
+	} else {
+		return a.startDateTime.date() < b.startDateTime.date();
+	}
+}
+
 architectureBoost::architectureBoost() {
 }
 
@@ -13,12 +21,14 @@ void architectureBoost::sortTodayUpcoming(std:: vector<TASK>& masterTaskList) {
 	date dateToday = retrieveDateToday();
 	date temp; 
 	days dayDifference;
+	time_duration temp2;
 
 	architectureStorage::clearUpcomingFromStorage();
 	architectureStorage::clearTodayFromStorage();
 	
 	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
 		temp = (iter->startDateTime).date();
+		temp2 = (iter->startDateTime).time_of_day();
 		dayDifference = temp - dateToday;
 
 		if(isValidTodayTask(dayDifference)) {
@@ -27,7 +37,6 @@ void architectureBoost::sortTodayUpcoming(std:: vector<TASK>& masterTaskList) {
 			architectureStorage::storeTodayTask(*iter);
 		}
 	}
-
 }
 
 bool architectureBoost::isValidTodayTask(days dayDifference) {
@@ -45,3 +54,8 @@ date architectureBoost::retrieveDateToday() {
 	date dateToday = today.date();
 	return dateToday;
 }
+
+void architectureBoost::sortWithinTodayUpcoming(std:: vector<TASK>& todayUpcomingTaskList) {
+	std::sort(todayUpcomingTaskList.begin(),todayUpcomingTaskList.end(),compareStartTime);
+}
+

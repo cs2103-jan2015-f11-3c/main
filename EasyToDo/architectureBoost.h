@@ -18,5 +18,7 @@ public:
 	static void sortTodayUpcoming(std:: vector<TASK>& masterTaskList);
 	static date retrieveDateToday();
 	static bool isValidTodayTask(days dayDifference);
+	static void sortWithinTodayUpcoming(std:: vector<TASK>& todayUpcomingTASKList);
+
 };
 #endif

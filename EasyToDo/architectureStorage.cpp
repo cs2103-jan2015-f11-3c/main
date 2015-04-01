@@ -31,7 +31,7 @@ int architectureStorage::stringToInt(std:: string input) {
 	return value;
 }
 
-TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
+TASK architectureStorage::initializeTimedTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
 	TASK buffer;
 	buffer.taskDescriptionList = _contentDescripton;
 	std::string dateString; // ("2002/1/25");
@@ -39,13 +39,13 @@ TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescripton
 	date d(from_string(dateString));
 	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp;
-	buffer.endTime = time_duration(hours(stringToInt(_contentEndHours)) + minutes(stringToInt(_contentEndMinutes)));
+	buffer.endTime = time_duration(hours(stringToInt(_contentEndHours))+minutes(stringToInt(_contentEndMinutes)));
 	buffer.taskID = 0;
 	buffer.done = false;
 	return buffer;
 }
 
-TASK architectureStorage::initializeTimedTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes) {
+TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes) {
 	TASK buffer;
 	buffer.taskDescriptionList = _contentDescripton;
 	std::string dateString; // ("2002/1/25");
@@ -79,10 +79,10 @@ void architectureStorage::addToMasterStorage(std:: string _contentDescripton, st
 			architectureHistory::addPreviousState(temp);
 			return;
 		} else {
-			temp = initializeTimedTask(_contentDescripton, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes);
+			temp = initializeDeadlineTask(_contentDescripton, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes);
 		}
 	} else {
-		temp = initializeDeadlineTask(_contentDescripton, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
+		temp = initializeTimedTask(_contentDescripton, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
 	}
 	architectureHistory::addPreviousState(temp);
 	masterTaskList.push_back(temp);
@@ -227,7 +227,6 @@ void architectureStorage::clearAllFromStorage() {
 }
 
 void architectureStorage::clearTodayFromStorage() {
-	architectureHistory::retrievePreviousTaskList(masterTaskList);
 	todayTaskList.clear();
 	return;
 }
@@ -283,7 +282,6 @@ void architectureStorage::doneUpcomingTask(std:: vector<TASK>::iterator iter) {
 }
 
 void architectureStorage::doneFloatingTask(std:: vector<TASK>::iterator iter) {
-	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), *iter);
-	position->done = true;
+	iter->done = true;
 	return;
 }
