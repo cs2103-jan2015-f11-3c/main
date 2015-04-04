@@ -5,6 +5,7 @@
 #include "architectureParser.h"
 #include "architectureLogic.h"
 #include "architectureStorage.h"
+#include "architectureInputFeedback.h"
 
 namespace UI {
 
@@ -23,13 +24,13 @@ namespace UI {
 	private:
 		Parser* parser;
 		architectureLogic* logic;
+		 architectureStorage* storage;
+		 architectureInputFeedback* inputFeedback;
 	private: System::Windows::Forms::TextBox^  displayUpcomingTextBox;
 
 	private: System::Windows::Forms::Label^  todayLabel;
 	private: System::Windows::Forms::Label^  upcomingLabel;
 	private: System::Windows::Forms::TextBox^  displayMiscellaneousTextBox;
-
-			 
 	private: System::Windows::Forms::Label^  miscellaneousLabel;
 	private: System::Windows::Forms::TextBox^  commandLabel;
 	private: System::Windows::Forms::TextBox^  feedbackLabel;
@@ -37,10 +38,11 @@ namespace UI {
 	private: System::Windows::Forms::RichTextBox^  todayRichTextBox;
 	private: System::Windows::Forms::RichTextBox^  upcomingRichTextBox;
 	private: System::Windows::Forms::RichTextBox^  miscellaneousRichTextBox;
+	private: System::Windows::Forms::RichTextBox^  colourLegend;
+
 	private: System::Windows::Forms::RichTextBox^  displayHelp;
 
-			 architectureStorage* storage;
-
+			
 	public:
 		architectureGUI(void)
 		{
@@ -52,6 +54,7 @@ namespace UI {
 			parser = new Parser();
 			logic = new architectureLogic();
 			storage = new architectureStorage();
+			inputFeedback = new architectureInputFeedback();
 		}
 
 	protected:
@@ -66,6 +69,7 @@ namespace UI {
 				delete parser;
 				delete logic;
 				delete storage;
+				delete inputFeedback;
 			}
 		}
 	private: System::Windows::Forms::TextBox^  commandLineTextBox;
@@ -114,6 +118,7 @@ namespace UI {
 			this->upcomingRichTextBox = (gcnew System::Windows::Forms::RichTextBox());
 			this->miscellaneousRichTextBox = (gcnew System::Windows::Forms::RichTextBox());
 			this->displayHelp = (gcnew System::Windows::Forms::RichTextBox());
+			this->colourLegend = (gcnew System::Windows::Forms::RichTextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->logoPictureBox))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -292,6 +297,17 @@ namespace UI {
 			this->displayHelp->Text = L"";
 			this->displayHelp->Visible = false;
 			// 
+			// colourLegend
+			// 
+			this->colourLegend->BackColor = System::Drawing::Color::White;
+			this->colourLegend->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->colourLegend->Location = System::Drawing::Point(74, 104);
+			this->colourLegend->Name = L"colourLegend";
+			this->colourLegend->Size = System::Drawing::Size(633, 455);
+			this->colourLegend->TabIndex = 16;
+			this->colourLegend->Text = L"";
+			this->colourLegend->Visible = false;
+			// 
 			// architectureGUI
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(16, 31);
@@ -299,7 +315,6 @@ namespace UI {
 			this->AutoSize = true;
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(2961, 1562);
-			this->Controls->Add(this->displayHelp);
 			this->Controls->Add(this->miscellaneousRichTextBox);
 			this->Controls->Add(this->upcomingRichTextBox);
 			this->Controls->Add(this->todayRichTextBox);
@@ -314,6 +329,8 @@ namespace UI {
 			this->Controls->Add(this->displayTodayTextBox);
 			this->Controls->Add(this->feedbackTextBox);
 			this->Controls->Add(this->commandLineTextBox);
+			this->Controls->Add(this->colourLegend);
+			this->Controls->Add(this->displayHelp);
 			this->Controls->Add(this->monthCalendar);
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
@@ -334,17 +351,29 @@ private: System::Void commandLineTextBox_KeyUp(System::Object^  sender, System::
 			   input = commandLineTextBox->Text;
 				 if (e->KeyCode == Keys::Enter) {
 					 displayHelp->Visible = false;
+					 colourLegend->Visible = false;
 					 if (input != "") {
-						 String^ inputWithNoNewcharacter = removeNewLineCharacter(input);
-						 std::string content = msclr::interop::marshal_as< std::string >(inputWithNoNewcharacter);
+						 String^ inputWithNoNewCharacter = removeNewLineCharacter(input);
+						 std::string content = msclr::interop::marshal_as< std::string >(inputWithNoNewCharacter);
 						 commandLineTextBox->Clear();
 						 parser->pushUserInput(content);
-						 std:: vector<std:: string> feedbackList = logic->determineCommand();
+
+						 std:: vector<std:: string> feedbackList = inputFeedback->retrieveFeedbackList();
 						 String^ feedbackSystem;
 						 String^ feedback = "";
 
 						 int totalFeedback = feedbackList.size();
+						 std:: vector<std:: string>::iterator iter;
+/*
+						 for (iter = feedbackList.end() - 1; iter != feedbackList.begin(); iter--) {
+							 feedbackSystem = gcnew String((*iter).c_str());
+							 feedback = feedback + feedbackSystem;
 
+							 if (iter != feedbackList.begin()) {
+								 feedback = feedback + "\r\n";
+							 }
+						 }
+						 */
 						 for (int i=totalFeedback; i>0; i--) {
 							 feedbackSystem = gcnew String(feedbackList[i-1].c_str());
 							 feedback = feedback + feedbackSystem;
@@ -352,16 +381,17 @@ private: System::Void commandLineTextBox_KeyUp(System::Object^  sender, System::
 							 if (i != 0) {
 								 feedback = feedback + "\r\n";
 							 }
-						 }
+						 } 
 						 feedbackTextBox->Text = feedback;
 
 						 displayToday();
 						 displayUpcoming();
-						 displayMiscellaneous();
+						 displayMiscellaneous(); 
 					 }
-
+					 
 				 }
 				 else if (e->KeyCode == Keys::F1) {
+					  colourLegend->Visible = false;
 					 if (displayHelp->Visible == false) {
 						 displayUserGuide();
 
@@ -371,13 +401,30 @@ private: System::Void commandLineTextBox_KeyUp(System::Object^  sender, System::
 						 displayHelp->Visible = false;
 					 }
 				 }
-				 //only can get the last input
+				 else if (e->KeyCode == Keys::F2) {
+					 //add a color legend
+					 displayHelp->Visible = false;
+					 if (colourLegend->Visible == false) {
+						 displayColourguide();
+						 colourLegend->Visible = true;
+					 }
+					 else {
+						 colourLegend->Visible = false;
+					 }
+				 }
+				 //only can get the last input ? 
 				 else if (e->KeyCode == Keys::Up) {
 					 commandLineTextBox->Clear();
 
-					 
-				 }
-				 else {
+					 std:: vector<std:: string> inputHistory = inputFeedback->retrieveInputList();
+					 std:: string lastInputString;
+					 std:: vector<std:: string>::iterator iter = inputHistory.end();
+					 iter--;
+					 lastInputString = (*iter);
+					 inputHistory.pop_back();
+					 String^ lastInput = gcnew String(lastInputString.c_str());
+					 commandLineTextBox->Text = lastInput;					 
+				 } else {
 
 					 String^ searchString = removeNewLineCharacter(input);
 					 displayToday();
@@ -436,8 +483,8 @@ private: System::Void commandLineTextBox_KeyUp(System::Object^  sender, System::
 
 
 					 boost::posix_time::time_facet* facet = new boost::posix_time::time_facet("%Y-%b-%d %H:%M");
-					 boost::posix_time::time_facet* facetEnd = new boost::posix_time::time_facet();
-					 facetEnd->format("%H:%M");
+					 boost::posix_time::time_facet* facetEnd = new boost::posix_time::time_facet("%H:%M");
+
 					
 					 if((iter->endTime).is_not_a_date_time()) {
 						 if((iter->startDateTime).is_not_a_date_time()) {
@@ -450,7 +497,7 @@ private: System::Void commandLineTextBox_KeyUp(System::Object^  sender, System::
 						  ss.imbue(std:: locale(std:: locale::classic(), facet));
 						 ss << ". [" << iter->startDateTime << "-";
 						 ss.imbue(std:: locale(std:: locale::classic(), facetEnd));
-						 ss << iter->endTime << "] " << iter->taskDescriptionList;
+						 ss << iter->endDateTime << "] " << iter->taskDescriptionList;
 					 }
 
 					 taskListString.push_back(ss.str());
@@ -471,22 +518,39 @@ private: System::Void commandLineTextBox_KeyUp(System::Object^  sender, System::
 
 				 int totalTodayTaskList = todayList.size();
 
-
 				 for (int i=0; i<totalTodayTaskList; i++) {
 					 displayToday = gcnew String(todayList[i].c_str());
 					
-					 
-					 //bool variable for it to be considered done
-					 if ( todayTaskList[i].done == true) {
+					 if (overDueTask(todayTaskList, i)) {
+
+						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Regular);
+						 todayRichTextBox->SelectionColor = Color::Red;
+						 todayRichTextBox->SelectedText = displayToday + "\r\n";
+
+					 } else if (newTaskAdded(todayTaskList, i)) {
+
+						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Regular);
+						 todayRichTextBox->SelectionColor = Color::DeepSkyBlue;
+						 todayRichTextBox->SelectedText = displayToday + "\r\n";
+
+					 } else if (clashingTask(todayTaskList, i)) {
+
+						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Italic);
+						 todayRichTextBox->SelectionColor = Color::OrangeRed;
+						 todayRichTextBox->SelectedText = displayToday + "\r\n";
+
+					 } else if (checkDone(todayTaskList,i)) {
+
 						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Strikeout);
 						 todayRichTextBox->SelectionColor = Color::CornflowerBlue;
 						 todayRichTextBox->SelectedText = displayToday + "\r\n";
 
-					 }
-					 else {
+					 } else {
+
 						 todayRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Regular );
 						 todayRichTextBox->SelectionColor = Color::Black;
 						 todayRichTextBox->SelectedText = displayToday + "\r\n";
+
 					 }
 				 }
 			 }
@@ -501,39 +565,121 @@ private: System::Void commandLineTextBox_KeyUp(System::Object^  sender, System::
 				 upcomingRichTextBox->Clear();
 				 for (int i=0; i<totalUpcomingTaskList; i++) {
 					 displayUpcoming = gcnew String(upcomingList[i].c_str());
-					 //bool variable for it to be considered done
-					 if (upcomingTaskList[i].done == true) {
+
+					 if (newTaskAdded(upcomingTaskList, i)) {
+
+						 upcomingRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Regular);
+						 upcomingRichTextBox->SelectionColor = Color::DeepSkyBlue;
+						 upcomingRichTextBox->SelectedText = displayUpcoming + "\r\n";
+
+					 } else if (clashingTask(upcomingTaskList, i)) {
+
+						 upcomingRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Italic);
+						 upcomingRichTextBox->SelectionColor = Color::OrangeRed;
+						 upcomingRichTextBox->SelectedText = displayUpcoming + "\r\n";
+
+					 } else if (checkDone(upcomingTaskList, i)) {
+
 						 upcomingRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Strikeout);
 						 upcomingRichTextBox->SelectionColor = Color::CornflowerBlue;
 						 upcomingRichTextBox->SelectedText = displayUpcoming + "\r\n";
-					 }
-					 else {
+
+					 } else {
+
 						 upcomingRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Regular );
 						 upcomingRichTextBox->SelectionColor = Color::Black;
 						 upcomingRichTextBox->SelectedText = displayUpcoming + "\r\n";
 					 }
 				 }
 			 }
+			
+			 bool overDueTask(std:: vector<TASK> todayTaskList, int i) {
+				 if ((checkOverdue(todayTaskList,i) && checkNewTask(todayTaskList,i) && checkClash(todayTaskList,i)) ||
+						 (checkOverdue(todayTaskList,i) && checkNewTask(todayTaskList,i)) || ((todayTaskList,i) && checkClash(todayTaskList,i)) ||
+						 checkOverdue(todayTaskList,i)) {
+							 return true;
+				 } else {
+					 return false;
+				 }
+			 }
+
+			 bool clashingTask(std:: vector<TASK> taskList, int i) {
+				 if ( checkClash(taskList,i) && checkNewTask(taskList,i) || checkClash(taskList,i)) {
+					 return true;
+				 } else {
+					 return false;
+				 }
+			 }
+
+			  bool newTaskAdded( std:: vector<TASK> taskList, int i) {
+				  if ( checkNewTask(taskList, i ) && !checkClash(taskList, i) && !checkOverdue(taskList, i)
+					  && !checkDone(taskList, i)) {
+						  return true;
+				  } else {
+					  return false;
+				  }
+			 }
+
+			 bool checkDone(std:: vector<TASK> taskList, int i) {
+				 if (taskList[i].done == true) {
+					 return true;
+				 }
+				 else {
+					 return false;
+				 }
+			 }
+			 			
+
+			 bool checkOverdue(std:: vector<TASK> taskList, int i) {
+				 if (taskList[i].overdue == true) {
+					 return true;
+				 }
+				 else {
+					 return false;
+				 }
+			 }
+
+			 bool checkClash(std:: vector<TASK> taskList, int i) {
+				 if (taskList[i].clash == true) {
+					 return true;
+				 }
+				 else {
+					 return false;
+				 }
+			 }
+
+			 bool checkNewTask(std:: vector<TASK> taskList, int i) {
+				 if (taskList[i].newTask == true) {
+					 return true;
+				 }
+				 else {
+					 return false;
+				 }
+			 }
+
 
 			 void displayMiscellaneous() {
-				 std:: vector<TASK> miscellaneousTaskList = storage->retrieveFloatingTaskList();
-				 std:: vector<std:: string> miscellaneousList = retrieveTaskList(miscellaneousTaskList);
-				 int totalMiscellaneousTaskList = miscellaneousTaskList.size();
-				 String^ displayMiscellaneous = "";
+				 std:: vector<TASK> miscTaskList = storage->retrieveFloatingTaskList();
+				 std:: vector<std:: string> miscList = retrieveTaskList(miscTaskList);
+				 int totalMiscellaneousTaskList = miscTaskList.size();
+				 String^ displayMisc = "";
 
 				 miscellaneousRichTextBox->Clear();
 				 for (int i=0; i<totalMiscellaneousTaskList; i++) {
-					 displayMiscellaneous = gcnew String(miscellaneousList[i].c_str());
-					 //bool variable for it to be considered done
-					 if ( miscellaneousTaskList[i].done == true) {
+					 displayMisc = gcnew String(miscList[i].c_str());
+					 
+					 if ( checkDone(miscTaskList, i)) {
 						 miscellaneousRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Strikeout);
 						 miscellaneousRichTextBox->SelectionColor = Color::CornflowerBlue;
-						 miscellaneousRichTextBox->SelectedText = displayMiscellaneous + "\r\n";
-					 }
-					 else {
+						 miscellaneousRichTextBox->SelectedText = displayMisc + "\r\n";
+					 } else	if ( checkNewTask(miscTaskList, i)) {
+						 miscellaneousRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Regular);
+						 miscellaneousRichTextBox->SelectionColor = Color::DeepSkyBlue;
+						 miscellaneousRichTextBox->SelectedText = displayMisc + "\r\n";
+					 } else {
 						 miscellaneousRichTextBox->SelectionFont = gcnew System::Drawing::Font( "Rockwell",10, System::Drawing::FontStyle::Regular );
 						 miscellaneousRichTextBox->SelectionColor = Color::Black;
-						 miscellaneousRichTextBox->SelectedText = displayMiscellaneous + "\r\n";
+						 miscellaneousRichTextBox->SelectedText = displayMisc + "\r\n";
 					 }
 				 }
 
@@ -615,6 +761,35 @@ private: System::Void commandLineTextBox_KeyUp(System::Object^  sender, System::
 						 displayHelp->AppendText("undo ");
 			 }
 
-private: 
+			 void displayColourguide(){
+				 colourLegend->Clear();
+
+				 colourLegend->SelectionFont = gcnew System::Drawing::Font( "Candara", 10, System::Drawing::FontStyle::Bold);
+				 colourLegend->SelectionAlignment = HorizontalAlignment::Center;
+				 colourLegend->SelectionColor = Color::LightSlateGray;
+				 colourLegend->AppendText("COLOUR LEGEND" + "\r\n");
+
+				 colourLegend->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Regular);
+				 colourLegend->SelectionAlignment = HorizontalAlignment::Left;
+				 colourLegend->SelectionColor = Color::Red;
+				 colourLegend->AppendText("task is over due" + "\r\n");
+
+				 colourLegend->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Italic);
+				 colourLegend->SelectionColor = Color::OrangeRed;
+				 colourLegend->AppendText("these two tasks clashes" + "\r\n");
+
+				 colourLegend->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Strikeout);
+				 colourLegend->SelectionColor = Color::CornflowerBlue;
+				 colourLegend->AppendText("task is done" + "\r\n");
+
+				 colourLegend->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Regular);
+				 colourLegend->SelectionColor = Color::DeepSkyBlue;
+				 colourLegend->AppendText("task was just added" + "\r\n");
+
+				 colourLegend->SelectionFont = gcnew System::Drawing::Font( "Arial", 9, System::Drawing::FontStyle::Regular);
+				 colourLegend->SelectionColor = Color::Black;
+				 colourLegend->AppendText("a normal upcoming task" + "\r\n");
+
+			 }
 };
 }
