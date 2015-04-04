@@ -17,11 +17,16 @@ bool operator==(const TASK& a, const TASK& b) {
 architectureStorage::architectureStorage() {
 }
 
-void architectureStorage::loadProgram() {
-	masterTaskList.clear();
-	masterTaskList = architectureSaveLoad::loadFromTextFile();
-	architectureBoost::sortTodayUpcoming(masterTaskList);
-	return;
+bool architectureStorage::loadProgram() {
+	
+	if (architectureSaveLoad::loadFromTextFile()) {
+		masterTaskList.clear();
+		masterTaskList = architectureSaveLoad::passTaskVector();
+		architectureBoost::sortTodayUpcoming(masterTaskList);
+		return true;
+	} else {
+		return false;
+	}
 }
 void architectureStorage::updateTaskID(std:: vector<TASK>& input) {
 	int counter = 1;

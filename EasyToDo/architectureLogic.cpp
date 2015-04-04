@@ -54,7 +54,6 @@ char architectureLogic::buffer[MAX];
 
 
 architectureLogic::architectureLogic(){
-	architectureStorage::loadProgram();
 }
 
 std:: vector<std:: string> architectureLogic::determineCommand(){

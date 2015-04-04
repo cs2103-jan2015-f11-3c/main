@@ -10,11 +10,16 @@ private:
 	static std:: string _endTime;
 	static std:: string _taskID;
 	static std:: string _done;
+	static std:: string _newTask;
+	static std:: string _overdue;
+	static std:: string _clash;
+	static std:: vector<TASK> _tempVector;
 public:
 	architectureSaveLoad();
 	static void saveToTextFile(std:: vector<TASK>& masterTaskList);
-	static std:: vector<TASK> loadFromTextFile();
-	static TASK initializeTaskFromString(std:: string _taskDescription, std:: string _startDateTime, std:: string _endTime, std:: string _taskID, std:: string _done);
+	static bool loadFromTextFile();
+	static std:: vector<TASK> passTaskVector();
+	static TASK initializeTaskFromString();
 	static void pushToStorage(TASK task);
 };
 #endif

@@ -33,7 +33,7 @@ private:
 	static std:: vector<TASK> upcomingTaskList;
 public:
 	architectureStorage();
-	static void loadProgram();
+	static bool loadProgram();
 	static int stringToInt(std:: string input);
 	static void updateTaskID(std:: vector<TASK>& input);
 	static TASK initializeFloatingTask(std:: string _contentDescripton);
