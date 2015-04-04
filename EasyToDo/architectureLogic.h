@@ -100,6 +100,7 @@ public:
 	static bool isUpcomingTaskListEmpty();
 	static bool isFloatingTaskListEmpty();
 	static int stringToInteger(std:: string input);
+	static std:: string concatenateString(std:: vector<std:: string>& parserVector);
 	// static void tokenizeDELETE(std::string tokenizeContent);
 };
 #endif

@@ -31,32 +31,57 @@ void Parser::tokenizeCOMMAND() {
 	std::string tokenizeContent = _userInput;
 	size_t commandFirst = 0;
 	size_t commandEnd = tokenizeContent.find_first_of(" ");
+	addTaskDetails.clear();
+	if(commandEnd != std:: string::npos) {
+		_command = tokenizeContent.substr(commandFirst,commandEnd);
 
-	_command = tokenizeContent.substr(commandFirst,commandEnd);
+		commandFirst = commandEnd + 1;
+		std::string restOfContent = tokenizeContent.substr(commandFirst);
+		addTaskDetails.push_back(_command);
 
-	commandFirst = commandEnd + 1;
-	std::string restOfContent = tokenizeContent.substr(commandFirst);
-
-	if(_command == "add") { 
-		tokenizeADDEmptyFirst(restOfContent);
-	} else if(_command == "delete") {
-		return tokenizeDELETE(restOfContent);
-	} else if(_command == "update") {
-		return tokenizeUPDATE(restOfContent);
-	} else if(_command == "clear") {
-		return tokenizeCLEAR(restOfContent);
-	} else if(_command == "done") {
-		return tokenizeDONE(restOfContent);
-	}/* else if(_command == "undo") {
-		return tokenizeUNDO(restOfContent);
-	}*/ else {
-		return tokenizeINVALID();
+		if(_command == "add") { 
+			tokenizeADDEmptyFirst(restOfContent);
+		} else if(_command == "delete") {
+			tokenizeDELETE(restOfContent);
+		} else if(_command == "update") {
+			tokenizeUPDATE(restOfContent);
+		} else if(_command == "clear") {
+			tokenizeCLEAR(restOfContent);
+		} else if(_command == "done") {
+			tokenizeDONE(restOfContent);
+		} else {
+			tokenizeINVALID();
+		}
+	} else {
+		addTaskDetails.push_back(_userInput);
+		tokenizeUNDO(_userInput);
 	}
-
 }
 
 void Parser::tokenizeINVALID() {
+
 	addTaskDetails.push_back("invalid");
+
+	_taskType = "";	
+	addTaskDetails.push_back(_taskType);
+	_taskID = "";
+	addTaskDetails.push_back(_taskID);
+	_taskDesc = "";
+	addTaskDetails.push_back(_taskDesc);
+	_dateDay = "";
+	addTaskDetails.push_back(_dateDay);
+	_dateMonth = "";
+	addTaskDetails.push_back(_dateMonth);
+	_startHour = "";
+	addTaskDetails.push_back(_startHour);
+	_startMin = "";
+	addTaskDetails.push_back(_startMin);
+	_endHour = "";
+	addTaskDetails.push_back(_endHour);
+	_endMin = "";
+	addTaskDetails.push_back(_endMin);
+
+	architectureLogic::pushParserVector(addTaskDetails);
 }
 /*
 bool Parser::isCommandValid(std::string input) {
@@ -102,7 +127,7 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 		taskLast = _newContent.npos;
 		std::string dateContent = _newContent.substr(taskFirst,taskLast);
 		isDateDayValid(dateContent);
-	} else{
+	} else {
 		taskLast = _newContent.find(" by ");
 
 		if(taskLast!=std::string::npos){
@@ -147,6 +172,7 @@ void Parser::tokenizeADD(std:: string tokenizeContent) {
 				addTaskDetails.push_back(_endMin);
 
 				architectureLogic::pushParserVector(addTaskDetails);
+				return;
 			}
 		}
 	}
@@ -179,11 +205,10 @@ void Parser::tokenizeDELETE(std::string tokenizeContent) {
 	std::string _newContent = tokenizeContent;
 	size_t taskFirst = _newContent.find_first_not_of(" ");
 	size_t taskLast = _newContent.find_first_of(" ",taskFirst);
-	taskLast = taskLast - 1;
 	_taskType = _newContent.substr(taskFirst,taskLast);
 	addTaskDetails.push_back(_taskType);
 
-	taskFirst = taskLast + 2;
+	taskFirst = taskLast + 1;
 	std::string taskIDContent =_newContent.substr(taskFirst);
 	taskFirst = taskIDContent.find_first_not_of(" ");
 	_taskID = taskIDContent.substr(taskFirst);
@@ -210,6 +235,7 @@ void Parser::tokenizeDELETE(std::string tokenizeContent) {
 void Parser::tokenizeCLEAR(std::string tokenizeContent) {
 
 	std::string _newContent = tokenizeContent;
+	
 	size_t taskFirst = _newContent.find_first_not_of(" ");
 	_taskType = _newContent.substr(taskFirst);
 	
@@ -235,16 +261,39 @@ void Parser::tokenizeCLEAR(std::string tokenizeContent) {
 	architectureLogic::pushParserVector(addTaskDetails);
 }
 
+void Parser::tokenizeUNDO(std::string tokenizeContent) {
+
+	_taskType = "";	
+	addTaskDetails.push_back(_taskType);
+	_taskID = "";
+	addTaskDetails.push_back(_taskID);
+	_taskDesc = "";
+	addTaskDetails.push_back(_taskDesc);
+	_dateDay = "";
+	addTaskDetails.push_back(_dateDay);
+	_dateMonth = "";
+	addTaskDetails.push_back(_dateMonth);
+	_startHour = "";
+	addTaskDetails.push_back(_startHour);
+	_startMin = "";
+	addTaskDetails.push_back(_startMin);
+	_endHour = "";
+	addTaskDetails.push_back(_endHour);
+	_endMin = "";
+	addTaskDetails.push_back(_endMin);
+
+	architectureLogic::pushParserVector(addTaskDetails);
+}
+
 void Parser::tokenizeDONE(std::string tokenizeContent) {
 
 	std::string _newContent = tokenizeContent;
 	size_t taskFirst = _newContent.find_first_not_of(" ");
 	size_t taskLast = _newContent.find_first_of(" ",taskFirst);
-	taskLast = taskLast - 1;
 	_taskType = _newContent.substr(taskFirst,taskLast);
 	addTaskDetails.push_back(_taskType);
 
-	taskFirst = taskLast + 2;
+	taskFirst = taskLast + 1;
 	std::string taskIDContent =_newContent.substr(taskFirst);
 	taskFirst = taskIDContent.find_first_not_of(" ");
 	_taskID = taskIDContent.substr(taskFirst);

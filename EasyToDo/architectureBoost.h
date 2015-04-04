@@ -19,6 +19,8 @@ public:
 	static date retrieveDateToday();
 	static bool isValidTodayTask(days dayDifference);
 	static void sortWithinTodayUpcoming(std:: vector<TASK>& todayUpcomingTASKList);
-
+	static void checkOverdueTask(std:: vector<TASK>& todayTaskList);
+	static bool isTaskOverdue(days dayDifference);
+	static void checkClashTask(TASK temp, std:: vector<TASK>& taskList);
 };
 #endif

@@ -17,8 +17,12 @@ struct TASK {
 	std:: string taskDescriptionList;
 	ptime startDateTime; //time t2(date(2002,Jan,10), hours(1)+nanosec(5));
 	time_duration endTime;
+	ptime endDateTime;
 	int taskID;
 	bool done;
+	bool newTask; // check if the task is recently added to EasyToDo to enable us to highlight the newest task added
+	bool overdue; // check if the task is overdue else highlight in red
+	bool clash; // check if there is any task that have timeline that clashes with each other
 };
 
 class architectureStorage {
@@ -69,10 +73,18 @@ public:
 	static void undoDelete(TASK& input);
 	static void undoAdd(TASK& input);
 	static void deleteTask(TASK& input);
-	static void undoClear(std:: vector<TASK>& previousTaskList);
+	static void undoClear(std:: vector<TASK>& previousTodayUpcomingTaskList, 
+						  std:: vector<TASK>& previousFloatingTaskList);
+	static void undoDone(TASK& input);
 	static void doneTodayTask(std:: vector<TASK>::iterator iter);
 	static void doneUpcomingTask(std:: vector<TASK>::iterator iter);
 	static void doneFloatingTask(std:: vector<TASK>::iterator iter);
 
+	static void clearTodayTaskList();
+	static void clearUpcomingTaskList();
+
+	static void updateNewTask();
+
+	std:: vector<TASK> retrieveMasterTaskList();
 };
 #endif

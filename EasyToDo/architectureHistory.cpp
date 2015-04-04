@@ -5,7 +5,8 @@
 
 std:: stack<std:: string> architectureHistory::previousActionStack;
 std:: stack<TASK> architectureHistory::previousStateStack;
-std:: vector<TASK> architectureHistory::previousTaskList;
+std:: vector<TASK> architectureHistory::previousTodayUpcomingTaskList;
+std:: vector<TASK> architectureHistory::previousFloatingTaskList;
 char architectureHistory::temp[MAXIMUM];
 
 const std:: string architectureHistory::MESSAGE_ERROR = "ERROR! Invalid Command";
@@ -39,30 +40,68 @@ std:: string architectureHistory::undoAction() {
 	return temp;
 }
 
+bool architectureHistory::isValidCommand(const std:: string& str1, const std:: string& str2) { 
+	if (str1.size() != str2.size()) { 
+		return false; 
+	} 
+	std:: string::const_iterator c1;
+	std:: string::const_iterator c2;
+
+	for (c1 = str1.begin(), c2 = str2.begin(); c1 != str1.end(); ++c1, ++c2) {
+		if (tolower(*c1) != tolower(*c2)) { 
+			return false; 
+		} 
+	} return true; 
+}
+
+architectureHistory::CommandType architectureHistory::determineCommandType(std:: string commandAction) { 
+	assert(commandAction != "");
+	if(isValidCommand(commandAction, "add")) { 
+		return CommandType::ADD; 
+	} else if(isValidCommand(commandAction, "exit")) { 
+		return CommandType::EXIT; 
+	} else if(isValidCommand(commandAction, "delete")) {
+		return CommandType::DELETE;
+	} else if(isValidCommand(commandAction, "clear")) {
+		return CommandType::CLEAR;
+	} else if(isValidCommand(commandAction, "update")) {
+		return CommandType::UPDATE;
+	} else if(isValidCommand(commandAction, "undo")) {
+		return CommandType::UNDO;
+	} else if(isValidCommand(commandAction, "done")) {
+		return CommandType::DONE;
+	} else { 
+		return CommandType::INVALID;
+	} 
+}
+
 void architectureHistory::executeUndo(std:: string previousCommand) {
-	architectureLogic:: CommandType commandTypeAction = architectureLogic:: determineCommandType(previousCommand);
+	architectureHistory:: CommandType commandTypeAction = architectureHistory:: determineCommandType(previousCommand);
 
 	switch(commandTypeAction) { 
-	case architectureLogic:: ADD: 
+	case ADD: 
 		reverseAdd();
 		break;
-	case architectureLogic:: DELETE:
+	case DELETE:
 		reverseDelete();
 		break;
-	case architectureLogic:: CLEAR:
+	case CLEAR:
 		reverseClear();
 		break;
-	case architectureLogic:: UPDATE:
+	case UPDATE:
 		reverseUpdate();
+	case DONE:
+		reverseDone();
 		break;
-	case architectureLogic:: INVALID:
+	case INVALID:
 		break;
-	case architectureLogic:: UNDO:
+	case UNDO:
 		break;
-	case architectureLogic:: EXIT: 
+	case EXIT: 
 		exit(0);
 	}
 }
+
 TASK architectureHistory::retrievePreviousState() {
 	TASK previousState;
 	previousState = previousStateStack.top();
@@ -96,12 +135,33 @@ void architectureHistory::reverseUpdate() {
 	return;
 }
 
-void architectureHistory::retrievePreviousTaskList(std::vector<TASK>& masterTaskList) {
-	previousTaskList = masterTaskList;
+void architectureHistory::reverseDone() {
+	TASK previousState;
+	previousState = retrievePreviousState();
+	architectureStorage::undoDone(previousState);
+	return;
+}
+
+void architectureHistory::pushPreviousTodayUpcomingTaskList(std::vector<TASK>& taskList) {
+	std:: vector<TASK>::iterator iter;
+	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
+		previousTodayUpcomingTaskList.push_back(*iter);
+	}
+	return;
+}
+
+void architectureHistory::pushPreviousFloatingTaskList(std::vector<TASK>& taskList) {
+	std:: vector<TASK>::iterator iter;
+	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
+		previousFloatingTaskList.push_back(*iter);
+	}
 	return;
 }
 
 void architectureHistory::reverseClear() {
-	architectureStorage::undoClear(previousTaskList);
+	architectureStorage::undoClear(previousTodayUpcomingTaskList, previousFloatingTaskList);
+	previousTodayUpcomingTaskList.clear();
+	previousFloatingTaskList.clear();
 	return;
 }
+

@@ -39,9 +39,14 @@ TASK architectureStorage::initializeTimedTask(std:: string _contentDescripton, s
 	date d(from_string(dateString));
 	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp;
-	buffer.endTime = time_duration(hours(stringToInt(_contentEndHours))+minutes(stringToInt(_contentEndMinutes)));
+	buffer.endTime =time_duration(hours(stringToInt(_contentEndHours))+minutes(stringToInt(_contentEndMinutes)));
+	ptime temp2(d,time_duration(hours(stringToInt(_contentEndHours))+minutes(stringToInt(_contentEndMinutes))));
+	buffer.endDateTime = temp2;
 	buffer.taskID = 0;
 	buffer.done = false;
+	buffer.newTask = true;
+	buffer.overdue = false;
+	buffer.clash = false;
 	return buffer;
 }
 
@@ -56,6 +61,9 @@ TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescripton
 	buffer.endTime = time_duration(not_a_date_time);
 	buffer.taskID = 0;
 	buffer.done = false;
+	buffer.newTask = true;
+	buffer.overdue = false;
+	buffer.clash = false;
 	return buffer;
 }
 
@@ -67,11 +75,16 @@ TASK architectureStorage::initializeFloatingTask(std:: string _contentDescripton
 	buffer.endTime = time_duration(not_a_date_time);
 	buffer.taskID = 0;
 	buffer.done = false;
+	buffer.newTask = true;
+	buffer.overdue = false;
+	buffer.clash = false;
 	return buffer;
 }
 
 void architectureStorage::addToMasterStorage(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
 	TASK temp;
+	updateNewTask();
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 	if(_contentEndHours == "" && _contentEndMinutes == "") {
 		if(_contentStartHours == "" && _contentStartMinutes == "") {
 			temp = initializeFloatingTask(_contentDescripton);
@@ -88,6 +101,17 @@ void architectureStorage::addToMasterStorage(std:: string _contentDescripton, st
 	masterTaskList.push_back(temp);
 	architectureBoost::sortTodayUpcoming(masterTaskList);
 	return;
+}
+
+void architectureStorage::updateNewTask() {
+	std:: vector<TASK>::iterator iter;
+	for(iter = floatingTaskList.begin(); iter != floatingTaskList.end(); iter++) {
+		iter->newTask = false;
+	}
+
+	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
+		iter->newTask = false;
+	}
 }
 
 std:: vector<TASK> architectureStorage::retrieveTodayTaskList() {
@@ -191,6 +215,7 @@ void architectureStorage::updateToTodayStorage(int taskID, std:: string newTask,
 	architectureHistory::addPreviousState(*iter);
 	deleteTask(*iter);
 	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 }
 
 void architectureStorage::updateToUpcomingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
@@ -198,6 +223,7 @@ void architectureStorage::updateToUpcomingStorage(int taskID, std:: string newTa
 	architectureHistory::addPreviousState(*iter);
 	deleteTask(*iter);
 	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);	
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 }
 
 void architectureStorage::updateToFloatingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
@@ -205,53 +231,90 @@ void architectureStorage::updateToFloatingStorage(int taskID, std:: string newTa
 	architectureHistory::addPreviousState(*iter);
 	floatingTaskList.erase(iter);
 	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 }
 
 void architectureStorage::storeTodayTask(TASK temp) {
+	architectureBoost::checkClashTask(temp, todayTaskList);
 	todayTaskList.push_back(temp);
+	architectureBoost::sortWithinTodayUpcoming(todayTaskList);
+	architectureBoost::checkOverdueTask(todayTaskList);
+	
 	return;
 }
 
 void architectureStorage::storeUpcomingTask(TASK temp) {
+	architectureBoost::checkClashTask(temp, upcomingTaskList);
 	upcomingTaskList.push_back(temp);
+	architectureBoost::sortWithinTodayUpcoming(upcomingTaskList);
 	return;
 }
 
 void architectureStorage::clearAllFromStorage() {
-	architectureHistory::retrievePreviousTaskList(masterTaskList);
+	architectureHistory::pushPreviousTodayUpcomingTaskList(masterTaskList);
+	architectureHistory::pushPreviousFloatingTaskList(floatingTaskList);
 	masterTaskList.clear();
 	todayTaskList.clear();
-	floatingTaskList.clear();
 	upcomingTaskList.clear();
+	floatingTaskList.clear();
 	return;
 }
 
 void architectureStorage::clearTodayFromStorage() {
+	architectureHistory::pushPreviousTodayUpcomingTaskList(masterTaskList);
+	assert(!masterTaskList.empty());
+	masterTaskList.clear();
+	std:: vector<TASK>::iterator iter;
+	for(iter = upcomingTaskList.begin(); iter != upcomingTaskList.end(); iter++) {
+		masterTaskList.push_back(*iter);
+	}
 	todayTaskList.clear();
+	upcomingTaskList.clear();
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 	return;
 }
 
 void architectureStorage::clearUpcomingFromStorage() {
-	architectureHistory::retrievePreviousTaskList(masterTaskList);
+	architectureHistory::pushPreviousTodayUpcomingTaskList(masterTaskList);
+	masterTaskList.clear();
+	std:: vector<TASK>::iterator iter;
+	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
+		masterTaskList.push_back(*iter);
+	}
+	todayTaskList.clear();
 	upcomingTaskList.clear();
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 	return;
 }
 
 void architectureStorage::clearFloatingFromStorage() {
+	architectureHistory::pushPreviousFloatingTaskList(floatingTaskList);
 	floatingTaskList.clear();
 	return;
 }
 
 /**************for undo function ******************/
 void architectureStorage::undoDelete(TASK& input) {
-	masterTaskList.push_back(input);
-	architectureBoost::sortTodayUpcoming(masterTaskList);
+	if (input.startDateTime == not_a_date_time) {
+		floatingTaskList.push_back(input);
+	}
+	else {
+		masterTaskList.push_back(input);
+		architectureBoost::sortTodayUpcoming(masterTaskList);
+	}
 	return;
 }
 
 void architectureStorage::deleteTask(TASK& input) {
 	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), input);
-	masterTaskList.erase(position);
+	if (position == masterTaskList.end()) {
+		position = std::find(floatingTaskList.begin(), floatingTaskList.end(), input);
+		floatingTaskList.erase(position);
+	}
+	else {
+		masterTaskList.erase(position);
+		architectureBoost::sortTodayUpcoming(masterTaskList);
+	}
 	return;
 }
 
@@ -261,9 +324,32 @@ void architectureStorage::undoAdd(TASK& input) {
 	return;
 }
 
-void architectureStorage::undoClear(std:: vector<TASK>& previousTaskList) {
-	masterTaskList.clear();
-	masterTaskList = previousTaskList;
+void architectureStorage::undoClear(std:: vector<TASK>& previousTodayUpcomingTaskList, 
+						  std:: vector<TASK>& previousFloatingTaskList) {
+	masterTaskList.clear(); 
+	std:: vector<TASK>::iterator iter;
+	for(iter = previousTodayUpcomingTaskList.begin(); iter != previousTodayUpcomingTaskList.end(); iter++) {
+		masterTaskList.push_back(*iter);
+	}
+
+	for(iter = previousFloatingTaskList.begin(); iter != previousFloatingTaskList.end(); iter++) {
+		floatingTaskList.push_back(*iter);
+	}
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	return;
+}
+
+void architectureStorage::undoDone(TASK& input) {
+	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), input);
+
+	if (position == masterTaskList.end()) {
+		position = std::find(floatingTaskList.begin(), floatingTaskList.end(), input);
+		position->done = false;
+	}
+	else {
+		position->done = false;
+		architectureBoost::sortTodayUpcoming(masterTaskList);
+	}
 	return;
 }
 
@@ -284,4 +370,20 @@ void architectureStorage::doneUpcomingTask(std:: vector<TASK>::iterator iter) {
 void architectureStorage::doneFloatingTask(std:: vector<TASK>::iterator iter) {
 	iter->done = true;
 	return;
+}
+
+void architectureStorage::clearTodayTaskList() {
+	todayTaskList.clear();
+	return;
+}
+
+void architectureStorage::clearUpcomingTaskList() {
+	upcomingTaskList.clear();
+	return;
+}
+
+/**** inetegration testing ****/
+
+std:: vector<TASK> architectureStorage::retrieveMasterTaskList(){
+	return masterTaskList;
 }
