@@ -29,25 +29,27 @@ class Parser {
 		static std::string _delContent;
 		static std::string _command;
 		static std::string _userInput;
-		static int output;
 
 
 	public:
 		static std::vector<std::string> addTaskDetails;
 		static void pushUserInput(std::string userInput);
 		static void tokenizeCOMMAND();
+		static void checkCommand(std::string _command, std::string tokenizeContent);
 		static void tokenizeADD(std::string tokenizeContent);
 		static void tokenizeCLEAR(std::string tokenizeContent);
 		static void tokenizeDELETE(std::string tokenizeContent);
 		static void tokenizeDONE(std::string tokenizeContent);
 		static void tokenizeUNDO(std::string tokenizeContent);
 		static void tokenizeUPDATE(std::string tokenizeContent);
-		static void isTaskTypeValid(std::string input);
-		static void isDateDayValid(std::string tokenizeContent);
-		static void isDateMonthValid(std::string tokenizeContent);
+		static void tokenizeDateDay(std::string tokenizeContent);
+		static void tokenizeDateMonth(std::string tokenizeContent);
 		static void tokenizeTime(std::string tokenizeContent);
-		static void isTimedValid(std::string tokenizeContent);
-		static void isDeadlineVaild(std::string tokenizeContent);
+		static void tokenizeTimedTime(std::string tokenizeContent);
+		static void tokenizeDeadlineTime(std::string tokenizeContent);
+		static void tokenizeDeadlineTask(std::string toknizeContent,size_t taskLast);
+		static void tokenizeTimedTask(std::string toknizeContent, size_t taskLast);
+		static void addEmptyString(int count);
 		static void tokenizeINVALID();
 		// static int stringToInt(std::string input);
 		// static bool isCommandValid(std::string input);
