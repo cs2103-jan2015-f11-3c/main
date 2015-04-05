@@ -3,6 +3,7 @@
 #include "architectureParser.h"
 #include "architectureBoost.h"
 #include "architectureHistory.h"
+#include "architectureSaveLoad.h"
 
 std:: vector<TASK> architectureStorage::masterTaskList;
 std:: vector<TASK> architectureStorage::todayTaskList;
@@ -16,6 +17,12 @@ bool operator==(const TASK& a, const TASK& b) {
 architectureStorage::architectureStorage() {
 }
 
+void architectureStorage::loadProgram() {
+	masterTaskList.clear();
+	masterTaskList = architectureSaveLoad::loadFromTextFile();
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	return;
+}
 void architectureStorage::updateTaskID(std:: vector<TASK>& input) {
 	int counter = 1;
 	std:: vector<TASK>::iterator iter;
@@ -100,6 +107,7 @@ void architectureStorage::addToMasterStorage(std:: string _contentDescripton, st
 	architectureHistory::addPreviousState(temp);
 	masterTaskList.push_back(temp);
 	architectureBoost::sortTodayUpcoming(masterTaskList);
+	architectureSaveLoad::saveToTextFile(masterTaskList);
 	return;
 }
 
@@ -382,8 +390,16 @@ void architectureStorage::clearUpcomingTaskList() {
 	return;
 }
 
-/**** inetegration testing ****/
+/**** integration testing ****/
 
 std:: vector<TASK> architectureStorage::retrieveMasterTaskList(){
 	return masterTaskList;
+}
+
+/**** saveLoad function ****/
+
+void architectureStorage::pushTaskToMaster(TASK& task) {
+	masterTaskList.push_back(task);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	return;
 }

@@ -33,6 +33,7 @@ private:
 	static std:: vector<TASK> upcomingTaskList;
 public:
 	architectureStorage();
+	static void loadProgram();
 	static int stringToInt(std:: string input);
 	static void updateTaskID(std:: vector<TASK>& input);
 	static TASK initializeFloatingTask(std:: string _contentDescripton);
@@ -85,6 +86,10 @@ public:
 
 	static void updateNewTask();
 
-	std:: vector<TASK> retrieveMasterTaskList();
+	/**** integration testing ****/
+	static std:: vector<TASK> retrieveMasterTaskList();
+
+	static void pushTaskToMaster(TASK& task);
+
 };
 #endif
