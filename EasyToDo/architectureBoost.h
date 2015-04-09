@@ -21,6 +21,6 @@ public:
 	static void sortWithinTodayUpcoming(std:: vector<TASK>& todayUpcomingTASKList);
 	static void checkOverdueTask(std:: vector<TASK>& todayTaskList);
 	static bool isTaskOverdue(days dayDifference);
-	static void checkClashTask(TASK temp, std:: vector<TASK>& taskList);
+	static TASK checkClashTask(TASK temp, std:: vector<TASK>& taskList);
 };
 #endif

@@ -7,6 +7,7 @@ std:: stack<std:: string> architectureHistory::previousActionStack;
 std:: stack<TASK> architectureHistory::previousStateStack;
 std:: vector<TASK> architectureHistory::previousTodayUpcomingTaskList;
 std:: vector<TASK> architectureHistory::previousFloatingTaskList;
+
 char architectureHistory::temp[MAXIMUM];
 
 const std:: string architectureHistory::MESSAGE_ERROR = "ERROR! Invalid Command";

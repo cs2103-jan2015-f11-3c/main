@@ -65,12 +65,18 @@ void architectureBoost::checkOverdueTask(std:: vector<TASK>& todayTaskList) {
 	date dateToday = retrieveDateToday();
 	date temp; 
 	days dayDifference;
+	days day(0);
+	ptime today =  second_clock::local_time();
 
 	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
 		temp = (iter->startDateTime).date();
 		dayDifference = temp - dateToday;
 		if(isTaskOverdue(dayDifference)) {
-			iter->overdue = true;
+				iter->overdue = true;
+		}
+		if(dayDifference == day){
+			if( today.time_of_day() > (iter->startDateTime).time_of_day())
+				iter->overdue = true;
 		}
 	}
 }
@@ -84,7 +90,7 @@ bool architectureBoost::isTaskOverdue(days dayDifference) {
 	}
 }
 
-void architectureBoost::checkClashTask(TASK temp, std:: vector<TASK>& taskList) {
+TASK architectureBoost::checkClashTask(TASK temp, std:: vector<TASK>& taskList) {
 	std:: vector<TASK>::iterator iter;
 	date dateToday = retrieveDateToday();
 	/*
@@ -99,15 +105,21 @@ void architectureBoost::checkClashTask(TASK temp, std:: vector<TASK>& taskList) 
 				if(iter->startDateTime == temp.startDateTime) {
 					iter->clash = true;
 					temp.clash = true;
+					architectureStorage::updateClashStatus(*iter);
+					architectureStorage::updateClashStatus(temp);
 				}
 			} else {
 				time_period tp1(iter->startDateTime, ptime(iter->startDateTime.date(), hours(iter->endTime.hours())));
 				time_period tp2(temp.startDateTime, ptime(temp.startDateTime.date(), hours(temp.endTime.hours())));
 				if(tp2.intersects(tp1)) {
-					temp.clash = true;
 					iter->clash = true;
+					temp.clash = true;
+					architectureStorage::updateClashStatus(*iter);
+					architectureStorage::updateClashStatus(temp);
 				}
 			}
 		}
 	}
+
+	return temp;
 }

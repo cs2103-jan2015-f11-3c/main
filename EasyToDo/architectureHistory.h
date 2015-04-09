@@ -16,6 +16,7 @@ private:
 	static char temp[MAXIMUM];
 	static std:: vector<TASK> previousTodayUpcomingTaskList;
 	static std:: vector<TASK> previousFloatingTaskList;
+	
 
 	static const std:: string MESSAGE_ERROR;
 	static const std:: string MESSAGE_UNDO;

@@ -4,6 +4,7 @@
 #include "architectureHistory.h"
 #include "architectureBoost.h"
 #include "architectureInputFeedback.h"
+#include "architectureSaveLoad.h"
 
 /*
 to do list requires basic support of storage/retrieval of info, display of info to user and updating 
@@ -54,7 +55,6 @@ char architectureLogic::buffer[MAX];
 
 
 architectureLogic::architectureLogic(){
-	architectureStorage::loadProgram();
 }
 
 std:: vector<std:: string> architectureLogic::determineCommand(){
@@ -128,6 +128,8 @@ architectureLogic::CommandType architectureLogic::determineCommandType(std:: str
 		return CommandType::UNDO;
 	} else if(isValidCommand(commandAction, "done")) {
 		return CommandType::DONE;
+	} else if(isValidCommand(commandAction, "save")) {
+		return CommandType::SAVE;
 	} else { 
 		return CommandType::INVALID;
 	} 
@@ -206,12 +208,14 @@ std:: string architectureLogic::executeCommand() {
 	case UPDATE:
 		architectureHistory::addPreviousAction(_command);
 		return updateTask(_taskType, _taskID, _contentDescription, _contentDay,
-						  _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
+			_contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
 	case UNDO:
 		return undoTask();
 	case DONE:
 		architectureHistory::addPreviousAction(_command);
 		return doneTask(_taskType, _taskID);
+	case SAVE:
+		return architectureSaveLoad::changeSavingDirectoryAndFileName(_taskType, _taskID);
 	case INVALID:
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
@@ -226,15 +230,99 @@ std:: string architectureLogic::trimTrailingSpaces(std:: string buffer) {
 }
 
 std:: string architectureLogic::addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
-	assert(_contentDescription != "");
-	
-	architectureStorage::addToMasterStorage(_contentDescription, _contentDay, _contentMonth, _contentStartHours,
-											_contentStartMinutes, _contentEndHours, _contentEndMinutes);
+		assert(_contentDescription != "");
+	if(_contentDay!=""){
+		if(!isDateValid(_contentDay,_contentMonth)) {
+			sprintf_s(buffer, MESSAGE_INVALID.c_str());
+			return buffer;
+		} 
+		if(_contentEndHours!="") {
+			if(!isTimedTimeValid(_contentStartHours,_contentStartMinutes,_contentEndHours,_contentEndMinutes)) {
+				sprintf_s(buffer, MESSAGE_INVALID.c_str());
+				return buffer;
+			}
+		} else if( !isDeadlineTimeValid(_contentStartHours,_contentStartMinutes)) {
+			sprintf_s(buffer, MESSAGE_INVALID.c_str());
+			return buffer;
+		}
+	}
 
-	_content = concatenateString(parserVector);
-	sprintf_s(buffer, MESSAGE_ADD.c_str(), _content.c_str());
-	return trimTrailingSpaces(buffer);
+		architectureStorage::addToMasterStorage(_contentDescription, _contentDay, _contentMonth, _contentStartHours,
+			_contentStartMinutes, _contentEndHours, _contentEndMinutes);
+
+		_content = concatenateString(parserVector);
+		sprintf_s(buffer, MESSAGE_ADD.c_str(), _content.c_str());
+		return trimTrailingSpaces(buffer);
 }
+
+bool architectureLogic::isDateValid(std:: string contentDay, std:: string contentMonth) {
+	
+	Months monthType = determineMonthType(contentMonth);
+	int intDay = stringToInteger(contentDay);
+	if (( monthType == Months::JAN) || (monthType == Months::MAR) || (monthType == Months::MAY ) || (monthType == Months::JUL )
+		|| (monthType == Months::AUG ) || (monthType == Months::OCT) || (monthType == Months::DEC ) ) {
+			if ((intDay >= 1) && (intDay <= 31)) {
+				return true;
+			} else {
+				return false;
+			}
+	} else if (( monthType == Months::APR) || (monthType == Months::JUN) || (monthType == Months::SEP ) || (monthType == Months::NOV )) {
+		if ((intDay >= 1) && (intDay <= 30)) {
+			return true;
+		} else {
+			return false;
+		}
+	} else if( monthType == Months::FEB) {
+		if ((intDay >= 1) && (intDay <= 28)) {
+			return true;
+		} else {
+			return false;
+	}
+} else {
+	return false;
+	}
+}
+
+bool architectureLogic::isTimedTimeValid(std:: string startHour, std:: string startMin, std::string endHour, std::string endMin ){
+	int startIntHour = stringToInteger(startHour);
+	int startIntMin = stringToInteger(startMin);
+	int endIntHour = stringToInteger(endHour);
+	int endIntMin = stringToInteger(endMin);
+
+	if ((startIntHour < 0) && (startIntHour > 24)) {
+		return false;
+	} else if ((startIntMin < 0) || (startIntMin > 60)) {
+		return false;
+	} else if ((endIntHour < 0) || (endIntHour > 24)) {
+		return false;
+	} else if ((endIntMin < 0) || (endIntMin > 60)) {
+		return false;
+	} else if (startIntHour > endIntHour ) {
+		return false;
+	} else if (startIntHour > endIntHour ) {
+		return false;
+    } else if (startIntHour == endIntHour ) {
+		if ( startIntMin > endIntMin)
+		return false;
+	} else {
+		return true;
+	}
+}
+
+bool architectureLogic::isDeadlineTimeValid(std:: string startHour, std:: string startMin) {
+
+	int startIntHour = stringToInteger(startHour);
+	int startIntMin = stringToInteger(startMin);
+
+	if ((startIntHour < 0) || (startIntHour > 24)) {
+		return false;
+	} else if ((startIntMin < 0) || (startIntMin > 60)) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
 
 bool architectureLogic::isTodayTaskIDValid(int taskID) {
 	int size = architectureStorage::findTotalNumberofTodayTask();

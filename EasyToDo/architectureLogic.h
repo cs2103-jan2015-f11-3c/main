@@ -58,7 +58,7 @@ public:
 
 	architectureLogic();
 	enum CommandType { 
-		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO, DONE
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO, DONE, SAVE
 	};
 	enum Months { 
 		JAN=1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, NOTVALID
@@ -99,6 +99,9 @@ public:
 	static bool isTodayTaskListEmpty();
 	static bool isUpcomingTaskListEmpty();
 	static bool isFloatingTaskListEmpty();
+	static bool architectureLogic::isDateValid(std:: string contentDay, std:: string contentMonth);
+	static bool architectureLogic::isTimedTimeValid(std:: string startHour, std:: string startMin, std::string endHour, std::string endMin );
+	static bool architectureLogic::isDeadlineTimeValid(std:: string startHour, std:: string startMin);	
 	static int stringToInteger(std:: string input);
 	static std:: string concatenateString(std:: vector<std:: string>& parserVector);
 	// static void tokenizeDELETE(std::string tokenizeContent);
