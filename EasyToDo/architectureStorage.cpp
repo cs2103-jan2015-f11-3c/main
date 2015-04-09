@@ -21,9 +21,13 @@ bool architectureStorage::loadProgram() {
 	
 	if (architectureSaveLoad::loadFromTextFile()) {
 		masterTaskList.clear();
+<<<<<<< HEAD
 		floatingTaskList.clear();
 		masterTaskList = architectureSaveLoad::passMasterTaskVector();
 		floatingTaskList = architectureSaveLoad::passFloatingTaskVector();
+=======
+		masterTaskList = architectureSaveLoad::passTaskVector();
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 		architectureBoost::sortTodayUpcoming(masterTaskList);
 		return true;
 	} else {

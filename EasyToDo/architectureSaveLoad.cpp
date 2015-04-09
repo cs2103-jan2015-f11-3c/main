@@ -4,18 +4,25 @@
 #include "architectureHistory.h"
 #include "architectureSaveLoad.h"
 #include "architectureBoost.h"
+<<<<<<< HEAD
 #include <boost/filesystem.hpp>
+=======
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 
 std:: string architectureSaveLoad::_taskDescription;
 std:: string architectureSaveLoad::_startDateTime;
 std:: string architectureSaveLoad::_endTime;
+<<<<<<< HEAD
 std:: string architectureSaveLoad::_endDateTime;
+=======
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 std:: string architectureSaveLoad::_taskID;
 std:: string architectureSaveLoad::_done;
 std:: string architectureSaveLoad::_newTask;
 std:: string architectureSaveLoad::_overdue;
 std:: string architectureSaveLoad::_clash;
 std:: vector<TASK> architectureSaveLoad::_tempVector;
+<<<<<<< HEAD
 std:: vector<TASK> architectureSaveLoad::_tempMasterVector;
 std:: vector<TASK> architectureSaveLoad::_tempFloatingVector;
 
@@ -32,10 +39,13 @@ const std:: string architectureSaveLoad::MESSAGE_FAILED_SAVE = "Sorry. Invalid d
 
 
 char architectureSaveLoad::transitory[MAXIMUM];
+=======
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 
 architectureSaveLoad::architectureSaveLoad() {
 }
 
+<<<<<<< HEAD
 std:: string architectureSaveLoad::retrievePathName() {
 	std:: ifstream read("PathName.txt");
 	std:: string line;
@@ -48,6 +58,13 @@ void architectureSaveLoad::saveToTextFile(std:: vector<TASK>& masterTaskList, st
 	std:: vector<TASK> taskList;
 	
 	taskList = combineVector(masterTaskList, floatingTaskList);
+=======
+void architectureSaveLoad::saveToTextFile(std:: vector<TASK>& taskList) {
+	std:: vector<TASK>::iterator iter;
+	std:: string textFileName;
+	textFileName = "task.txt";
+	std:: ofstream saveFile(textFileName);
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 
 	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
 		saveFile << iter->taskDescriptionList;
@@ -59,9 +76,12 @@ void architectureSaveLoad::saveToTextFile(std:: vector<TASK>& masterTaskList, st
 		saveFile << boost::posix_time::to_simple_string(iter->endTime).c_str();
 		saveFile << std:: endl;
 
+<<<<<<< HEAD
 		saveFile << boost::posix_time::to_simple_string(iter->endDateTime).c_str();
 		saveFile << std:: endl;
 
+=======
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 		saveFile << std:: to_string(iter->taskID);
 		saveFile << std:: endl;
 
@@ -75,6 +95,7 @@ void architectureSaveLoad::saveToTextFile(std:: vector<TASK>& masterTaskList, st
 		saveFile << std:: endl;
 
 		saveFile << boost::lexical_cast<std::string>(iter->clash);
+<<<<<<< HEAD
 
 		if (iter != taskList.end() - 1) {
 			saveFile << std:: endl;
@@ -100,14 +121,33 @@ std:: vector<TASK> architectureSaveLoad::combineVector(std:: vector<TASK>& maste
 
 // load from archivedFile
 bool architectureSaveLoad::loadFromTextFile() {
+=======
+		if (iter != taskList.end() - 1) {
+			saveFile << std:: endl;
+		}
+			
+	}
+	 saveFile.close();  
+}
+
+bool architectureSaveLoad::loadFromTextFile() {
+	std:: string textFileName = "task.txt";
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 	TASK temp;
 	std:: string buffer;
 	std:: vector<std:: string> tempStringVector;
 
+<<<<<<< HEAD
 	std:: ifstream readFile(retrievePathName());
 	
 	if (!readFile.is_open()) { // if file doesn't exists
 		std:: ofstream writeFile(retrievePathName());
+=======
+	std:: ifstream readFile(textFileName);
+	
+	if (!readFile.is_open()) { // if file doesn't exists
+		std:: ofstream writeFile(textFileName);
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 		writeFile.close();
 		return false;
 	} else {
@@ -121,6 +161,7 @@ bool architectureSaveLoad::loadFromTextFile() {
 		while (i<size) {
 
 			_taskDescription = tempStringVector[i];
+<<<<<<< HEAD
 			i++;
 			_startDateTime = tempStringVector[i];
 			i++;
@@ -143,18 +184,48 @@ bool architectureSaveLoad::loadFromTextFile() {
 			_tempVector.push_back(temp);
 		}
 		differentiateVector(_tempVector);
+=======
+
+			_startDateTime = tempStringVector[i+1];
+
+			_endTime = tempStringVector[i+2];
+
+			_taskID = tempStringVector[i+3];
+
+			_done = tempStringVector[i+4];
+			
+			_newTask = tempStringVector[i+5];
+
+			_overdue = tempStringVector[i+6];
+
+			_clash = tempStringVector[i+7];
+
+			temp = initializeTaskFromString();
+			_tempVector.push_back(temp);
+
+			i+=8;
+			
+		}
+
+		
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 		readFile.close();
 		return true;
 	}
 	
 }
 
+<<<<<<< HEAD
 std:: vector<TASK> architectureSaveLoad::passMasterTaskVector() {
 	return _tempMasterVector;
 }
 
 std:: vector<TASK> architectureSaveLoad::passFloatingTaskVector() {
 	return _tempFloatingVector;
+=======
+std:: vector<TASK> architectureSaveLoad::passTaskVector() {
+	return _tempVector;
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 }
 
 TASK architectureSaveLoad::initializeTaskFromString() {
@@ -172,6 +243,7 @@ TASK architectureSaveLoad::initializeTaskFromString() {
 	temp.startDateTime = stringDateTime;
 
 //	below is still wrong
+<<<<<<< HEAD
 	ptime stringTimeDuration;
 	boost::posix_time::time_input_facet *timeFacetEnd = new boost::posix_time::time_input_facet;
 	timeFacetEnd->format("%H:%M");
@@ -183,6 +255,16 @@ TASK architectureSaveLoad::initializeTaskFromString() {
 	temp.endTime = stringTimeDuration.time_of_day();
 
 	// temp.endTime = boost::posix_time::duration_from_string(_endTime);
+=======
+//	time_duration stringTimeDuration;
+//	boost::posix_time::time_input_facet *timeFacetEnd = new boost::posix_time::time_input_facet;
+//   timeFacetEnd->format("%H:%M");
+//	std::istringstream iss(_endTime);
+//	iss.imbue(std::locale(std::locale::classic(), timeFacet));
+//	iss >> stringTimeDuration;
+//	temp.endTime = stringTimeDuration;
+//	temp.endTime = boost::posix_time::duration_from_string(_endTime);
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 
 	temp.taskID =  atoi(_taskID.c_str());
 	temp.done = boost::lexical_cast<bool>(_done);
@@ -190,6 +272,7 @@ TASK architectureSaveLoad::initializeTaskFromString() {
 	temp.overdue = boost::lexical_cast<bool>(_overdue);
 	temp.clash = boost::lexical_cast<bool>(_clash);
 
+<<<<<<< HEAD
 	return temp;
 }
 
@@ -272,3 +355,14 @@ void architectureSaveLoad::writeArchivedFile() {
 	saveFile.close();  
 }
 */
+=======
+
+	
+	return temp;
+}
+
+void architectureSaveLoad::pushToStorage(TASK task) {
+	architectureStorage::pushTaskToMaster(task);
+	return;
+}
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861

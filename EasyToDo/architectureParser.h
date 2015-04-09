@@ -39,10 +39,16 @@ class Parser {
 		static void tokenizeDONE(std::string tokenizeContent);
 		static void tokenizeUNDO(std::string tokenizeContent);
 		static void tokenizeUPDATE(std::string tokenizeContent);
+<<<<<<< HEAD
 		static void tokenizeSAVE(std::string tokenizeContent);
 		static void tokenizeDateDay(std::string tokenizeContent);
 		static void tokenizeDateMonth(std::string tokenizeContent);
 		static void checkTimedOrDeadline(std::string tokenizeContent);
+=======
+		static void tokenizeDateDay(std::string tokenizeContent);
+		static void tokenizeDateMonth(std::string tokenizeContent);
+		static void tokenizeTime(std::string tokenizeContent);
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 		static void tokenizeTimedTime(std::string tokenizeContent);
 		static void tokenizeDeadlineTime(std::string tokenizeContent);
 		static void tokenizeDeadlineTask(std::string toknizeContent,size_t taskLast);

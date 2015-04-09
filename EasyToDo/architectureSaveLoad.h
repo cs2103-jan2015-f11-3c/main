@@ -15,6 +15,7 @@ private:
 	static std:: string _overdue;
 	static std:: string _clash;
 	static std:: vector<TASK> _tempVector;
+<<<<<<< HEAD
 	static std:: vector<TASK> _tempMasterVector;
 	static std:: vector<TASK> _tempFloatingVector;
 	static std:: string _fileName;
@@ -45,5 +46,14 @@ public:
 	static void initializeDefaultPathAndFileName(std:: string directoryName, std:: string fileName);
 	static bool isPathNameValid();
 	// static void writeArchivedFile();
+=======
+public:
+	architectureSaveLoad();
+	static void saveToTextFile(std:: vector<TASK>& masterTaskList);
+	static bool loadFromTextFile();
+	static std:: vector<TASK> passTaskVector();
+	static TASK initializeTaskFromString();
+	static void pushToStorage(TASK task);
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 };
 #endif

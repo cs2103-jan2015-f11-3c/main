@@ -62,8 +62,11 @@ void Parser::checkCommand(std::string _command,std::string restOfContent) {
 		tokenizeCLEAR(restOfContent);
 	} else if(_command == "done") {
 		tokenizeDONE(restOfContent);
+<<<<<<< HEAD
 	} else if(_command == "save") {
 		tokenizeSAVE(restOfContent);
+=======
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 	} else {
 		tokenizeINVALID();
 	}
@@ -340,6 +343,7 @@ void Parser::addEmptyString(int count) {
 		addTaskDetails.push_back("");
 
 	}
+<<<<<<< HEAD
 	architectureLogic::pushParserVector(addTaskDetails);
 }
 
@@ -359,6 +363,13 @@ void Parser::tokenizeSAVE(std::string tokenizeContent) {
 	addTaskDetails.push_back(_taskID);
 	addEmptyString(7);
 }
+=======
+
+	architectureLogic::pushParserVector(addTaskDetails);
+}
+
+
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 
 /*
 int Parser::stringToInt(std::string input) {

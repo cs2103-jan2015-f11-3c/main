@@ -33,9 +33,14 @@ std:: stack<std:: string> architectureInputFeedback::retrieveInputList() {
 }
 
 std:: stack<std:: string> architectureInputFeedback::retrieveInputListDown() {
+<<<<<<< HEAD
 	if (!masterInputListDown.empty()) {
 		masterInputListDown.pop();
 	}
+=======
+	masterInputListDown.pop();
+
+>>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 	return masterInputListDown;
 }
 
