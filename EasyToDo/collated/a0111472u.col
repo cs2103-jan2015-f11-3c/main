@@ -1,0 +1,1164 @@
+//@author: a0111472u
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureBoost.cpp
+	 */
+
+// this comparison function is for us to use the sort function in algorithm library to 
+// sort our tasks in today and upcoming
+bool compareStartTime(const TASK &a, const TASK &b) {
+	if(a.startDateTime.date() == b.startDateTime.date()) {
+		return a.startDateTime.time_of_day() < b.startDateTime.time_of_day();
+	} else {
+		return a.startDateTime.date() < b.startDateTime.date();
+	}
+}
+
+architectureBoost::architectureBoost() {
+}
+
+void architectureBoost::sortTodayUpcoming(std:: vector<TASK>& masterTaskList) {
+
+	std:: vector<TASK>::iterator iter;
+	
+	date dateToday = retrieveDateToday();
+	date inputDate; 
+	days dayDifference;
+
+	architectureStorage::clearUpcomingTaskList();
+	architectureStorage::clearTodayTaskList();
+	//goes through all the task in masterstorage to check if task is considered today or upcoming
+	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) { 
+		
+		inputDate = (iter->startDateTime).date();
+		dayDifference = inputDate - dateToday;
+
+		if(isValidTodayTask(dayDifference)) {
+			architectureStorage::storeUpcomingTask(*iter);
+		} else {
+			architectureStorage::storeTodayTask(*iter);
+		}
+	}
+}
+
+bool architectureBoost::isValidTodayTask(days dayDifference) {
+	days day(1);
+	if (dayDifference >= day) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+date architectureBoost::retrieveDateToday() {
+	ptime today = second_clock::local_time();
+	date dateToday = today.date();
+	return dateToday;
+}
+
+void architectureBoost::sortWithinTodayUpcoming(std:: vector<TASK>& todayUpcomingTaskList) {
+	std::sort(todayUpcomingTaskList.begin(),todayUpcomingTaskList.end(),compareStartTime);
+}
+
+void architectureBoost::checkOverdueTask(std:: vector<TASK>& todayTaskList) {
+	std:: vector<TASK>::iterator iter;
+	date dateToday = retrieveDateToday();
+	date temp; 
+	days dayDifference;
+	days day(0);
+	ptime today =  second_clock::local_time();
+	//goes through all the task in the tasklist to check if task is overdued
+	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
+		temp = (iter->startDateTime).date();
+		dayDifference = temp - dateToday;
+		if(isTaskOverdue(dayDifference)) {
+				iter->overdue = true;
+		}
+		if(dayDifference == day){
+			if( today.time_of_day() > (iter->startDateTime).time_of_day())
+				iter->overdue = true;
+		}
+	}
+}
+
+
+bool architectureBoost::isTaskOverdue(days dayDifference) {
+	days day(0);
+	if (dayDifference < day) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+TASK architectureBoost::checkClashTask(TASK temp, std:: vector<TASK>& taskList) {
+	std:: vector<TASK>::iterator iter;
+	date dateToday = retrieveDateToday();
+
+	//goes through all the task in the tasklist to check if tasks are clashed
+	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
+		if((iter->startDateTime).date() == (temp.startDateTime).date()) {
+			if(iter->endTime.is_not_a_date_time() && temp.endTime.is_not_a_date_time()) {
+				if(iter->startDateTime == temp.startDateTime) {
+					iter->clash = true;
+					temp.clash = true;
+					architectureStorage::updateClashStatus(*iter);
+					architectureStorage::updateClashStatus(temp);
+				}
+			} else {
+				time_period tp1(iter->startDateTime, ptime(iter->startDateTime.date(), hours(iter->endTime.hours())));
+				time_period tp2(temp.startDateTime, ptime(temp.startDateTime.date(), hours(temp.endTime.hours())));
+				if(tp2.intersects(tp1)) {
+					iter->clash = true;
+					temp.clash = true;
+					architectureStorage::updateClashStatus(*iter);
+					architectureStorage::updateClashStatus(temp);
+				}
+			}
+		}
+	}
+
+	return temp;
+}
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureBoost.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureBoost.h
+	 */
+
+class architectureBoost {
+
+public:
+	architectureBoost();
+	
+	//Preconditions:: Task is stored in masterstorage
+	//Description: Does neccesary operations to identify the type of task acorrding to date	
+	//Postconditions: Task is stored in either today or upcoming vector according to their date
+	static void sortTodayUpcoming(std:: vector<TASK>& masterTaskList);
+	static date retrieveDateToday();
+	static bool isValidTodayTask(days dayDifference);
+
+	//Preconditions:: Task is stored in either today or upcoming storage
+	//Description: Does neccesary operations to sort the task in chronological order
+	//Postconditions: Tasks are sorted in chronological order within the vector
+	static void sortWithinTodayUpcoming(std:: vector<TASK>& todayUpcomingTASKList);
+	
+	//Preconditions:: Task is stored in either today
+	//Description: Does neccesary operations to check task's date against today's date and time
+	//Postconditions: Task are identified as overdue or not overdue
+	static void checkOverdueTask(std:: vector<TASK>& todayTaskList);
+	static bool isTaskOverdue(days dayDifference);
+
+	//Preconditions:: Task is stored in either today or upcoming storage
+	//Description: Does neccesary operations to check if time clashes with other task's time
+	//Postconditions: Task are identified as clashed or not clashed
+	static TASK checkClashTask(TASK temp, std:: vector<TASK>& taskList);
+};
+#endif
+
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureBoost.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureParser.cpp
+	 */
+
+std::string architectureParser::_startHour;
+std::string architectureParser::_startMin;
+std::string architectureParser::_endHour;
+std::string architectureParser::_endMin;
+std::string architectureParser::_dateDay;
+std::string architectureParser::_dateMonth;
+std::string architectureParser::_taskDesc;
+std::string architectureParser::_taskType;
+std::string architectureParser::_newContent;
+std::string architectureParser::_taskID;
+std::string architectureParser::_command;
+std::string architectureParser::_userInput;
+std::vector<std:: string> architectureParser::addTaskDetails;
+
+void architectureParser::pushUserInput(std:: string userInput) {
+	_userInput = userInput; // recieve command and content input from gui
+	tokenizeCommand();
+
+	architectureInputFeedback::addToMasterInputList(userInput);
+}
+
+void architectureParser::tokenizeCommand() {
+
+	std::string tokenizeContent = _userInput;
+	size_t commandFirst = 0;
+	size_t commandEnd = tokenizeContent.find_first_of(" ");
+	addTaskDetails.clear(); // always clear the vector before pushing anything into it
+
+	if(commandEnd != std:: string::npos) {
+		_command = tokenizeContent.substr(commandFirst,commandEnd);
+		commandFirst = commandEnd + 1;
+		std::string restOfContent = tokenizeContent.substr(commandFirst);
+		addTaskDetails.push_back(_command);
+		//push the command into vector and send the rest of the content for tokenizing
+		checkCommand(_command,restOfContent);
+	} else {
+		addTaskDetails.push_back(_userInput);
+		tokenizeUndo(_userInput);
+	}
+}
+
+void architectureParser::tokenizeInvalid() {
+
+	addTaskDetails.push_back("invalid");
+
+	addEmptyString(9); // this functions pushes back empty string into vector
+}
+
+void architectureParser::checkCommand(std::string _command,std::string restOfContent) {
+		
+	if(_command == "add") { 
+		tokenizeAddEmptyStringFirst(restOfContent);
+	} else if(_command == "delete") {
+		tokenizeDeleteOrDone(restOfContent);
+	} else if(_command == "update") {
+		tokenizeUpdate(restOfContent);
+	} else if(_command == "clear") {
+		tokenizeClear(restOfContent);
+	} else if(_command == "done") {
+		tokenizeDeleteOrDone(restOfContent);
+	} else if(_command == "save") {
+		tokenizeSave(restOfContent);
+	} else {
+		tokenizeInvalid();
+	}
+
+}
+
+void architectureParser::tokenizeAddEmptyStringFirst(std::string tokenizeContent) {
+
+	_taskType = "";
+	addTaskDetails.push_back(_taskType);
+	_taskID = "";
+	addTaskDetails.push_back(_taskID);
+
+	tokenizeAdd(tokenizeContent);
+}
+
+void architectureParser::tokenizeAdd(std:: string tokenizeContent) {
+	_newContent = tokenizeContent;
+
+	size_t taskFirst = 0;
+	size_t taskLast = _newContent.find(" on ");
+	// this function will differentiate what type of task it is adding; dealine,timed etc.
+	if(taskLast!=std::string::npos){
+		tokenizeDeadlineTask(tokenizeContent,taskLast); //tokenizes the task description
+	} else {
+		taskLast = _newContent.find(" by ");
+
+		if(taskLast!=std::string::npos){
+			tokenizeDeadlineTask(tokenizeContent,taskLast);	
+		} else {
+			taskLast = _newContent.find(" from ");
+
+			if(taskLast!=std::string::npos){
+				tokenizeTimedTask(tokenizeContent,taskLast);	
+			} else {
+				taskLast = _newContent.npos;
+				_taskDesc = _newContent.substr(taskFirst,taskLast);
+				addTaskDetails.push_back(_taskDesc);
+
+				addEmptyString(6);
+
+				return;
+			}
+		}
+	}
+}
+void architectureParser::tokenizeDeadlineTask(std::string toknizeContent, size_t taskLast) {
+	
+		size_t taskFirst = 0;
+
+		_taskDesc = toknizeContent.substr(taskFirst,taskLast);
+		addTaskDetails.push_back(_taskDesc);
+
+		taskFirst = taskLast+4;
+		taskLast = toknizeContent.npos;
+		std::string dateContent = toknizeContent.substr(taskFirst,taskLast);
+		tokenizeDateDay(dateContent);
+
+}
+
+void architectureParser::tokenizeTimedTask(std::string toknizeContent, size_t taskLast) {
+
+		size_t taskFirst = 0;
+
+		_taskDesc = toknizeContent.substr(taskFirst,taskLast);
+		addTaskDetails.push_back(_taskDesc);
+
+		taskFirst = taskLast+6;
+		taskLast = toknizeContent.npos;
+		std::string dateContent = toknizeContent.substr(taskFirst,taskLast);
+		tokenizeDateDay(dateContent);
+}
+
+void architectureParser::tokenizeUpdate(std::string tokenizeContent) {
+
+	std::string _newContent = tokenizeContent; 
+	size_t taskFirst = _newContent.find_first_not_of(" ");
+	size_t taskLast = _newContent.find_first_of(" ",taskFirst);
+	_taskType = _newContent.substr(taskFirst,taskLast); // tokenize tasktype which is either today upcoming or misc
+
+	addTaskDetails.push_back(_taskType);
+
+	taskFirst = taskLast + 1;
+	std::string taskIDContent =_newContent.substr(taskFirst);
+	taskFirst = taskIDContent.find_first_not_of(" ");
+	taskLast = taskIDContent.find_first_of(" ");
+	_taskID = taskIDContent.substr(taskFirst,taskLast);
+
+	addTaskDetails.push_back(_taskID);
+
+	taskFirst = taskLast+1;
+	taskLast = taskIDContent.npos;
+	std::string updateContent = taskIDContent.substr(taskFirst,taskLast);
+
+	tokenizeAdd(updateContent); //sends the rest of the content to be tokenize by the adding function again
+}
+
+void architectureParser::tokenizeDeleteOrDone(std::string tokenizeContent) {
+
+	std::string _newContent = tokenizeContent;
+	size_t taskFirst = _newContent.find_first_not_of(" ");
+	size_t taskLast = _newContent.find_first_of(" ",taskFirst);
+	_taskType = _newContent.substr(taskFirst,taskLast);
+	addTaskDetails.push_back(_taskType);
+
+	taskFirst = taskLast + 1;
+	std::string taskIDContent =_newContent.substr(taskFirst);
+	taskFirst = taskIDContent.find_first_not_of(" ");
+	_taskID = taskIDContent.substr(taskFirst);
+	addTaskDetails.push_back(_taskID);
+
+	addEmptyString(7);
+}
+
+void architectureParser::tokenizeClear(std::string tokenizeContent) {
+
+	std::string _newContent = tokenizeContent;
+	
+	size_t taskFirst = _newContent.find_first_not_of(" ");
+	_taskType = _newContent.substr(taskFirst);
+	
+	addTaskDetails.push_back(_taskType);
+
+	addEmptyString(8);
+}
+
+void architectureParser::tokenizeUndo(std::string tokenizeContent) {
+
+	addEmptyString(9);
+
+}
+
+
+void architectureParser::tokenizeDateDay(std::string tokenizeContent){
+
+	std::string remainingContent = tokenizeContent;
+	size_t taskFirst = 0;
+	size_t taskLast = remainingContent.find_first_of(" ");
+	_dateDay = remainingContent.substr(taskFirst,taskLast);	//tokenizing the day
+	addTaskDetails.push_back(_dateDay);
+
+	taskFirst = taskLast+1;
+	_newContent = remainingContent.substr(taskFirst);
+
+	tokenizeDateMonth(_newContent);
+}
+
+void architectureParser::tokenizeDateMonth(std::string tokenizeContent){
+
+	std::string remainingContent = tokenizeContent;
+	size_t taskFirst = 0;
+	size_t taskLast = remainingContent.find_first_of(" ");
+	_dateMonth = remainingContent.substr(taskFirst,taskLast);//tokenizing the month
+	
+	taskFirst = taskLast+1;
+	addTaskDetails.push_back(_dateMonth);
+	_newContent = remainingContent.substr(taskFirst);
+
+	checkTimedOrDeadline(_newContent);
+}
+
+
+
+void architectureParser::checkTimedOrDeadline(std::string tokenizeContent){
+
+	size_t taskLast = tokenizeContent.find("to");
+	if(taskLast!=std::string::npos)	//differentiate between timed and deadline task
+		tokenizeTimedTime(tokenizeContent);
+	else
+	{
+		size_t taskLast = tokenizeContent.find("-");
+		if(taskLast!=std::string::npos)
+			tokenizeTimedTime(tokenizeContent);
+		else
+			tokenizeDeadlineTime(tokenizeContent);
+	}
+}
+
+
+void architectureParser::tokenizeDeadlineTime(std::string tokenizeContent){
+
+	std::string remainingContent = tokenizeContent;
+	size_t taskFirst = 0;
+	size_t taskLast = remainingContent.find_first_of(":");
+	
+	_startHour = remainingContent.substr(taskFirst,taskLast);	//tokenizing the time part of deadline tasks
+	addTaskDetails.push_back(_startHour);
+
+	taskFirst = taskLast+1;
+	_startMin = remainingContent.substr(taskFirst);
+	addTaskDetails.push_back(_startMin);
+	
+	_endHour = "";
+	addTaskDetails.push_back(_endHour);
+	_endMin = "";
+	addTaskDetails.push_back(_endHour);
+
+	architectureLogic::pushParserVector(addTaskDetails);
+}
+
+void architectureParser::tokenizeTimedTime(std::string tokenizeContent){
+	//tokenizing the time part of timed tasks
+	std::string remainingContent = tokenizeContent;
+	size_t taskFirst = 0;
+	size_t taskLast = remainingContent.find_first_of(":");
+	_startHour = remainingContent.substr(taskFirst,taskLast);
+	addTaskDetails.push_back(_startHour);
+
+	taskFirst = taskLast+1;
+	taskLast = remainingContent.find_first_of(" ");
+	taskLast = taskLast-3;
+	_startMin = remainingContent.substr(taskFirst,taskLast);
+
+	addTaskDetails.push_back(_startMin);
+
+	taskFirst = remainingContent.find_last_of(" ");
+	taskFirst = taskFirst+1;
+	std::string endTime = remainingContent.substr(taskFirst);
+	taskFirst = 0;
+	taskLast = endTime.find_first_of(":");
+	_endHour = endTime.substr(taskFirst,taskLast);
+	
+	addTaskDetails.push_back(_endHour);
+
+	taskFirst = taskLast+1;
+	_endMin = endTime.substr(taskFirst);
+	
+	addTaskDetails.push_back(_endMin);
+
+	architectureLogic::pushParserVector(addTaskDetails);
+}
+
+void architectureParser::addEmptyString(int count) {
+	//this functions pushes empty string into the vector
+	for( int i = count; i!=0; i--) {
+
+		addTaskDetails.push_back("");
+
+	}
+	architectureLogic::pushParserVector(addTaskDetails);
+}
+
+void architectureParser::tokenizeSave(std::string tokenizeContent) {
+
+	std::string _newContent = tokenizeContent;
+
+	size_t taskFirst = _newContent.find_last_of(" ") - 1;
+	size_t taskLast = _newContent.find_last_not_of(" ");
+	_taskID = _newContent.substr(taskFirst,taskLast); // filename
+	_newContent.erase(taskFirst, taskLast);
+
+	taskFirst = _newContent.find_first_not_of(" ");
+	taskLast = _newContent.find_last_not_of(" ") + 1;
+	_taskType = _newContent.substr(taskFirst, taskLast); // file Directory
+	addTaskDetails.push_back(_taskType); 
+	addTaskDetails.push_back(_taskID);
+
+	addEmptyString(7);
+}
+
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureParser.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureParser.h
+	 */
+
+class architectureParser {
+	private:
+		//string that that will store all the command information
+		//this string contains all the different command add, delete... etc
+		static std::string _command;
+		static std::string _userInput;
+		static std::string _taskID;
+		static std::string _time;
+		static std::string _taskDesc;
+		static std::string _taskType;
+		static std::string _newContent;
+		static std::string _dateDay;
+		static std::string _dateMonth;
+		static std::string _startHour;
+		static std::string _startMin;
+		static std::string _endHour;
+        static std::string _endMin;
+	public:
+		static std::vector<std::string> addTaskDetails;
+		static void pushUserInput(std::string userInput);
+
+		//Preconditions:: Command line content is contained inside Userinput 
+		//Description: Does neccesary operations to parse the command and checking of command is done.
+		//Postconditions: command is parsed is stored into a vector. Type of command is identified
+		static void tokenizeCommand();
+		static void checkCommand(std::string _command, std::string tokenizeContent);
+		static void tokenizeAddEmptyStringFirst(std::string tokenizeContent);
+
+		//Preconditions:: command is parsed and UserInput is left with the rest of the content
+		//Description: Does neccesary operations to parse the required content
+		//Postconditions: tasktype/taskID/task description is parsed and stored into a vector and will call tokenizeDateDay to tokenize the the content
+		//Description is similar for the following functions 
+		static void tokenizeInvalid();
+		static void tokenizeAdd(std::string tokenizeContent);
+		static void tokenizeClear(std::string tokenizeContent);
+		static void tokenizeDeleteOrDone(std::string tokenizeContent);
+		static void tokenizeUndo(std::string tokenizeContent);
+		static void tokenizeUpdate(std::string tokenizeContent);
+		static void tokenizeSave(std::string tokenizeContent);
+		static void tokenizeDeadlineTask(std::string toknizeContent,size_t taskLast);
+		static void tokenizeTimedTask(std::string toknizeContent, size_t taskLast);
+
+		//Preconditions:: task description is parsed and UserInput is left with the rest of the content
+		//Description: Does neccesary operations to parse the required content
+		//Postconditions: DateDay is parsed and stored into a vector
+		static void tokenizeDateDay(std::string tokenizeContent);
+
+		//Preconditions:: dateDay is parsed and UserInput is left with the rest of the content
+		//Description: Does neccesary operations to parse the required content
+		//Postconditions: Month is parsed and stored into a vector.
+		static void tokenizeDateMonth(std::string tokenizeContent);
+
+		//Preconditions:: month is parsed and UserInput is left with the rest of the content
+		//Description: Does neccesary operations to check what kind of task is it
+		//Postconditions: indentify the type of task and calls functions to tokenize the input time
+		static void checkTimedOrDeadline(std::string tokenizeContent);
+
+
+		//Preconditions:: timedtask is identified
+		//Description: Does neccesary operations to parse the required content
+		//Postconditions: time is parsed and stored into a vector wwhich will be returned to the logic
+		static void tokenizeTimedTime(std::string tokenizeContent);
+
+		//Preconditions:: deadlinetask is identified
+		//Description: Does neccesary operations to parse the required content
+		//Postconditions: time is parsed and stored into a vector wwhich will be returned to the logic
+		static void tokenizeDeadlineTime(std::string tokenizeContent);
+
+		static void addEmptyString(int count);
+
+};
+#endif
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureParser.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureBoost.cpp
+	 */
+
+// this comparison function is for us to use the sort function in algorithm library to 
+// sort our tasks in today and upcoming
+bool compareStartTime(const TASK &a, const TASK &b) {
+	if(a.startDateTime.date() == b.startDateTime.date()) {
+		return a.startDateTime.time_of_day() < b.startDateTime.time_of_day();
+	} else {
+		return a.startDateTime.date() < b.startDateTime.date();
+	}
+}
+
+architectureBoost::architectureBoost() {
+}
+
+void architectureBoost::sortTodayUpcoming(std:: vector<TASK>& masterTaskList) {
+
+	std:: vector<TASK>::iterator iter;
+	
+	date dateToday = retrieveDateToday();
+	date inputDate; 
+	days dayDifference;
+
+	architectureStorage::clearUpcomingTaskList();
+	architectureStorage::clearTodayTaskList();
+	//goes through all the task in masterstorage to check if task is considered today or upcoming
+	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) { 
+		
+		inputDate = (iter->startDateTime).date();
+		dayDifference = inputDate - dateToday;
+
+		if(isValidTodayTask(dayDifference)) {
+			architectureStorage::storeUpcomingTask(*iter);
+		} else {
+			architectureStorage::storeTodayTask(*iter);
+		}
+	}
+}
+
+bool architectureBoost::isValidTodayTask(days dayDifference) {
+	days day(1);
+	if (dayDifference >= day) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+date architectureBoost::retrieveDateToday() {
+	ptime today = second_clock::local_time();
+	date dateToday = today.date();
+	return dateToday;
+}
+
+void architectureBoost::sortWithinTodayUpcoming(std:: vector<TASK>& todayUpcomingTaskList) {
+	std::sort(todayUpcomingTaskList.begin(),todayUpcomingTaskList.end(),compareStartTime);
+}
+
+void architectureBoost::checkOverdueTask(std:: vector<TASK>& todayTaskList) {
+	std:: vector<TASK>::iterator iter;
+	date dateToday = retrieveDateToday();
+	date temp; 
+	days dayDifference;
+	days day(0);
+	ptime today =  second_clock::local_time();
+	//goes through all the task in the tasklist to check if task is overdued
+	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
+		temp = (iter->startDateTime).date();
+		dayDifference = temp - dateToday;
+		if(isTaskOverdue(dayDifference)) {
+				iter->overdue = true;
+		}
+		if(dayDifference == day){
+			if( today.time_of_day() > (iter->startDateTime).time_of_day())
+				iter->overdue = true;
+		}
+	}
+}
+
+
+bool architectureBoost::isTaskOverdue(days dayDifference) {
+	days day(0);
+	if (dayDifference < day) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+TASK architectureBoost::checkClashTask(TASK temp, std:: vector<TASK>& taskList) {
+	std:: vector<TASK>::iterator iter;
+	date dateToday = retrieveDateToday();
+
+	//goes through all the task in the tasklist to check if tasks are clashed
+	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
+		if((iter->startDateTime).date() == (temp.startDateTime).date()) {
+			if(iter->endTime.is_not_a_date_time() && temp.endTime.is_not_a_date_time()) {
+				if(iter->startDateTime == temp.startDateTime) {
+					iter->clash = true;
+					temp.clash = true;
+					architectureStorage::updateClashStatus(*iter);
+					architectureStorage::updateClashStatus(temp);
+				}
+			} else {
+				time_period tp1(iter->startDateTime, ptime(iter->startDateTime.date(), hours(iter->endTime.hours())));
+				time_period tp2(temp.startDateTime, ptime(temp.startDateTime.date(), hours(temp.endTime.hours())));
+				if(tp2.intersects(tp1)) {
+					iter->clash = true;
+					temp.clash = true;
+					architectureStorage::updateClashStatus(*iter);
+					architectureStorage::updateClashStatus(temp);
+				}
+			}
+		}
+	}
+
+	return temp;
+}
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureBoost.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureBoost.h
+	 */
+
+class architectureBoost {
+
+public:
+	architectureBoost();
+	
+	//Preconditions:: Task is stored in masterstorage
+	//Description: Does neccesary operations to identify the type of task acorrding to date	
+	//Postconditions: Task is stored in either today or upcoming vector according to their date
+	static void sortTodayUpcoming(std:: vector<TASK>& masterTaskList);
+	static date retrieveDateToday();
+	static bool isValidTodayTask(days dayDifference);
+
+	//Preconditions:: Task is stored in either today or upcoming storage
+	//Description: Does neccesary operations to sort the task in chronological order
+	//Postconditions: Tasks are sorted in chronological order within the vector
+	static void sortWithinTodayUpcoming(std:: vector<TASK>& todayUpcomingTASKList);
+	
+	//Preconditions:: Task is stored in either today
+	//Description: Does neccesary operations to check task's date against today's date and time
+	//Postconditions: Task are identified as overdue or not overdue
+	static void checkOverdueTask(std:: vector<TASK>& todayTaskList);
+	static bool isTaskOverdue(days dayDifference);
+
+	//Preconditions:: Task is stored in either today or upcoming storage
+	//Description: Does neccesary operations to check if time clashes with other task's time
+	//Postconditions: Task are identified as clashed or not clashed
+	static TASK checkClashTask(TASK temp, std:: vector<TASK>& taskList);
+};
+#endif
+
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureBoost.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureParser.cpp
+	 */
+
+std::string architectureParser::_startHour;
+std::string architectureParser::_startMin;
+std::string architectureParser::_endHour;
+std::string architectureParser::_endMin;
+std::string architectureParser::_dateDay;
+std::string architectureParser::_dateMonth;
+std::string architectureParser::_taskDesc;
+std::string architectureParser::_taskType;
+std::string architectureParser::_newContent;
+std::string architectureParser::_taskID;
+std::string architectureParser::_command;
+std::string architectureParser::_userInput;
+std::vector<std:: string> architectureParser::addTaskDetails;
+
+void architectureParser::pushUserInput(std:: string userInput) {
+	_userInput = userInput; // recieve command and content input from gui
+	tokenizeCommand();
+
+	architectureInputFeedback::addToMasterInputList(userInput);
+}
+
+void architectureParser::tokenizeCommand() {
+
+	std::string tokenizeContent = _userInput;
+	size_t commandFirst = 0;
+	size_t commandEnd = tokenizeContent.find_first_of(" ");
+	addTaskDetails.clear(); // always clear the vector before pushing anything into it
+
+	if(commandEnd != std:: string::npos) {
+		_command = tokenizeContent.substr(commandFirst,commandEnd);
+		commandFirst = commandEnd + 1;
+		std::string restOfContent = tokenizeContent.substr(commandFirst);
+		addTaskDetails.push_back(_command);
+		//push the command into vector and send the rest of the content for tokenizing
+		checkCommand(_command,restOfContent);
+	} else {
+		addTaskDetails.push_back(_userInput);
+		tokenizeUndo(_userInput);
+	}
+}
+
+void architectureParser::tokenizeInvalid() {
+
+	addTaskDetails.push_back("invalid");
+
+	addEmptyString(9); // this functions pushes back empty string into vector
+}
+
+void architectureParser::checkCommand(std::string _command,std::string restOfContent) {
+		
+	if(_command == "add") { 
+		tokenizeAddEmptyStringFirst(restOfContent);
+	} else if(_command == "delete") {
+		tokenizeDeleteOrDone(restOfContent);
+	} else if(_command == "update") {
+		tokenizeUpdate(restOfContent);
+	} else if(_command == "clear") {
+		tokenizeClear(restOfContent);
+	} else if(_command == "done") {
+		tokenizeDeleteOrDone(restOfContent);
+	} else if(_command == "save") {
+		tokenizeSave(restOfContent);
+	} else {
+		tokenizeInvalid();
+	}
+
+}
+
+void architectureParser::tokenizeAddEmptyStringFirst(std::string tokenizeContent) {
+
+	_taskType = "";
+	addTaskDetails.push_back(_taskType);
+	_taskID = "";
+	addTaskDetails.push_back(_taskID);
+
+	tokenizeAdd(tokenizeContent);
+}
+
+void architectureParser::tokenizeAdd(std:: string tokenizeContent) {
+	_newContent = tokenizeContent;
+
+	size_t taskFirst = 0;
+	size_t taskLast = _newContent.find(" on ");
+	// this function will differentiate what type of task it is adding; dealine,timed etc.
+	if(taskLast!=std::string::npos){
+		tokenizeDeadlineTask(tokenizeContent,taskLast); //tokenizes the task description
+	} else {
+		taskLast = _newContent.find(" by ");
+
+		if(taskLast!=std::string::npos){
+			tokenizeDeadlineTask(tokenizeContent,taskLast);	
+		} else {
+			taskLast = _newContent.find(" from ");
+
+			if(taskLast!=std::string::npos){
+				tokenizeTimedTask(tokenizeContent,taskLast);	
+			} else {
+				taskLast = _newContent.npos;
+				_taskDesc = _newContent.substr(taskFirst,taskLast);
+				addTaskDetails.push_back(_taskDesc);
+
+				addEmptyString(6);
+
+				return;
+			}
+		}
+	}
+}
+void architectureParser::tokenizeDeadlineTask(std::string toknizeContent, size_t taskLast) {
+	
+		size_t taskFirst = 0;
+
+		_taskDesc = toknizeContent.substr(taskFirst,taskLast);
+		addTaskDetails.push_back(_taskDesc);
+
+		taskFirst = taskLast+4;
+		taskLast = toknizeContent.npos;
+		std::string dateContent = toknizeContent.substr(taskFirst,taskLast);
+		tokenizeDateDay(dateContent);
+
+}
+
+void architectureParser::tokenizeTimedTask(std::string toknizeContent, size_t taskLast) {
+
+		size_t taskFirst = 0;
+
+		_taskDesc = toknizeContent.substr(taskFirst,taskLast);
+		addTaskDetails.push_back(_taskDesc);
+
+		taskFirst = taskLast+6;
+		taskLast = toknizeContent.npos;
+		std::string dateContent = toknizeContent.substr(taskFirst,taskLast);
+		tokenizeDateDay(dateContent);
+}
+
+void architectureParser::tokenizeUpdate(std::string tokenizeContent) {
+
+	std::string _newContent = tokenizeContent; 
+	size_t taskFirst = _newContent.find_first_not_of(" ");
+	size_t taskLast = _newContent.find_first_of(" ",taskFirst);
+	_taskType = _newContent.substr(taskFirst,taskLast); // tokenize tasktype which is either today upcoming or misc
+
+	addTaskDetails.push_back(_taskType);
+
+	taskFirst = taskLast + 1;
+	std::string taskIDContent =_newContent.substr(taskFirst);
+	taskFirst = taskIDContent.find_first_not_of(" ");
+	taskLast = taskIDContent.find_first_of(" ");
+	_taskID = taskIDContent.substr(taskFirst,taskLast);
+
+	addTaskDetails.push_back(_taskID);
+
+	taskFirst = taskLast+1;
+	taskLast = taskIDContent.npos;
+	std::string updateContent = taskIDContent.substr(taskFirst,taskLast);
+
+	tokenizeAdd(updateContent); //sends the rest of the content to be tokenize by the adding function again
+}
+
+void architectureParser::tokenizeDeleteOrDone(std::string tokenizeContent) {
+
+	std::string _newContent = tokenizeContent;
+	size_t taskFirst = _newContent.find_first_not_of(" ");
+	size_t taskLast = _newContent.find_first_of(" ",taskFirst);
+	_taskType = _newContent.substr(taskFirst,taskLast);
+	addTaskDetails.push_back(_taskType);
+
+	taskFirst = taskLast + 1;
+	std::string taskIDContent =_newContent.substr(taskFirst);
+	taskFirst = taskIDContent.find_first_not_of(" ");
+	_taskID = taskIDContent.substr(taskFirst);
+	addTaskDetails.push_back(_taskID);
+
+	addEmptyString(7);
+}
+
+void architectureParser::tokenizeClear(std::string tokenizeContent) {
+
+	std::string _newContent = tokenizeContent;
+	
+	size_t taskFirst = _newContent.find_first_not_of(" ");
+	_taskType = _newContent.substr(taskFirst);
+	
+	addTaskDetails.push_back(_taskType);
+
+	addEmptyString(8);
+}
+
+void architectureParser::tokenizeUndo(std::string tokenizeContent) {
+
+	addEmptyString(9);
+
+}
+
+
+void architectureParser::tokenizeDateDay(std::string tokenizeContent){
+
+	std::string remainingContent = tokenizeContent;
+	size_t taskFirst = 0;
+	size_t taskLast = remainingContent.find_first_of(" ");
+	_dateDay = remainingContent.substr(taskFirst,taskLast);	//tokenizing the day
+	addTaskDetails.push_back(_dateDay);
+
+	taskFirst = taskLast+1;
+	_newContent = remainingContent.substr(taskFirst);
+
+	tokenizeDateMonth(_newContent);
+}
+
+void architectureParser::tokenizeDateMonth(std::string tokenizeContent){
+
+	std::string remainingContent = tokenizeContent;
+	size_t taskFirst = 0;
+	size_t taskLast = remainingContent.find_first_of(" ");
+	_dateMonth = remainingContent.substr(taskFirst,taskLast);//tokenizing the month
+	
+	taskFirst = taskLast+1;
+	addTaskDetails.push_back(_dateMonth);
+	_newContent = remainingContent.substr(taskFirst);
+
+	checkTimedOrDeadline(_newContent);
+}
+
+
+
+void architectureParser::checkTimedOrDeadline(std::string tokenizeContent){
+
+	size_t taskLast = tokenizeContent.find("to");
+	if(taskLast!=std::string::npos)	//differentiate between timed and deadline task
+		tokenizeTimedTime(tokenizeContent);
+	else
+	{
+		size_t taskLast = tokenizeContent.find("-");
+		if(taskLast!=std::string::npos)
+			tokenizeTimedTime(tokenizeContent);
+		else
+			tokenizeDeadlineTime(tokenizeContent);
+	}
+}
+
+
+void architectureParser::tokenizeDeadlineTime(std::string tokenizeContent){
+
+	std::string remainingContent = tokenizeContent;
+	size_t taskFirst = 0;
+	size_t taskLast = remainingContent.find_first_of(":");
+	
+	_startHour = remainingContent.substr(taskFirst,taskLast);	//tokenizing the time part of deadline tasks
+	addTaskDetails.push_back(_startHour);
+
+	taskFirst = taskLast+1;
+	_startMin = remainingContent.substr(taskFirst);
+	addTaskDetails.push_back(_startMin);
+	
+	_endHour = "";
+	addTaskDetails.push_back(_endHour);
+	_endMin = "";
+	addTaskDetails.push_back(_endHour);
+
+	architectureLogic::pushParserVector(addTaskDetails);
+}
+
+void architectureParser::tokenizeTimedTime(std::string tokenizeContent){
+	//tokenizing the time part of timed tasks
+	std::string remainingContent = tokenizeContent;
+	size_t taskFirst = 0;
+	size_t taskLast = remainingContent.find_first_of(":");
+	_startHour = remainingContent.substr(taskFirst,taskLast);
+	addTaskDetails.push_back(_startHour);
+
+	taskFirst = taskLast+1;
+	taskLast = remainingContent.find_first_of(" ");
+	taskLast = taskLast-3;
+	_startMin = remainingContent.substr(taskFirst,taskLast);
+
+	addTaskDetails.push_back(_startMin);
+
+	taskFirst = remainingContent.find_last_of(" ");
+	taskFirst = taskFirst+1;
+	std::string endTime = remainingContent.substr(taskFirst);
+	taskFirst = 0;
+	taskLast = endTime.find_first_of(":");
+	_endHour = endTime.substr(taskFirst,taskLast);
+	
+	addTaskDetails.push_back(_endHour);
+
+	taskFirst = taskLast+1;
+	_endMin = endTime.substr(taskFirst);
+	
+	addTaskDetails.push_back(_endMin);
+
+	architectureLogic::pushParserVector(addTaskDetails);
+}
+
+void architectureParser::addEmptyString(int count) {
+	//this functions pushes empty string into the vector
+	for( int i = count; i!=0; i--) {
+
+		addTaskDetails.push_back("");
+
+	}
+	architectureLogic::pushParserVector(addTaskDetails);
+}
+
+void architectureParser::tokenizeSave(std::string tokenizeContent) {
+
+	std::string _newContent = tokenizeContent;
+
+	size_t taskFirst = _newContent.find_last_of(" ") - 1;
+	size_t taskLast = _newContent.find_last_not_of(" ");
+	_taskID = _newContent.substr(taskFirst,taskLast); // filename
+	_newContent.erase(taskFirst, taskLast);
+
+	taskFirst = _newContent.find_first_not_of(" ");
+	taskLast = _newContent.find_last_not_of(" ") + 1;
+	_taskType = _newContent.substr(taskFirst, taskLast); // file Directory
+	addTaskDetails.push_back(_taskType); 
+	addTaskDetails.push_back(_taskID);
+
+	addEmptyString(7);
+}
+
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureParser.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureParser.h
+	 */
+
+class architectureParser {
+	private:
+		//string that that will store all the command information
+		//this string contains all the different command add, delete... etc
+		static std::string _command;
+		static std::string _userInput;
+		static std::string _taskID;
+		static std::string _time;
+		static std::string _taskDesc;
+		static std::string _taskType;
+		static std::string _newContent;
+		static std::string _dateDay;
+		static std::string _dateMonth;
+		static std::string _startHour;
+		static std::string _startMin;
+		static std::string _endHour;
+        static std::string _endMin;
+	public:
+		static std::vector<std::string> addTaskDetails;
+		static void pushUserInput(std::string userInput);
+
+		//Preconditions:: Command line content is contained inside Userinput 
+		//Description: Does neccesary operations to parse the command and checking of command is done.
+		//Postconditions: command is parsed is stored into a vector. Type of command is identified
+		static void tokenizeCommand();
+		static void checkCommand(std::string _command, std::string tokenizeContent);
+		static void tokenizeAddEmptyStringFirst(std::string tokenizeContent);
+
+		//Preconditions:: command is parsed and UserInput is left with the rest of the content
+		//Description: Does neccesary operations to parse the required content
+		//Postconditions: tasktype/taskID/task description is parsed and stored into a vector and will call tokenizeDateDay to tokenize the the content
+		//Description is similar for the following functions 
+		static void tokenizeInvalid();
+		static void tokenizeAdd(std::string tokenizeContent);
+		static void tokenizeClear(std::string tokenizeContent);
+		static void tokenizeDeleteOrDone(std::string tokenizeContent);
+		static void tokenizeUndo(std::string tokenizeContent);
+		static void tokenizeUpdate(std::string tokenizeContent);
+		static void tokenizeSave(std::string tokenizeContent);
+		static void tokenizeDeadlineTask(std::string toknizeContent,size_t taskLast);
+		static void tokenizeTimedTask(std::string toknizeContent, size_t taskLast);
+
+		//Preconditions:: task description is parsed and UserInput is left with the rest of the content
+		//Description: Does neccesary operations to parse the required content
+		//Postconditions: DateDay is parsed and stored into a vector
+		static void tokenizeDateDay(std::string tokenizeContent);
+
+		//Preconditions:: dateDay is parsed and UserInput is left with the rest of the content
+		//Description: Does neccesary operations to parse the required content
+		//Postconditions: Month is parsed and stored into a vector.
+		static void tokenizeDateMonth(std::string tokenizeContent);
+
+		//Preconditions:: month is parsed and UserInput is left with the rest of the content
+		//Description: Does neccesary operations to check what kind of task is it
+		//Postconditions: indentify the type of task and calls functions to tokenize the input time
+		static void checkTimedOrDeadline(std::string tokenizeContent);
+
+
+		//Preconditions:: timedtask is identified
+		//Description: Does neccesary operations to parse the required content
+		//Postconditions: time is parsed and stored into a vector wwhich will be returned to the logic
+		static void tokenizeTimedTime(std::string tokenizeContent);
+
+		//Preconditions:: deadlinetask is identified
+		//Description: Does neccesary operations to parse the required content
+		//Postconditions: time is parsed and stored into a vector wwhich will be returned to the logic
+		static void tokenizeDeadlineTime(std::string tokenizeContent);
+
+		static void addEmptyString(int count);
+
+};
+#endif
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureParser.h
+
+
+
+
+

@@ -177,6 +177,53 @@ void architectureHistory::reverseClear() {
 
 
 	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureHistory.h
+	 */
+
+class architectureHistory {
+private:
+	static std:: stack<std:: string> previousActionStack;
+	static std:: stack<TASK> previousStateStack;
+	static const int MAXIMUM = 255;
+	static char temp[MAXIMUM];
+	static std:: vector<TASK> previousTodayUpcomingTaskList;
+	static std:: vector<TASK> previousFloatingTaskList;
+	
+
+	static const std:: string MESSAGE_ERROR;
+	static const std:: string MESSAGE_UNDO;
+public:
+	architectureHistory();
+	enum CommandType { 
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO, DONE
+	};
+	static CommandType architectureHistory::determineCommandType(std:: string commandAction);
+	static bool isValidCommand(const std:: string& str1, const std:: string& str2);
+	static void addPreviousAction(std:: string commandAction);
+	static void addPreviousState(TASK input);
+	static bool isUndoStackEmpty();
+	static std:: string undoAction();
+	static void executeUndo(std:: string previousCommand);
+	static void reverseDelete();
+	static void reverseAdd();
+	static void reverseUpdate();
+	static void reverseClear();
+	static void reverseDone();
+	static void pushPreviousTodayUpcomingTaskList(std:: vector<TASK>& masterTaskList);
+	static void pushPreviousFloatingTaskList(std:: vector<TASK>& masterTaskList);
+	static TASK retrievePreviousState();
+
+	
+};
+
+#endif
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureHistory.h
+
+
+
+
+
+	/**
 	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureLogic.cpp
 	 */
 
@@ -779,6 +826,168 @@ std:: string architectureLogic::doneTask(std:: string taskType, std:: string tas
 
 
 	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureLogic.h
+	 */
+
+// to do list requires basic support of storage/retrieval of info, display of info to user and updating 
+// existing info. thus to reduce coupling from the innate nature of interlinkedness, we separated the
+// architecture to 8 different components of UI, InputFeedBack, Parser, Logic, Storage, History, SaveLoad, Boost
+
+// architectureLogic is responsible for all the "thinking" in the program
+// being the facade of this program, it will separate the user from the storage variables
+class architectureLogic {
+private:
+	static const std:: string COMMAND_INVALID;
+	static const std:: string COMMAND_ADD;
+	static const std:: string COMMAND_DELETE;
+	static const std:: string COMMAND_CLEAR;
+	static const std:: string COMMAND_EXIT;
+	static const std:: string COMMAND_UNDO;
+	static const std:: string COMMAND_DONE;
+	static const std:: string COMMAND_UPDATE;
+	static const std:: string COMMAND_SAVE;
+	static const std:: string COMMAND_TODAY;
+	static const std:: string COMMAND_UPCOMING;
+	static const std:: string COMMAND_MISC;
+	static const std:: string MESSAGE_ADD;
+	static const std:: string MESSAGE_INVALID;
+	static const std:: string MESSAGE_NOTFOUND;
+	static const std:: string MESSAGE_DELETETODAY;
+	static const std:: string MESSAGE_DELETEUPCOMING;
+	static const std:: string MESSAGE_DELETEFLOATING;
+	static const std:: string MESSAGE_DONETODAY;
+	static const std:: string MESSAGE_DONEUPCOMING;
+	static const std:: string MESSAGE_DONEFLOATING;
+	static const std:: string MESSAGE_CLEARALL;
+	static const std:: string MESSAGE_CLEARTODAY;
+	static const std:: string MESSAGE_CLEARUPCOMING;
+	static const std:: string MESSAGE_CLEARFLOATING;
+	static const std:: string MESSAGE_UPDATETODAY;
+	static const std:: string MESSAGE_UPDATEUPCOMING;
+	static const std:: string MESSAGE_UPDATEFLOATING;
+	static const std:: string MESSAGE_STORAGEEMPTY;
+	static const std:: string MESSAGE_TODAY;
+	static const std:: string MESSAGE_UPCOMING;
+	static const std:: string MESSAGE_FLOATING;
+	static const std:: string MESSAGE_ALL;
+	static const std:: string MESSAGE_UNDOINVALID;
+
+	static std:: string _command;
+	static std:: string _content;
+	static std:: string _contentDescription;
+	static std:: string _contentDay;
+	static std:: string _contentMonth;
+	static std:: string _contentStartHours;
+	static std:: string _contentStartMinutes;
+	static std:: string _contentEndHours;
+	static std:: string _contentEndMinutes;
+	static std:: string _newTask;
+	static std:: string _newTime;
+	static std:: string _taskType;
+	static std:: string _taskID;
+	
+	static const int MAX = 255;
+	static char buffer[MAX];
+	static std:: vector<std:: string> parserVector;
+public:
+	enum CommandType { 
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO, DONE, SAVE
+	};
+	enum Months { 
+		JAN=1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, NOTVALID
+	};
+
+	enum DateType {
+		TODAY, UPCOMING, MISC, UNVALID
+	};
+
+	architectureLogic();
+
+	// this function is called by the parser to push the vector of the tokenized materials to vector
+	// Pre: None. Basically it will tokenize everything
+	// Post:: initiate determineCommand();
+	static void pushParserVector(std:: vector<std:: string>& temp);
+
+	// takes in a parser input to interpret the user input and initiate the action according to the first word in the vector 
+	// Pre : parser will tokenize and pass me a vector of all the individual details which is in turn dependent from the user input from UI
+	// Post : returns a feedback message whether each command was executed successfully which is retrieved from executeCommand which will be stored into 
+	// architectureInputFeedback which will be return to the UI
+	static std:: vector<std:: string> determineCommand();
+
+	//this function intialize the string to the glpbal variables in a chronological order according to the vector passed from the parser
+	//Pre : the first word in the vector string cannot be "invalid"
+	//Post : None
+	static void initializeCommand();
+
+	// this function execute the individual command according to the _command which is initialized from the first word
+	// Pre: valid function will result in the respective feedback. else unrecognised _command will result in invalid message
+	// Post: return a feedback message
+	static std:: string executeCommand();
+
+	// this function allow for a flexible input where user may accidentally key in command with different casing supported by the function, isValidCommand
+	// Pre: None
+	// Post: return a enum commandType
+	static CommandType determineCommandType(std:: string commandAction);
+	static bool isValidCommand(const std:: string& str1, const std:: string& str2);
+
+	// this function passes the global variables to the next architecture, storage, for them to be initialized into a task for storage
+	// Pre: the _command is "add"
+	// Post: cocantenate the tokenized variables to return a string of the details of the task added
+	// the following group of functions support the add function
+	static std:: string addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, 
+								std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static bool architectureLogic::isDateValid(std:: string contentDay, std:: string contentMonth);
+	static Months architectureLogic::determineMonthType(std:: string parserInput);
+	static int stringToInteger(std:: string input);
+	static std:: string concatenateString(std:: vector<std:: string>& parserVector);
+	static std:: string trimTrailingSpaces(std:: string buffer);
+	static bool architectureLogic::isTimedTimeValid(std:: string startHour, std:: string startMin, std::string endHour, std::string endMin );
+	static bool architectureLogic::isDeadlineTimeValid(std:: string startHour, std:: string startMin);	
+
+	// this function differentiate the different datatype that is required to delete and remove from the storage
+	// Pre: the _command is delete, _taskType is a valid string(today, upcoming, misc) and valid taskID in the respective taskType
+	// Post: return a successful deleted string message else if the task is deleted and access storage to execute the delete
+	// the following group of functions support the delete function
+	static std:: string deleteTask(std:: string taskType, std:: string taskID);
+	static DateType determineDateTypeAction(std:: string commandAction);
+	static bool isTodayTaskIDValid(int taskID);
+	static bool isUpcomingTaskIDValid(int taskID);
+	static bool isFloatingTaskIDValid(int taskID);
+
+	// this function clear all the storage memory specified by the user
+	// Pre: the _command is clear and the taskType is valid
+	// Post: access storage to delete all the respective tasks in the taskType
+	// the following group of functions support the clear function
+	static std:: string clearTask(std:: string content);
+	static bool isMasterTaskListEmpty();
+	static bool isTodayTaskListEmpty();
+	static bool isUpcomingTaskListEmpty();
+	static bool isFloatingTaskListEmpty();
+
+	// this function edit the details specified by the user. it uses the current create a new task and replace the current task by
+	// using the current add and delete function
+	// Pre: _command is update, taskType is valid, taskId is valid, followed by a valid task content
+	// Post: access storage and delete the previous task and add in the new task
+	static std:: string updateTask(std:: string taskType, std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	
+	// this function allows the users to undo the previous action
+	// Pre:: _command is undo, or the user type ctrl-z 
+	// Post: undo the previous action and return the specific feedback message 
+	static std:: string undoTask();
+
+	// this function allow users to strike out the tasks they have completed
+	// Pre: _command is done, taskType is valid, taskID is valid
+	// Post: access storage to change the bool variable of the task strcuture
+	static std:: string doneTask(std:: string taskType, std:: string taskID);
+};
+#endif
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureLogic.h
+
+
+
+
+
+	/**
 	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureSaveLoad.cpp
 	 */
 
@@ -1052,9 +1261,106 @@ std:: string architectureSaveLoad::concatenateString(std:: string _directoryName
 
 
 	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureSaveLoad.h
+	 */
+
+// this class execute writing and reading tasks details into external textfile as well as the capability to enable user to specify
+// the file directory and file name 
+class architectureSaveLoad {
+private:
+	static std:: string _taskDescription;
+	static std:: string _startDateTime;
+	static std:: string _endTime;
+	static std:: string _endDateTime;
+	static std:: string _taskID;
+	static std:: string _done;
+	static std:: string _newTask;
+	static std:: string _overdue;
+	static std:: string _clash;
+	static std:: vector<TASK> _tempVector;
+	static std:: vector<TASK> _tempMasterVector;
+	static std:: vector<TASK> _tempFloatingVector;
+
+	static std:: string _fileName;
+	static std:: string _directoryName;
+	static std:: string _pathName;
+	
+	static const std:: string DEFAULT_PATHNAME;
+	static const std:: string DEFAULT_TEXTFILENAME;
+	static const std:: string DEFAULT_DIRECTORYNAME;
+	static const std:: string STORAGELOCATION_FILENAME;
+	static const std:: string MESSAGE_DEFAULT_SAVE;
+	static const std:: string MESSAGE_SUCCESSFUL_SAVE;
+	static const std:: string MESSAGE_FAILED_SAVE;
+	
+	static const int MAXIMUM = 255;
+	static char transitory[MAXIMUM];
+public:
+	architectureSaveLoad();
+	
+	// this function is called by architectureStorage when there isn't an existing pathname to store a default pathname
+	// in other words, the user did not specify a save file directory and filename before he starts to input tasks onto the commandline
+	// as such this function create a pathname.txt when the program fail to load from an existing file
+	// Pre: None
+	// Post: a pathName.txt created in the UI folder in the project file which contains the default pathname 
+	// "C:\\Users\\Choo\\Desktop\\EasyToDo.txt"
+	static void initializePathName();
+
+	// this function is called every single time an action is executed successfully in the logic
+	// this duplicates the tasks in the two vectors(combined by the function 'combineVector') 
+	// and write them on the textfile at the specific path and filename retrieved from PathName.txt
+	// Pre: None
+	// Post: txt file created in the specific directory 
+	static void saveToTextFile(std:: vector<TASK>& masterTaskList, std:: vector<TASK>& floatingTaskList);
+	static std:: string retrievePathName();
+	static std:: vector<TASK> combineVector(std:: vector<TASK>& masterTaskList, std:: vector<TASK>& floatingTaskList);
+
+	// this function retrieve the tasks details from the path location as stated in the pathName.txt 
+	// utilising the supporting function, initializeTempVector, to intialize individual tasks 
+	// using the supporting function, differtiateVector, will separate the tasks into their respective vector(taskList)
+	// Pre: it will only read if the file exist in the path location
+	// Post: allow for pre-exit vectors to be available again
+	static bool loadFromTextFile();
+	static void initializeTempVector(std:: vector<std:: string>& tempStringVector);
+	static TASK initializeTaskFromString();
+	static void differentiateVector(std:: vector<TASK>& vector);
+
+	// this two functions allow storage to call them to retrieve the duplicated copies of vector<TASK> created according to the textfile
+	// Pre: text file must exist and must not be empty
+	// Post: the masterTaskList and FloatingTaskList will be initialized according to the architectureSaveLoad
+	static std:: vector<TASK> passMasterTaskVector();
+	static std:: vector<TASK> passFloatingTaskVector();
+	
+	// this function allow the user to have the flexible to specify his own path location and filename
+	// if the input is simply 'save', the file directory and filename will be set to default
+	// or any of the input is determined to be empty, it will be set to empty
+	// basically, i have an external default pathname.txt that will store the pathname which will either be default or specified by the user
+	// using the function, changePathName, we change the path location in the pathName.txt which save and load will retrieve from
+	// 
+	static std:: string changeSavingDirectoryAndFileName(std:: string directoryName, std:: string fileName);
+	static void changePathName(std:: string newPathName);
+	static void initializeDefaultPathAndFileName(std:: string directoryName, std:: string fileName);
+	static bool isPathNameValid(std:: string directoryName);
+	static std:: string concatenateString(std:: string _directoryName, std:: string _fileName);
+};
+#endif
+
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureSaveLoad.h
+
+
+
+
+
+	/**
 	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.cpp
 	 */
 
+std:: vector<TASK> architectureStorage::masterTaskList; 
+std:: vector<TASK> architectureStorage::todayTaskList;
+std:: vector<TASK> architectureStorage::upcomingTaskList;
+std:: vector<TASK> architectureStorage::floatingTaskList;
+
+// this function allows the algorithm to execute the find function in our context to compare the respective content of the task struct
 bool operator==(const TASK& a, const TASK& b) {
 	return (a.taskDescriptionList == b.taskDescriptionList) && (a.startDateTime == b.startDateTime) && (a.endTime == b.endTime);
 }
@@ -1475,6 +1781,2124 @@ std:: vector<TASK> architectureStorage::retrieveMasterTaskList(){
 
 
 	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.h
+	 */
+
+using namespace boost::posix_time;
+using namespace boost::gregorian;
+
+// Timed: add meet ivy on 14 April from 14:00 to 18:00 
+// (MISC)Floating: add meet ivy
+// Deadline: add meet ivy on 14 april at 1400
+struct TASK {
+	std:: string taskDescriptionList;
+	ptime startDateTime; 
+	time_duration endTime;
+	ptime endDateTime;
+	int taskID;
+	bool done; // check if the task is done. initialized as false
+	bool newTask; // check if the task is recently added to EasyToDo to enable us to highlight the newest task added. initialized as true
+	bool overdue; // check if the task is overdue else highlight in red. initialized as false.
+	bool clash; // check if there is any task that have timeline that clashes with each other. initialized as false.
+};
+
+// this class, it where after the logic has processed the user's intention, execute the respective action and make changes to the variable
+// stored in this class
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.h
+	 */
+
+class architectureStorage {
+private:
+	static std:: vector<TASK> masterTaskList; // stores both timed and deadline task
+	static std:: vector<TASK> floatingTaskList; 
+	static std:: vector<TASK> todayTaskList;
+	static std:: vector<TASK> upcomingTaskList;
+public:
+	architectureStorage();
+	// the GUI will call this function for theindividual taskType column to get the numbering for the task to be displayed
+	// Pre: None
+	// Post: the taskID in the structure of the task is assigned with a number
+	static void updateTaskID(std:: vector<TASK>& input);
+
+	// the UI will actually call this function to retrieve the saved tasks in the textfile to initialise the taskLists
+	// Pre: None 
+	// Post: if true, the UI will pop out a window saying Welcome back to EasyToDo for repeated user and display whatever tasks saved previously
+	// if false, the UI will pop out a window saying welcome to easyToDo for first time user. 
+	static bool loadProgram();
+
+	// this function call for supporting functions to initialise the task and add them into their respective task type
+	// deadline and timed tasks are added to masterTaskList while floating are added to floating tasklist
+	// the tasks in masterTaskList are then sorted into their individual taskList using Boost::sortTodayUpcoming
+	// before adding any new task, it will call updateNewTask to change the bool of new to false for GUI to recognise
+	// Pre: task != "" 
+	// Post: Save the program after every action. 
+	static void addToMasterStorage(std:: string task, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, 
+									std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static void updateNewTask();
+	static TASK initializeFloatingTask(std:: string _contentDescripton);
+	static TASK initializeDeadlineTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, 
+										std:: string _contentStartHours, std:: string _contentStartMinutes);
+	static TASK initializeTimedTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, 
+									std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static int stringToInt(std:: string input);
+
+	// if the taskType is today or upcoming, this function calls for deleteTask to find the task in mastertasklit and remove it
+	// and Boost::sortTodayUpcoming to update the today and upcoming TaskList
+	// if the taskType is floating, it will simply remove the task from floatingtasklist
+	// Pre: valid iter
+	// Post: save program after every action
+	static void deleteTodayFromStorage(std:: vector<TASK>::iterator iter);
+	static void deleteUpcomingFromStorage(std:: vector<TASK>::iterator iter);
+	static void deleteFloatingFromStorage(std:: vector<TASK>::iterator iter);
+	static void deleteTask(TASK& input);
+	
+	// this function clears all the contents of the vector<TASK> in both masterTaskList and floatingTaskList
+	// Pre: None
+	// Post:: save program after every action
+	static void clearAllFromStorage();
+	// this function replaces the masterTaskList with the upcomingTaskList to remove all the todayTasks
+	static void clearTodayFromStorage();
+	// Similarly, this function replaces the masterTaskList with the todayTaskList to remove all the UpcomingTasks
+	static void clearUpcomingFromStorage();
+	// this function clear all the contents of the floatingTaskList
+	static void clearFloatingFromStorage();
+
+	// for update function, i will store two previous states instead of one[add, delete] 
+	// thus the first one you pop from the stack "previousStateStack" would be the one you need to delete
+	// and the second one would be the one you need to add back cause of LIFO
+	// this function basically uses the addtoMasterStorage and deleteTask to execute update
+	// this allow the user change one tasktype to another
+	// Pre: pre-conditions are already fulfilled in logic
+	// Post: Save the program after every action. 
+	static void updateToTodayStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, 
+		std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	static void updateToUpcomingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, 
+		std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	static void updateToFloatingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, 
+		std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	static std:: vector<TASK>::iterator findTodayIterator(int taskID);
+	static std:: vector<TASK>::iterator findUpcomingIterator(int taskID);
+	static std:: vector<TASK>::iterator findFloatingIterator(int taskID);
+
+	// this group of functions supports the functions in architectureHistory to execute the command undo
+	// Pre: the stack sotring the previousAction is not empty
+	// Post: execute the reverse action and save the program
+	static void undoDelete(TASK& input);
+	static void undoAdd(TASK& input);
+	static void undoClear(std:: vector<TASK>& previousTodayUpcomingTaskList, std:: vector<TASK>& previousFloatingTaskList);
+	static void undoDone(TASK& input);
+
+	// this group of functions execute the user intention to strke out completed tasks. they change the bool done in the task struct 
+	// Pre: valid iter
+	// Post: change the bool from false to true and save program
+	static void doneTodayTask(std:: vector<TASK>::iterator iter);
+	static void doneUpcomingTask(std:: vector<TASK>::iterator iter);
+	static void doneFloatingTask(std:: vector<TASK>::iterator iter);
+
+	// this group of functions support the GUI's functions
+	static std:: vector<TASK> retrieveTodayTaskList();
+	static std:: vector<TASK> retrieveUpcomingTaskList();
+	static std:: vector<TASK> retrieveFloatingTaskList();
+	
+	// this group of functions support architectureLogic's function to verify taskID
+	static int findTotalNumberofTodayTask();
+	static int findTotalNumberofUpcomingTask();
+	static int findTotalNumberofFloatingTask();
+	
+	// this group of functions support architectureLogic's function for clearTask
+	static bool isMasterTaskListEmpty();
+	static bool isTodayTaskListEmpty();
+	static bool isUpcomingTaskListEmpty();
+	static bool isFloatingTaskListEmpty();
+
+	// this group of functions support architectureBoost::sortTodayUpcoming
+	// to differentiate the today and upcoming tasks
+	// Pre: None
+	// Post: masterTaskList will have a copy of all the today and upcoming tasks and the respective taskLists will contain their own tasks
+	static void storeTodayTask(TASK temp);
+	static void storeUpcomingTask(TASK temp);
+	static void clearTodayTaskList();
+	static void clearUpcomingTaskList();
+	// when the tasks are differentiated into the task, this function is called to check if it clashes with any of the stored tasks
+	// in the same taskList to update the bool clash
+	// Pre: none
+	// Post: check the clash period of the incoming task with all the stored tasks
+	static void updateClashStatus(TASK& task);
+
+	// this function calls save function in architectureSaveLoad to save the masterTaskList and floatingTextList to external text file
+	// Pre: None
+	// Post: according to the pathname stated in the PathName.txt(default or specify by user), the tasks are stored in the text file
+	static void saveProgram();
+
+	// integration testing function
+	static std:: vector<TASK> retrieveMasterTaskList();
+};
+#endif
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureHistory.cpp
+	 */
+
+std:: stack<std:: string> architectureHistory::previousActionStack;
+std:: stack<TASK> architectureHistory::previousStateStack;
+std:: vector<TASK> architectureHistory::previousTodayUpcomingTaskList;
+std:: vector<TASK> architectureHistory::previousFloatingTaskList;
+
+char architectureHistory::temp[MAXIMUM];
+
+const std:: string architectureHistory::MESSAGE_ERROR = "ERROR! Invalid Command";
+const std:: string architectureHistory::MESSAGE_UNDO = "Previous Action, \"%s\", has been undo";
+
+architectureHistory::architectureHistory() {
+}
+
+void architectureHistory::addPreviousAction(std:: string commandAction) {
+	previousActionStack.push(commandAction);
+}
+
+void architectureHistory::addPreviousState(TASK input) {
+	previousStateStack.push(input);
+}
+
+bool architectureHistory::isUndoStackEmpty() {
+	if(previousActionStack.empty()) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+std:: string architectureHistory::undoAction() {
+	std:: string previousCommand;
+	previousCommand = previousActionStack.top();
+	previousActionStack.pop();
+	executeUndo(previousCommand);
+	sprintf_s(temp, MESSAGE_UNDO.c_str(), previousCommand.c_str());
+	return temp;
+}
+
+bool architectureHistory::isValidCommand(const std:: string& str1, const std:: string& str2) { 
+	if (str1.size() != str2.size()) { 
+		return false; 
+	} 
+	std:: string::const_iterator c1;
+	std:: string::const_iterator c2;
+
+	for (c1 = str1.begin(), c2 = str2.begin(); c1 != str1.end(); ++c1, ++c2) {
+		if (tolower(*c1) != tolower(*c2)) { 
+			return false; 
+		} 
+	} return true; 
+}
+
+architectureHistory::CommandType architectureHistory::determineCommandType(std:: string commandAction) { 
+	assert(commandAction != "");
+	if(isValidCommand(commandAction, "add")) { 
+		return CommandType::ADD; 
+	} else if(isValidCommand(commandAction, "exit")) { 
+		return CommandType::EXIT; 
+	} else if(isValidCommand(commandAction, "delete")) {
+		return CommandType::DELETE;
+	} else if(isValidCommand(commandAction, "clear")) {
+		return CommandType::CLEAR;
+	} else if(isValidCommand(commandAction, "update")) {
+		return CommandType::UPDATE;
+	} else if(isValidCommand(commandAction, "undo")) {
+		return CommandType::UNDO;
+	} else if(isValidCommand(commandAction, "done")) {
+		return CommandType::DONE;
+	} else { 
+		return CommandType::INVALID;
+	} 
+}
+
+void architectureHistory::executeUndo(std:: string previousCommand) {
+	architectureHistory:: CommandType commandTypeAction = architectureHistory:: determineCommandType(previousCommand);
+
+	switch(commandTypeAction) { 
+	case ADD: 
+		reverseAdd();
+		break;
+	case DELETE:
+		reverseDelete();
+		break;
+	case CLEAR:
+		reverseClear();
+		break;
+	case UPDATE:
+		reverseUpdate();
+	case DONE:
+		reverseDone();
+		break;
+	case INVALID:
+		break;
+	case UNDO:
+		break;
+	case EXIT: 
+		exit(0);
+	}
+}
+
+TASK architectureHistory::retrievePreviousState() {
+	TASK previousState;
+	previousState = previousStateStack.top();
+	previousStateStack.pop();
+	return previousState;
+}
+
+void architectureHistory::reverseDelete() {
+	TASK previousState;
+	previousState = retrievePreviousState();
+	architectureStorage::undoDelete(previousState);
+	return;
+}
+
+void architectureHistory::reverseAdd() {
+	TASK previousState;
+	previousState = retrievePreviousState();
+	architectureStorage::undoAdd(previousState);
+	return;
+}
+
+void architectureHistory::reverseUpdate() {
+	TASK previousStateToAddBack;
+	TASK previousStateToDelete;
+
+	previousStateToDelete = retrievePreviousState();
+	previousStateToAddBack = retrievePreviousState();
+
+	architectureStorage::undoAdd(previousStateToDelete);
+	architectureStorage::undoDelete(previousStateToAddBack);
+	return;
+}
+
+void architectureHistory::reverseDone() {
+	TASK previousState;
+	previousState = retrievePreviousState();
+	architectureStorage::undoDone(previousState);
+	return;
+}
+
+void architectureHistory::pushPreviousTodayUpcomingTaskList(std::vector<TASK>& taskList) {
+	std:: vector<TASK>::iterator iter;
+	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
+		previousTodayUpcomingTaskList.push_back(*iter);
+	}
+	return;
+}
+
+void architectureHistory::pushPreviousFloatingTaskList(std::vector<TASK>& taskList) {
+	std:: vector<TASK>::iterator iter;
+	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
+		previousFloatingTaskList.push_back(*iter);
+	}
+	return;
+}
+
+void architectureHistory::reverseClear() {
+	architectureStorage::undoClear(previousTodayUpcomingTaskList, previousFloatingTaskList);
+	previousTodayUpcomingTaskList.clear();
+	previousFloatingTaskList.clear();
+	return;
+}
+
+
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureHistory.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureHistory.h
+	 */
+
+class architectureHistory {
+private:
+	static std:: stack<std:: string> previousActionStack;
+	static std:: stack<TASK> previousStateStack;
+	static const int MAXIMUM = 255;
+	static char temp[MAXIMUM];
+	static std:: vector<TASK> previousTodayUpcomingTaskList;
+	static std:: vector<TASK> previousFloatingTaskList;
+	
+
+	static const std:: string MESSAGE_ERROR;
+	static const std:: string MESSAGE_UNDO;
+public:
+	architectureHistory();
+	enum CommandType { 
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO, DONE
+	};
+	static CommandType architectureHistory::determineCommandType(std:: string commandAction);
+	static bool isValidCommand(const std:: string& str1, const std:: string& str2);
+	static void addPreviousAction(std:: string commandAction);
+	static void addPreviousState(TASK input);
+	static bool isUndoStackEmpty();
+	static std:: string undoAction();
+	static void executeUndo(std:: string previousCommand);
+	static void reverseDelete();
+	static void reverseAdd();
+	static void reverseUpdate();
+	static void reverseClear();
+	static void reverseDone();
+	static void pushPreviousTodayUpcomingTaskList(std:: vector<TASK>& masterTaskList);
+	static void pushPreviousFloatingTaskList(std:: vector<TASK>& masterTaskList);
+	static TASK retrievePreviousState();
+
+	
+};
+
+#endif
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureHistory.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureLogic.cpp
+	 */
+
+const std:: string architectureLogic::COMMAND_INVALID = "invalid";
+const std:: string architectureLogic::COMMAND_ADD = "add";
+const std:: string architectureLogic::COMMAND_DELETE = "delete";
+const std:: string architectureLogic::COMMAND_CLEAR = "clear";
+const std:: string architectureLogic::COMMAND_EXIT = "exit";
+const std:: string architectureLogic::COMMAND_UNDO = "undo";
+const std:: string architectureLogic::COMMAND_DONE = "done";
+const std:: string architectureLogic::COMMAND_UPDATE = "update";
+const std:: string architectureLogic::COMMAND_SAVE = "save";
+const std:: string architectureLogic::COMMAND_TODAY = "today";
+const std:: string architectureLogic::COMMAND_UPCOMING = "upcoming";
+const std:: string architectureLogic::COMMAND_MISC = "misc";
+
+
+const std:: string architectureLogic::MESSAGE_ADD = "Task \"%s\" is added successfully";
+const std:: string architectureLogic::MESSAGE_INVALID = "ERROR! Invalid Command";
+const std:: string architectureLogic::MESSAGE_NOTFOUND = "Task is not found!";
+
+const std:: string architectureLogic::MESSAGE_DELETETODAY = "Today Task %s is deleted!";
+const std:: string architectureLogic::MESSAGE_DELETEUPCOMING = "Upcoming Task %s is deleted!";
+const std:: string architectureLogic::MESSAGE_DELETEFLOATING = "Floating Task %s is deleted!";
+
+const std:: string architectureLogic::MESSAGE_DONETODAY = "Today Task %s is done!";
+const std:: string architectureLogic::MESSAGE_DONEUPCOMING = "Upcoming Task %s is done!";
+const std:: string architectureLogic::MESSAGE_DONEFLOATING = "Floating Task %s is done!";
+
+const std:: string architectureLogic::MESSAGE_CLEARALL = "All task(s) are deleted!";
+const std:: string architectureLogic::MESSAGE_CLEARTODAY = "Today's task(s) are deleted!";
+const std:: string architectureLogic::MESSAGE_CLEARUPCOMING = "Upcoming task(s) are deleted!";
+const std:: string architectureLogic::MESSAGE_CLEARFLOATING = "Floating task(s) are deleted!";
+const std:: string architectureLogic::MESSAGE_STORAGEEMPTY = "Task List is already empty!";
+
+const std:: string architectureLogic::MESSAGE_UPDATETODAY = "Today Task %s is updated successfully";
+const std:: string architectureLogic::MESSAGE_UPDATEUPCOMING = "Upcoming Task %s is updated successfully";
+const std:: string architectureLogic::MESSAGE_UPDATEFLOATING = "Floating Task %s is updated successfully";
+
+const std:: string architectureLogic::MESSAGE_ALL = "all";
+const std:: string architectureLogic::MESSAGE_TODAY = "today";
+const std:: string architectureLogic::MESSAGE_UPCOMING = "upcoming";
+const std:: string architectureLogic::MESSAGE_FLOATING = "misc";
+
+const std:: string architectureLogic::MESSAGE_UNDOINVALID = "No more action left to undo";
+
+std:: string architectureLogic::_command;
+std:: string architectureLogic::_content;
+std:: string architectureLogic::_contentDescription;
+std:: string architectureLogic::_contentDay;
+std:: string architectureLogic::_contentMonth;
+std:: string architectureLogic::_contentStartHours;
+std:: string architectureLogic::_contentStartMinutes;
+std:: string architectureLogic::_contentEndHours;
+std:: string architectureLogic::_contentEndMinutes;
+std:: string architectureLogic::_taskType;
+std:: string architectureLogic::_taskID;
+
+std:: vector<std:: string> architectureLogic::parserVector;
+char architectureLogic::buffer[MAX];
+
+architectureLogic::architectureLogic(){
+}
+
+void architectureLogic::pushParserVector(std:: vector<std:: string>& temp) {
+	parserVector.clear();
+	std:: vector<std:: string>::iterator iter;
+	iter = temp.begin();
+	assert((*iter) != "");
+	for(iter = temp.begin(); iter != temp.end(); iter++) {
+		parserVector.push_back(*iter);
+	}
+	determineCommand();
+} 
+
+std:: vector<std:: string> architectureLogic::determineCommand(){
+	std:: string feedback;
+	std:: vector<std:: string> feedbackList;
+	
+	if(parserVector[0] == COMMAND_INVALID) {
+		sprintf_s(buffer, MESSAGE_INVALID.c_str());
+		feedback = buffer;
+	} else {
+		initializeCommand();
+		feedback = executeCommand();
+	}
+
+	architectureInputFeedback::addToMasterFeedbackList(feedback);
+	feedbackList = architectureInputFeedback::retrieveFeedbackList();
+
+	return feedbackList;
+}
+
+void architectureLogic::initializeCommand() {
+	std:: vector<std:: string>::iterator iter;
+	iter = parserVector.begin();
+
+	_command = *iter;
+	iter++;
+	_taskType = *iter;
+	iter++;
+	_taskID = *iter;
+	iter++;
+	_contentDescription = *iter;
+	iter++;
+	_contentDay = *iter;
+	iter++;
+	_contentMonth= *iter;
+	iter++;
+	_contentStartHours= *iter;
+	iter++;
+	_contentStartMinutes= *iter;
+	iter++;
+	_contentEndHours= *iter;
+	iter++;
+	_contentEndMinutes= *iter;
+
+	assert(_command != "");
+}
+
+std:: string architectureLogic::executeCommand() { 
+	CommandType commandTypeAction = determineCommandType(_command);
+
+	switch(commandTypeAction) { 
+	case ADD: 
+		architectureHistory::addPreviousAction(_command);
+		return addTask(_contentDescription, _contentDay, _contentMonth, _contentStartHours,
+					   _contentStartMinutes, _contentEndHours, _contentEndMinutes);
+	case DELETE:
+		architectureHistory::addPreviousAction(_command);
+		return deleteTask(_taskType, _taskID);
+	case CLEAR:
+		architectureHistory::addPreviousAction(_command);
+		return clearTask(_taskType);
+	case UPDATE:
+		architectureHistory::addPreviousAction(_command);
+		return updateTask(_taskType, _taskID, _contentDescription, _contentDay,
+						  _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
+	case UNDO:
+		return undoTask();
+	case DONE:
+		architectureHistory::addPreviousAction(_command);
+		return doneTask(_taskType, _taskID);
+	case SAVE:
+		return architectureSaveLoad::changeSavingDirectoryAndFileName(_taskType, _taskID);
+	case INVALID:
+		sprintf_s(buffer, MESSAGE_INVALID.c_str());
+		return buffer;
+	case EXIT: 
+		exit(0);
+	}
+}
+
+architectureLogic::CommandType architectureLogic::determineCommandType(std:: string commandAction) { 
+	assert(commandAction != "");
+	if(isValidCommand(commandAction, COMMAND_ADD)) { 
+		return CommandType::ADD; 
+	} else if(isValidCommand(commandAction, COMMAND_EXIT)) { 
+		return CommandType::EXIT; 
+	} else if(isValidCommand(commandAction, COMMAND_DELETE)) {
+		return CommandType::DELETE;
+	} else if(isValidCommand(commandAction, COMMAND_CLEAR)) {
+		return CommandType::CLEAR;
+	} else if(isValidCommand(commandAction, COMMAND_UPDATE)) {
+		return CommandType::UPDATE;
+	} else if(isValidCommand(commandAction, COMMAND_UNDO)) {
+		return CommandType::UNDO;
+	} else if(isValidCommand(commandAction, COMMAND_DONE)) {
+		return CommandType::DONE;
+	} else if(isValidCommand(commandAction, COMMAND_SAVE)) {
+		return CommandType::SAVE;
+	} else { 
+		return CommandType::INVALID;
+	} 
+}
+
+bool architectureLogic::isValidCommand(const std:: string& str1, const std:: string& str2) { 
+	if (str1.size() != str2.size()) { 
+		return false; 
+	} 
+	std:: string::const_iterator c1;
+	std:: string::const_iterator c2;
+
+	for (c1 = str1.begin(), c2 = str2.begin(); c1 != str1.end(); ++c1, ++c2) {
+		if (tolower(*c1) != tolower(*c2)) { 
+			return false; 
+		} 
+	} return true; 
+}
+
+std:: string architectureLogic::addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
+	assert(_contentDescription != "");
+	// check the validity of the time period, month, day, date
+	if(_contentDay!=""){
+		if(!isDateValid(_contentDay,_contentMonth)) {
+			sprintf_s(buffer, MESSAGE_INVALID.c_str());
+			return buffer;
+		} 
+		if(_contentEndHours!="") {
+			if(!isTimedTimeValid(_contentStartHours,_contentStartMinutes,_contentEndHours,_contentEndMinutes)) {
+				sprintf_s(buffer, MESSAGE_INVALID.c_str());
+				return buffer;
+			}
+		} else if(!isDeadlineTimeValid(_contentStartHours,_contentStartMinutes)) {
+			sprintf_s(buffer, MESSAGE_INVALID.c_str());
+			return buffer;
+		}
+	}
+
+	architectureStorage::addToMasterStorage(_contentDescription, _contentDay, _contentMonth, _contentStartHours,
+		_contentStartMinutes, _contentEndHours, _contentEndMinutes);
+
+	_content = concatenateString(parserVector);
+	sprintf_s(buffer, MESSAGE_ADD.c_str(), _content.c_str());
+	return trimTrailingSpaces(buffer);
+}
+
+bool architectureLogic::isDateValid(std:: string contentDay, std:: string contentMonth) {
+
+	Months monthType = determineMonthType(contentMonth);
+	int intDay = stringToInteger(contentDay);
+	if (( monthType == Months::JAN) || (monthType == Months::MAR) || (monthType == Months::MAY ) || (monthType == Months::JUL )
+		|| (monthType == Months::AUG ) || (monthType == Months::OCT) || (monthType == Months::DEC ) ) {
+			if ((intDay >= 1) && (intDay <= 31)) {
+				return true;
+			} else {
+				return false;
+			}
+	} else if (( monthType == Months::APR) || (monthType == Months::JUN) || (monthType == Months::SEP ) || (monthType == Months::NOV )) {
+		if ((intDay >= 1) && (intDay <= 30)) {
+			return true;
+		} else {
+			return false;
+		}
+	} else if( monthType == Months::FEB) {
+		if ((intDay >= 1) && (intDay <= 28)) {
+			return true;
+		} else {
+			return false;
+		}
+	} else {
+		return false;
+	}
+}
+
+architectureLogic::Months architectureLogic::determineMonthType(std:: string parserInput) {
+	if(isValidCommand(parserInput, "jan") || isValidCommand(parserInput, "january")) { 
+		return Months::JAN;
+	} else if(isValidCommand(parserInput, "feb") || isValidCommand(parserInput, "february")) { 
+		return Months::FEB; 
+	} else if(isValidCommand(parserInput, "mar") || isValidCommand(parserInput, "march")) {
+		return Months::MAR;
+	} else if(isValidCommand(parserInput, "apr") || isValidCommand(parserInput, "april")) {
+		return Months::APR;
+	} else if(isValidCommand(parserInput, "may")) {
+		return Months::MAY;
+	} else if(isValidCommand(parserInput, "jun") || isValidCommand(parserInput, "june")) {
+		return Months::JUN;
+	} else if(isValidCommand(parserInput, "jul") || isValidCommand(parserInput, "july")) {
+		return Months::JUL;
+	} else if(isValidCommand(parserInput, "aug") || isValidCommand(parserInput, "august")) {
+		return Months::AUG;
+	} else if(isValidCommand(parserInput, "sep") || isValidCommand(parserInput, "september")) {
+		return Months::SEP;
+	} else if(isValidCommand(parserInput, "oct") || isValidCommand(parserInput, "october")) {
+		return Months::OCT;
+	} else if(isValidCommand(parserInput, "nov") || isValidCommand(parserInput, "november")) {
+		return Months::NOV;
+	} else if(isValidCommand(parserInput, "dec") || isValidCommand(parserInput, "december")) {
+		return Months::DEC;
+	} else { 
+		return Months::NOTVALID;
+	} 
+}
+
+int architectureLogic::stringToInteger(std:: string input) {
+	int output;
+	output = atoi(input.c_str()); 
+	return output;
+}
+
+std:: string architectureLogic::concatenateString(std:: vector<std:: string>& parserVector) {
+	std:: vector<std:: string>::iterator iter;
+	std:: string temp;
+	for(iter = parserVector.begin() + 1; iter != parserVector.end(); iter++) {
+		temp += *iter;
+		temp += " ";
+	}
+
+	return trimTrailingSpaces(temp);
+}
+
+std:: string architectureLogic::trimTrailingSpaces(std:: string buffer) {
+	boost::algorithm::trim(buffer);
+	return buffer;
+}
+
+bool architectureLogic::isTimedTimeValid(std:: string startHour, std:: string startMin, std::string endHour, std::string endMin ){
+	int startIntHour = stringToInteger(startHour);
+	int startIntMin = stringToInteger(startMin);
+	int endIntHour = stringToInteger(endHour);
+	int endIntMin = stringToInteger(endMin);
+
+	if ((startIntHour < 0) && (startIntHour > 24)) {
+		return false;
+	} else if ((startIntMin < 0) || (startIntMin > 60)) {
+		return false;
+	} else if ((endIntHour < 0) || (endIntHour > 24)) {
+		return false;
+	} else if ((endIntMin < 0) || (endIntMin > 60)) {
+		return false;
+	} else if (startIntHour > endIntHour ) {
+		return false;
+	} else if (startIntHour > endIntHour ) {
+		return false;
+    } else if (startIntHour == endIntHour ) {
+		if ( startIntMin > endIntMin)
+		return false;
+	} else {
+		return true;
+	}
+}
+
+bool architectureLogic::isDeadlineTimeValid(std:: string startHour, std:: string startMin) {
+
+	int startIntHour = stringToInteger(startHour);
+	int startIntMin = stringToInteger(startMin);
+
+	if ((startIntHour < 0) || (startIntHour > 24)) {
+		return false;
+	} else if ((startIntMin < 0) || (startIntMin > 60)) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+std:: string architectureLogic::deleteTask(std:: string taskType, std:: string taskID) {
+	assert(taskID !=  "");
+	assert(taskType != "");
+
+	const std:: string temp = taskID;
+	int ID = stringToInteger(taskID); 
+	DateType commandTypeAction = determineDateTypeAction(taskType);
+	std:: vector<TASK>::iterator iter;
+
+	switch(commandTypeAction) {
+	case TODAY:
+		if(isTodayTaskIDValid(ID)) {
+			iter = architectureStorage::findTodayIterator(ID);
+			architectureHistory::addPreviousState(*iter);
+			architectureStorage::deleteTodayFromStorage(iter);
+			sprintf_s(buffer, MESSAGE_DELETETODAY.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case UPCOMING:
+		if(isUpcomingTaskIDValid(ID)) {
+			iter = architectureStorage::findUpcomingIterator(ID);
+			architectureHistory::addPreviousState(*iter);
+			architectureStorage::deleteUpcomingFromStorage(iter);
+			sprintf_s(buffer, MESSAGE_DELETEUPCOMING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case MISC:
+		if(isFloatingTaskIDValid(ID)) {
+			iter = architectureStorage::findFloatingIterator(ID);
+			architectureHistory::addPreviousState(*iter);
+			architectureStorage::deleteFloatingFromStorage(iter);
+			sprintf_s(buffer, MESSAGE_DELETEFLOATING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}	
+	case UNVALID:
+		sprintf_s(buffer, MESSAGE_INVALID.c_str());
+		return buffer;
+	}
+}
+
+architectureLogic::DateType architectureLogic::determineDateTypeAction(std:: string taskType) {
+	assert(taskType != "");
+
+	if(isValidCommand(taskType, COMMAND_TODAY)) { 
+		return DateType::TODAY; 
+	} else if(isValidCommand(taskType, COMMAND_UPCOMING)) { 
+		return DateType::UPCOMING; 
+	} else if(isValidCommand(taskType, COMMAND_MISC)) {
+		return DateType::MISC;
+	} else {
+		return DateType::UNVALID;
+	}
+}
+
+bool architectureLogic::isTodayTaskIDValid(int taskID) {
+	int size = architectureStorage::findTotalNumberofTodayTask();
+	assert(size >=0);
+	if(size < taskID) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+bool architectureLogic::isUpcomingTaskIDValid(int taskID) {
+	int size = architectureStorage::findTotalNumberofUpcomingTask();
+	assert(size >=0);
+	if(size < taskID) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+bool architectureLogic::isFloatingTaskIDValid(int taskID) {
+	int size = architectureStorage::findTotalNumberofFloatingTask();
+	assert(size >=0);
+	if(size < taskID) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+std:: string architectureLogic::clearTask(std:: string _content) {
+	assert(_content != "");
+
+	if (_taskType == MESSAGE_ALL) {
+		if(isMasterTaskListEmpty() && isFloatingTaskListEmpty()) {
+			sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
+			return buffer;
+		} else {
+			architectureStorage::clearAllFromStorage();
+			sprintf_s(buffer, MESSAGE_CLEARALL.c_str());
+			return buffer;
+		}
+	}
+	
+	if(_taskType == MESSAGE_TODAY) {
+		if(isTodayTaskListEmpty()) {
+			sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
+			return buffer;
+		} else {
+			architectureStorage::clearTodayFromStorage();
+			sprintf_s(buffer, MESSAGE_CLEARTODAY.c_str());
+			return buffer;
+		}
+	}
+
+	if(_taskType == MESSAGE_UPCOMING) {
+		if(isUpcomingTaskListEmpty()) {
+			sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
+			return buffer;
+		} else {
+			architectureStorage::clearUpcomingFromStorage();
+			sprintf_s(buffer, MESSAGE_CLEARUPCOMING.c_str());
+			return buffer;
+		}
+	}
+
+	if(_taskType == MESSAGE_FLOATING) {
+		if(isFloatingTaskListEmpty()) {
+			sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
+			return buffer;
+		} else {
+			architectureStorage::clearFloatingFromStorage();
+			sprintf_s(buffer, MESSAGE_CLEARFLOATING.c_str());
+			return buffer;
+		}
+	} else {
+		sprintf_s(buffer, MESSAGE_INVALID.c_str());
+		return buffer;
+	}
+}
+
+bool architectureLogic::isMasterTaskListEmpty() {
+	return architectureStorage::isMasterTaskListEmpty();
+}
+
+bool architectureLogic::isTodayTaskListEmpty() {
+	return architectureStorage::isTodayTaskListEmpty();
+}
+
+bool architectureLogic::isUpcomingTaskListEmpty() {
+	return architectureStorage::isUpcomingTaskListEmpty();
+}
+
+bool architectureLogic::isFloatingTaskListEmpty() {
+	return architectureStorage::isFloatingTaskListEmpty();
+}
+
+std:: string architectureLogic::updateTask(std:: string taskType, std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+	const std:: string temp = taskID;
+	int ID = stringToInteger(taskID);
+	DateType commandTypeAction = determineDateTypeAction(taskType);
+	assert(ID > 0);
+
+	switch(commandTypeAction) {
+	case TODAY:
+		if(isTodayTaskIDValid(ID)) {
+			architectureStorage::updateToTodayStorage(ID, newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+			sprintf_s(buffer, MESSAGE_UPDATETODAY.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case UPCOMING:
+		if(isUpcomingTaskIDValid(ID)) {
+			architectureStorage::updateToUpcomingStorage(ID, newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+			sprintf_s(buffer, MESSAGE_UPDATEUPCOMING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case MISC:
+		if(isFloatingTaskIDValid(ID)) {
+			architectureStorage::updateToFloatingStorage(ID, newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+			sprintf_s(buffer, MESSAGE_UPDATEFLOATING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case UNVALID:
+		sprintf_s(buffer, MESSAGE_INVALID.c_str());
+		return buffer;
+	}
+}
+
+std:: string architectureLogic::undoTask() {
+	std:: string feedback;
+	if(architectureHistory::isUndoStackEmpty()) {
+		sprintf_s(buffer, MESSAGE_UNDOINVALID.c_str());
+		return buffer;
+	} else {
+		feedback = architectureHistory::undoAction();
+		return feedback;
+	}
+}
+
+std:: string architectureLogic::doneTask(std:: string taskType, std:: string taskID) {
+	assert(taskID !=  "");
+	assert(taskType != "");
+	const std:: string temp = taskID;
+	int ID = stringToInteger(taskID); 
+	DateType commandTypeAction = determineDateTypeAction(taskType);
+	std:: vector<TASK>::iterator iter;
+
+	switch(commandTypeAction) {
+	case TODAY:
+		if(isTodayTaskIDValid(ID)) {
+			iter = architectureStorage::findTodayIterator(ID);
+			architectureHistory::addPreviousState(*iter);
+			architectureStorage::doneTodayTask(iter);
+			sprintf_s(buffer, MESSAGE_DONETODAY.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case UPCOMING:
+		if(isUpcomingTaskIDValid(ID)) {
+			iter = architectureStorage::findUpcomingIterator(ID);
+			architectureHistory::addPreviousState(*iter);
+			architectureStorage::doneUpcomingTask(iter);
+			sprintf_s(buffer, MESSAGE_DONEUPCOMING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case MISC:
+		if(isFloatingTaskIDValid(ID)) {
+			iter = architectureStorage::findFloatingIterator(ID);
+			architectureHistory::addPreviousState(*iter);
+			architectureStorage::doneFloatingTask(iter);
+			sprintf_s(buffer, MESSAGE_DONEFLOATING.c_str(), temp.c_str());
+			return buffer;
+		} else {
+			sprintf_s(buffer, MESSAGE_NOTFOUND.c_str());
+			return buffer;
+		}
+	case UNVALID:
+		sprintf_s(buffer, MESSAGE_INVALID.c_str());
+		return buffer;
+	}
+}
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureLogic.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureLogic.h
+	 */
+
+// to do list requires basic support of storage/retrieval of info, display of info to user and updating 
+// existing info. thus to reduce coupling from the innate nature of interlinkedness, we separated the
+// architecture to 8 different components of UI, InputFeedBack, Parser, Logic, Storage, History, SaveLoad, Boost
+
+// architectureLogic is responsible for all the "thinking" in the program
+// being the facade of this program, it will separate the user from the storage variables
+class architectureLogic {
+private:
+	static const std:: string COMMAND_INVALID;
+	static const std:: string COMMAND_ADD;
+	static const std:: string COMMAND_DELETE;
+	static const std:: string COMMAND_CLEAR;
+	static const std:: string COMMAND_EXIT;
+	static const std:: string COMMAND_UNDO;
+	static const std:: string COMMAND_DONE;
+	static const std:: string COMMAND_UPDATE;
+	static const std:: string COMMAND_SAVE;
+	static const std:: string COMMAND_TODAY;
+	static const std:: string COMMAND_UPCOMING;
+	static const std:: string COMMAND_MISC;
+	static const std:: string MESSAGE_ADD;
+	static const std:: string MESSAGE_INVALID;
+	static const std:: string MESSAGE_NOTFOUND;
+	static const std:: string MESSAGE_DELETETODAY;
+	static const std:: string MESSAGE_DELETEUPCOMING;
+	static const std:: string MESSAGE_DELETEFLOATING;
+	static const std:: string MESSAGE_DONETODAY;
+	static const std:: string MESSAGE_DONEUPCOMING;
+	static const std:: string MESSAGE_DONEFLOATING;
+	static const std:: string MESSAGE_CLEARALL;
+	static const std:: string MESSAGE_CLEARTODAY;
+	static const std:: string MESSAGE_CLEARUPCOMING;
+	static const std:: string MESSAGE_CLEARFLOATING;
+	static const std:: string MESSAGE_UPDATETODAY;
+	static const std:: string MESSAGE_UPDATEUPCOMING;
+	static const std:: string MESSAGE_UPDATEFLOATING;
+	static const std:: string MESSAGE_STORAGEEMPTY;
+	static const std:: string MESSAGE_TODAY;
+	static const std:: string MESSAGE_UPCOMING;
+	static const std:: string MESSAGE_FLOATING;
+	static const std:: string MESSAGE_ALL;
+	static const std:: string MESSAGE_UNDOINVALID;
+
+	static std:: string _command;
+	static std:: string _content;
+	static std:: string _contentDescription;
+	static std:: string _contentDay;
+	static std:: string _contentMonth;
+	static std:: string _contentStartHours;
+	static std:: string _contentStartMinutes;
+	static std:: string _contentEndHours;
+	static std:: string _contentEndMinutes;
+	static std:: string _newTask;
+	static std:: string _newTime;
+	static std:: string _taskType;
+	static std:: string _taskID;
+	
+	static const int MAX = 255;
+	static char buffer[MAX];
+	static std:: vector<std:: string> parserVector;
+public:
+	enum CommandType { 
+		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO, DONE, SAVE
+	};
+	enum Months { 
+		JAN=1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, NOTVALID
+	};
+
+	enum DateType {
+		TODAY, UPCOMING, MISC, UNVALID
+	};
+
+	architectureLogic();
+
+	// this function is called by the parser to push the vector of the tokenized materials to vector
+	// Pre: None. Basically it will tokenize everything
+	// Post:: initiate determineCommand();
+	static void pushParserVector(std:: vector<std:: string>& temp);
+
+	// takes in a parser input to interpret the user input and initiate the action according to the first word in the vector 
+	// Pre : parser will tokenize and pass me a vector of all the individual details which is in turn dependent from the user input from UI
+	// Post : returns a feedback message whether each command was executed successfully which is retrieved from executeCommand which will be stored into 
+	// architectureInputFeedback which will be return to the UI
+	static std:: vector<std:: string> determineCommand();
+
+	//this function intialize the string to the glpbal variables in a chronological order according to the vector passed from the parser
+	//Pre : the first word in the vector string cannot be "invalid"
+	//Post : None
+	static void initializeCommand();
+
+	// this function execute the individual command according to the _command which is initialized from the first word
+	// Pre: valid function will result in the respective feedback. else unrecognised _command will result in invalid message
+	// Post: return a feedback message
+	static std:: string executeCommand();
+
+	// this function allow for a flexible input where user may accidentally key in command with different casing supported by the function, isValidCommand
+	// Pre: None
+	// Post: return a enum commandType
+	static CommandType determineCommandType(std:: string commandAction);
+	static bool isValidCommand(const std:: string& str1, const std:: string& str2);
+
+	// this function passes the global variables to the next architecture, storage, for them to be initialized into a task for storage
+	// Pre: the _command is "add"
+	// Post: cocantenate the tokenized variables to return a string of the details of the task added
+	// the following group of functions support the add function
+	static std:: string addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, 
+								std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static bool architectureLogic::isDateValid(std:: string contentDay, std:: string contentMonth);
+	static Months architectureLogic::determineMonthType(std:: string parserInput);
+	static int stringToInteger(std:: string input);
+	static std:: string concatenateString(std:: vector<std:: string>& parserVector);
+	static std:: string trimTrailingSpaces(std:: string buffer);
+	static bool architectureLogic::isTimedTimeValid(std:: string startHour, std:: string startMin, std::string endHour, std::string endMin );
+	static bool architectureLogic::isDeadlineTimeValid(std:: string startHour, std:: string startMin);	
+
+	// this function differentiate the different datatype that is required to delete and remove from the storage
+	// Pre: the _command is delete, _taskType is a valid string(today, upcoming, misc) and valid taskID in the respective taskType
+	// Post: return a successful deleted string message else if the task is deleted and access storage to execute the delete
+	// the following group of functions support the delete function
+	static std:: string deleteTask(std:: string taskType, std:: string taskID);
+	static DateType determineDateTypeAction(std:: string commandAction);
+	static bool isTodayTaskIDValid(int taskID);
+	static bool isUpcomingTaskIDValid(int taskID);
+	static bool isFloatingTaskIDValid(int taskID);
+
+	// this function clear all the storage memory specified by the user
+	// Pre: the _command is clear and the taskType is valid
+	// Post: access storage to delete all the respective tasks in the taskType
+	// the following group of functions support the clear function
+	static std:: string clearTask(std:: string content);
+	static bool isMasterTaskListEmpty();
+	static bool isTodayTaskListEmpty();
+	static bool isUpcomingTaskListEmpty();
+	static bool isFloatingTaskListEmpty();
+
+	// this function edit the details specified by the user. it uses the current create a new task and replace the current task by
+	// using the current add and delete function
+	// Pre: _command is update, taskType is valid, taskId is valid, followed by a valid task content
+	// Post: access storage and delete the previous task and add in the new task
+	static std:: string updateTask(std:: string taskType, std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	
+	// this function allows the users to undo the previous action
+	// Pre:: _command is undo, or the user type ctrl-z 
+	// Post: undo the previous action and return the specific feedback message 
+	static std:: string undoTask();
+
+	// this function allow users to strike out the tasks they have completed
+	// Pre: _command is done, taskType is valid, taskID is valid
+	// Post: access storage to change the bool variable of the task strcuture
+	static std:: string doneTask(std:: string taskType, std:: string taskID);
+};
+#endif
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureLogic.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureSaveLoad.cpp
+	 */
+
+std:: string architectureSaveLoad::_taskDescription;
+std:: string architectureSaveLoad::_startDateTime;
+std:: string architectureSaveLoad::_endTime;
+std:: string architectureSaveLoad::_endDateTime;
+std:: string architectureSaveLoad::_taskID;
+std:: string architectureSaveLoad::_done;
+std:: string architectureSaveLoad::_newTask;
+std:: string architectureSaveLoad::_overdue;
+std:: string architectureSaveLoad::_clash;
+std:: vector<TASK> architectureSaveLoad::_tempVector;
+std:: vector<TASK> architectureSaveLoad::_tempMasterVector;
+std:: vector<TASK> architectureSaveLoad::_tempFloatingVector;
+
+std:: string architectureSaveLoad::_fileName;
+std:: string architectureSaveLoad::_directoryName;
+std:: string architectureSaveLoad::_pathName;
+
+const std:: string architectureSaveLoad::DEFAULT_PATHNAME = "C:\\Users\\Choo\\Desktop\\EasyToDo.txt";
+const std:: string architectureSaveLoad::DEFAULT_TEXTFILENAME = "EasyToDo.txt";
+const std:: string architectureSaveLoad::STORAGELOCATION_FILENAME = "pathName.txt";
+const std:: string architectureSaveLoad::DEFAULT_DIRECTORYNAME = "C:\\Users\\Choo\\Desktop\\";
+const std:: string architectureSaveLoad::MESSAGE_DEFAULT_SAVE = "Save directory and filename is set to default!";
+const std:: string architectureSaveLoad::MESSAGE_SUCCESSFUL_SAVE = "Save directory and filename changed!";
+const std:: string architectureSaveLoad::MESSAGE_FAILED_SAVE = "Sorry. Invalid directory! Save directory not changed";
+
+
+char architectureSaveLoad::transitory[MAXIMUM];
+
+architectureSaveLoad::architectureSaveLoad() {
+}
+
+void:: architectureSaveLoad::initializePathName() {
+	std:: ofstream initialize;
+	initialize.open(STORAGELOCATION_FILENAME);
+	initialize << DEFAULT_PATHNAME;
+	initialize.close();
+	return;
+}
+
+void architectureSaveLoad::saveToTextFile(std:: vector<TASK>& masterTaskList, std:: vector<TASK>& floatingTaskList) {
+	std:: vector<TASK>::iterator iter;
+	std:: ofstream saveFile(retrievePathName());
+	std:: vector<TASK> taskList;
+	
+	taskList = combineVector(masterTaskList, floatingTaskList);
+
+	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
+		saveFile << iter->taskDescriptionList;
+		saveFile << std:: endl;
+
+		saveFile << boost::posix_time::to_simple_string(iter->startDateTime).c_str();
+		saveFile << std:: endl;
+
+		saveFile << boost::posix_time::to_simple_string(iter->endTime).c_str();
+		saveFile << std:: endl;
+
+		saveFile << boost::posix_time::to_simple_string(iter->endDateTime).c_str();
+		saveFile << std:: endl;
+
+		saveFile << std:: to_string(iter->taskID);
+		saveFile << std:: endl;
+
+		saveFile << boost::lexical_cast<std::string>(iter->done);
+		saveFile << std:: endl;
+
+		saveFile << boost::lexical_cast<std::string>(iter->newTask);
+		saveFile << std:: endl;
+		
+		saveFile << boost::lexical_cast<std::string>(iter->overdue);
+		saveFile << std:: endl;
+
+		saveFile << boost::lexical_cast<std::string>(iter->clash);
+
+		if (iter != taskList.end() - 1) {
+			saveFile << std:: endl;
+		}		
+	}
+	saveFile.close();  
+}
+
+std:: string architectureSaveLoad::retrievePathName() {
+	std:: ifstream read(STORAGELOCATION_FILENAME);
+	std:: string line;
+	getline(read,line);
+	return line;
+}
+
+std:: vector<TASK> architectureSaveLoad::combineVector(std:: vector<TASK>& masterTaskList, std:: vector<TASK>& floatingTaskList) {
+	std:: vector<TASK>::iterator iter;
+	std:: vector<TASK> tempVector;
+
+	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
+		tempVector.push_back(*iter);
+	}
+
+	for(iter = floatingTaskList.begin(); iter != floatingTaskList.end(); iter++) {
+		tempVector.push_back(*iter);
+	}
+
+	return tempVector;
+}
+
+bool architectureSaveLoad::loadFromTextFile() {
+	std:: string buffer;
+	std:: vector<std:: string> tempStringVector;
+
+	std:: ifstream readFile(retrievePathName());
+	
+	if (!readFile.is_open()) { // if file doesn't exists
+		std:: ofstream writeFile(retrievePathName());
+		writeFile.close();
+		return false;
+	} else {
+		while (std:: getline(readFile,buffer)) {
+			tempStringVector.push_back(buffer);
+		} 
+
+		initializeTempVector(tempStringVector);
+		differentiateVector(_tempVector);
+		readFile.close();
+		return true;
+	}
+}
+
+void architectureSaveLoad::initializeTempVector(std:: vector<std:: string>& tempStringVector) {
+	int size = tempStringVector.size();
+	int i=0;
+	TASK temp;
+
+	while (i<size) {
+		_taskDescription = tempStringVector[i];
+		i++;
+		_startDateTime = tempStringVector[i];
+		i++;
+		_endTime = tempStringVector[i];
+		i++;
+		_endDateTime = tempStringVector[i];
+		i++;
+		_taskID = tempStringVector[i];
+		i++;
+		_done = tempStringVector[i];
+		i++;
+		_newTask = tempStringVector[i];
+		i++;
+		_overdue = tempStringVector[i];
+		i++;
+		_clash = tempStringVector[i];
+		i++;
+
+		temp = initializeTaskFromString();
+		_tempVector.push_back(temp);
+	}
+}
+
+TASK architectureSaveLoad::initializeTaskFromString() {
+
+	TASK temp;
+
+	temp.taskDescriptionList = _taskDescription;
+
+	ptime stringDateTime;
+	boost::posix_time::time_input_facet *timeFacet = new boost::posix_time::time_input_facet;
+    timeFacet->format("%Y-%b-%d %H:%M");
+	std::istringstream iss(_startDateTime);
+    iss.imbue(std::locale(std::locale::classic(), timeFacet));
+	iss >> stringDateTime;
+	temp.startDateTime = stringDateTime;
+
+	ptime stringTimeDuration;
+	boost::posix_time::time_input_facet *timeFacetEnd = new boost::posix_time::time_input_facet;
+	timeFacetEnd->format("%H:%M");
+	std::istringstream ss(_endDateTime);
+	ss.imbue(std::locale(std::locale::classic(), timeFacet));
+	ss >> stringTimeDuration;
+	temp.endDateTime = stringTimeDuration;
+
+	temp.endTime = stringTimeDuration.time_of_day();
+
+	temp.taskID =  atoi(_taskID.c_str());
+	temp.done = boost::lexical_cast<bool>(_done);
+	temp.newTask = boost::lexical_cast<bool>(_newTask);
+	temp.overdue = boost::lexical_cast<bool>(_overdue);
+	temp.clash = boost::lexical_cast<bool>(_clash);
+
+	return temp;
+}
+
+void architectureSaveLoad::differentiateVector(std:: vector<TASK>& vector) {
+	std:: vector<TASK>::iterator iter;
+
+	for(iter = vector.begin(); iter != vector.end(); iter++) {
+		if(iter->endTime.is_not_a_date_time() && iter->startDateTime.is_not_a_date_time()) {
+			_tempFloatingVector.push_back(*iter);
+		} else {
+			_tempMasterVector.push_back(*iter);
+		}
+	}
+	return;
+}
+
+std:: vector<TASK> architectureSaveLoad::passMasterTaskVector() {
+	return _tempMasterVector;
+}
+
+std:: vector<TASK> architectureSaveLoad::passFloatingTaskVector() {
+	return _tempFloatingVector;
+}
+
+std:: string architectureSaveLoad::changeSavingDirectoryAndFileName(std:: string directoryName, std:: string fileName) {
+	if(directoryName == "" && fileName == "") {
+		sprintf_s(transitory, MESSAGE_DEFAULT_SAVE.c_str());
+		_pathName = DEFAULT_PATHNAME;
+		changePathName(_pathName);
+		return transitory;
+	} else {
+		initializeDefaultPathAndFileName(directoryName, fileName);
+		_pathName =  concatenateString(_directoryName, _fileName);
+
+		if (isPathNameValid(_directoryName)) { 
+			sprintf_s(transitory, MESSAGE_SUCCESSFUL_SAVE.c_str());
+			changePathName(_pathName);
+			return transitory;
+		} else {
+			sprintf_s(transitory, MESSAGE_FAILED_SAVE.c_str());
+			return transitory;
+		}
+	}
+}
+
+void architectureSaveLoad::changePathName(std:: string newPathName) {
+	std:: ofstream file;
+	file.open(STORAGELOCATION_FILENAME);
+	file << newPathName;
+	file.close();
+}
+
+void architectureSaveLoad::initializeDefaultPathAndFileName(std:: string directoryName, std:: string fileName) {
+	if(fileName == "") {
+		_fileName = DEFAULT_TEXTFILENAME;
+	} else {
+		_fileName = fileName;
+	}
+
+	if(directoryName == "") {
+		_directoryName = DEFAULT_DIRECTORYNAME;
+	} else {
+		_directoryName = directoryName;
+	} 
+	return;
+}
+
+bool architectureSaveLoad::isPathNameValid(std:: string directoryName) {
+	if (boost::filesystem::exists(directoryName)) { 
+		return true;
+	} else {
+		return false;
+	}
+}
+
+std:: string architectureSaveLoad::concatenateString(std:: string _directoryName, std:: string _fileName) {
+	return _directoryName + _fileName;
+}
+
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureSaveLoad.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureSaveLoad.h
+	 */
+
+// this class execute writing and reading tasks details into external textfile as well as the capability to enable user to specify
+// the file directory and file name 
+class architectureSaveLoad {
+private:
+	static std:: string _taskDescription;
+	static std:: string _startDateTime;
+	static std:: string _endTime;
+	static std:: string _endDateTime;
+	static std:: string _taskID;
+	static std:: string _done;
+	static std:: string _newTask;
+	static std:: string _overdue;
+	static std:: string _clash;
+	static std:: vector<TASK> _tempVector;
+	static std:: vector<TASK> _tempMasterVector;
+	static std:: vector<TASK> _tempFloatingVector;
+
+	static std:: string _fileName;
+	static std:: string _directoryName;
+	static std:: string _pathName;
+	
+	static const std:: string DEFAULT_PATHNAME;
+	static const std:: string DEFAULT_TEXTFILENAME;
+	static const std:: string DEFAULT_DIRECTORYNAME;
+	static const std:: string STORAGELOCATION_FILENAME;
+	static const std:: string MESSAGE_DEFAULT_SAVE;
+	static const std:: string MESSAGE_SUCCESSFUL_SAVE;
+	static const std:: string MESSAGE_FAILED_SAVE;
+	
+	static const int MAXIMUM = 255;
+	static char transitory[MAXIMUM];
+public:
+	architectureSaveLoad();
+	
+	// this function is called by architectureStorage when there isn't an existing pathname to store a default pathname
+	// in other words, the user did not specify a save file directory and filename before he starts to input tasks onto the commandline
+	// as such this function create a pathname.txt when the program fail to load from an existing file
+	// Pre: None
+	// Post: a pathName.txt created in the UI folder in the project file which contains the default pathname 
+	// "C:\\Users\\Choo\\Desktop\\EasyToDo.txt"
+	static void initializePathName();
+
+	// this function is called every single time an action is executed successfully in the logic
+	// this duplicates the tasks in the two vectors(combined by the function 'combineVector') 
+	// and write them on the textfile at the specific path and filename retrieved from PathName.txt
+	// Pre: None
+	// Post: txt file created in the specific directory 
+	static void saveToTextFile(std:: vector<TASK>& masterTaskList, std:: vector<TASK>& floatingTaskList);
+	static std:: string retrievePathName();
+	static std:: vector<TASK> combineVector(std:: vector<TASK>& masterTaskList, std:: vector<TASK>& floatingTaskList);
+
+	// this function retrieve the tasks details from the path location as stated in the pathName.txt 
+	// utilising the supporting function, initializeTempVector, to intialize individual tasks 
+	// using the supporting function, differtiateVector, will separate the tasks into their respective vector(taskList)
+	// Pre: it will only read if the file exist in the path location
+	// Post: allow for pre-exit vectors to be available again
+	static bool loadFromTextFile();
+	static void initializeTempVector(std:: vector<std:: string>& tempStringVector);
+	static TASK initializeTaskFromString();
+	static void differentiateVector(std:: vector<TASK>& vector);
+
+	// this two functions allow storage to call them to retrieve the duplicated copies of vector<TASK> created according to the textfile
+	// Pre: text file must exist and must not be empty
+	// Post: the masterTaskList and FloatingTaskList will be initialized according to the architectureSaveLoad
+	static std:: vector<TASK> passMasterTaskVector();
+	static std:: vector<TASK> passFloatingTaskVector();
+	
+	// this function allow the user to have the flexible to specify his own path location and filename
+	// if the input is simply 'save', the file directory and filename will be set to default
+	// or any of the input is determined to be empty, it will be set to empty
+	// basically, i have an external default pathname.txt that will store the pathname which will either be default or specified by the user
+	// using the function, changePathName, we change the path location in the pathName.txt which save and load will retrieve from
+	// 
+	static std:: string changeSavingDirectoryAndFileName(std:: string directoryName, std:: string fileName);
+	static void changePathName(std:: string newPathName);
+	static void initializeDefaultPathAndFileName(std:: string directoryName, std:: string fileName);
+	static bool isPathNameValid(std:: string directoryName);
+	static std:: string concatenateString(std:: string _directoryName, std:: string _fileName);
+};
+#endif
+
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureSaveLoad.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.cpp
+	 */
+
+std:: vector<TASK> architectureStorage::masterTaskList; 
+std:: vector<TASK> architectureStorage::todayTaskList;
+std:: vector<TASK> architectureStorage::upcomingTaskList;
+std:: vector<TASK> architectureStorage::floatingTaskList;
+
+// this function allows the algorithm to execute the find function in our context to compare the respective content of the task struct
+bool operator==(const TASK& a, const TASK& b) {
+	return (a.taskDescriptionList == b.taskDescriptionList) && (a.startDateTime == b.startDateTime) && (a.endTime == b.endTime);
+}
+
+architectureStorage::architectureStorage() {
+}
+
+void architectureStorage::updateTaskID(std:: vector<TASK>& input) {
+	int counter = 1;
+	std:: vector<TASK>::iterator iter;
+	
+	for(iter = input.begin(); iter != input.end(); iter++, counter++) {
+		iter->taskID = counter;
+	}
+}
+
+bool architectureStorage::loadProgram() {
+	
+	if (architectureSaveLoad::loadFromTextFile()) {
+		masterTaskList.clear();
+		floatingTaskList.clear();
+		masterTaskList = architectureSaveLoad::passMasterTaskVector();
+		floatingTaskList = architectureSaveLoad::passFloatingTaskVector();
+		architectureBoost::sortTodayUpcoming(masterTaskList);
+		return true;
+	} else {
+		architectureSaveLoad::initializePathName();
+		return false;
+	}
+}
+
+void architectureStorage::addToMasterStorage(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
+	TASK temp;
+	updateNewTask();
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	if(_contentEndHours == "" && _contentEndMinutes == "") {
+		if(_contentStartHours == "" && _contentStartMinutes == "") {
+			temp = initializeFloatingTask(_contentDescripton);
+			floatingTaskList.push_back(temp);
+			architectureHistory::addPreviousState(temp);
+			saveProgram();
+			return;
+		} else {
+			temp = initializeDeadlineTask(_contentDescripton, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes);
+		}
+	} else {
+		temp = initializeTimedTask(_contentDescripton, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
+	}
+	architectureHistory::addPreviousState(temp);
+	masterTaskList.push_back(temp);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	saveProgram();
+	return;
+}
+
+void architectureStorage::updateNewTask() {
+	std:: vector<TASK>::iterator iter;
+	for(iter = floatingTaskList.begin(); iter != floatingTaskList.end(); iter++) {
+		iter->newTask = false;
+	}
+
+	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
+		iter->newTask = false;
+	}
+}
+
+TASK architectureStorage::initializeFloatingTask(std:: string _contentDescripton) {
+	TASK buffer;
+	buffer.taskDescriptionList = _contentDescripton;
+	ptime temp; //temp => not_a_date_time
+	buffer.startDateTime = temp;
+	buffer.endTime = time_duration(not_a_date_time);
+	buffer.endDateTime = temp;
+	buffer.taskID = 0;
+	buffer.done = false;
+	buffer.newTask = true;
+	buffer.overdue = false;
+	buffer.clash = false;
+	return buffer;
+}
+
+TASK architectureStorage::initializeTimedTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
+	TASK buffer;
+	buffer.taskDescriptionList = _contentDescripton;
+	std::string dateString; // ("2002/1/25");
+	dateString = "2015," +  _contentMonth + "," + _contentDay;
+	date d(from_string(dateString));
+	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
+	buffer.startDateTime = temp;
+	buffer.endTime = time_duration(hours(stringToInt(_contentEndHours))+minutes(stringToInt(_contentEndMinutes)));
+	ptime temp2(d,time_duration(hours(stringToInt(_contentEndHours))+minutes(stringToInt(_contentEndMinutes))));
+	buffer.endDateTime = temp2;
+	buffer.taskID = 0;
+	buffer.done = false;
+	buffer.newTask = true;
+	buffer.overdue = false;
+	buffer.clash = false;
+	return buffer;
+}
+
+TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes) {
+	TASK buffer;
+	buffer.taskDescriptionList = _contentDescripton;
+	std::string dateString; // ("2002/1/25");
+	dateString = "2015," + _contentMonth + "," + _contentDay;
+	date d(from_string(dateString));
+	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
+	buffer.startDateTime = temp;
+	buffer.endTime = time_duration(not_a_date_time);
+	ptime temp1;
+	buffer.endDateTime = temp1;
+	buffer.taskID = 0;
+	buffer.done = false;
+	buffer.newTask = true;
+	buffer.overdue = false;
+	buffer.clash = false;
+	return buffer;
+}
+
+int architectureStorage::stringToInt(std:: string input) {
+	int value;
+	value = atoi(input.c_str());
+	return value;
+}
+
+void architectureStorage::deleteTodayFromStorage(std:: vector<TASK>::iterator iter) {
+	deleteTask(*iter);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	saveProgram();
+	return;
+}
+
+void architectureStorage::deleteUpcomingFromStorage(std:: vector<TASK>::iterator iter) {
+	deleteTask(*iter);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	saveProgram();
+	return;
+}
+
+void architectureStorage::deleteFloatingFromStorage(std:: vector<TASK>::iterator iter) {
+	architectureHistory::addPreviousState(*iter);
+	floatingTaskList.erase(iter);
+	saveProgram();
+	return;
+}
+
+void architectureStorage::deleteTask(TASK& input) {
+	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), input);
+	if (position == masterTaskList.end()) {
+		position = std::find(floatingTaskList.begin(), floatingTaskList.end(), input);
+		floatingTaskList.erase(position);
+	}
+	else {
+		masterTaskList.erase(position);
+		architectureBoost::sortTodayUpcoming(masterTaskList);
+	}
+	saveProgram();
+	return;
+}
+
+void architectureStorage::clearAllFromStorage() {
+	architectureHistory::pushPreviousTodayUpcomingTaskList(masterTaskList);
+	architectureHistory::pushPreviousFloatingTaskList(floatingTaskList);
+	masterTaskList.clear();
+	todayTaskList.clear();
+	upcomingTaskList.clear();
+	floatingTaskList.clear();
+	saveProgram();
+	return;
+}
+
+void architectureStorage::clearTodayFromStorage() {
+	architectureHistory::pushPreviousTodayUpcomingTaskList(masterTaskList);
+	assert(!masterTaskList.empty());
+	masterTaskList.clear();
+	std:: vector<TASK>::iterator iter;
+	for(iter = upcomingTaskList.begin(); iter != upcomingTaskList.end(); iter++) {
+		masterTaskList.push_back(*iter);
+	}
+	todayTaskList.clear();
+	upcomingTaskList.clear();
+	saveProgram();
+	return;
+}
+
+void architectureStorage::clearUpcomingFromStorage() {
+	architectureHistory::pushPreviousTodayUpcomingTaskList(masterTaskList);
+	masterTaskList.clear();
+	std:: vector<TASK>::iterator iter;
+	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
+		masterTaskList.push_back(*iter);
+	}
+	todayTaskList.clear();
+	upcomingTaskList.clear();
+	saveProgram();
+	return;
+}
+
+void architectureStorage::clearFloatingFromStorage() {
+	architectureHistory::pushPreviousFloatingTaskList(floatingTaskList);
+	floatingTaskList.clear();
+	saveProgram();
+	return;
+}
+
+void architectureStorage::updateToTodayStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+	std:: vector<TASK>::iterator iter = findTodayIterator(taskID);
+	architectureHistory::addPreviousState(*iter);
+	deleteTask(*iter);
+	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+}
+
+void architectureStorage::updateToUpcomingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+	std:: vector<TASK>::iterator iter = findUpcomingIterator(taskID);
+	architectureHistory::addPreviousState(*iter);
+	deleteTask(*iter);
+	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);	
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+}
+
+void architectureStorage::updateToFloatingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+	std:: vector<TASK>::iterator iter = findFloatingIterator(taskID);
+	architectureHistory::addPreviousState(*iter);
+	floatingTaskList.erase(iter);
+	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+}
+
+std:: vector<TASK>::iterator architectureStorage::findTodayIterator(int taskID) {
+	std:: vector<TASK>::iterator iter; 
+	iter = todayTaskList.begin() + taskID - 1;
+	return iter;
+}
+
+std:: vector<TASK>::iterator architectureStorage::findUpcomingIterator(int taskID) {
+	std:: vector<TASK>::iterator iter; 
+	iter = upcomingTaskList.begin() + taskID - 1;
+	return iter;
+}
+
+std:: vector<TASK>::iterator architectureStorage::findFloatingIterator(int taskID) {
+	std:: vector<TASK>::iterator iter; 
+	iter = floatingTaskList.begin() + taskID - 1;
+	return iter;
+}
+
+void architectureStorage::undoDelete(TASK& input) {
+	if (input.startDateTime == not_a_date_time) {
+		floatingTaskList.push_back(input);
+	}
+	else {
+		masterTaskList.push_back(input);
+		architectureBoost::sortTodayUpcoming(masterTaskList);
+	}
+	saveProgram();
+	return;
+}
+
+void architectureStorage::undoAdd(TASK& input) {
+	deleteTask(input);
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	saveProgram();
+	return;
+}
+
+void architectureStorage::undoClear(std:: vector<TASK>& previousTodayUpcomingTaskList, 
+						  std:: vector<TASK>& previousFloatingTaskList) {
+	masterTaskList.clear(); 
+	std:: vector<TASK>::iterator iter;
+	for(iter = previousTodayUpcomingTaskList.begin(); iter != previousTodayUpcomingTaskList.end(); iter++) {
+		masterTaskList.push_back(*iter);
+	}
+
+	for(iter = previousFloatingTaskList.begin(); iter != previousFloatingTaskList.end(); iter++) {
+		floatingTaskList.push_back(*iter);
+	}
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	saveProgram();
+	return;
+}
+
+void architectureStorage::undoDone(TASK& input) {
+	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), input);
+
+	if (position == masterTaskList.end()) {
+		position = std::find(floatingTaskList.begin(), floatingTaskList.end(), input);
+		position->done = false;
+	}
+	else {
+		position->done = false;
+		architectureBoost::sortTodayUpcoming(masterTaskList);
+	}
+	saveProgram();
+	return;
+}
+
+void architectureStorage::doneTodayTask(std:: vector<TASK>::iterator iter) {
+	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), *iter);
+	position->done = true;
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	saveProgram();
+	return;
+}
+
+void architectureStorage::doneUpcomingTask(std:: vector<TASK>::iterator iter) {
+	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), *iter);
+	position->done = true;
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	saveProgram();
+	return;
+}
+
+void architectureStorage::doneFloatingTask(std:: vector<TASK>::iterator iter) {
+	iter->done = true;
+	saveProgram();
+	return;
+}
+
+std:: vector<TASK> architectureStorage::retrieveTodayTaskList() {
+	return todayTaskList;
+}
+
+std:: vector<TASK> architectureStorage::retrieveUpcomingTaskList() {
+	return upcomingTaskList;
+}
+
+std:: vector<TASK> architectureStorage::retrieveFloatingTaskList() {
+	return floatingTaskList;
+}
+
+int architectureStorage::findTotalNumberofTodayTask() {
+	return todayTaskList.size();
+}
+
+int architectureStorage::findTotalNumberofUpcomingTask() {
+	return upcomingTaskList.size();
+}
+
+int architectureStorage::findTotalNumberofFloatingTask() {
+	return floatingTaskList.size();
+}
+
+bool architectureStorage::isMasterTaskListEmpty() {
+	if(masterTaskList.size() == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool architectureStorage::isTodayTaskListEmpty() {
+	if(todayTaskList.size() == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool architectureStorage::isUpcomingTaskListEmpty() {
+	if(upcomingTaskList.size() == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+bool architectureStorage::isFloatingTaskListEmpty() {
+	if(floatingTaskList.size() == 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+void architectureStorage::storeTodayTask(TASK temp) {
+	temp = architectureBoost::checkClashTask(temp, todayTaskList);
+	todayTaskList.push_back(temp);
+	architectureBoost::sortWithinTodayUpcoming(todayTaskList);
+	architectureBoost::checkOverdueTask(todayTaskList);
+	saveProgram();
+	return;
+}
+
+void architectureStorage::storeUpcomingTask(TASK temp) {
+	temp = architectureBoost::checkClashTask(temp, upcomingTaskList);
+	upcomingTaskList.push_back(temp);
+	architectureBoost::sortWithinTodayUpcoming(upcomingTaskList);
+	saveProgram();
+	return;
+}
+
+void architectureStorage::clearTodayTaskList() {
+	todayTaskList.clear();
+	return;
+}
+
+void architectureStorage::clearUpcomingTaskList() {
+	upcomingTaskList.clear();
+	return;
+}
+
+void architectureStorage::updateClashStatus(TASK& task) {
+	std::vector<TASK>::iterator position = std::find(masterTaskList.begin(), masterTaskList.end(), task);
+	position->clash = true;
+	architectureBoost::sortWithinTodayUpcoming(todayTaskList);
+	saveProgram();
+}
+
+void architectureStorage::saveProgram() {
+	architectureSaveLoad::saveToTextFile(masterTaskList, floatingTaskList);
+}
+
+std:: vector<TASK> architectureStorage::retrieveMasterTaskList(){
+	return masterTaskList;
+}
+
+
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.cpp
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.h
+	 */
+
+using namespace boost::posix_time;
+using namespace boost::gregorian;
+
+// Timed: add meet ivy on 14 April from 14:00 to 18:00 
+// (MISC)Floating: add meet ivy
+// Deadline: add meet ivy on 14 april at 1400
+struct TASK {
+	std:: string taskDescriptionList;
+	ptime startDateTime; 
+	time_duration endTime;
+	ptime endDateTime;
+	int taskID;
+	bool done; // check if the task is done. initialized as false
+	bool newTask; // check if the task is recently added to EasyToDo to enable us to highlight the newest task added. initialized as true
+	bool overdue; // check if the task is overdue else highlight in red. initialized as false.
+	bool clash; // check if there is any task that have timeline that clashes with each other. initialized as false.
+};
+
+// this class, it where after the logic has processed the user's intention, execute the respective action and make changes to the variable
+// stored in this class
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.h
+
+
+
+
+
+	/**
+	 * origin: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.h
+	 */
+
+class architectureStorage {
+private:
+	static std:: vector<TASK> masterTaskList; // stores both timed and deadline task
+	static std:: vector<TASK> floatingTaskList; 
+	static std:: vector<TASK> todayTaskList;
+	static std:: vector<TASK> upcomingTaskList;
+public:
+	architectureStorage();
+	// the GUI will call this function for theindividual taskType column to get the numbering for the task to be displayed
+	// Pre: None
+	// Post: the taskID in the structure of the task is assigned with a number
+	static void updateTaskID(std:: vector<TASK>& input);
+
+	// the UI will actually call this function to retrieve the saved tasks in the textfile to initialise the taskLists
+	// Pre: None 
+	// Post: if true, the UI will pop out a window saying Welcome back to EasyToDo for repeated user and display whatever tasks saved previously
+	// if false, the UI will pop out a window saying welcome to easyToDo for first time user. 
+	static bool loadProgram();
+
+	// this function call for supporting functions to initialise the task and add them into their respective task type
+	// deadline and timed tasks are added to masterTaskList while floating are added to floating tasklist
+	// the tasks in masterTaskList are then sorted into their individual taskList using Boost::sortTodayUpcoming
+	// before adding any new task, it will call updateNewTask to change the bool of new to false for GUI to recognise
+	// Pre: task != "" 
+	// Post: Save the program after every action. 
+	static void addToMasterStorage(std:: string task, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, 
+									std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static void updateNewTask();
+	static TASK initializeFloatingTask(std:: string _contentDescripton);
+	static TASK initializeDeadlineTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, 
+										std:: string _contentStartHours, std:: string _contentStartMinutes);
+	static TASK initializeTimedTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, 
+									std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static int stringToInt(std:: string input);
+
+	// if the taskType is today or upcoming, this function calls for deleteTask to find the task in mastertasklit and remove it
+	// and Boost::sortTodayUpcoming to update the today and upcoming TaskList
+	// if the taskType is floating, it will simply remove the task from floatingtasklist
+	// Pre: valid iter
+	// Post: save program after every action
+	static void deleteTodayFromStorage(std:: vector<TASK>::iterator iter);
+	static void deleteUpcomingFromStorage(std:: vector<TASK>::iterator iter);
+	static void deleteFloatingFromStorage(std:: vector<TASK>::iterator iter);
+	static void deleteTask(TASK& input);
+	
+	// this function clears all the contents of the vector<TASK> in both masterTaskList and floatingTaskList
+	// Pre: None
+	// Post:: save program after every action
+	static void clearAllFromStorage();
+	// this function replaces the masterTaskList with the upcomingTaskList to remove all the todayTasks
+	static void clearTodayFromStorage();
+	// Similarly, this function replaces the masterTaskList with the todayTaskList to remove all the UpcomingTasks
+	static void clearUpcomingFromStorage();
+	// this function clear all the contents of the floatingTaskList
+	static void clearFloatingFromStorage();
+
+	// for update function, i will store two previous states instead of one[add, delete] 
+	// thus the first one you pop from the stack "previousStateStack" would be the one you need to delete
+	// and the second one would be the one you need to add back cause of LIFO
+	// this function basically uses the addtoMasterStorage and deleteTask to execute update
+	// this allow the user change one tasktype to another
+	// Pre: pre-conditions are already fulfilled in logic
+	// Post: Save the program after every action. 
+	static void updateToTodayStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, 
+		std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	static void updateToUpcomingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, 
+		std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	static void updateToFloatingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, 
+		std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	static std:: vector<TASK>::iterator findTodayIterator(int taskID);
+	static std:: vector<TASK>::iterator findUpcomingIterator(int taskID);
+	static std:: vector<TASK>::iterator findFloatingIterator(int taskID);
+
+	// this group of functions supports the functions in architectureHistory to execute the command undo
+	// Pre: the stack sotring the previousAction is not empty
+	// Post: execute the reverse action and save the program
+	static void undoDelete(TASK& input);
+	static void undoAdd(TASK& input);
+	static void undoClear(std:: vector<TASK>& previousTodayUpcomingTaskList, std:: vector<TASK>& previousFloatingTaskList);
+	static void undoDone(TASK& input);
+
+	// this group of functions execute the user intention to strke out completed tasks. they change the bool done in the task struct 
+	// Pre: valid iter
+	// Post: change the bool from false to true and save program
+	static void doneTodayTask(std:: vector<TASK>::iterator iter);
+	static void doneUpcomingTask(std:: vector<TASK>::iterator iter);
+	static void doneFloatingTask(std:: vector<TASK>::iterator iter);
+
+	// this group of functions support the GUI's functions
+	static std:: vector<TASK> retrieveTodayTaskList();
+	static std:: vector<TASK> retrieveUpcomingTaskList();
+	static std:: vector<TASK> retrieveFloatingTaskList();
+	
+	// this group of functions support architectureLogic's function to verify taskID
+	static int findTotalNumberofTodayTask();
+	static int findTotalNumberofUpcomingTask();
+	static int findTotalNumberofFloatingTask();
+	
+	// this group of functions support architectureLogic's function for clearTask
+	static bool isMasterTaskListEmpty();
+	static bool isTodayTaskListEmpty();
+	static bool isUpcomingTaskListEmpty();
+	static bool isFloatingTaskListEmpty();
+
+	// this group of functions support architectureBoost::sortTodayUpcoming
+	// to differentiate the today and upcoming tasks
+	// Pre: None
+	// Post: masterTaskList will have a copy of all the today and upcoming tasks and the respective taskLists will contain their own tasks
+	static void storeTodayTask(TASK temp);
+	static void storeUpcomingTask(TASK temp);
+	static void clearTodayTaskList();
+	static void clearUpcomingTaskList();
+	// when the tasks are differentiated into the task, this function is called to check if it clashes with any of the stored tasks
+	// in the same taskList to update the bool clash
+	// Pre: none
+	// Post: check the clash period of the incoming task with all the stored tasks
+	static void updateClashStatus(TASK& task);
+
+	// this function calls save function in architectureSaveLoad to save the masterTaskList and floatingTextList to external text file
+	// Pre: None
+	// Post: according to the pathname stated in the PathName.txt(default or specify by user), the tasks are stored in the text file
+	static void saveProgram();
+
+	// integration testing function
+	static std:: vector<TASK> retrieveMasterTaskList();
+};
+#endif
+	// End of segment: C:\Users\Ivy\Downloads\Collate V2.0\Collate V2.0\Code\architectureStorage.h
 
 
 
