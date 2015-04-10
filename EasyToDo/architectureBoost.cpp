@@ -21,17 +21,16 @@ void architectureBoost::sortTodayUpcoming(std:: vector<TASK>& masterTaskList) {
 	std:: vector<TASK>::iterator iter;
 	
 	date dateToday = retrieveDateToday();
-	date temp; 
+	date inputDate; 
 	days dayDifference;
-	time_duration temp2; // can remove this?
 
 	architectureStorage::clearUpcomingTaskList();
 	architectureStorage::clearTodayTaskList();
-	
-	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
-		temp = (iter->startDateTime).date();
-		temp2 = (iter->startDateTime).time_of_day(); // can remove this?
-		dayDifference = temp - dateToday;
+	//goes through all the task in masterstorage to check if task is considered today or upcoming
+	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) { 
+		
+		inputDate = (iter->startDateTime).date();
+		dayDifference = inputDate - dateToday;
 
 		if(isValidTodayTask(dayDifference)) {
 			architectureStorage::storeUpcomingTask(*iter);
@@ -67,7 +66,7 @@ void architectureBoost::checkOverdueTask(std:: vector<TASK>& todayTaskList) {
 	days dayDifference;
 	days day(0);
 	ptime today =  second_clock::local_time();
-
+	//goes through all the task in the tasklist to check if task is overdued
 	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
 		temp = (iter->startDateTime).date();
 		dayDifference = temp - dateToday;
@@ -81,6 +80,7 @@ void architectureBoost::checkOverdueTask(std:: vector<TASK>& todayTaskList) {
 	}
 }
 
+
 bool architectureBoost::isTaskOverdue(days dayDifference) {
 	days day(0);
 	if (dayDifference < day) {
@@ -93,12 +93,8 @@ bool architectureBoost::isTaskOverdue(days dayDifference) {
 TASK architectureBoost::checkClashTask(TASK temp, std:: vector<TASK>& taskList) {
 	std:: vector<TASK>::iterator iter;
 	date dateToday = retrieveDateToday();
-	/*
-	time_period tp1(ptime(d,hours(1)), ptime(d,hours(12)));
-	time_period tp2(ptime(d,hours(2)), ptime(d,hours(4)));
-	tp2.intersects(tp1); // --> true
 
-	*/
+	//goes through all the task in the tasklist to check if tasks are clashed
 	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
 		if((iter->startDateTime).date() == (temp.startDateTime).date()) {
 			if(iter->endTime.is_not_a_date_time() && temp.endTime.is_not_a_date_time()) {

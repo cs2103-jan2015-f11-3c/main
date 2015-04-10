@@ -8,14 +8,17 @@ architectureInputFeedback::architectureInputFeedback() {
 }
 
 void architectureInputFeedback::addToMasterInputList(std:: string input) {
+	assert(input != "");
 	masterInputList.push(input);
 }
 
 void architectureInputFeedback::addToMasterFeedbackList(std:: string feedback) {
+	assert(feedback != "");
 	masterFeedbackList.push_back(feedback);
 }
 
 void architectureInputFeedback::removeFromMasterInputList() {
+
 	std:: string topInput = masterInputList.top();
 	masterInputListDown.push(topInput);
 	masterInputList.pop();
@@ -33,14 +36,12 @@ std:: stack<std:: string> architectureInputFeedback::retrieveInputList() {
 }
 
 std:: stack<std:: string> architectureInputFeedback::retrieveInputListDown() {
-<<<<<<< HEAD
+
+	// it needs to pop the top one out because the top of this stack will be
+	// exactly the same as the previous input
 	if (!masterInputListDown.empty()) {
 		masterInputListDown.pop();
 	}
-=======
-	masterInputListDown.pop();
-
->>>>>>> 117c7a87c41ca2fbfbcd365f13f372c21afd5861
 	return masterInputListDown;
 }
 
