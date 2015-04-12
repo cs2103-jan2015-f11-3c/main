@@ -15,6 +15,8 @@ std::string architectureParser::_newContent;
 std::string architectureParser::_taskID;
 std::string architectureParser::_command;
 std::string architectureParser::_userInput;
+std::string architectureParser::_endDay;
+std::string architectureParser::_endMonth;
 std::vector<std:: string> architectureParser::addTaskDetails;
 
 void architectureParser::pushUserInput(std:: string userInput) {
@@ -65,6 +67,8 @@ void architectureParser::checkCommand(std::string _command,std::string restOfCon
 		tokenizeDeleteOrDone(restOfContent);
 	} else if(_command == "save") {
 		tokenizeSave(restOfContent);
+	} else if(_command == "filter") {
+		tokenizeDeleteOrDone(restOfContent);
 	} else {
 		tokenizeInvalid();
 	}
@@ -104,7 +108,7 @@ void architectureParser::tokenizeAdd(std:: string tokenizeContent) {
 				_taskDesc = _newContent.substr(taskFirst,taskLast);
 				addTaskDetails.push_back(_taskDesc);
 
-				addEmptyString(6);
+				addEmptyString(8);
 
 				return;
 			}
@@ -176,7 +180,7 @@ void architectureParser::tokenizeDeleteOrDone(std::string tokenizeContent) {
 	_taskID = taskIDContent.substr(taskFirst);
 	addTaskDetails.push_back(_taskID);
 
-	addEmptyString(7);
+	addEmptyString(9);
 }
 
 void architectureParser::tokenizeClear(std::string tokenizeContent) {
@@ -188,12 +192,12 @@ void architectureParser::tokenizeClear(std::string tokenizeContent) {
 	
 	addTaskDetails.push_back(_taskType);
 
-	addEmptyString(8);
+	addEmptyString(10);
 }
 
 void architectureParser::tokenizeUndo(std::string tokenizeContent) {
 
-	addEmptyString(9);
+	addEmptyString(11);
 
 }
 
@@ -223,28 +227,42 @@ void architectureParser::tokenizeDateMonth(std::string tokenizeContent){
 	addTaskDetails.push_back(_dateMonth);
 	_newContent = remainingContent.substr(taskFirst);
 
-	checkTimedOrDeadline(_newContent);
+	checkAllDayTask(_newContent);
+}
+
+void architectureParser::checkAllDayTask(std::string tokenizeContent) {
+
+	size_t findCollen = tokenizeContent.find(":");
+
+	if(findCollen!=tokenizeContent.npos){
+		tokenizeStartTime(tokenizeContent);
+	} else { 
+		addEmptyString(6);
+			
+		architectureLogic::pushParserVector(addTaskDetails);
+	}
+
 }
 
 
 
-void architectureParser::checkTimedOrDeadline(std::string tokenizeContent){
-
+void architectureParser::checkDeadlineorTimed(std::string tokenizeContent){
+	
 	size_t taskLast = tokenizeContent.find("to");
 	if(taskLast!=std::string::npos)	//differentiate between timed and deadline task
-		tokenizeTimedTime(tokenizeContent);
+		checkTimedOrMulti(tokenizeContent);
 	else
 	{
 		size_t taskLast = tokenizeContent.find("-");
 		if(taskLast!=std::string::npos)
-			tokenizeTimedTime(tokenizeContent);
+			checkTimedOrMulti(tokenizeContent);
 		else
-			tokenizeDeadlineTime(tokenizeContent);
+			addEmptyString(4);
 	}
 }
 
 
-void architectureParser::tokenizeDeadlineTime(std::string tokenizeContent){
+void architectureParser::tokenizeStartTime(std::string tokenizeContent){
 
 	std::string remainingContent = tokenizeContent;
 	size_t taskFirst = 0;
@@ -252,46 +270,77 @@ void architectureParser::tokenizeDeadlineTime(std::string tokenizeContent){
 	
 	_startHour = remainingContent.substr(taskFirst,taskLast);	//tokenizing the time part of deadline tasks
 	addTaskDetails.push_back(_startHour);
-
 	taskFirst = taskLast+1;
-	_startMin = remainingContent.substr(taskFirst);
+	taskLast =  taskFirst+2;
+	_startMin = remainingContent.substr(taskFirst,taskLast);
 	addTaskDetails.push_back(_startMin);
 	
-	_endHour = "";
-	addTaskDetails.push_back(_endHour);
-	_endMin = "";
-	addTaskDetails.push_back(_endHour);
-
-	architectureLogic::pushParserVector(addTaskDetails);
+	remainingContent = remainingContent.substr(taskLast);
+	checkDeadlineorTimed(remainingContent);
 }
 
-void architectureParser::tokenizeTimedTime(std::string tokenizeContent){
-	//tokenizing the time part of timed tasks
+void architectureParser::checkTimedOrMulti(std::string tokenizeContent){
+	//removing to/-
 	std::string remainingContent = tokenizeContent;
-	size_t taskFirst = 0;
-	size_t taskLast = remainingContent.find_first_of(":");
-	_startHour = remainingContent.substr(taskFirst,taskLast);
-	addTaskDetails.push_back(_startHour);
+	size_t taskFirst = remainingContent.find_first_not_of(" ");
+	size_t taskLast = remainingContent.find_first_of(" ",taskFirst);
+	taskLast = taskLast + 1;
+	remainingContent = remainingContent.substr(taskLast);
+	//check next word 
+	taskFirst = remainingContent.find_first_not_of(" ");
+	taskLast = remainingContent.find_first_of(" ",taskFirst);
+	std::string checkDate = remainingContent.substr(taskFirst,taskLast);
+
+	size_t collen = checkDate.find(":");
+	if (collen != checkDate.npos) {
+		addTaskDetails.push_back("");
+		addTaskDetails.push_back("");
+		tokenizeTimedTime(remainingContent);
+	} else {
+		tokenizeMultiTaskDay(remainingContent);	
+	}
+
+}
+
+void architectureParser::tokenizeMultiTaskDay(std::string tokenizeContent) {
+
+	size_t taskFirst =  tokenizeContent.find_first_not_of(" ");
+	size_t taskLast = tokenizeContent.find_first_of(" ",taskFirst);
+	_endDay = tokenizeContent.substr(taskFirst,taskLast);	//tokenizing the day
+	addTaskDetails.push_back(_endDay);
 
 	taskFirst = taskLast+1;
-	taskLast = remainingContent.find_first_of(" ");
-	taskLast = taskLast-3;
-	_startMin = remainingContent.substr(taskFirst,taskLast);
+	_newContent = tokenizeContent.substr(taskFirst);
 
-	addTaskDetails.push_back(_startMin);
+	tokenizeDateMonth(_newContent);
+}
 
-	taskFirst = remainingContent.find_last_of(" ");
+void architectureParser::tokenizeMultiTaskMonth(std::string tokenizeContent) {
+	
+	size_t taskFirst =  tokenizeContent.find_first_not_of(" ");
+	size_t taskLast = tokenizeContent.find_first_of(" ",taskFirst);
+	_endMonth = tokenizeContent.substr(taskFirst,taskLast);	//tokenizing the month
+	addTaskDetails.push_back(_endMonth);
+
+	taskFirst = taskLast+1;
+	_newContent = tokenizeContent.substr(taskFirst);
+
+	tokenizeTimedTime(_newContent);
+}
+void architectureParser::tokenizeTimedTime(std::string tokenizeContent) {
+	
+	size_t taskFirst = tokenizeContent.find_last_of(" ");
 	taskFirst = taskFirst+1;
-	std::string endTime = remainingContent.substr(taskFirst);
+	std::string endTime = tokenizeContent.substr(taskFirst);
 	taskFirst = 0;
-	taskLast = endTime.find_first_of(":");
+	size_t taskLast = endTime.find_first_of(":");
 	_endHour = endTime.substr(taskFirst,taskLast);
 	
 	addTaskDetails.push_back(_endHour);
 
 	taskFirst = taskLast+1;
 	_endMin = endTime.substr(taskFirst);
-	
+
 	addTaskDetails.push_back(_endMin);
 
 	architectureLogic::pushParserVector(addTaskDetails);
@@ -322,5 +371,5 @@ void architectureParser::tokenizeSave(std::string tokenizeContent) {
 	addTaskDetails.push_back(_taskType); 
 	addTaskDetails.push_back(_taskID);
 
-	addEmptyString(7);
+	addEmptyString(9);
 }

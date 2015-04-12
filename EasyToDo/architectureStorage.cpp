@@ -10,6 +10,15 @@ std:: vector<TASK> architectureStorage::todayTaskList;
 std:: vector<TASK> architectureStorage::upcomingTaskList;
 std:: vector<TASK> architectureStorage::floatingTaskList;
 
+const std:: string architectureStorage::DEFAULT_HOURS = "23";
+const std:: string architectureStorage::DEFAULT_MINUTES = "59";
+const std:: string architectureStorage::STRING_BLANK = "";
+
+const std:: string architectureStorage::FILTER_UNSUCCESSFUL = "Sorry, no match found!";
+const std:: string architectureStorage::FILTER_SUCCESSFUL = "The following task(s) displayed is/are the upcoming task(s) from the dates you keyed";
+
+char architectureStorage::buffer[MAX];
+
 // this function allows the algorithm to execute the find function in our context to compare the respective content of the task struct
 bool operator==(const TASK& a, const TASK& b) {
 	return (a.taskDescriptionList == b.taskDescriptionList) && (a.startDateTime == b.startDateTime) && (a.endTime == b.endTime);
@@ -42,23 +51,35 @@ bool architectureStorage::loadProgram() {
 	}
 }
 
-void architectureStorage::addToMasterStorage(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
+void architectureStorage::addToMasterStorage(std:: string _contentDescripton, std:: string _contentStartDay, std:: string _contentStartMonth, std:: string _contentStartHours, 
+											 std:: string _contentStartMinutes, std:: string _contentEndDay, std:: string _contentEndMonth, std:: string _contentEndHours, std:: string _contentEndMinutes) {
 	TASK temp;
 	updateNewTask();
 	architectureBoost::sortTodayUpcoming(masterTaskList);
-	if(_contentEndHours == "" && _contentEndMinutes == "") {
-		if(_contentStartHours == "" && _contentStartMinutes == "") {
+	
+	// not a timed task
+	if(_contentEndDay == STRING_BLANK && _contentEndMonth == STRING_BLANK && _contentEndHours == STRING_BLANK && _contentEndMinutes == STRING_BLANK) {
+		// not a dateline task -> it is a floating task
+		if(_contentStartHours == STRING_BLANK && _contentStartMinutes == STRING_BLANK && _contentStartDay == STRING_BLANK && _contentStartMonth == STRING_BLANK) {
 			temp = initializeFloatingTask(_contentDescripton);
 			floatingTaskList.push_back(temp);
 			architectureHistory::addPreviousState(temp);
 			saveProgram();
 			return;
 		} else {
-			temp = initializeDeadlineTask(_contentDescripton, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes);
+			// if the task has startday and startmonth but doesn't have a time, it will initialise to default time as all-day task
+			if(_contentStartHours == STRING_BLANK && _contentStartMinutes == STRING_BLANK) {
+				_contentStartHours = DEFAULT_HOURS;
+				_contentStartMinutes = DEFAULT_MINUTES;
+				temp = initializeDeadlineTask(_contentDescripton, _contentStartDay, _contentStartMonth, _contentStartHours, _contentStartMinutes);
+			} else {
+				temp = initializeDeadlineTask(_contentDescripton, _contentStartDay, _contentStartMonth, _contentStartHours, _contentStartMinutes);
+			}
 		}
 	} else {
-		temp = initializeTimedTask(_contentDescripton, _contentDay, _contentMonth, _contentStartHours, _contentStartMinutes, _contentEndHours, _contentEndMinutes);
+		temp = initializeTimedTask(_contentDescripton, _contentStartDay, _contentStartMonth, _contentStartHours, _contentStartMinutes, _contentEndDay, _contentEndMonth, _contentEndHours, _contentEndMinutes);
 	}
+
 	architectureHistory::addPreviousState(temp);
 	masterTaskList.push_back(temp);
 	architectureBoost::sortTodayUpcoming(masterTaskList);
@@ -77,9 +98,11 @@ void architectureStorage::updateNewTask() {
 	}
 }
 
-TASK architectureStorage::initializeFloatingTask(std:: string _contentDescripton) {
+TASK architectureStorage::initializeFloatingTask(std:: string _contentDescription) {
+	assert(_contentDescription != STRING_BLANK);
+
 	TASK buffer;
-	buffer.taskDescriptionList = _contentDescripton;
+	buffer.taskDescriptionList = _contentDescription;
 	ptime temp; //temp => not_a_date_time
 	buffer.startDateTime = temp;
 	buffer.endTime = time_duration(not_a_date_time);
@@ -92,17 +115,27 @@ TASK architectureStorage::initializeFloatingTask(std:: string _contentDescripton
 	return buffer;
 }
 
-TASK architectureStorage::initializeTimedTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes) {
+TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescription, std:: string _contentStartDay, std:: string _contentStartMonth, std:: string _contentStartHours, std:: string _contentStartMinutes) {
+	assert(_contentDescription != STRING_BLANK);
+	assert(_contentStartDay != STRING_BLANK);
+	assert(_contentStartMonth != STRING_BLANK);
+	assert(_contentStartHours != STRING_BLANK);
+	assert(_contentStartMinutes != STRING_BLANK);
+
 	TASK buffer;
-	buffer.taskDescriptionList = _contentDescripton;
-	std::string dateString; // ("2002/1/25");
-	dateString = "2015," +  _contentMonth + "," + _contentDay;
+	buffer.taskDescriptionList = _contentDescription;
+	std::string dateString; 
+
+	dateString = "2015," + _contentStartMonth + "," + _contentStartDay;
 	date d(from_string(dateString));
 	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp;
-	buffer.endTime = time_duration(hours(stringToInt(_contentEndHours))+minutes(stringToInt(_contentEndMinutes)));
-	ptime temp2(d,time_duration(hours(stringToInt(_contentEndHours))+minutes(stringToInt(_contentEndMinutes))));
-	buffer.endDateTime = temp2;
+	buffer.startTime = temp.time_of_day();
+
+	ptime temp1;
+	buffer.endDateTime = temp1;
+	buffer.endTime = time_duration(not_a_date_time);
+	
 	buffer.taskID = 0;
 	buffer.done = false;
 	buffer.newTask = true;
@@ -111,17 +144,33 @@ TASK architectureStorage::initializeTimedTask(std:: string _contentDescripton, s
 	return buffer;
 }
 
-TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, std:: string _contentStartMinutes) {
+TASK architectureStorage::initializeTimedTask(std:: string _contentDescription, std:: string _contentStartDay, std:: string _contentStartMonth, std:: string _contentStartHours, 
+											  std:: string _contentStartMinutes, std:: string _contentEndDay, std:: string _contentEndMonth, std:: string _contentEndHours, std:: string _contentEndMinutes) {
+	assert(_contentDescription != STRING_BLANK);
+	assert(_contentStartDay != STRING_BLANK);
+	assert(_contentStartMonth != STRING_BLANK);
+	assert(_contentStartHours != STRING_BLANK);
+	assert(_contentStartMinutes != STRING_BLANK);
+	assert(_contentEndHours != STRING_BLANK);
+	assert(_contentEndMinutes != STRING_BLANK);
+
 	TASK buffer;
-	buffer.taskDescriptionList = _contentDescripton;
-	std::string dateString; // ("2002/1/25");
-	dateString = "2015," + _contentMonth + "," + _contentDay;
-	date d(from_string(dateString));
-	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
-	buffer.startDateTime = temp;
-	buffer.endTime = time_duration(not_a_date_time);
-	ptime temp1;
-	buffer.endDateTime = temp1;
+	buffer.taskDescriptionList = _contentDescription;
+	std::string startDateString; 
+	std::string endDateString; 
+
+	startDateString = "2015," +  _contentStartMonth + "," + _contentStartDay;
+	date d1(from_string(startDateString));
+	ptime temp1(d1, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
+	buffer.startDateTime = temp1;
+	buffer.startTime = temp1.time_of_day();
+
+	endDateString = "2015," +  _contentEndMonth + "," + _contentEndDay;
+	date d2(from_string(endDateString));
+	ptime temp2(d2,time_duration(hours(stringToInt(_contentEndHours))+minutes(stringToInt(_contentEndMinutes))));
+	buffer.endDateTime = temp2;
+	buffer.endTime = temp2.time_of_day();
+	
 	buffer.taskID = 0;
 	buffer.done = false;
 	buffer.newTask = true;
@@ -175,9 +224,8 @@ void architectureStorage::clearAllFromStorage() {
 	architectureHistory::pushPreviousTodayUpcomingTaskList(masterTaskList);
 	architectureHistory::pushPreviousFloatingTaskList(floatingTaskList);
 	masterTaskList.clear();
-	todayTaskList.clear();
-	upcomingTaskList.clear();
 	floatingTaskList.clear();
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 	saveProgram();
 	return;
 }
@@ -190,8 +238,7 @@ void architectureStorage::clearTodayFromStorage() {
 	for(iter = upcomingTaskList.begin(); iter != upcomingTaskList.end(); iter++) {
 		masterTaskList.push_back(*iter);
 	}
-	todayTaskList.clear();
-	upcomingTaskList.clear();
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 	saveProgram();
 	return;
 }
@@ -203,8 +250,7 @@ void architectureStorage::clearUpcomingFromStorage() {
 	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
 		masterTaskList.push_back(*iter);
 	}
-	todayTaskList.clear();
-	upcomingTaskList.clear();
+	architectureBoost::sortTodayUpcoming(masterTaskList);
 	saveProgram();
 	return;
 }
@@ -216,27 +262,30 @@ void architectureStorage::clearFloatingFromStorage() {
 	return;
 }
 
-void architectureStorage::updateToTodayStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+void architectureStorage::updateToTodayStorage(int taskID, std:: string newTask, std:: string newStartDay, std:: string newStartMonth, std:: string newStartHours, 
+											   std:: string newStartMinutes, std:: string newEndDay, std:: string newEndMonth, std:: string newEndHours, std:: string newEndMinutes) {
 	std:: vector<TASK>::iterator iter = findTodayIterator(taskID);
 	architectureHistory::addPreviousState(*iter);
 	deleteTask(*iter);
-	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+	addToMasterStorage(newTask, newStartDay, newStartMonth, newStartHours, newStartMinutes, newEndDay, newEndMonth, newEndHours, newEndMinutes);
 	architectureBoost::sortTodayUpcoming(masterTaskList);
 }
 
-void architectureStorage::updateToUpcomingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+void architectureStorage::updateToUpcomingStorage(int taskID, std:: string newTask, std:: string newStartDay, std:: string newStartMonth, std:: string newStartHours, 
+											   std:: string newStartMinutes, std:: string newEndDay, std:: string newEndMonth, std:: string newEndHours, std:: string newEndMinutes) {
 	std:: vector<TASK>::iterator iter = findUpcomingIterator(taskID);
 	architectureHistory::addPreviousState(*iter);
 	deleteTask(*iter);
-	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);	
+	addToMasterStorage(newTask, newStartDay, newStartMonth, newStartHours, newStartMinutes, newEndDay, newEndMonth, newEndHours, newEndMinutes);	
 	architectureBoost::sortTodayUpcoming(masterTaskList);
 }
 
-void architectureStorage::updateToFloatingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes) {
+void architectureStorage::updateToFloatingStorage(int taskID, std:: string newTask, std:: string newStartDay, std:: string newStartMonth, std:: string newStartHours, 
+											   std:: string newStartMinutes, std:: string newEndDay, std:: string newEndMonth, std:: string newEndHours, std:: string newEndMinutes) {
 	std:: vector<TASK>::iterator iter = findFloatingIterator(taskID);
 	architectureHistory::addPreviousState(*iter);
 	floatingTaskList.erase(iter);
-	addToMasterStorage(newTask, newDay, newMonth, newStartHours, newStartMinutes, newEndHours, newEndMinutes);
+	addToMasterStorage(newTask, newStartDay, newStartMonth, newStartHours, newStartMinutes, newEndDay, newEndMonth, newEndHours, newEndMinutes);
 	architectureBoost::sortTodayUpcoming(masterTaskList);
 }
 
@@ -425,7 +474,62 @@ void architectureStorage::saveProgram() {
 	architectureSaveLoad::saveToTextFile(masterTaskList, floatingTaskList);
 }
 
+std:: string architectureStorage::filterTaskInStorage(std:: string day, std:: string month) {
+	std:: vector<TASK> tempVector;
+	std:: vector<TASK>::iterator iter;
+	std:: string dateString;
+	std:: string dateString1;
+	std:: string dateString2;
+	int temp;
+	
+	dateString = "2015," + month + "," + day;
+	date d(from_string(dateString));
+
+	temp = stringToInt(day) + 1;
+	day = std:: to_string(temp);
+	dateString1 = "2015," + month + "," + day;
+	date d1(from_string(dateString1));
+
+	temp = stringToInt(day) + 1;
+	day = std:: to_string(temp);
+	dateString2 = "2015," + month + "," + day;
+	date d2(from_string(dateString2));
+
+	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
+		if((iter->startDateTime.date() == d) || (iter->endDateTime.date() == d)
+		|| (iter->startDateTime.date() == d1) || (iter->endDateTime.date() == d1) 
+		|| (iter->startDateTime.date() == d2) || (iter->endDateTime.date() == d2)) {
+			tempVector.push_back(*iter);
+		}
+	}
+
+	ptime today = second_clock::local_time();
+	date dateToday = today.date();
+
+	if(tempVector.empty()) {
+		sprintf_s(buffer, FILTER_UNSUCCESSFUL.c_str());
+		return buffer;
+	} else {
+		if(dateToday < d) {
+			upcomingTaskList = tempVector;
+			floatingTaskList.clear();
+			todayTaskList.clear();
+		}
+		if(dateToday > d) {
+			todayTaskList = tempVector;
+			floatingTaskList.clear();
+			upcomingTaskList.clear();
+		}
+	}
+	sprintf_s(buffer, FILTER_SUCCESSFUL.c_str());
+	return buffer;
+}
+
+void architectureStorage::displayTaskInStorage() {
+	architectureBoost::sortTodayUpcoming(masterTaskList);
+	return;
+}
+
 std:: vector<TASK> architectureStorage::retrieveMasterTaskList(){
 	return masterTaskList;
 }
-
