@@ -2,6 +2,7 @@
 #include "architectureStorage.h"
 #include "architectureParser.h"
 #include "architectureHistory.h"
+#include "architectureLogging.h"
 
 std:: stack<std:: string> architectureHistory::previousActionStack;
 std:: stack<TASK> architectureHistory::previousStateStack;
@@ -12,6 +13,8 @@ char architectureHistory::temp[MAXIMUM];
 
 const std:: string architectureHistory::MESSAGE_ERROR = "ERROR! Invalid Command";
 const std:: string architectureHistory::MESSAGE_UNDO = "Previous Action, \"%s\", has been undo";
+
+const std:: string architectureHistory::SEVERITY_LEVEL_ERROR = "Error";
 
 architectureHistory::architectureHistory() {
 }
@@ -60,10 +63,13 @@ void architectureHistory::executeUndo(std:: string previousCommand) {
 		reverseDone();
 		break;
 	case INVALID:
+		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, __FILE__, std:: to_string(__LINE__), "fault in architectureLogic::executeCommand");
 		break;
 	case UNDO:
+		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, __FILE__, std:: to_string(__LINE__), "fault in architectureLogic::executeCommand");
 		break;
 	case EXIT: 
+		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, __FILE__, std:: to_string(__LINE__), "fault in architectureLogic::executeCommand");
 		exit(0);
 	}
 }

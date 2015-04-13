@@ -21,6 +21,8 @@ const std:: string architectureStorage::MESSAGE_FILTER_SUCCESSFUL = "The followi
 const std:: string architectureStorage::MESSAGE_SEARCH_UNSUCCESSFUL = "Sorry, no match found!";
 const std:: string architectureStorage::MESSAGE_SEARCH_SUCCESSFUL = "The following task(s) displayed is/are the task(s) that contain(s) your intended search input";
 
+const std:: string architectureStorage::DEFAULT_YEAR = "2015,";
+
 char architectureStorage::buffer[MAX];
 
 // this function allows the algorithm to execute the find function in our context to compare the respective content of the task struct
@@ -131,7 +133,7 @@ TASK architectureStorage::initializeDeadlineTask(std:: string _contentDescriptio
 	buffer.taskDescriptionList = _contentDescription;
 	std::string dateString; 
 
-	dateString = "2015," + _contentStartMonth + "," + _contentStartDay;
+	dateString = DEFAULT_YEAR + _contentStartMonth + "," + _contentStartDay;
 	date d(from_string(dateString));
 	ptime temp(d, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp;
@@ -164,7 +166,7 @@ TASK architectureStorage::initializeTimedTask(std:: string _contentDescription, 
 	std::string startDateString; 
 	std::string endDateString; 
 
-	startDateString = "2015," +  _contentStartMonth + "," + _contentStartDay;
+	startDateString = DEFAULT_YEAR +  _contentStartMonth + "," + _contentStartDay;
 	date d1(from_string(startDateString));
 	ptime temp1(d1, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp1;
@@ -176,7 +178,7 @@ TASK architectureStorage::initializeTimedTask(std:: string _contentDescription, 
 		_contentEndMonth = _contentStartMonth;
 	}
 
-	endDateString = "2015," +  _contentEndMonth + "," + _contentEndDay;
+	endDateString = DEFAULT_YEAR +  _contentEndMonth + "," + _contentEndDay;
 	date d2(from_string(endDateString));
 	ptime temp2(d2,time_duration(hours(stringToInt(_contentEndHours))+minutes(stringToInt(_contentEndMinutes))));
 	buffer.endDateTime = temp2;

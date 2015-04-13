@@ -110,7 +110,7 @@ std:: vector<std:: string> architectureLogic::determineCommand(){
 	
 	if(parserVector[0] == COMMAND_INVALID) {
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
-		architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
+		architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__ , std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
 		feedback = buffer;
 	} else {
 		initializeCommand();
@@ -152,7 +152,7 @@ void architectureLogic::initializeCommand() {
 	_contentEndMinutes= *iter;
 	
 	if(_command == STRING_BLANK) {
-		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, std:: to_string(__LINE__), "architectureParser fail to pass me valid parserVector");
+		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, __FILE__, std:: to_string(__LINE__), "architectureParser fail to pass me valid parserVector");
 		assert(_command != STRING_BLANK);
 	}
 }
@@ -189,11 +189,11 @@ std:: string architectureLogic::executeCommand() {
 	case SEARCH:
 		return searchTask(_taskType);
 	case INVALID:
-		architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + _command);
+		architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + _command);
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
 	case EXIT: 
-		architectureLogging::logToFile(SEVERITY_LEVEL_INFO, std:: to_string(__LINE__), MESSAGE_END_USAGE);
+		architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), MESSAGE_END_USAGE);
 		exit(0);
 	}
 }
@@ -250,29 +250,29 @@ std:: string architectureLogic::addTask(std:: string _contentDescription, std:: 
 	try {
 		if(_contentEndDay != STRING_BLANK) {
 			if(!isDateValid(_contentEndDay,_contentEndMonth)) {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "endDay/endMonth is not valid");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "endDay/endMonth is not valid");
 				throw MESSAGE_INVALID;
 			} 
 		}
 
 		if(_contentStartDay!= STRING_BLANK){
 			if(!isDateValid(_contentStartDay,_contentStartMonth)) {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__),  MESSAGE_LOG_INVALID + ": " + "startDay/startMonth is not valid");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__),  MESSAGE_LOG_INVALID + ": " + "startDay/startMonth is not valid");
 				throw MESSAGE_INVALID;
 			} 
 
 			if(_contentEndHours!= STRING_BLANK && _contentEndDay == STRING_BLANK) {
 				if(!isTimedTimeValid(_contentStartHours,_contentStartMinutes,_contentEndHours,_contentEndMinutes)) {
-					architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "startHr/startMin/endHr/endMin is not valid");
+					architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "startHr/startMin/endHr/endMin is not valid");
 					throw MESSAGE_INVALID;
 				}
 			} else if(_contentEndHours!= STRING_BLANK) {
 				if(!isMultiTimeValid(_contentStartDay,_contentStartMonth,_contentStartHours,_contentStartMinutes,_contentEndDay,_contentEndMonth,_contentEndHours,_contentEndMinutes)) {
-					architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "startDay/startMon/startHr/startMin/endDay/endMon/endHr/endMin is not valid");
+					architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "startDay/startMon/startHr/startMin/endDay/endMon/endHr/endMin is not valid");
 					throw MESSAGE_INVALID;
 				}
 			} else if(!isDeadlineTimeValid(_contentStartHours,_contentStartMinutes)) {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__),  MESSAGE_LOG_INVALID + ": " + "startHr/startMin is not valid");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__),  MESSAGE_LOG_INVALID + ": " + "startHr/startMin is not valid");
 				throw MESSAGE_INVALID;
 			}
 		}
@@ -461,7 +461,7 @@ std:: string architectureLogic::deleteTask(std:: string taskType, std:: string t
 				sprintf_s(buffer, MESSAGE_DELETETODAY.c_str(), temp.c_str());
 				return buffer;
 			} else {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"today\"");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"today\"");
 				throw MESSAGE_NOTFOUND;
 			}
 		case UPCOMING:
@@ -472,7 +472,7 @@ std:: string architectureLogic::deleteTask(std:: string taskType, std:: string t
 				sprintf_s(buffer, MESSAGE_DELETEUPCOMING.c_str(), temp.c_str());
 				return buffer;
 			} else {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"upcoming\"");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"upcoming\"");
 				throw MESSAGE_NOTFOUND;
 			}
 		case MISC:
@@ -483,11 +483,11 @@ std:: string architectureLogic::deleteTask(std:: string taskType, std:: string t
 				sprintf_s(buffer, MESSAGE_DELETEFLOATING.c_str(), temp.c_str());
 				return buffer;
 			} else {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"Misc\"");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"Misc\"");
 				throw MESSAGE_NOTFOUND;
 			}	
 		case UNVALID:
-			architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "invalid taskType input");
+			architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "invalid taskType input");
 			throw MESSAGE_INVALID;
 		}
 	} catch (std:: string& exceptionMessage) {
@@ -546,7 +546,7 @@ std:: string architectureLogic::clearTask(std:: string _content) {
 	try {
 		if (_taskType == MESSAGE_ALL) {
 			if(isMasterTaskListEmpty() && isFloatingTaskListEmpty()) {
-				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, std:: to_string(__LINE__), "All tasklists are already cleared");
+				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), "All tasklists are already cleared");
 				throw MESSAGE_STORAGEEMPTY;
 			} else {
 				architectureStorage::clearAllFromStorage();
@@ -556,7 +556,7 @@ std:: string architectureLogic::clearTask(std:: string _content) {
 
 		if(_taskType == MESSAGE_TODAY) {
 			if(isTodayTaskListEmpty()) {
-				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, std:: to_string(__LINE__), "todayTaskList is already cleared");
+				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), "todayTaskList is already cleared");
 				throw MESSAGE_STORAGEEMPTY;
 			} else {
 				architectureStorage::clearTodayFromStorage();
@@ -566,7 +566,7 @@ std:: string architectureLogic::clearTask(std:: string _content) {
 
 		if(_taskType == MESSAGE_UPCOMING) {
 			if(isUpcomingTaskListEmpty()) {
-				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, std:: to_string(__LINE__), "upcomingTaskList is already cleared");
+				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), "upcomingTaskList is already cleared");
 				throw MESSAGE_STORAGEEMPTY;
 			} else {
 				architectureStorage::clearUpcomingFromStorage();
@@ -576,14 +576,14 @@ std:: string architectureLogic::clearTask(std:: string _content) {
 
 		if(_taskType == MESSAGE_FLOATING) {
 			if(isFloatingTaskListEmpty()) {
-				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, std:: to_string(__LINE__), "floatingTaskList is already cleared");
+				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), "floatingTaskList is already cleared");
 				throw MESSAGE_STORAGEEMPTY;
 			} else {
 				architectureStorage::clearFloatingFromStorage();
 				throw MESSAGE_CLEARFLOATING;
 			}
 		} else {
-			architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
+			architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
 			throw MESSAGE_INVALID;
 		}
 	} catch (std:: string& exceptionMessage) {
@@ -615,7 +615,7 @@ std:: string architectureLogic::updateTask(std:: string taskType, std:: string t
 	DateType commandTypeAction = determineDateTypeAction(taskType);
 	assert(ID > 0);
 	if(newTask == STRING_BLANK) {
-		architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
+		architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
 		assert(newTask != STRING_BLANK);
 	}
 
@@ -627,7 +627,7 @@ std:: string architectureLogic::updateTask(std:: string taskType, std:: string t
 				sprintf_s(buffer, MESSAGE_UPDATETODAY.c_str(), temp.c_str());
 				return buffer;
 			} else {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"today\"");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"today\"");
 				throw MESSAGE_NOTFOUND;
 			}
 		case UPCOMING:
@@ -636,7 +636,7 @@ std:: string architectureLogic::updateTask(std:: string taskType, std:: string t
 				sprintf_s(buffer, MESSAGE_UPDATEUPCOMING.c_str(), temp.c_str());
 				return buffer;
 			} else {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"upcoming\"");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"upcoming\"");
 				throw MESSAGE_NOTFOUND;
 			}
 		case MISC:
@@ -645,11 +645,11 @@ std:: string architectureLogic::updateTask(std:: string taskType, std:: string t
 				sprintf_s(buffer, MESSAGE_UPDATEFLOATING.c_str(), temp.c_str());
 				return buffer;
 			} else {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"floating\"");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"floating\"");
 				throw MESSAGE_NOTFOUND;
 			}
 		case UNVALID:
-			architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
+			architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
 			throw MESSAGE_INVALID;
 		}
 	} catch (std:: string& exceptionMessage) {
@@ -661,7 +661,7 @@ std:: string architectureLogic::updateTask(std:: string taskType, std:: string t
 std:: string architectureLogic::undoTask() {
 	std:: string feedback;
 	if(architectureHistory::isUndoStackEmpty()) {
-		architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
+		architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
 		sprintf_s(buffer, MESSAGE_UNDOINVALID.c_str());
 		return buffer;
 	} else {
@@ -672,11 +672,11 @@ std:: string architectureLogic::undoTask() {
 
 std:: string architectureLogic::doneTask(std:: string taskType, std:: string taskID) {
 	if(taskType == STRING_BLANK) {
-		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + "architectureParser is not tokenizing properly");
+		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + "architectureParser is not tokenizing properly");
 		assert(taskType !=  STRING_BLANK);
 	}
 	if(taskID == STRING_BLANK) {
-		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + "architectureParser is not tokenizing properly");
+		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + "architectureParser is not tokenizing properly");
 		assert(taskID != STRING_BLANK);
 	}
 
@@ -695,7 +695,7 @@ std:: string architectureLogic::doneTask(std:: string taskType, std:: string tas
 				sprintf_s(buffer, MESSAGE_DONETODAY.c_str(), temp.c_str());
 				return buffer;
 			} else {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"today\"");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"today\"");
 				throw MESSAGE_NOTFOUND;
 			}
 		case UPCOMING:
@@ -706,7 +706,7 @@ std:: string architectureLogic::doneTask(std:: string taskType, std:: string tas
 				sprintf_s(buffer, MESSAGE_DONEUPCOMING.c_str(), temp.c_str());
 				return buffer;
 			} else {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"upcoming\"");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"upcoming\"");
 				throw MESSAGE_NOTFOUND;
 			}
 		case MISC:
@@ -717,11 +717,11 @@ std:: string architectureLogic::doneTask(std:: string taskType, std:: string tas
 				sprintf_s(buffer, MESSAGE_DONEFLOATING.c_str(), temp.c_str());
 				return buffer;
 			} else {
-				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"misc\"");
+				architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID + ": " + "taskID is not found in \"misc\"");
 				throw MESSAGE_NOTFOUND;
 			}
 		case UNVALID:
-			architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
+			architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__), MESSAGE_LOG_INVALID);
 			throw MESSAGE_INVALID;
 		}
 	} catch(std:: string& exceptionMessage) {
@@ -732,11 +732,11 @@ std:: string architectureLogic::doneTask(std:: string taskType, std:: string tas
 
 std:: string architectureLogic::filterTask(std:: string day, std:: string month) {
 	if(!isDateValid(day,month)) {
-		architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, std:: to_string(__LINE__),  MESSAGE_LOG_INVALID + ": " + "invalid day/month input");
+		architectureLogging::logToFile(SEVERITY_LEVEL_WARNING, __FILE__, std:: to_string(__LINE__),  MESSAGE_LOG_INVALID + ": " + "invalid day/month input");
 		sprintf_s(buffer, MESSAGE_INVALID.c_str());
 		return buffer;
 	} else if(architectureStorage::isMasterTaskListEmpty() && architectureStorage::isFloatingTaskListEmpty()) {
-		architectureLogging::logToFile(SEVERITY_LEVEL_INFO, std:: to_string(__LINE__), MESSAGE_STORAGEEMPTY);
+		architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), MESSAGE_STORAGEEMPTY);
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
 		return buffer;
 	} else {
@@ -748,7 +748,7 @@ std:: string architectureLogic::filterTask(std:: string day, std:: string month)
 
 std:: string architectureLogic::displayTask() {
 	if(architectureStorage::isMasterTaskListEmpty() && architectureStorage::isFloatingTaskListEmpty()) {
-		architectureLogging::logToFile(SEVERITY_LEVEL_INFO, std:: to_string(__LINE__), MESSAGE_STORAGEEMPTY);
+		architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), MESSAGE_STORAGEEMPTY);
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
 		return buffer;
 	} else {
@@ -762,7 +762,7 @@ std:: string architectureLogic::searchTask(std:: string searchContent) {
 	assert(searchContent != STRING_BLANK);
 
 	if(architectureStorage::isMasterTaskListEmpty() && architectureStorage::isFloatingTaskListEmpty()) {
-		architectureLogging::logToFile(SEVERITY_LEVEL_INFO, std:: to_string(__LINE__), MESSAGE_STORAGEEMPTY);
+		architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), MESSAGE_STORAGEEMPTY);
 		sprintf_s(buffer, MESSAGE_STORAGEEMPTY.c_str());
 		return buffer;
 	} else {

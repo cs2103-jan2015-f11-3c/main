@@ -4,6 +4,7 @@
 #include "architectureHistory.h"
 #include "architectureSaveLoad.h"
 #include "architectureBoost.h"
+#include "architectureLogging.h"
 #include <boost/filesystem.hpp>
 
 std:: string architectureSaveLoad::_taskDescription;
@@ -23,14 +24,15 @@ std:: string architectureSaveLoad::_fileName;
 std:: string architectureSaveLoad::_directoryName;
 std:: string architectureSaveLoad::_pathName;
 
-const std:: string architectureSaveLoad::DEFAULT_PATHNAME = "C:\\Program Files\\EasyToDo.txt";
+const std:: string architectureSaveLoad::DEFAULT_PATHNAME = "C:\\Users\\Default\\EasyToDo.txt";
 const std:: string architectureSaveLoad::DEFAULT_TEXTFILENAME = "EasyToDo.txt";
 const std:: string architectureSaveLoad::STORAGELOCATION_FILENAME = "pathName.txt";
-const std:: string architectureSaveLoad::DEFAULT_DIRECTORYNAME = "C:\\Program Files\\";
+const std:: string architectureSaveLoad::DEFAULT_DIRECTORYNAME = "C:\\Users\\Default\\";
 const std:: string architectureSaveLoad::MESSAGE_DEFAULT_SAVE = "Save directory and filename is set to default!";
 const std:: string architectureSaveLoad::MESSAGE_SUCCESSFUL_SAVE = "Save directory and filename changed!";
 const std:: string architectureSaveLoad::MESSAGE_FAILED_SAVE = "Sorry. Invalid directory! Save directory not changed";
 
+const std:: string architectureSaveLoad::SEVERITY_LEVEL_INFO = "Info";
 
 char architectureSaveLoad::transitory[MAXIMUM];
 
@@ -115,6 +117,7 @@ bool architectureSaveLoad::loadFromTextFile() {
 	std:: ifstream readFile(retrievePathName());
 	
 	if (!readFile.is_open()) { // if file doesn't exists
+		architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__ , std:: to_string(__LINE__), "file does not exist");
 		std:: ofstream writeFile(retrievePathName());
 		writeFile.close();
 		return false;
@@ -219,6 +222,7 @@ std:: vector<TASK> architectureSaveLoad::passFloatingTaskVector() {
 std:: string architectureSaveLoad::changeSavingDirectoryAndFileName(std:: string directoryName, std:: string fileName) {
 	try {
 		if(directoryName == "" && fileName == "") {
+			architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__ , std:: to_string(__LINE__), MESSAGE_DEFAULT_SAVE + ": " + DEFAULT_PATHNAME);
 			_pathName = DEFAULT_PATHNAME;
 			changePathName(_pathName);
 			throw MESSAGE_DEFAULT_SAVE;
@@ -227,9 +231,11 @@ std:: string architectureSaveLoad::changeSavingDirectoryAndFileName(std:: string
 			_pathName =  concatenateString(_directoryName, _fileName);
 
 			if (isPathNameValid(_directoryName)) { 
+				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__ , std:: to_string(__LINE__), MESSAGE_SUCCESSFUL_SAVE + ": " + _pathName);
 				changePathName(_pathName);
 				throw MESSAGE_SUCCESSFUL_SAVE;
 			} else {
+				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__ , std:: to_string(__LINE__), MESSAGE_FAILED_SAVE + ": " + _pathName);
 				throw MESSAGE_FAILED_SAVE;
 			}
 		}

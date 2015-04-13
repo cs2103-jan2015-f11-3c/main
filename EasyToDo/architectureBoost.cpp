@@ -1,5 +1,7 @@
 #include "architectureBoost.h"
+#include "architectureLogging.h"
 
+const std:: string architectureBoost::SEVERITY_LEVEL_INFO = "Info";
 // this comparison functio is for us to use the sort function in algorithm library to 
 // sort our tasks in today and upcoming
 bool compareStartTime(const TASK &a, const TASK &b) {
@@ -68,11 +70,14 @@ void architectureBoost::checkOverdueTask(std:: vector<TASK>& todayTaskList) {
 		temp = (iter->startDateTime).date();
 		dayDifference = temp - dateToday;
 		if(isTaskOverdue(dayDifference)) {
-				iter->overdue = true;
+			iter->overdue = true;
+			architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), iter->taskDescriptionList + " is overdue");
 		}
 		if(dayDifference == day){
-			if( today.time_of_day() > (iter->startDateTime).time_of_day())
+			if( today.time_of_day() > (iter->startDateTime).time_of_day()) {
 				iter->overdue = true;
+				architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), iter->taskDescriptionList + " is overdue");
+			}
 		}
 	}
 }
@@ -100,6 +105,7 @@ TASK architectureBoost::checkClashTask(TASK temp, std:: vector<TASK>& taskList) 
 					temp.clash = true;
 					architectureStorage::updateClashStatus(*iter);
 					architectureStorage::updateClashStatus(temp);
+					architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), iter->taskDescriptionList + " clash with " + temp.taskDescriptionList);
 				}
 			} else {
 				time_period tp1(iter->startDateTime, ptime(iter->startDateTime.date(), hours(iter->endTime.hours())));
@@ -109,6 +115,7 @@ TASK architectureBoost::checkClashTask(TASK temp, std:: vector<TASK>& taskList) 
 					temp.clash = true;
 					architectureStorage::updateClashStatus(*iter);
 					architectureStorage::updateClashStatus(temp);
+					architectureLogging::logToFile(SEVERITY_LEVEL_INFO, __FILE__, std:: to_string(__LINE__), iter->taskDescriptionList + " clash with " + temp.taskDescriptionList);
 				}
 			}
 		}

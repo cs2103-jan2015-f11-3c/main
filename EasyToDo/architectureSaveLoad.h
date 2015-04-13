@@ -31,7 +31,7 @@ private:
 	static const std:: string MESSAGE_DEFAULT_SAVE;
 	static const std:: string MESSAGE_SUCCESSFUL_SAVE;
 	static const std:: string MESSAGE_FAILED_SAVE;
-	
+	static const std:: string SEVERITY_LEVEL_INFO;
 	static const int MAXIMUM = 255;
 	static char transitory[MAXIMUM];
 public:

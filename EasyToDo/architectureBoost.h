@@ -15,7 +15,8 @@ using namespace boost::posix_time;
 using namespace boost::gregorian;
 
 class architectureBoost {
-
+private:
+	static const std:: string SEVERITY_LEVEL_INFO;
 public:
 	architectureBoost();
 	

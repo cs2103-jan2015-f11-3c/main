@@ -45,6 +45,7 @@ private:
 	static const std:: string MESSAGE_FILTER_SUCCESSFUL;
 	static const std:: string MESSAGE_SEARCH_UNSUCCESSFUL;
 	static const std:: string MESSAGE_SEARCH_SUCCESSFUL;
+	static const std:: string DEFAULT_YEAR;
 
 	static const int MAX = 255;
 	static char buffer[MAX];

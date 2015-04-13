@@ -25,6 +25,7 @@ private:
 	
 	static const std:: string MESSAGE_ERROR;
 	static const std:: string MESSAGE_UNDO;
+	static const std:: string SEVERITY_LEVEL_ERROR;
 public:
 	architectureHistory();
 	enum CommandType { 
