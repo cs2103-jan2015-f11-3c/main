@@ -2,6 +2,7 @@
 #include "architectureStorage.h"
 #include "architectureParser.h"
 #include "architectureHistory.h"
+#include "architectureLogging.h"
 
 std:: stack<std:: string> architectureHistory::previousActionStack;
 std:: stack<TASK> architectureHistory::previousStateStack;
@@ -12,6 +13,8 @@ char architectureHistory::temp[MAXIMUM];
 
 const std:: string architectureHistory::MESSAGE_ERROR = "ERROR! Invalid Command";
 const std:: string architectureHistory::MESSAGE_UNDO = "Previous Action, \"%s\", has been undo";
+
+const std:: string architectureHistory::SEVERITY_LEVEL_ERROR = "Error";
 
 architectureHistory::architectureHistory() {
 }
@@ -41,18 +44,34 @@ std:: string architectureHistory::undoAction() {
 	return temp;
 }
 
-bool architectureHistory::isValidCommand(const std:: string& str1, const std:: string& str2) { 
-	if (str1.size() != str2.size()) { 
-		return false; 
-	} 
-	std:: string::const_iterator c1;
-	std:: string::const_iterator c2;
+void architectureHistory::executeUndo(std:: string previousCommand) {
+	architectureHistory:: CommandType commandTypeAction = architectureHistory:: determineCommandType(previousCommand);
 
-	for (c1 = str1.begin(), c2 = str2.begin(); c1 != str1.end(); ++c1, ++c2) {
-		if (tolower(*c1) != tolower(*c2)) { 
-			return false; 
-		} 
-	} return true; 
+	switch(commandTypeAction) { 
+	case ADD: 
+		reverseAdd();
+		break;
+	case DELETE:
+		reverseDelete();
+		break;
+	case CLEAR:
+		reverseClear();
+		break;
+	case UPDATE:
+		reverseUpdate();
+	case DONE:
+		reverseDone();
+		break;
+	case INVALID:
+		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, __FILE__, std:: to_string(__LINE__), "fault in architectureLogic::executeCommand");
+		break;
+	case UNDO:
+		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, __FILE__, std:: to_string(__LINE__), "fault in architectureLogic::executeCommand");
+		break;
+	case EXIT: 
+		architectureLogging::logToFile(SEVERITY_LEVEL_ERROR, __FILE__, std:: to_string(__LINE__), "fault in architectureLogic::executeCommand");
+		exit(0);
+	}
 }
 
 architectureHistory::CommandType architectureHistory::determineCommandType(std:: string commandAction) { 
@@ -76,38 +95,18 @@ architectureHistory::CommandType architectureHistory::determineCommandType(std::
 	} 
 }
 
-void architectureHistory::executeUndo(std:: string previousCommand) {
-	architectureHistory:: CommandType commandTypeAction = architectureHistory:: determineCommandType(previousCommand);
+bool architectureHistory::isValidCommand(const std:: string& str1, const std:: string& str2) { 
+	if (str1.size() != str2.size()) { 
+		return false; 
+	} 
+	std:: string::const_iterator c1;
+	std:: string::const_iterator c2;
 
-	switch(commandTypeAction) { 
-	case ADD: 
-		reverseAdd();
-		break;
-	case DELETE:
-		reverseDelete();
-		break;
-	case CLEAR:
-		reverseClear();
-		break;
-	case UPDATE:
-		reverseUpdate();
-	case DONE:
-		reverseDone();
-		break;
-	case INVALID:
-		break;
-	case UNDO:
-		break;
-	case EXIT: 
-		exit(0);
-	}
-}
-
-TASK architectureHistory::retrievePreviousState() {
-	TASK previousState;
-	previousState = previousStateStack.top();
-	previousStateStack.pop();
-	return previousState;
+	for (c1 = str1.begin(), c2 = str2.begin(); c1 != str1.end(); ++c1, ++c2) {
+		if (tolower(*c1) != tolower(*c2)) { 
+			return false; 
+		} 
+	} return true; 
 }
 
 void architectureHistory::reverseDelete() {
@@ -143,6 +142,20 @@ void architectureHistory::reverseDone() {
 	return;
 }
 
+TASK architectureHistory::retrievePreviousState() {
+	TASK previousState;
+	previousState = previousStateStack.top();
+	previousStateStack.pop();
+	return previousState;
+}
+
+void architectureHistory::reverseClear() {
+	architectureStorage::undoClear(previousTodayUpcomingTaskList, previousFloatingTaskList);
+	previousTodayUpcomingTaskList.clear();
+	previousFloatingTaskList.clear();
+	return;
+}
+
 void architectureHistory::pushPreviousTodayUpcomingTaskList(std::vector<TASK>& taskList) {
 	std:: vector<TASK>::iterator iter;
 	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
@@ -158,11 +171,3 @@ void architectureHistory::pushPreviousFloatingTaskList(std::vector<TASK>& taskLi
 	}
 	return;
 }
-
-void architectureHistory::reverseClear() {
-	architectureStorage::undoClear(previousTodayUpcomingTaskList, previousFloatingTaskList);
-	previousTodayUpcomingTaskList.clear();
-	previousFloatingTaskList.clear();
-	return;
-}
-

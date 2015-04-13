@@ -18,15 +18,32 @@
 // being the facade of this program, it will separate the user from the storage variables
 class architectureLogic {
 private:
+	static const std:: string STRING_BLANK;
+	static const std:: string SEVERITY_LEVEL_WARNING;
+	static const std:: string SEVERITY_LEVEL_INFO;
+	static const std:: string SEVERITY_LEVEL_ERROR;
+	static const std:: string MESSAGE_LOG_INVALID;
+	static const std:: string MESSAGE_END_USAGE;
 	static const std:: string COMMAND_INVALID;
 	static const std:: string COMMAND_ADD;
+	static const std:: string COMMAND_SHORTCUT_ADD;
 	static const std:: string COMMAND_DELETE;
+	static const std:: string COMMAND_SHORTCUT_DELETE;
 	static const std:: string COMMAND_CLEAR;
+	static const std:: string COMMAND_SHORTCUT_CLEAR;
 	static const std:: string COMMAND_EXIT;
 	static const std:: string COMMAND_UNDO;
 	static const std:: string COMMAND_DONE;
+	static const std:: string COMMAND_SHORTCUT_DONE;
 	static const std:: string COMMAND_UPDATE;
+	static const std:: string COMMAND_SHORTCUT_UPDATE;
 	static const std:: string COMMAND_SAVE;
+	static const std:: string COMMAND_FILTER;
+	static const std:: string COMMAND_SHORTCUT_FILTER;
+	static const std:: string COMMAND_DISPLAY;
+	static const std:: string COMMAND_SHORTCUT_DISPLAY;
+	static const std:: string COMMAND_SEARCH;
+	static const std:: string COMMAND_SHORTCUT_SEARCH;
 	static const std:: string COMMAND_TODAY;
 	static const std:: string COMMAND_UPCOMING;
 	static const std:: string COMMAND_MISC;
@@ -46,20 +63,24 @@ private:
 	static const std:: string MESSAGE_UPDATETODAY;
 	static const std:: string MESSAGE_UPDATEUPCOMING;
 	static const std:: string MESSAGE_UPDATEFLOATING;
+	static const std:: string MESSAGE_DISPLAY;
 	static const std:: string MESSAGE_STORAGEEMPTY;
 	static const std:: string MESSAGE_TODAY;
 	static const std:: string MESSAGE_UPCOMING;
 	static const std:: string MESSAGE_FLOATING;
 	static const std:: string MESSAGE_ALL;
 	static const std:: string MESSAGE_UNDOINVALID;
+	static const std:: string DEFAULT_YEAR;
 
 	static std:: string _command;
 	static std:: string _content;
 	static std:: string _contentDescription;
-	static std:: string _contentDay;
-	static std:: string _contentMonth;
+	static std:: string _contentStartDay;
+	static std:: string _contentStartMonth;
 	static std:: string _contentStartHours;
 	static std:: string _contentStartMinutes;
+	static std:: string _contentEndDay;
+	static std:: string _contentEndMonth;
 	static std:: string _contentEndHours;
 	static std:: string _contentEndMinutes;
 	static std:: string _newTask;
@@ -72,7 +93,7 @@ private:
 	static std:: vector<std:: string> parserVector;
 public:
 	enum CommandType { 
-		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO, DONE, SAVE
+		ADD, EXIT, DEL, INVALID, CLEAR, UPDATE, UNDO, DONE, SAVE, FILTER, DISPLAY, SEARCH
 	};
 	enum Months { 
 		JAN=1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, NOTVALID
@@ -115,14 +136,16 @@ public:
 	// Pre: the _command is "add"
 	// Post: cocantenate the tokenized variables to return a string of the details of the task added
 	// the following group of functions support the add function
-	static std:: string addTask(std:: string _contentDescription, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, 
-								std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static std:: string addTask(std:: string _contentDescription, std:: string _contentStartDay, std:: string _contentStartMonth, std:: string _contentStartHours, 
+								std:: string _contentStartMinutes, std:: string _contentEndDay, std:: string _contentEndMonth, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static bool architectureLogic::isDateValid(std:: string contentDay, std:: string contentMonth);
 	static Months architectureLogic::determineMonthType(std:: string parserInput);
 	static int stringToInteger(std:: string input);
 	static std:: string concatenateString(std:: vector<std:: string>& parserVector);
 	static std:: string trimTrailingSpaces(std:: string buffer);
-	static bool architectureLogic::isTimedTimeValid(std:: string startHour, std:: string startMin, std::string endHour, std::string endMin );
+	static bool isTimedTimeValid(std:: string startHour, std:: string startMin, std::string endHour, std::string endMin );
+	static bool isMultiTimeValid(std:: string startDay,std:: string startMonth,std:: string startHour,std:: string startMin,
+													std:: string endDay,std:: string endMonth,std:: string endHour, std:: string endMin);
 	static bool architectureLogic::isDeadlineTimeValid(std:: string startHour, std:: string startMin);	
 
 	// this function differentiate the different datatype that is required to delete and remove from the storage
@@ -149,7 +172,8 @@ public:
 	// using the current add and delete function
 	// Pre: _command is update, taskType is valid, taskId is valid, followed by a valid task content
 	// Post: access storage and delete the previous task and add in the new task
-	static std:: string updateTask(std:: string taskType, std:: string taskID, std:: string newTask, std:: string newDay, std:: string newMonth, std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	static std:: string updateTask(std:: string taskType, std:: string taskID, std:: string newTask, std:: string newStartDay, std:: string newStartMonth, std:: string newStartHours, 
+									std:: string newStartMinutes, std:: string newEndDay, std:: string newEndMonth, std:: string newEndHours, std:: string newEndMinutes);
 	
 	// this function allows the users to undo the previous action
 	// Pre:: _command is undo, or the user type ctrl-z 
@@ -160,5 +184,20 @@ public:
 	// Pre: _command is done, taskType is valid, taskID is valid
 	// Post: access storage to change the bool variable of the task strcuture
 	static std:: string doneTask(std:: string taskType, std:: string taskID);
+
+	// this function allow the users to filter the tasks out according to the intended date. on top of that, it will display tasks that are expiring in two days time as well
+	// Pre: tasklist must not be empty
+	// Post: filter the task
+	static std:: string filterTask(std:: string day, std:: string month);
+
+	// this is sort of the undo function of filter and search
+	// Pre: tasklist must not be empty
+	// Post: display all the tasks
+	static std:: string displayTask();
+
+	// this function allow the users to search the tasks according to the intended content description
+	// Pre: tasklist must not be empty
+	// Post:: search the task
+	static std:: string searchTask(std:: string searchContent);
 };
 #endif

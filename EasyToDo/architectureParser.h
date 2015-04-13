@@ -24,8 +24,11 @@ class architectureParser {
 		static std::string _dateMonth;
 		static std::string _startHour;
 		static std::string _startMin;
+		static std::string _endDay;
+		static std::string _endMonth;
 		static std::string _endHour;
         static std::string _endMin;
+		
 	public:
 		static std::vector<std::string> addTaskDetails;
 		static void pushUserInput(std::string userInput);
@@ -61,11 +64,15 @@ class architectureParser {
 		//Postconditions: Month is parsed and stored into a vector.
 		static void tokenizeDateMonth(std::string tokenizeContent);
 
+		static void checkAllDayTask(std::string tokenizeContent); 
+
 		//Preconditions:: month is parsed and UserInput is left with the rest of the content
 		//Description: Does neccesary operations to check what kind of task is it
 		//Postconditions: indentify the type of task and calls functions to tokenize the input time
-		static void checkTimedOrDeadline(std::string tokenizeContent);
-
+		static void checkTimedOrMulti(std::string tokenizeContent);
+		static void checkDeadlineorTimed(std::string tokenizeContent);
+		static void tokenizeMultiTaskDay(std::string tokenizeContent);
+		static void tokenizeMultiTaskMonth(std::string tokenizeContent);
 
 		//Preconditions:: timedtask is identified
 		//Description: Does neccesary operations to parse the required content
@@ -75,7 +82,9 @@ class architectureParser {
 		//Preconditions:: deadlinetask is identified
 		//Description: Does neccesary operations to parse the required content
 		//Postconditions: time is parsed and stored into a vector wwhich will be returned to the logic
-		static void tokenizeDeadlineTime(std::string tokenizeContent);
+		static void tokenizeStartTime(std::string tokenizeContent);
+
+		static void tokenizeSearch(std::string tokenizeContent);
 
 		static void addEmptyString(int count);
 

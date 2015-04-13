@@ -31,7 +31,7 @@ private:
 	static const std:: string MESSAGE_DEFAULT_SAVE;
 	static const std:: string MESSAGE_SUCCESSFUL_SAVE;
 	static const std:: string MESSAGE_FAILED_SAVE;
-	
+	static const std:: string SEVERITY_LEVEL_INFO;
 	static const int MAXIMUM = 255;
 	static char transitory[MAXIMUM];
 public:
@@ -75,7 +75,6 @@ public:
 	// or any of the input is determined to be empty, it will be set to empty
 	// basically, i have an external default pathname.txt that will store the pathname which will either be default or specified by the user
 	// using the function, changePathName, we change the path location in the pathName.txt which save and load will retrieve from
-	// 
 	static std:: string changeSavingDirectoryAndFileName(std:: string directoryName, std:: string fileName);
 	static void changePathName(std:: string newPathName);
 	static void initializeDefaultPathAndFileName(std:: string directoryName, std:: string fileName);

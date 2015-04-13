@@ -6,6 +6,7 @@
 #include <sstream>
 #include <algorithm>
 #include <boost/date_time.hpp>
+#include <assert.h>
 
 using namespace boost::posix_time;
 using namespace boost::gregorian;
@@ -16,8 +17,9 @@ using namespace boost::gregorian;
 struct TASK {
 	std:: string taskDescriptionList;
 	ptime startDateTime; 
-	time_duration endTime;
+	time_duration startTime;
 	ptime endDateTime;
+	time_duration endTime;
 	int taskID;
 	bool done; // check if the task is done. initialized as false
 	bool newTask; // check if the task is recently added to EasyToDo to enable us to highlight the newest task added. initialized as true
@@ -33,6 +35,20 @@ private:
 	static std:: vector<TASK> floatingTaskList; 
 	static std:: vector<TASK> todayTaskList;
 	static std:: vector<TASK> upcomingTaskList;
+	static std:: vector<TASK> tempFloatingTaskList;
+
+	static const std:: string DEFAULT_HOURS;
+	static const std:: string DEFAULT_MINUTES;
+	static const std:: string STRING_BLANK;
+
+	static const std:: string MESSAGE_FILTER_UNSUCCESSFUL;
+	static const std:: string MESSAGE_FILTER_SUCCESSFUL;
+	static const std:: string MESSAGE_SEARCH_UNSUCCESSFUL;
+	static const std:: string MESSAGE_SEARCH_SUCCESSFUL;
+	static const std:: string DEFAULT_YEAR;
+
+	static const int MAX = 255;
+	static char buffer[MAX];
 public:
 	architectureStorage();
 	// the GUI will call this function for theindividual taskType column to get the numbering for the task to be displayed
@@ -52,14 +68,14 @@ public:
 	// before adding any new task, it will call updateNewTask to change the bool of new to false for GUI to recognise
 	// Pre: task != "" 
 	// Post: Save the program after every action. 
-	static void addToMasterStorage(std:: string task, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, 
-									std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static void addToMasterStorage(std:: string _contentDescripton, std:: string _contentStartDay, std:: string _contentStartMonth, std:: string _contentStartHours, 
+											 std:: string _contentStartMinutes, std:: string _contentEndDay, std:: string _contentEndMonth, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static void updateNewTask();
-	static TASK initializeFloatingTask(std:: string _contentDescripton);
-	static TASK initializeDeadlineTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, 
-										std:: string _contentStartHours, std:: string _contentStartMinutes);
-	static TASK initializeTimedTask(std:: string _contentDescripton, std:: string _contentDay, std:: string _contentMonth, std:: string _contentStartHours, 
-									std:: string _contentStartMinutes, std:: string _contentEndHours, std:: string _contentEndMinutes);
+	static TASK initializeFloatingTask(std:: string _contentDescription);
+	static TASK initializeDeadlineTask(std:: string _contentDescription, std:: string _contentStartDay, std:: string _contentStartMonth, std:: string _contentStartHours, 
+										std:: string _contentStartMinutes);
+	static TASK initializeTimedTask(std:: string _contentDescription, std:: string _contentStartDay, std:: string _contentStartMonth, std:: string _contentStartHours, 
+											  std:: string _contentStartMinutes, std:: string _contentEndDay, std:: string _contentEndMonth, std:: string _contentEndHours, std:: string _contentEndMinutes);
 	static int stringToInt(std:: string input);
 
 	// if the taskType is today or upcoming, this function calls for deleteTask to find the task in mastertasklit and remove it
@@ -90,12 +106,12 @@ public:
 	// this allow the user change one tasktype to another
 	// Pre: pre-conditions are already fulfilled in logic
 	// Post: Save the program after every action. 
-	static void updateToTodayStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, 
-		std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
-	static void updateToUpcomingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, 
-		std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
-	static void updateToFloatingStorage(int taskID, std:: string newTask, std:: string newDay, std:: string newMonth, 
-		std:: string newStartHours, std:: string newStartMinutes, std:: string newEndHours, std:: string newEndMinutes);
+	static void updateToTodayStorage(int taskID, std:: string newTask, std:: string newStartDay, std:: string newStartMonth, std:: string newStartHours, 
+									std:: string newStartMinutes, std:: string newEndDay, std:: string newEndMonth, std:: string newEndHours, std:: string newEndMinutes);
+	static void updateToUpcomingStorage(int taskID, std:: string newTask, std:: string newStartDay, std:: string newStartMonth, std:: string newStartHours, 
+									std:: string newStartMinutes, std:: string newEndDay, std:: string newEndMonth, std:: string newEndHours, std:: string newEndMinutes);
+	static void updateToFloatingStorage(int taskID, std:: string newTask, std:: string newStartDay, std:: string newStartMonth, std:: string newStartHours, 
+									std:: string newStartMinutes, std:: string newEndDay, std:: string newEndMonth, std:: string newEndHours, std:: string newEndMinutes);
 	static std:: vector<TASK>::iterator findTodayIterator(int taskID);
 	static std:: vector<TASK>::iterator findUpcomingIterator(int taskID);
 	static std:: vector<TASK>::iterator findFloatingIterator(int taskID);
@@ -149,6 +165,28 @@ public:
 	// Pre: None
 	// Post: according to the pathname stated in the PathName.txt(default or specify by user), the tasks are stored in the text file
 	static void saveProgram();
+
+	// this function allows the user to filter the task according to the dates. to aid jim, we will display tasks that are due in two days time from the intened date 
+	// to give him ample time to complete his time 
+	// Pre: the day and month must be valid inputs and the storage cannot be empty
+	// Post: return a feedback string and input the tasks in the indivdual tasktype box
+	static std:: string filterTaskInStorage(std:: string day, std:: string month);
+	static std:: string incrementDay(std:: string day); 
+	static bool areDatesFound(date d, date d1, date d2, TASK& task);
+	static date getTodayDate();
+
+	// this function allow the user to display all the task once again if filter and search are successful
+	// Pre: none
+	// Post: display all the tasks in masterTaskList and floatingTaskList
+	static void displayTaskInStorage();
+
+	// this function allow the users to search through all the tasks for the intended content description
+	// Pre: storage must not be empty
+	// Post: return all the tasks that contain the user string in their individual boxes 
+	static std:: string searchContentInStorage(std:: string& searchContent);
+	static std:: vector<TASK> architectureStorage::searchInTodayTaskList(std::string& searchContent);
+	static std:: vector<TASK> architectureStorage::searchInUpcomingTaskList(std::string& searchContent);
+	static std:: vector<TASK> architectureStorage::searchInFloatingTaskList(std::string& searchContent);
 
 	// integration testing function
 	static std:: vector<TASK> retrieveMasterTaskList();
