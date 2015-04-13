@@ -2,6 +2,7 @@
 #include "architectureLogic.h"
 #include "architectureStorage.h"
 #include "architectureInputFeedback.h"
+#include <assert.h>
 
 std::string architectureParser::_startHour;
 std::string architectureParser::_startMin;
@@ -55,24 +56,25 @@ void architectureParser::tokenizeInvalid() {
 
 void architectureParser::checkCommand(std::string _command,std::string restOfContent) {
 		
-	if(_command == "add") { 
+	if(_command == "add" || _command == "a" ) { 
 		tokenizeAddEmptyStringFirst(restOfContent);
-	} else if(_command == "delete") {
+	} else if(_command == "delete" || _command == "del" ) {
 		tokenizeDeleteOrDone(restOfContent);
-	} else if(_command == "update") {
+	} else if(_command == "update" || _command == "up" ) {
 		tokenizeUpdate(restOfContent);
-	} else if(_command == "clear") {
+	} else if(_command == "clear" || _command == "clr" ) {
 		tokenizeClear(restOfContent);
-	} else if(_command == "done") {
+	} else if(_command == "done" || _command == "d" ) {
 		tokenizeDeleteOrDone(restOfContent);
 	} else if(_command == "save") {
 		tokenizeSave(restOfContent);
-	} else if(_command == "filter") {
+	} else if(_command == "filter" || _command == "fil" ) {
 		tokenizeDeleteOrDone(restOfContent);
+	} else if(_command == "search" || _command == "sea" ) {
+		tokenizeSearch(restOfContent);
 	} else {
 		tokenizeInvalid();
 	}
-
 }
 
 void architectureParser::tokenizeAddEmptyStringFirst(std::string tokenizeContent) {
@@ -196,7 +198,7 @@ void architectureParser::tokenizeClear(std::string tokenizeContent) {
 }
 
 void architectureParser::tokenizeUndo(std::string tokenizeContent) {
-
+	assert(tokenizeContent != "");
 	addEmptyString(11);
 
 }
@@ -238,29 +240,23 @@ void architectureParser::checkAllDayTask(std::string tokenizeContent) {
 		tokenizeStartTime(tokenizeContent);
 	} else { 
 		addEmptyString(6);
-			
-		architectureLogic::pushParserVector(addTaskDetails);
 	}
-
 }
-
-
 
 void architectureParser::checkDeadlineorTimed(std::string tokenizeContent){
-	
+
 	size_t taskLast = tokenizeContent.find("to");
-	if(taskLast!=std::string::npos)	//differentiate between timed and deadline task
+	if(taskLast!=std::string::npos) {	//differentiate between timed and deadline task
 		checkTimedOrMulti(tokenizeContent);
-	else
-	{
+	} else {
 		size_t taskLast = tokenizeContent.find("-");
-		if(taskLast!=std::string::npos)
+		if(taskLast!=std::string::npos) {
 			checkTimedOrMulti(tokenizeContent);
-		else
+		} else {
 			addEmptyString(4);
+		}
 	}
 }
-
 
 void architectureParser::tokenizeStartTime(std::string tokenizeContent){
 
@@ -272,7 +268,11 @@ void architectureParser::tokenizeStartTime(std::string tokenizeContent){
 	addTaskDetails.push_back(_startHour);
 	taskFirst = taskLast+1;
 	taskLast =  taskFirst+2;
-	_startMin = remainingContent.substr(taskFirst,taskLast);
+	std::string checkcontent = remainingContent.substr(taskFirst,taskLast);
+
+	size_t minFirst = checkcontent.find_first_not_of(" ");
+	size_t minLast = minFirst + 2;
+	_startMin = checkcontent.substr(minFirst,minLast);
 	addTaskDetails.push_back(_startMin);
 	
 	remainingContent = remainingContent.substr(taskLast);
@@ -337,10 +337,8 @@ void architectureParser::tokenizeTimedTime(std::string tokenizeContent) {
 	_endHour = endTime.substr(taskFirst,taskLast);
 	
 	addTaskDetails.push_back(_endHour);
-
 	taskFirst = taskLast+1;
 	_endMin = endTime.substr(taskFirst);
-
 	addTaskDetails.push_back(_endMin);
 
 	architectureLogic::pushParserVector(addTaskDetails);
@@ -373,3 +371,8 @@ void architectureParser::tokenizeSave(std::string tokenizeContent) {
 
 	addEmptyString(9);
 }
+
+void architectureParser::tokenizeSearch(std::string tokenizeContent) {
+	addTaskDetails.push_back(tokenizeContent);
+	addEmptyString(10);
+} 

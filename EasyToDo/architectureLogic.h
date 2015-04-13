@@ -19,17 +19,31 @@
 class architectureLogic {
 private:
 	static const std:: string STRING_BLANK;
+	static const std:: string SEVERITY_LEVEL_WARNING;
+	static const std:: string SEVERITY_LEVEL_INFO;
+	static const std:: string SEVERITY_LEVEL_ERROR;
+	static const std:: string MESSAGE_LOG_INVALID;
+	static const std:: string MESSAGE_END_USAGE;
 	static const std:: string COMMAND_INVALID;
 	static const std:: string COMMAND_ADD;
+	static const std:: string COMMAND_SHORTCUT_ADD;
 	static const std:: string COMMAND_DELETE;
+	static const std:: string COMMAND_SHORTCUT_DELETE;
 	static const std:: string COMMAND_CLEAR;
+	static const std:: string COMMAND_SHORTCUT_CLEAR;
 	static const std:: string COMMAND_EXIT;
 	static const std:: string COMMAND_UNDO;
 	static const std:: string COMMAND_DONE;
+	static const std:: string COMMAND_SHORTCUT_DONE;
 	static const std:: string COMMAND_UPDATE;
+	static const std:: string COMMAND_SHORTCUT_UPDATE;
 	static const std:: string COMMAND_SAVE;
 	static const std:: string COMMAND_FILTER;
+	static const std:: string COMMAND_SHORTCUT_FILTER;
 	static const std:: string COMMAND_DISPLAY;
+	static const std:: string COMMAND_SHORTCUT_DISPLAY;
+	static const std:: string COMMAND_SEARCH;
+	static const std:: string COMMAND_SHORTCUT_SEARCH;
 	static const std:: string COMMAND_TODAY;
 	static const std:: string COMMAND_UPCOMING;
 	static const std:: string COMMAND_MISC;
@@ -56,6 +70,7 @@ private:
 	static const std:: string MESSAGE_FLOATING;
 	static const std:: string MESSAGE_ALL;
 	static const std:: string MESSAGE_UNDOINVALID;
+	static const std:: string DEFAULT_YEAR;
 
 	static std:: string _command;
 	static std:: string _content;
@@ -78,7 +93,7 @@ private:
 	static std:: vector<std:: string> parserVector;
 public:
 	enum CommandType { 
-		ADD, EXIT, DELETE, INVALID, CLEAR, UPDATE, UNDO, DONE, SAVE, FILTER, DISPLAY
+		ADD, EXIT, DEL, INVALID, CLEAR, UPDATE, UNDO, DONE, SAVE, FILTER, DISPLAY, SEARCH
 	};
 	enum Months { 
 		JAN=1, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, NOTVALID
@@ -128,7 +143,9 @@ public:
 	static int stringToInteger(std:: string input);
 	static std:: string concatenateString(std:: vector<std:: string>& parserVector);
 	static std:: string trimTrailingSpaces(std:: string buffer);
-	static bool architectureLogic::isTimedTimeValid(std:: string startHour, std:: string startMin, std::string endHour, std::string endMin );
+	static bool isTimedTimeValid(std:: string startHour, std:: string startMin, std::string endHour, std::string endMin );
+	static bool isMultiTimeValid(std:: string startDay,std:: string startMonth,std:: string startHour,std:: string startMin,
+													std:: string endDay,std:: string endMonth,std:: string endHour, std:: string endMin);
 	static bool architectureLogic::isDeadlineTimeValid(std:: string startHour, std:: string startMin);	
 
 	// this function differentiate the different datatype that is required to delete and remove from the storage
@@ -168,8 +185,19 @@ public:
 	// Post: access storage to change the bool variable of the task strcuture
 	static std:: string doneTask(std:: string taskType, std:: string taskID);
 
+	// this function allow the users to filter the tasks out according to the intended date. on top of that, it will display tasks that are expiring in two days time as well
+	// Pre: tasklist must not be empty
+	// Post: filter the task
 	static std:: string filterTask(std:: string day, std:: string month);
 
+	// this is sort of the undo function of filter and search
+	// Pre: tasklist must not be empty
+	// Post: display all the tasks
 	static std:: string displayTask();
+
+	// this function allow the users to search the tasks according to the intended content description
+	// Pre: tasklist must not be empty
+	// Post:: search the task
+	static std:: string searchTask(std:: string searchContent);
 };
 #endif

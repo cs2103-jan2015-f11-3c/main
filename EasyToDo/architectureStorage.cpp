@@ -9,13 +9,17 @@ std:: vector<TASK> architectureStorage::masterTaskList;
 std:: vector<TASK> architectureStorage::todayTaskList;
 std:: vector<TASK> architectureStorage::upcomingTaskList;
 std:: vector<TASK> architectureStorage::floatingTaskList;
+std:: vector<TASK> architectureStorage::tempFloatingTaskList;
 
 const std:: string architectureStorage::DEFAULT_HOURS = "23";
 const std:: string architectureStorage::DEFAULT_MINUTES = "59";
 const std:: string architectureStorage::STRING_BLANK = "";
 
-const std:: string architectureStorage::FILTER_UNSUCCESSFUL = "Sorry, no match found!";
-const std:: string architectureStorage::FILTER_SUCCESSFUL = "The following task(s) displayed is/are the upcoming task(s) from the dates you keyed";
+const std:: string architectureStorage::MESSAGE_FILTER_UNSUCCESSFUL = "Sorry, no match found!";
+const std:: string architectureStorage::MESSAGE_FILTER_SUCCESSFUL = "The following task(s) displayed is/are the upcoming task(s) from the dates you keyed";
+
+const std:: string architectureStorage::MESSAGE_SEARCH_UNSUCCESSFUL = "Sorry, no match found!";
+const std:: string architectureStorage::MESSAGE_SEARCH_SUCCESSFUL = "The following task(s) displayed is/are the task(s) that contain(s) your intended search input";
 
 char architectureStorage::buffer[MAX];
 
@@ -56,9 +60,10 @@ void architectureStorage::addToMasterStorage(std:: string _contentDescripton, st
 	TASK temp;
 	updateNewTask();
 	architectureBoost::sortTodayUpcoming(masterTaskList);
+
 	
 	// not a timed task
-	if(_contentEndDay == STRING_BLANK && _contentEndMonth == STRING_BLANK && _contentEndHours == STRING_BLANK && _contentEndMinutes == STRING_BLANK) {
+	if(_contentEndHours == STRING_BLANK && _contentEndMinutes == STRING_BLANK) {
 		// not a dateline task -> it is a floating task
 		if(_contentStartHours == STRING_BLANK && _contentStartMinutes == STRING_BLANK && _contentStartDay == STRING_BLANK && _contentStartMonth == STRING_BLANK) {
 			temp = initializeFloatingTask(_contentDescripton);
@@ -164,6 +169,12 @@ TASK architectureStorage::initializeTimedTask(std:: string _contentDescription, 
 	ptime temp1(d1, time_duration(hours(stringToInt(_contentStartHours))+minutes(stringToInt(_contentStartMinutes))));
 	buffer.startDateTime = temp1;
 	buffer.startTime = temp1.time_of_day();
+
+	// if the user did not specify the endDay and endMonth, it will be assumed that they are the same as the startday and month
+	if(_contentEndDay == STRING_BLANK && _contentEndMonth == STRING_BLANK) {
+		_contentEndDay = _contentStartDay;
+		_contentEndMonth = _contentStartMonth;
+	}
 
 	endDateString = "2015," +  _contentEndMonth + "," + _contentEndDay;
 	date d2(from_string(endDateString));
@@ -480,54 +491,145 @@ std:: string architectureStorage::filterTaskInStorage(std:: string day, std:: st
 	std:: string dateString;
 	std:: string dateString1;
 	std:: string dateString2;
-	int temp;
 	
 	dateString = "2015," + month + "," + day;
 	date d(from_string(dateString));
 
-	temp = stringToInt(day) + 1;
-	day = std:: to_string(temp);
+	day = incrementDay(day);
 	dateString1 = "2015," + month + "," + day;
 	date d1(from_string(dateString1));
 
-	temp = stringToInt(day) + 1;
-	day = std:: to_string(temp);
+	day = incrementDay(day);
 	dateString2 = "2015," + month + "," + day;
 	date d2(from_string(dateString2));
 
 	for(iter = masterTaskList.begin(); iter != masterTaskList.end(); iter++) {
-		if((iter->startDateTime.date() == d) || (iter->endDateTime.date() == d)
-		|| (iter->startDateTime.date() == d1) || (iter->endDateTime.date() == d1) 
-		|| (iter->startDateTime.date() == d2) || (iter->endDateTime.date() == d2)) {
+		if(areDatesFound(d, d1, d2, *iter)) {
 			tempVector.push_back(*iter);
 		}
 	}
 
-	ptime today = second_clock::local_time();
-	date dateToday = today.date();
+	date dateToday = getTodayDate();
 
-	if(tempVector.empty()) {
-		sprintf_s(buffer, FILTER_UNSUCCESSFUL.c_str());
+	try {
+		if(tempVector.empty()) {
+			throw MESSAGE_FILTER_UNSUCCESSFUL;
+		} else {
+			if(dateToday < d) {
+				upcomingTaskList = tempVector;
+				tempFloatingTaskList = floatingTaskList;
+				floatingTaskList.clear();
+				todayTaskList.clear();
+			}
+			if(dateToday > d) {
+				todayTaskList = tempVector;
+				tempFloatingTaskList = floatingTaskList;
+				floatingTaskList.clear();
+				upcomingTaskList.clear();
+			}
+		}
+		throw MESSAGE_FILTER_SUCCESSFUL;
+	} catch (std:: string& exceptionMessage) {
+		sprintf_s(buffer, exceptionMessage.c_str());
 		return buffer;
-	} else {
-		if(dateToday < d) {
-			upcomingTaskList = tempVector;
-			floatingTaskList.clear();
-			todayTaskList.clear();
-		}
-		if(dateToday > d) {
-			todayTaskList = tempVector;
-			floatingTaskList.clear();
-			upcomingTaskList.clear();
-		}
 	}
-	sprintf_s(buffer, FILTER_SUCCESSFUL.c_str());
-	return buffer;
+}
+
+std:: string architectureStorage::incrementDay(std:: string day) {
+	int temp;
+	temp = stringToInt(day) + 1;
+	day = std:: to_string(temp);
+	return day;
+}
+
+bool architectureStorage::areDatesFound(date d, date d1, date d2, TASK& task) {
+	if((task.startDateTime.date() == d) || (task.endDateTime.date() == d)
+		|| (task.startDateTime.date() == d1) || (task.endDateTime.date() == d1) 
+		|| (task.startDateTime.date() == d2) || (task.endDateTime.date() == d2)) {
+			return true;
+	} else {
+		return false;
+	}
+}
+
+date architectureStorage::getTodayDate() {
+	date dateToday;
+	ptime today = second_clock::local_time();
+	dateToday = today.date();
+	return dateToday;
 }
 
 void architectureStorage::displayTaskInStorage() {
 	architectureBoost::sortTodayUpcoming(masterTaskList);
+	floatingTaskList = tempFloatingTaskList;
 	return;
+}
+
+std:: string architectureStorage::searchContentInStorage(std:: string& searchContent) {
+	std:: vector<TASK> tempTodayVector;
+	std:: vector<TASK> tempUpcomingVector;
+	std:: vector<TASK> tempFloatingVector;
+	
+	tempTodayVector = searchInTodayTaskList(searchContent);
+	tempUpcomingVector = searchInUpcomingTaskList(searchContent);
+	tempFloatingVector = searchInFloatingTaskList(searchContent);
+
+	try {
+		if(tempTodayVector.empty() && tempUpcomingVector.empty() && tempFloatingVector.empty()) {
+			throw MESSAGE_SEARCH_UNSUCCESSFUL;
+		} else {
+			todayTaskList = tempTodayVector;
+			upcomingTaskList = tempUpcomingVector;
+			tempFloatingTaskList = floatingTaskList;
+			floatingTaskList = tempFloatingVector;
+		}
+		throw MESSAGE_SEARCH_SUCCESSFUL;
+	} catch (std:: string& exceptionMessage) {
+		sprintf_s(buffer, exceptionMessage.c_str());
+		return buffer;
+	}
+}
+
+std:: vector<TASK> architectureStorage::searchInTodayTaskList(std::string& searchContent) {
+	std:: vector<TASK>::iterator iter;
+	std::size_t found;
+	std:: vector<TASK> temp;
+
+	for(iter = todayTaskList.begin(); iter != todayTaskList.end(); iter++) {
+		found = iter->taskDescriptionList.find(searchContent);
+		if(found != std:: string::npos) {
+			temp.push_back(*iter);
+		}
+	}
+	return temp;
+}
+
+std:: vector<TASK> architectureStorage::searchInUpcomingTaskList(std::string& searchContent) {
+	std:: vector<TASK>::iterator iter;
+	std::size_t found;
+	std:: vector<TASK> temp;
+
+	for(iter = upcomingTaskList.begin(); iter != upcomingTaskList.end(); iter++) {
+		found = iter->taskDescriptionList.find(searchContent);
+		if(found != std:: string::npos) {
+			temp.push_back(*iter);
+		}
+	}
+	return temp;
+}
+
+std:: vector<TASK> architectureStorage::searchInFloatingTaskList(std::string& searchContent) {
+	std:: vector<TASK>::iterator iter;
+	std::size_t found;
+	std:: vector<TASK> temp;
+
+	for(iter = floatingTaskList.begin(); iter != floatingTaskList.end(); iter++) {
+		found = iter->taskDescriptionList.find(searchContent);
+		if(found != std:: string::npos) {
+			temp.push_back(*iter);
+		}
+	}
+	return temp;
 }
 
 std:: vector<TASK> architectureStorage::retrieveMasterTaskList(){

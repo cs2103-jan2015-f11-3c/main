@@ -6,6 +6,10 @@
 #include <vector>
 #include <sstream>
 #include <boost/date_time.hpp>
+#include "architectureStorage.h"
+#include "architectureLogic.h"
+#include "architectureParser.h"
+
 
 using namespace boost::posix_time;
 using namespace boost::gregorian;

@@ -84,6 +84,8 @@ class architectureParser {
 		//Postconditions: time is parsed and stored into a vector wwhich will be returned to the logic
 		static void tokenizeStartTime(std::string tokenizeContent);
 
+		static void tokenizeSearch(std::string tokenizeContent);
+
 		static void addEmptyString(int count);
 
 };

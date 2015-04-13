@@ -41,41 +41,6 @@ std:: string architectureHistory::undoAction() {
 	return temp;
 }
 
-bool architectureHistory::isValidCommand(const std:: string& str1, const std:: string& str2) { 
-	if (str1.size() != str2.size()) { 
-		return false; 
-	} 
-	std:: string::const_iterator c1;
-	std:: string::const_iterator c2;
-
-	for (c1 = str1.begin(), c2 = str2.begin(); c1 != str1.end(); ++c1, ++c2) {
-		if (tolower(*c1) != tolower(*c2)) { 
-			return false; 
-		} 
-	} return true; 
-}
-
-architectureHistory::CommandType architectureHistory::determineCommandType(std:: string commandAction) { 
-	assert(commandAction != "");
-	if(isValidCommand(commandAction, "add")) { 
-		return CommandType::ADD; 
-	} else if(isValidCommand(commandAction, "exit")) { 
-		return CommandType::EXIT; 
-	} else if(isValidCommand(commandAction, "delete")) {
-		return CommandType::DELETE;
-	} else if(isValidCommand(commandAction, "clear")) {
-		return CommandType::CLEAR;
-	} else if(isValidCommand(commandAction, "update")) {
-		return CommandType::UPDATE;
-	} else if(isValidCommand(commandAction, "undo")) {
-		return CommandType::UNDO;
-	} else if(isValidCommand(commandAction, "done")) {
-		return CommandType::DONE;
-	} else { 
-		return CommandType::INVALID;
-	} 
-}
-
 void architectureHistory::executeUndo(std:: string previousCommand) {
 	architectureHistory:: CommandType commandTypeAction = architectureHistory:: determineCommandType(previousCommand);
 
@@ -103,11 +68,39 @@ void architectureHistory::executeUndo(std:: string previousCommand) {
 	}
 }
 
-TASK architectureHistory::retrievePreviousState() {
-	TASK previousState;
-	previousState = previousStateStack.top();
-	previousStateStack.pop();
-	return previousState;
+architectureHistory::CommandType architectureHistory::determineCommandType(std:: string commandAction) { 
+	assert(commandAction != "");
+	if(isValidCommand(commandAction, "add")) { 
+		return CommandType::ADD; 
+	} else if(isValidCommand(commandAction, "exit")) { 
+		return CommandType::EXIT; 
+	} else if(isValidCommand(commandAction, "delete")) {
+		return CommandType::DELETE;
+	} else if(isValidCommand(commandAction, "clear")) {
+		return CommandType::CLEAR;
+	} else if(isValidCommand(commandAction, "update")) {
+		return CommandType::UPDATE;
+	} else if(isValidCommand(commandAction, "undo")) {
+		return CommandType::UNDO;
+	} else if(isValidCommand(commandAction, "done")) {
+		return CommandType::DONE;
+	} else { 
+		return CommandType::INVALID;
+	} 
+}
+
+bool architectureHistory::isValidCommand(const std:: string& str1, const std:: string& str2) { 
+	if (str1.size() != str2.size()) { 
+		return false; 
+	} 
+	std:: string::const_iterator c1;
+	std:: string::const_iterator c2;
+
+	for (c1 = str1.begin(), c2 = str2.begin(); c1 != str1.end(); ++c1, ++c2) {
+		if (tolower(*c1) != tolower(*c2)) { 
+			return false; 
+		} 
+	} return true; 
 }
 
 void architectureHistory::reverseDelete() {
@@ -143,6 +136,20 @@ void architectureHistory::reverseDone() {
 	return;
 }
 
+TASK architectureHistory::retrievePreviousState() {
+	TASK previousState;
+	previousState = previousStateStack.top();
+	previousStateStack.pop();
+	return previousState;
+}
+
+void architectureHistory::reverseClear() {
+	architectureStorage::undoClear(previousTodayUpcomingTaskList, previousFloatingTaskList);
+	previousTodayUpcomingTaskList.clear();
+	previousFloatingTaskList.clear();
+	return;
+}
+
 void architectureHistory::pushPreviousTodayUpcomingTaskList(std::vector<TASK>& taskList) {
 	std:: vector<TASK>::iterator iter;
 	for(iter = taskList.begin(); iter != taskList.end(); iter++) {
@@ -158,11 +165,3 @@ void architectureHistory::pushPreviousFloatingTaskList(std::vector<TASK>& taskLi
 	}
 	return;
 }
-
-void architectureHistory::reverseClear() {
-	architectureStorage::undoClear(previousTodayUpcomingTaskList, previousFloatingTaskList);
-	previousTodayUpcomingTaskList.clear();
-	previousFloatingTaskList.clear();
-	return;
-}
-

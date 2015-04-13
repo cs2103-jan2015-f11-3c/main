@@ -1,6 +1,3 @@
-#include "architectureStorage.h"
-#include "architectureLogic.h"
-#include "architectureParser.h"
 #include "architectureBoost.h"
 
 // this comparison functio is for us to use the sort function in algorithm library to 

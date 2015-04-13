@@ -75,7 +75,6 @@ public:
 	// or any of the input is determined to be empty, it will be set to empty
 	// basically, i have an external default pathname.txt that will store the pathname which will either be default or specified by the user
 	// using the function, changePathName, we change the path location in the pathName.txt which save and load will retrieve from
-	// 
 	static std:: string changeSavingDirectoryAndFileName(std:: string directoryName, std:: string fileName);
 	static void changePathName(std:: string newPathName);
 	static void initializeDefaultPathAndFileName(std:: string directoryName, std:: string fileName);

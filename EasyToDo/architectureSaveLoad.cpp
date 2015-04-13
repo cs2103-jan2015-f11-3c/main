@@ -23,10 +23,10 @@ std:: string architectureSaveLoad::_fileName;
 std:: string architectureSaveLoad::_directoryName;
 std:: string architectureSaveLoad::_pathName;
 
-const std:: string architectureSaveLoad::DEFAULT_PATHNAME = "C:\\Users\\Choo\\Desktop\\EasyToDo.txt";
+const std:: string architectureSaveLoad::DEFAULT_PATHNAME = "C:\\Program Files\\EasyToDo.txt";
 const std:: string architectureSaveLoad::DEFAULT_TEXTFILENAME = "EasyToDo.txt";
 const std:: string architectureSaveLoad::STORAGELOCATION_FILENAME = "pathName.txt";
-const std:: string architectureSaveLoad::DEFAULT_DIRECTORYNAME = "C:\\Users\\Choo\\Desktop\\";
+const std:: string architectureSaveLoad::DEFAULT_DIRECTORYNAME = "C:\\Program Files\\";
 const std:: string architectureSaveLoad::MESSAGE_DEFAULT_SAVE = "Save directory and filename is set to default!";
 const std:: string architectureSaveLoad::MESSAGE_SUCCESSFUL_SAVE = "Save directory and filename changed!";
 const std:: string architectureSaveLoad::MESSAGE_FAILED_SAVE = "Sorry. Invalid directory! Save directory not changed";
@@ -174,9 +174,11 @@ TASK architectureSaveLoad::initializeTaskFromString() {
 	iss >> stringDateTime;
 	temp.startDateTime = stringDateTime;
 
+	temp.startTime = stringDateTime.time_of_day();
+
 	ptime stringTimeDuration;
 	boost::posix_time::time_input_facet *timeFacetEnd = new boost::posix_time::time_input_facet;
-	timeFacetEnd->format("%H:%M");
+	timeFacetEnd->format("%Y-%b-%d %H:%M");
 	std::istringstream ss(_endDateTime);
 	ss.imbue(std::locale(std::locale::classic(), timeFacet));
 	ss >> stringTimeDuration;
@@ -215,23 +217,25 @@ std:: vector<TASK> architectureSaveLoad::passFloatingTaskVector() {
 }
 
 std:: string architectureSaveLoad::changeSavingDirectoryAndFileName(std:: string directoryName, std:: string fileName) {
-	if(directoryName == "" && fileName == "") {
-		sprintf_s(transitory, MESSAGE_DEFAULT_SAVE.c_str());
-		_pathName = DEFAULT_PATHNAME;
-		changePathName(_pathName);
-		return transitory;
-	} else {
-		initializeDefaultPathAndFileName(directoryName, fileName);
-		_pathName =  concatenateString(_directoryName, _fileName);
-
-		if (isPathNameValid(_directoryName)) { 
-			sprintf_s(transitory, MESSAGE_SUCCESSFUL_SAVE.c_str());
+	try {
+		if(directoryName == "" && fileName == "") {
+			_pathName = DEFAULT_PATHNAME;
 			changePathName(_pathName);
-			return transitory;
+			throw MESSAGE_DEFAULT_SAVE;
 		} else {
-			sprintf_s(transitory, MESSAGE_FAILED_SAVE.c_str());
-			return transitory;
+			initializeDefaultPathAndFileName(directoryName, fileName);
+			_pathName =  concatenateString(_directoryName, _fileName);
+
+			if (isPathNameValid(_directoryName)) { 
+				changePathName(_pathName);
+				throw MESSAGE_SUCCESSFUL_SAVE;
+			} else {
+				throw MESSAGE_FAILED_SAVE;
+			}
 		}
+	} catch (std:: string& exceptionMessage) {
+		sprintf_s(transitory, exceptionMessage.c_str());
+		return transitory;
 	}
 }
 

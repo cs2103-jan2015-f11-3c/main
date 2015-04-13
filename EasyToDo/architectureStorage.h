@@ -35,13 +35,16 @@ private:
 	static std:: vector<TASK> floatingTaskList; 
 	static std:: vector<TASK> todayTaskList;
 	static std:: vector<TASK> upcomingTaskList;
+	static std:: vector<TASK> tempFloatingTaskList;
 
 	static const std:: string DEFAULT_HOURS;
 	static const std:: string DEFAULT_MINUTES;
 	static const std:: string STRING_BLANK;
 
-	static const std:: string FILTER_UNSUCCESSFUL;
-	static const std:: string FILTER_SUCCESSFUL;
+	static const std:: string MESSAGE_FILTER_UNSUCCESSFUL;
+	static const std:: string MESSAGE_FILTER_SUCCESSFUL;
+	static const std:: string MESSAGE_SEARCH_UNSUCCESSFUL;
+	static const std:: string MESSAGE_SEARCH_SUCCESSFUL;
 
 	static const int MAX = 255;
 	static char buffer[MAX];
@@ -162,10 +165,27 @@ public:
 	// Post: according to the pathname stated in the PathName.txt(default or specify by user), the tasks are stored in the text file
 	static void saveProgram();
 
-	
+	// this function allows the user to filter the task according to the dates. to aid jim, we will display tasks that are due in two days time from the intened date 
+	// to give him ample time to complete his time 
+	// Pre: the day and month must be valid inputs and the storage cannot be empty
+	// Post: return a feedback string and input the tasks in the indivdual tasktype box
 	static std:: string filterTaskInStorage(std:: string day, std:: string month);
+	static std:: string incrementDay(std:: string day); 
+	static bool areDatesFound(date d, date d1, date d2, TASK& task);
+	static date getTodayDate();
 
+	// this function allow the user to display all the task once again if filter and search are successful
+	// Pre: none
+	// Post: display all the tasks in masterTaskList and floatingTaskList
 	static void displayTaskInStorage();
+
+	// this function allow the users to search through all the tasks for the intended content description
+	// Pre: storage must not be empty
+	// Post: return all the tasks that contain the user string in their individual boxes 
+	static std:: string searchContentInStorage(std:: string& searchContent);
+	static std:: vector<TASK> architectureStorage::searchInTodayTaskList(std::string& searchContent);
+	static std:: vector<TASK> architectureStorage::searchInUpcomingTaskList(std::string& searchContent);
+	static std:: vector<TASK> architectureStorage::searchInFloatingTaskList(std::string& searchContent);
 
 	// integration testing function
 	static std:: vector<TASK> retrieveMasterTaskList();
