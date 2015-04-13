@@ -1,0 +1,2142 @@
+2015-Apr-13, 17:12:23, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 17:12:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 17:13:13, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 199
+2. Info, end of previous usage
+
+2015-Apr-13, 17:57:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 17:58:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 17:58:15, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+3. Info, meet ivy is overdue
+
+2015-Apr-13, 17:58:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+4. Info, meet ivy is overdue
+
+2015-Apr-13, 17:58:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+5. Info, meet ivy is overdue
+
+2015-Apr-13, 17:58:27, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+6. Info, end of previous usage
+
+2015-Apr-13, 18:04:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 18:04:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 18:05:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 18:06:21, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 18:11:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 18:12:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 18:23:27, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 18:29:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 18:29:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 18:31:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 18:32:15, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 189
+2. Warning, Invalid User Input: sff
+
+2015-Apr-13, 18:32:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+3. Info, end of previous usage
+
+2015-Apr-13, 18:34:48, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 18:39:26, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dstorage.cpp @ line number: 665
+1. Warning, Invalid User Input: taskID is not found
+
+2015-Apr-13, 18:40:04, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 236
+2. Info, Sorry. Invalid directory! Save directory not changed: C:/Users/Ivy/Desktop/New/ ivy.txt
+
+2015-Apr-13, 18:42:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+1. Info, end of previous usage
+
+2015-Apr-13, 18:45:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+1. Info, end of previous usage
+
+2015-Apr-13, 19:50:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 19:50:23, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 19:52:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 19:52:38, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 19:53:49, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 19:54:11, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 19:55:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 19:56:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 19:59:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 20:00:03, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 20:01:57, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 20:02:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 20:03:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 20:05:12, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 20:10:38, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 20:10:48, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 20:14:15, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 20:14:27, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 20:15:01, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 20:15:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 20:15:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 20:15:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 20:22:41, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 20:24:44, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 20:25:15, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+3. Info, end of previous usage
+
+2015-Apr-13, 20:35:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 20:37:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 20:38:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 20:38:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 223
+2. Info, Save directory and filename is set to default!: C:\Users\Default\Desktop\EasyToDo.txt
+
+2015-Apr-13, 20:38:23, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 83
+3. Info, meet ivy is overdue
+
+2015-Apr-13, 20:38:24, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+4. Info, end of previous usage
+
+2015-Apr-13, 20:38:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 20:38:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 20:38:54, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 20:39:08, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 20:44:24, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 20:44:37, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 20:45:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+2. Info, end of previous usage
+
+2015-Apr-13, 20:55:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 20:57:22, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 189
+2. Warning, Invalid User Input: a=asd
+
+2015-Apr-13, 20:57:26, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 189
+3. Warning, Invalid User Input: asdasdas
+
+2015-Apr-13, 20:57:41, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 118
+1. Info, file does not exist
+
+2015-Apr-13, 20:58:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dsaveload.cpp @ line number: 232
+2. Info, Save directory and filename changed!: C:\Users\Ivy\Desktop\ EasyToDo.txt
+
+2015-Apr-13, 20:58:22, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+3. Info, end of previous usage
+
+2015-Apr-13, 20:59:09, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 20:59:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 20:59:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 20:59:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+4. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 20:59:53, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+5. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 20:59:53, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+6. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 20:59:53, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+7. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 20:59:53, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+8. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:00:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+9. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:00:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+10. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:00:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:00:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:00:57, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:00:57, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+14. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:00:57, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+15. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:00:57, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+16. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:00:57, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+17. Info, meet zx for basketball clash with work at mbs
+
+2015-Apr-13, 21:00:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dhistory.cpp @ line number: 68
+18. Error, fault in E2DLogic::executeCommand
+
+2015-Apr-13, 21:01:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dhistory.cpp @ line number: 68
+19. Error, fault in E2DLogic::executeCommand
+
+2015-Apr-13, 21:01:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+20. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:01:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+21. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:01:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+22. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:01:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+23. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:01:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+24. Info, end of previous usage
+
+2015-Apr-13, 21:09:44, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:09:44, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:09:54, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:10:02, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+4. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:10:02, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+5. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:10:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+6. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:10:11, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+7. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:10:15, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+8. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:10:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+9. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:10:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+10. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:10:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet reuben at kfc is overdue
+
+2015-Apr-13, 21:10:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 661
+12. Warning, Invalid User Input
+
+2015-Apr-13, 21:10:47, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 661
+13. Warning, Invalid User Input
+
+2015-Apr-13, 21:10:48, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 661
+14. Warning, Invalid User Input
+
+2015-Apr-13, 21:10:48, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 661
+15. Warning, Invalid User Input
+
+2015-Apr-13, 21:10:48, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 661
+16. Warning, Invalid User Input
+
+2015-Apr-13, 21:10:49, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 661
+17. Warning, Invalid User Input
+
+2015-Apr-13, 21:10:49, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 661
+18. Warning, Invalid User Input
+
+2015-Apr-13, 21:10:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 661
+19. Warning, Invalid User Input
+
+2015-Apr-13, 21:10:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 661
+20. Warning, Invalid User Input
+
+2015-Apr-13, 21:13:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+21. Info, end of previous usage
+
+2015-Apr-13, 21:20:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+1. Info, end of previous usage
+
+2015-Apr-13, 21:24:11, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+1. Info, end of previous usage
+
+2015-Apr-13, 21:48:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+1. Info, end of previous usage
+
+2015-Apr-13, 21:51:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+1. Info, end of previous usage
+
+2015-Apr-13, 22:20:44, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:20:54, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:20:54, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, meet ivy is overdue
+
+2015-Apr-13, 22:20:54, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+4. Info, meet ivy is overdue
+
+2015-Apr-13, 22:20:54, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+5. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:21:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+6. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+7. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+8. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:21:24, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+9. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:24, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+10. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:24, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:21:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+14. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:21:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+15. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+16. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+17. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:21:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+18. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+19. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+20. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:21:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+21. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+22. Info, meet ivy is overdue
+
+2015-Apr-13, 22:21:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+23. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:22:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+24. Info, meet ivy is overdue
+
+2015-Apr-13, 22:22:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+25. Info, meet ivy is overdue
+
+2015-Apr-13, 22:22:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+26. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:22:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+27. Info, meet ivy is overdue
+
+2015-Apr-13, 22:22:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+28. Info, meet ivy is overdue
+
+2015-Apr-13, 22:22:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+29. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:22:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+30. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:22:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+31. Info, meet ivy is overdue
+
+2015-Apr-13, 22:22:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+32. Info, meet ivy is overdue
+
+2015-Apr-13, 22:22:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+33. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:22:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+34. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:22:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+35. Info, meet ivy is overdue
+
+2015-Apr-13, 22:22:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+36. Info, meet ivy is overdue
+
+2015-Apr-13, 22:22:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+37. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:22:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+38. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:22:29, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+39. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+40. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+41. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+42. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+43. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+44. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+45. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+46. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+47. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+48. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+49. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+50. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+51. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+52. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+53. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+54. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:23:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+55. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+56. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:23:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+57. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+58. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+59. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+60. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+61. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+62. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+63. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+64. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+65. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+66. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+67. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+68. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:23:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+69. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+70. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:23:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+71. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+72. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+73. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+74. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+75. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:23:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+76. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+77. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:23:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+78. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+79. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+80. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+81. Info, meet ivy is overdue
+
+2015-Apr-13, 22:23:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+82. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:23:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+83. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+84. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:23:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+85. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+86. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:23:52, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+87. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:24:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+88. Info, meet ivy is overdue
+
+2015-Apr-13, 22:24:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+89. Info, meet ivy is overdue
+
+2015-Apr-13, 22:24:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+90. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:24:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+91. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+92. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+93. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+94. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+95. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+96. Info, meet ivy is overdue
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+97. Info, meet ivy is overdue
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+98. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+99. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+100. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+101. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+102. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+103. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+104. Info, meet ivy is overdue
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+105. Info, meet ivy is overdue
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+106. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+107. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+108. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+109. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+110. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+111. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+112. Info, meet ivy is overdue
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+113. Info, meet ivy is overdue
+
+2015-Apr-13, 22:24:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+114. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:24:37, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+115. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:37, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+116. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:24:37, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+117. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:37, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+118. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:24:37, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+119. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:25:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 189
+120. Warning, Invalid User Input: s
+
+2015-Apr-13, 22:25:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+121. Info, end of previous usage
+
+2015-Apr-13, 22:26:21, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:26:21, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:26:21, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:26:21, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+4. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:26:21, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+5. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:26:21, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+6. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:26:21, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+7. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:26:21, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+8. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+9. Info, meet ivy is overdue
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+10. Info, meet ivy is overdue
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+12. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+13. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+14. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+15. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+16. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+17. Info, meet ivy is overdue
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+18. Info, meet ivy is overdue
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+19. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+20. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+21. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+22. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+23. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+24. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+25. Info, meet ivy is overdue
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+26. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:26:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+27. Info, hfew is overdue
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+28. Info, meet ivy is overdue
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+29. Info, meet ivy is overdue
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+30. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+31. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+32. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+33. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+34. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+35. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+36. Info, meet ivy is overdue
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+37. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+38. Info, hfew is overdue
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+39. Info, meet ivy is overdue
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+40. Info, meet ivy is overdue
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+41. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+42. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+43. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+44. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+45. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:27:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+46. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:27:01, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+47. Info, meet ivy is overdue
+
+2015-Apr-13, 22:27:01, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+48. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:27:01, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+49. Info, hfew is overdue
+
+2015-Apr-13, 22:27:01, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+50. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:28:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+51. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+52. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+53. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+54. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+55. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+56. Info, hfew is overdue
+
+2015-Apr-13, 22:28:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+57. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+58. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+59. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+60. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+61. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:28:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+62. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+63. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+64. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:28:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+65. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+66. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+67. Info, hfew is overdue
+
+2015-Apr-13, 22:28:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+68. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:28:23, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+69. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:23, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+70. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:23, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+71. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:24, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+72. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:28:24, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+73. Info, meet ivy clash with meet zx
+
+2015-Apr-13, 22:28:24, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+74. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+75. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+76. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+77. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+78. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+79. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+80. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+81. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+82. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+83. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+84. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+85. Info, hfew is overdue
+
+2015-Apr-13, 22:28:25, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+86. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:28:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+87. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+88. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+89. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+90. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+91. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+92. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+93. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+94. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+95. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+96. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+97. Info, hfew is overdue
+
+2015-Apr-13, 22:28:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+98. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+99. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+100. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+101. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+102. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+103. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+104. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+105. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+106. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+107. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+108. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+109. Info, hfew is overdue
+
+2015-Apr-13, 22:28:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+110. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+111. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+112. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+113. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+114. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+115. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+116. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+117. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+118. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+119. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+120. Info, hfew is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+121. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+122. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+123. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+124. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+125. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+126. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+127. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+128. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+129. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+130. Info, hfew is overdue
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+131. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+132. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+133. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+134. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+135. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+136. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+137. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+138. Info, meet ivy is overdue
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+139. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+140. Info, hfew is overdue
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+141. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:28:51, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+142. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:29:02, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 461
+143. Warning, Invalid User Input: taskID is not found in "today"
+
+2015-Apr-13, 22:29:04, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+144. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:04, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+145. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:04, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+146. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:29:04, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+147. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:05, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+148. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:05, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+149. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:05, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+150. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:29:05, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+151. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:05, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+152. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:29:05, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+153. Info, hfew is overdue
+
+2015-Apr-13, 22:29:05, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+154. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:29:05, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+155. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:29:05, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+156. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+157. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+158. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+159. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+160. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+161. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+162. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+163. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+164. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+165. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+166. Info, hfew is overdue
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+167. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+168. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:29:18, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+169. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:29:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+170. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+171. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+172. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:29:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+173. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+174. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:19, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+175. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+176. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:29:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+177. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+178. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:29:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+179. Info, hfew is overdue
+
+2015-Apr-13, 22:29:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+180. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:29:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+181. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:29:20, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+182. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:29:38, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+183. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:38, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+184. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:38, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+185. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:29:38, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+186. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:38, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+187. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:38, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+188. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:38, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+189. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+190. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+191. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+192. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+193. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+194. Info, meet ivy is overdue
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+195. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+196. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+197. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+198. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+199. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+200. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+201. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:29:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+202. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:30:02, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:30:02, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:30:02, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:30:03, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+4. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:03, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+5. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:03, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+6. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:03, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+7. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:30:03, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+8. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:30:03, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+9. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:30:03, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+10. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:30:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet ivy is overdue
+
+2015-Apr-13, 22:30:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, meet ivy is overdue
+
+2015-Apr-13, 22:30:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:30:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+14. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+15. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+16. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+17. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:30:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+18. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:30:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+19. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:30:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+20. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:30:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+21. Info, meet ivy is overdue
+
+2015-Apr-13, 22:30:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+22. Info, meet ivy is overdue
+
+2015-Apr-13, 22:30:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+23. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:30:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+24. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+25. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+26. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+27. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:30:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+28. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:30:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+29. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:30:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+30. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+31. Info, meet ivy is overdue
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+32. Info, meet ivy is overdue
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+33. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+34. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+35. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+36. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+37. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+38. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+39. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+40. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+41. Info, meet ivy is overdue
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+42. Info, meet ivy is overdue
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+43. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+44. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+45. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+46. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+47. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+48. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:30:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+49. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:31:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+50. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:31:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+51. Info, meet ivy is overdue
+
+2015-Apr-13, 22:31:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+52. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:31:00, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+53. Info, meet icy is overdue
+
+2015-Apr-13, 22:31:43, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 257
+54. Warning, Invalid User Input: startDay/startMonth is not valid
+
+2015-Apr-13, 22:31:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 257
+55. Warning, Invalid User Input: startDay/startMonth is not valid
+
+2015-Apr-13, 22:31:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 257
+56. Warning, Invalid User Input: startDay/startMonth is not valid
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+57. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+58. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+59. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+60. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+61. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+62. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+63. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+64. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+65. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+66. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+67. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+68. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+69. Info, meet icy is overdue
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+70. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+71. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+72. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+73. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+74. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:06, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+75. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+76. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:32:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+77. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:32:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+78. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:32:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+79. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:32:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+80. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+81. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:32:07, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+82. Info, meet icy is overdue
+
+2015-Apr-13, 22:32:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+83. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+84. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+85. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:32:16, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+86. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+87. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+88. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+89. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+90. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+91. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+92. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+93. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+94. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+95. Info, meet icy is overdue
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+96. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+97. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+98. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+99. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+100. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+101. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+102. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+103. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+104. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+105. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+106. Info, meet ivy is overdue
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+107. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:32:17, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+108. Info, meet icy is overdue
+
+2015-Apr-13, 22:32:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 272
+109. Warning, Invalid User Input: startHr/startMin is not valid
+
+2015-Apr-13, 22:32:47, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+110. Info, end of previous usage
+
+2015-Apr-13, 22:35:13, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:35:13, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:35:13, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:35:13, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+4. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:35:13, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+5. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:35:13, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+6. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:35:13, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+7. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:35:13, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+8. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:35:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+9. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:35:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+10. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:35:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet ivy is overdue
+
+2015-Apr-13, 22:35:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:35:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, meet icy is overdue
+
+2015-Apr-13, 22:35:32, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+14. Info, end of previous usage
+
+2015-Apr-13, 22:36:35, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:36:35, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:36:35, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:36:35, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+4. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:36:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+5. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:36:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+6. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:36:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+7. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:36:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+8. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:36:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+9. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:36:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+10. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:36:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet ivy is overdue
+
+2015-Apr-13, 22:36:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:36:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, meet icy is overdue
+
+2015-Apr-13, 22:37:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:37:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:37:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:37:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+4. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:37:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+5. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:37:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+6. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:37:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+7. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:37:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+8. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:37:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+9. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:37:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+10. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:37:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet ivy is overdue
+
+2015-Apr-13, 22:37:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:37:59, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, meet icy is overdue
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+4. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+5. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+6. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+7. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+8. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+9. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+10. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet ivy is overdue
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:43:33, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, meet icy is overdue
+
+2015-Apr-13, 22:43:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+14. Info, end of previous usage
+
+2015-Apr-13, 22:45:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:45:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:45:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:45:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+4. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:45:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+5. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:45:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+6. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:45:39, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+7. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:45:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+8. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:45:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+9. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:45:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+10. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:45:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet ivy is overdue
+
+2015-Apr-13, 22:45:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:45:40, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, meet icy is overdue
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+4. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+5. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+6. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+7. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+8. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+9. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+10. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet ivy is overdue
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:46:58, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, meet icy is overdue
+
+2015-Apr-13, 22:47:10, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 189
+14. Warning, Invalid User Input: s
+
+2015-Apr-13, 22:47:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+15. Info, end of previous usage
+
+2015-Apr-13, 22:48:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:48:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:48:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:48:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+4. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:48:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+5. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:48:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+6. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:48:45, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+7. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:48:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+8. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:48:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+9. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:48:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+10. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:48:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet ivy is overdue
+
+2015-Apr-13, 22:48:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:48:46, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, meet icy is overdue
+
+2015-Apr-13, 22:48:56, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+14. Info, end of previous usage
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+1. Info, meet ivy is overdue
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+2. Info, meet ivy is overdue
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+3. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+4. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+5. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+6. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+7. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+8. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+9. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+10. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+11. Info, meet ivy is overdue
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+12. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:50:36, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+13. Info, meet icy is overdue
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+14. Info, meet ivy is overdue
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+15. Info, meet ivy is overdue
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+16. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+17. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+18. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+19. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+20. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+21. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+22. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+23. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+24. Info, meet ivy is overdue
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+25. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:50:50, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+26. Info, meet icy is overdue
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+27. Info, meet ivy is overdue
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+28. Info, meet ivy is overdue
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+29. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+30. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+31. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+32. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+33. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+34. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+35. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+36. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+37. Info, meet ivy is overdue
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+38. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:51:14, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+39. Info, meet icy is overdue
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+40. Info, meet ivy is overdue
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+41. Info, meet ivy is overdue
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+42. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+43. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+44. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+45. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+46. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+47. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+48. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+49. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+50. Info, meet ivy is overdue
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+51. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:51:31, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+52. Info, meet icy is overdue
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+53. Info, meet ivy is overdue
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+54. Info, meet ivy is overdue
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+55. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+56. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+57. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 112
+58. Info, meet zx clash with meet zx
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+59. Info, meet ivy clash with meet ivy
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+60. Info, hol clash with meet ivy
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+61. Info, meet zx clash with meet ivy
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 122
+62. Info, meet ivy clash with hol
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+63. Info, meet ivy is overdue
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+64. Info, ivy's birthday is overdue
+
+2015-Apr-13, 22:51:34, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dstorage\e2dboost.cpp @ line number: 78
+65. Info, meet icy is overdue
+
+2015-Apr-13, 22:51:42, c:\users\ivy\documents\visual studio 2012\projects\easytodo(updated)\e2dlogic\e2dlogic.cpp @ line number: 193
+66. Info, end of previous usage
+
